@@ -16,17 +16,14 @@ class Group
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idTeacher;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $idTeacher;
+    private $countSucceed;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+
 
     public function getIdTeacher(): ?int
     {
@@ -36,6 +33,18 @@ class Group
     public function setIdTeacher(int $idTeacher): self
     {
         $this->idTeacher = $idTeacher;
+
+        return $this;
+    }
+
+    public function getCountSucceed(): ?int
+    {
+        return $this->countSucceed;
+    }
+
+    public function setCountSucceed(int $countSucceed): self
+    {
+        $this->countSucceed = $countSucceed;
 
         return $this;
     }

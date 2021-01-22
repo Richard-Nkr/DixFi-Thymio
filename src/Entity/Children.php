@@ -18,11 +18,6 @@ class Children
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $idChildren;
-
-    /**
      * @ORM\Column(type="string", length=30)
      */
     private $nameChild;
@@ -47,17 +42,6 @@ class Children
         return $this->id;
     }
 
-    public function getIdChildren(): ?int
-    {
-        return $this->idChildren;
-    }
-
-    public function setIdChildren(int $idChildren): self
-    {
-        $this->idChildren = $idChildren;
-
-        return $this;
-    }
 
     public function getNameChild(): ?string
     {

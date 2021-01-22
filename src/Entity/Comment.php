@@ -17,13 +17,9 @@ class Comment
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $idComment;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $contentComment;
 
@@ -37,17 +33,6 @@ class Comment
         return $this->id;
     }
 
-    public function getIdComment(): ?int
-    {
-        return $this->idComment;
-    }
-
-    public function setIdComment(int $idComment): self
-    {
-        $this->idComment = $idComment;
-
-        return $this;
-    }
 
     public function getContentComment(): ?string
     {

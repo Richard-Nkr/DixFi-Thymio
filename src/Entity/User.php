@@ -18,11 +18,6 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $idUser;
-
-    /**
      * @ORM\Column(type="string", length=30)
      */
     private $nickname;
@@ -38,7 +33,7 @@ class User
     private $deletedAt;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=150)
      */
     private $password;
 
@@ -47,17 +42,6 @@ class User
         return $this->id;
     }
 
-    public function getIdUser(): ?int
-    {
-        return $this->idUser;
-    }
-
-    public function setIdUser(int $idUser): self
-    {
-        $this->idUser = $idUser;
-
-        return $this;
-    }
 
     public function getNickname(): ?string
     {
