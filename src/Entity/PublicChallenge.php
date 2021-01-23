@@ -8,24 +8,23 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=PublicChallengeRepository::class)
  */
-class PublicChallenge
+class PublicChallenge extends Challenge
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
      */
     private $nameCorrectionPDF;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $idTeacher;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getNameCorrectionPDF(): ?string
     {
@@ -35,6 +34,30 @@ class PublicChallenge
     public function setNameCorrectionPDF(string $nameCorrectionPDF): self
     {
         $this->nameCorrectionPDF = $nameCorrectionPDF;
+
+        return $this;
+    }
+
+    public function getIdTeacher(): ?int
+    {
+        return $this->idTeacher;
+    }
+
+    public function setIdTeacher(int $idTeacher): self
+    {
+        $this->idTeacher = $idTeacher;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

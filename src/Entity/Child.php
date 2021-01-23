@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ChildrenRepository::class)
  */
-class Children
+class Child
 {
     /**
      * @ORM\Id
@@ -25,17 +25,13 @@ class Children
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $Teacher;
+    private $firstNameChild;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\ManyToOne(targetEntity=StudentGroup::class, inversedBy="children")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $nameTeacher;
-
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $firstNameTeacher;
+    private $groupChild;
 
     public function getId(): ?int
     {
@@ -55,38 +51,27 @@ class Children
         return $this;
     }
 
-    public function getTeacher(): ?string
+
+    public function getFirstNameChild(): ?string
     {
-        return $this->Teacher;
+        return $this->firstNameChild;
     }
 
-    public function setTeacher(string $Teacher): self
+    public function setFirstNameChild(string $firstNameChild): self
     {
-        $this->Teacher = $Teacher;
+        $this->firstNameChild= $firstNameChild;
 
         return $this;
     }
 
-    public function getNameTeacher(): ?string
+    public function getGroupChild(): ?StudentGroup
     {
-        return $this->nameTeacher;
+        return $this->groupChild;
     }
 
-    public function setNameTeacher(string $nameTeacher): self
+    public function setGroupChild(?StudentGroup $groupChild): self
     {
-        $this->nameTeacher = $nameTeacher;
-
-        return $this;
-    }
-
-    public function getFirstNameTeacher(): ?string
-    {
-        return $this->firstNameTeacher;
-    }
-
-    public function setFirstNameTeacher(string $firstNameTeacher): self
-    {
-        $this->firstNameTeacher = $firstNameTeacher;
+        $this->groupChild = $groupChild;
 
         return $this;
     }

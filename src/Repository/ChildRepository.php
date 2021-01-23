@@ -7,12 +7,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Children|null find($id, $lockMode = null, $lockVersion = null)
- * @method Children|null findOneBy(array $criteria, array $orderBy = null)
- * @method Children[]    findAll()
- * @method Children[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Child|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Child|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Child[]    findAll()
+ * @method Child[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ChildrenRepository extends ServiceEntityRepository
+class ChildRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
