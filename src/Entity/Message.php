@@ -25,17 +25,20 @@ class Message
     /**
      * @ORM\Column(type="integer")
      */
-    private $idChat;
 
-    /**
-     * @ORM\Column(type="text")
-     */
     private $contentMessage;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $dateMessage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Chat::class, inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $chat;
+
 
     public function getId(): ?int
     {
@@ -54,17 +57,6 @@ class Message
         return $this;
     }
 
-    public function getIdChat(): ?int
-    {
-        return $this->idChat;
-    }
-
-    public function setIdChat(int $idChat): self
-    {
-        $this->idChat = $idChat;
-
-        return $this;
-    }
 
     public function getContentMessage(): ?string
     {
@@ -86,6 +78,18 @@ class Message
     public function setDateMessage(\DateTimeInterface $dateMessage): self
     {
         $this->dateMessage = $dateMessage;
+
+        return $this;
+    }
+
+    public function getChat(): ?Chat
+    {
+        return $this->chat;
+    }
+
+    public function setChat(?Chat $chat): self
+    {
+        $this->chat = $chat;
 
         return $this;
     }

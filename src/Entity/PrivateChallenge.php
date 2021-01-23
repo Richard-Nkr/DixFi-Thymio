@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=PrivateChallengeRepository::class)
  */
-class PrivateChallenge
+class PrivateChallenge extends Challenge
 {
     /**
      * @ORM\Id

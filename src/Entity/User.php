@@ -7,10 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "user"="User",
+ *     "student_group"="StudentGroup",
+ *     "teacher"="Teacher",
+ * })
  */
 class User
 {
     /**
+     *
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -36,6 +46,7 @@ class User
      * @ORM\Column(type="string", length=150)
      */
     private $password;
+
 
     public function getId(): ?int
     {
@@ -90,4 +101,5 @@ class User
 
         return $this;
     }
+
 }

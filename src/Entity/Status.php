@@ -20,16 +20,6 @@ class Status
     /**
      * @ORM\Column(type="integer")
      */
-    private $idGroup;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $idChallenge;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $statusInt;
 
     /**
@@ -52,34 +42,23 @@ class Status
      */
     private $finishedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=StudentGroup::class, inversedBy="Status")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupStatus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="status")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $challenge;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdGroup(): ?int
-    {
-        return $this->idGroup;
-    }
-
-    public function setIdGroup(int $idGroup): self
-    {
-        $this->idGroup = $idGroup;
-
-        return $this;
-    }
-
-    public function getIdChallenge(): ?int
-    {
-        return $this->idChallenge;
-    }
-
-    public function setIdChallenge(int $idChallenge): self
-    {
-        $this->idChallenge = $idChallenge;
-
-        return $this;
-    }
 
     public function getStatusInt(): ?int
     {
@@ -137,6 +116,30 @@ class Status
     public function setFinishedAt(?\DateTimeInterface $finishedAt): self
     {
         $this->finishedAt = $finishedAt;
+
+        return $this;
+    }
+
+    public function getGroupStatus(): ?StudentGroup
+    {
+        return $this->groupStatus;
+    }
+
+    public function setGroupStatus(?StudentGroup $groupStatus): self
+    {
+        $this->groupStatus = $groupStatus;
+
+        return $this;
+    }
+
+    public function getChallenge(): ?Challenge
+    {
+        return $this->challenge;
+    }
+
+    public function setChallenge(?Challenge $challenge): self
+    {
+        $this->challenge = $challenge;
 
         return $this;
     }
