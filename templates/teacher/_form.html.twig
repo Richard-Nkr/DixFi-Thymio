@@ -1,0 +1,30 @@
+{{ form_start(form, {'attr': {'id': 'new_edit_utilisateur'}}) }}
+    {# utilisation de classes bootstrap pour la mise en forme #}
+<div class="row">
+    <div class="col-12">
+        {{ form_label(form.nickname) }}
+        {{ form_widget(form.nickname) }}
+    </div>
+    <div class="col-12">
+        {{ form_label(form.password) }}
+        {{ form_widget(password_hash(form.password, PASSWORD_DEFAULT))}}
+    </div>
+    <div class="col-12">
+        <label for="verifpass">Saisir une seconde fois le mot de passe</label>
+        <input type="password" id="verifpass" required>
+    </div>
+    <div class="col-12">
+        {{ form_label(form.nameTeacher) }}
+        {{ form_widget(form.nameTeacher) }}
+    </div>
+    <div class="col-12">
+        {{ form_label(form.firstNameTeacher) }}
+        {{ form_widget(form.firstNameTeacher) }}
+    </div>
+    <div class="col-12">
+        {{ form_label(form.mailTeacher) }}
+        {{ form_widget(form.mailTeacher) }}
+    </div>
+</div>
+<button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
