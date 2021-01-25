@@ -19,6 +19,8 @@ class TeacherRepository extends ServiceEntityRepository
         parent::__construct($registry, Teacher::class);
     }
 
+
+
     // /**
     //  * @return Teacher[] Returns an array of Teacher objects
     //  */
@@ -35,9 +37,14 @@ class TeacherRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * Cette méthode va nous permettre de récupérer un utilisateur via son pseudo
+     * @param $value
+     * @return Teacher|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
 
-    /*
-    public function findOneBySomeField($value): ?Teacher
+    public function findOneByNickName($value): ?Teacher
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')
@@ -46,5 +53,5 @@ class TeacherRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }
