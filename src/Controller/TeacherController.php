@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Chat;
 use App\Entity\Teacher;
 use App\Form\TeacherType;
 use App\Repository\TeacherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Intl\DateFormatter;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -39,9 +41,16 @@ class TeacherController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $teacher->setCreatedAt(new \DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($teacher);
             $entityManager->flush();
+            $chat = new Chat();
+            $chat->setTeacher($teacher);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($chat);
+            $entityManager->flush();
+            $teacher->setChat($chat);
 
             return $this->redirectToRoute('teacher_index');
         }
@@ -57,6 +66,8 @@ class TeacherController extends AbstractController
      * @param Teacher $teacher
      * @return Response
      */
+
+
     public function show(Teacher $teacher): Response
     {
         return $this->render('teacher/show.html.twig', [

@@ -1,4 +1,4 @@
-{{ form_start(form, {'attr': {'id': 'new_edit_utilisateur'}}) }}
+{{ form_start(form, {'attr': {'id': 'new_edit_teacher'}}) }}
     {# utilisation de classes bootstrap pour la mise en forme #}
 <div class="row">
     <div class="col-12">
@@ -7,7 +7,7 @@
     </div>
     <div class="col-12">
         {{ form_label(form.password) }}
-        {{ form_widget(password_hash(form.password, PASSWORD_DEFAULT))}}
+        {{ form_widget(form.password)}}
     </div>
     <div class="col-12">
         <label for="verifpass">Saisir une seconde fois le mot de passe</label>

@@ -41,7 +41,7 @@ class Teacher extends User
 
     /**
      * @ORM\OneToOne(targetEntity=Chat::class, inversedBy="teacher", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn
      */
     private $chat;
 
