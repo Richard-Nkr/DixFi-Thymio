@@ -11,3 +11,12 @@ a:hover {
     width:4%;
     float: right;
 }
+
+#imgThymio{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 38%;
+    margin-top: 2%;
+    border-radius: 20px;
+}
