@@ -1,30 +1,44 @@
 {{ form_start(form, {'attr': {'id': 'new_edit_teacher'}}) }}
     {# utilisation de classes bootstrap pour la mise en forme #}
-<div class="row">
-    <div class="col-12">
-        {{ form_label(form.nickname) }}
-        {{ form_widget(form.nickname) }}
+<fieldset id="formInscription">
+    <legend id="legendInscription">Création d'un compte Enseignant</legend>
+    <div class="form-group">
+        {{ form_label(form.nickname, 'Surnom : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.nickname) }}
+        </div>
     </div>
-    <div class="col-12">
-        {{ form_label(form.password) }}
-        {{ form_widget(form.password)}}
+    <div class="form-group">
+        {{ form_label(form.nameTeacher, 'Nom : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.nameTeacher) }}
+        </div>
     </div>
-    <div class="col-12">
-        <label for="verifpass">Saisir une seconde fois le mot de passe</label>
-        <input type="password" id="verifpass" required>
+    <div class="form-group">
+        {{ form_label(form.firstNameTeacher, 'Prénom : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.firstNameTeacher) }}
+        </div>
     </div>
-    <div class="col-12">
-        {{ form_label(form.nameTeacher) }}
-        {{ form_widget(form.nameTeacher) }}
+    <div class="form-group">
+        {{ form_label(form.mailTeacher, 'Adresse mail : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.mailTeacher) }}
+        </div>
     </div>
-    <div class="col-12">
-        {{ form_label(form.firstNameTeacher) }}
-        {{ form_widget(form.firstNameTeacher) }}
+    <div class="form-group">
+        {{ form_label(form.password, 'Mot de passe : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.password)}}
+        </div>
     </div>
-    <div class="col-12">
-        {{ form_label(form.mailTeacher) }}
-        {{ form_widget(form.mailTeacher) }}
+    <div class="form-group">
+        <label for="verifpass">Saisir une seconde fois votre mot de passe : </label>
+        <div class="col-sm-14">
+            <input type="password" id="verifpass" required>
+        </div>
     </div>
-</div>
-<button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-success">{{ button_label|default('Créer mon compte') }}</button>
+
+</fieldset>
 {{ form_end(form) }}
