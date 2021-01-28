@@ -12,6 +12,7 @@ a:hover {
     float: right;
 }
 
+<<<<<<< HEAD
 #formInscription{
     margin:3% 22% 3% 22%;
     border:2px solid #b52132;
@@ -29,4 +30,13 @@ a:hover {
     border:1px solid darkred;
     border-radius: 10px;
     background-color: #c80101;
+=======
+#imgThymio{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 38%;
+    margin-top: 2%;
+    border-radius: 20px;
+>>>>>>> 9ffedf49c9ce81de26c458bfd4c98d44824ed53a
 }

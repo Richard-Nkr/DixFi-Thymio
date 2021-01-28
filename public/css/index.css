@@ -2,14 +2,6 @@ body{
     background-color: #211D2C;
 }
 
-#imgThymio{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 38%;
-    margin-top: 2%;
-    border-radius: 20px;
-}
 
 h4{
     text-align: center;
