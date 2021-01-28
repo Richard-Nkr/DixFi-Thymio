@@ -14,13 +14,7 @@ class StudentGroupType extends AbstractType
     {
         $builder
             ->add('nickname')
-            ->add('deletedAt')
             ->add('password', PasswordType::class)
-            ->add('countSucceed')
-            ->add('teacher')
-            ->add('helps')
-            ->add('challenges')
-            ->add('chat')
         ;
     }
 

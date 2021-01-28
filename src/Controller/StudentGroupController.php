@@ -17,16 +17,20 @@ class StudentGroupController extends AbstractController
 {
     /**
      * @Route("/", name="student_group_index", methods={"GET"})
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
      */
-    public function index(GroupRepository $groupRepository): Response
+    public function index(StudentGroupRepository $studentGroupRepository): Response
     {
         return $this->render('student_group/index.html.twig', [
-            'student_groups' => $groupRepository->findAll(),
+            'student_groups' => $studentGroupRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/new", name="student_group_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -51,6 +55,8 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}", name="student_group_show", methods={"GET"})
+     * @param StudentGroup $studentGroup
+     * @return Response
      */
     public function show(StudentGroup $studentGroup): Response
     {
@@ -61,6 +67,9 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="student_group_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param StudentGroup $studentGroup
+     * @return Response
      */
     public function edit(Request $request, StudentGroup $studentGroup): Response
     {
@@ -81,6 +90,9 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}", name="student_group_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param StudentGroup $studentGroup
+     * @return Response
      */
     public function delete(Request $request, StudentGroup $studentGroup): Response
     {
