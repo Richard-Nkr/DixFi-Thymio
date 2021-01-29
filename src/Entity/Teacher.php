@@ -45,11 +45,23 @@ class Teacher extends User
      */
     private $chat;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PrivateChallenge::class, mappedBy="teacher")
+     */
+    private $privateChallenges;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PublicChallenge::class, mappedBy="teacher")
+     */
+    private $publicChallenges;
+
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->privateChallenges = new ArrayCollection();
+        $this->publicChallenges = new ArrayCollection();
     }
 
     public function getMailTeacher(): ?string
@@ -156,6 +168,66 @@ class Teacher extends User
     public function setChat(Chat $chat): self
     {
         $this->chat = $chat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PrivateChallenge[]
+     */
+    public function getPrivateChallenges(): Collection
+    {
+        return $this->privateChallenges;
+    }
+
+    public function addPrivateChallenge(PrivateChallenge $privateChallenge): self
+    {
+        if (!$this->privateChallenges->contains($privateChallenge)) {
+            $this->privateChallenges[] = $privateChallenge;
+            $privateChallenge->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrivateChallenge(PrivateChallenge $privateChallenge): self
+    {
+        if ($this->privateChallenges->removeElement($privateChallenge)) {
+            // set the owning side to null (unless already changed)
+            if ($privateChallenge->getTeacher() === $this) {
+                $privateChallenge->setTeacher(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PublicChallenge[]
+     */
+    public function getPublicChallenges(): Collection
+    {
+        return $this->publicChallenges;
+    }
+
+    public function addPublicChallenge(PublicChallenge $publicChallenge): self
+    {
+        if (!$this->publicChallenges->contains($publicChallenge)) {
+            $this->publicChallenges[] = $publicChallenge;
+            $publicChallenge->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublicChallenge(PublicChallenge $publicChallenge): self
+    {
+        if ($this->publicChallenges->removeElement($publicChallenge)) {
+            // set the owning side to null (unless already changed)
+            if ($publicChallenge->getTeacher() === $this) {
+                $publicChallenge->setTeacher(null);
+            }
+        }
 
         return $this;
     }

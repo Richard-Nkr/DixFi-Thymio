@@ -42,6 +42,7 @@ class TeacherController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teacher->setCreatedAt(new \DateTime('now'));
+            $teacher->setRole("teacher");
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($teacher);
             $entityManager->flush();

@@ -47,6 +47,11 @@ class User
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $role;
+
 
     public function getId(): ?int
     {
@@ -98,6 +103,18 @@ class User
     public function setPassword(string $password): self
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
