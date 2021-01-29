@@ -12,6 +12,8 @@ a:hover {
     float: right;
 }
 
+
+
 .formInscription{
     margin:3% 22% 3% 22%;
     border:2px solid #b52132;
@@ -22,7 +24,9 @@ a:hover {
     padding-bottom: 2%;
 }
 
+
 .legendInscription {
+
     font-size: 18px;
     color: white;
     padding: 2px;
