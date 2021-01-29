@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     /**
-     *
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -58,6 +58,11 @@ class User
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getNickname(): ?string
     {

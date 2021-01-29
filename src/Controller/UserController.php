@@ -41,13 +41,15 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $nickname = $user->getNickname();
+            $id= $user->getId();
             //on récupère le code crypté
-            $passHash = $userRepository->findOneByPseudo($nickname)->getPassword() ?? "pas d'utilisateur";
+            $passHash = $userRepository->findOneById($id)->getPassword() ?? "pas d'utilisateur";
+            var_dump($passHash);
+            var_dump($user->getPassword());
             //cette méthode vérifie que le mot de passe saisie et le hash correspondent
             $password = password_verify($user->getPassword(), $passHash);
             if ($password) {
-                $user = $userRepository->findOneByPseudo($nickname);
+                $user = $userRepository->findOneById($id);
                 //on ouvre la connexion
                 $session->set('user', $user);
                 return $this->redirectToRoute('index');
