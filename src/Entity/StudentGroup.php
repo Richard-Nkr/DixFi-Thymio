@@ -16,6 +16,7 @@ class StudentGroup extends User
 
     /**
      * @ORM\Column(type="integer")
+     *
      */
     private $countSucceed;
 

@@ -12,12 +12,7 @@ a:hover {
     float: right;
 }
 
-<<<<<<< HEAD
-
-#formInscription{
-=======
 .formInscription{
->>>>>>> 404a6ba0c58f9fda6f4eb1829582928d83509c63
     margin:3% 22% 3% 22%;
     border:2px solid #b52132;
     border-radius: 12px;
@@ -27,11 +22,7 @@ a:hover {
     padding-bottom: 2%;
 }
 
-<<<<<<< HEAD
-#legendInscription {
-=======
 .legendInscription {
->>>>>>> 404a6ba0c58f9fda6f4eb1829582928d83509c63
     font-size: 18px;
     color: white;
     padding: 2px;

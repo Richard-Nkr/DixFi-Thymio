@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Chat;
 use App\Entity\StudentGroup;
+use App\Entity\Teacher;
 use App\Form\StudentGroupType;
 use App\Repository\GroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +42,9 @@ class StudentGroupController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $studentGroup->setCreatedAt(new \DateTime('now'));
+            $studentGroup->setRole("user");
+            $studentGroup->setCountSucceed(0);
+            //$studentGroup->setTeacher();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($studentGroup);
             $entityManager->flush();
