@@ -16,15 +16,23 @@ class PublicChallenge extends Challenge
      */
     private $nameCorrectionPDF;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $idTeacher;
+
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Teacher::class, inversedBy="publicChallenges")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $teacher;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getNameCorrectionPDF(): ?string
     {
@@ -38,17 +46,7 @@ class PublicChallenge extends Challenge
         return $this;
     }
 
-    public function getIdTeacher(): ?int
-    {
-        return $this->idTeacher;
-    }
 
-    public function setIdTeacher(int $idTeacher): self
-    {
-        $this->idTeacher = $idTeacher;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -58,6 +56,30 @@ class PublicChallenge extends Challenge
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getTeacher(): ?Teacher
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(?Teacher $teacher): self
+    {
+        $this->teacher = $teacher;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
