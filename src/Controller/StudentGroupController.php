@@ -8,6 +8,7 @@ use App\Repository\GroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -27,15 +28,24 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/new", name="student_group_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param Session $session
+     * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Session $session): Response
     {
         $studentGroup = new StudentGroup();
         $form = $this->createForm(StudentGroupType::class, $studentGroup);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
+
+            $studentGroup->setCreatedAt(new \DateTime('now'));
+            $studentGroup->setRole("group");
+            $studentGroup->setCountSucceed(0);
+            $studentGroup->setTeacher($session->get('user'));
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 
@@ -50,6 +60,8 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}", name="student_group_show", methods={"GET"})
+     * @param StudentGroup $studentGroup
+     * @return Response
      */
     public function show(StudentGroup $studentGroup): Response
     {
