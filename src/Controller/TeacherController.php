@@ -6,6 +6,7 @@ use App\Entity\Chat;
 use App\Entity\Teacher;
 use App\Form\TeacherType;
 use App\Repository\TeacherRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,6 +45,8 @@ class TeacherController extends AbstractController
             $teacher->setCreatedAt(new \DateTime('now'));
             $teacher->setRole("teacher");
             $entityManager = $this->getDoctrine()->getManager();
+            $pass = password_hash($teacher->getPassword(), PASSWORD_DEFAULT);
+            $teacher->setPassword($pass);
             $entityManager->persist($teacher);
             $entityManager->flush();
             $chat = new Chat();

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -52,7 +53,10 @@ class UserController extends AbstractController
                 $user = $userRepository->findOneById($id);
                 //on ouvre la connexion
                 $session->set('user', $user);
-                return $this->redirectToRoute('index');
+                $session->set('role',$user->getRole());
+                return $this->redirectToRoute('user_index', [
+                    'user' => $user
+                ]);
             }
 
             return $this->render('user/connexion.html.twig', [
@@ -63,6 +67,24 @@ class UserController extends AbstractController
         return $this->render('user/connexion.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/deconnexion", name="user_deconnexion", methods={"GET", "POST"})
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param Session $session
+     * @return Response
+     */
+    public function deconnexion(Request $request, UserRepository $userRepository, Session $session): Response
+    {
+        //en cas de connexion ouverte
+        if ($session->has('user')) {
+
+            //on la referme, afin de pouvoir initier une nouvelle connexion
+            $session->remove('user');
+        }
+        return $this->redirectToRoute('user_index');
     }
 
     /**
@@ -103,15 +125,24 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
-     * @param User $user
+     * @Route("/show", name="user_show", methods={"GET"})
+
+     * @param Session $session
      * @return Response
      */
-    public function show(User $user): Response
+    public function show(Session $session): Response
     {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
+        if ($session->get('role')=="teacher") {
+            return $this->render('teacher/show.html.twig', [
+                'teacher' => $session->get('user'),
+
+            ]);
+        }else{
+            return $this->render('student_group/show.html.twig', [
+                'student_group' => $session->get('user'),
+
+            ]);
+        }
     }
 
     /**
