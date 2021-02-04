@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\StudentGroup;
 use App\Form\StudentGroupType;
 use App\Repository\GroupRepository;
+use App\Repository\StudentGroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,11 +19,13 @@ class StudentGroupController extends AbstractController
 {
     /**
      * @Route("/", name="student_group_index", methods={"GET"})
+     * @param StudentGroupRepository $studentgroupRepository
+     * @return Response
      */
-    public function index(GroupRepository $groupRepository): Response
+    public function index(StudentGroupRepository $studentgroupRepository): Response
     {
         return $this->render('student_group/index.html.twig', [
-            'student_groups' => $groupRepository->findAll(),
+            'student_groups' => $studentgroupRepository->findAll(),
         ]);
     }
 
@@ -42,10 +45,14 @@ class StudentGroupController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
 
+            $pass = password_hash($studentGroup->getPassword(), PASSWORD_DEFAULT);
+            $studentGroup->setPassword($pass);
             $studentGroup->setCreatedAt(new \DateTime('now'));
             $studentGroup->setRole("group");
             $studentGroup->setCountSucceed(0);
+            var_dump($session->get('user'));
             $studentGroup->setTeacher($session->get('user'));
+            $studentGroup->setChat(($session->get('user'))->getChat());
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 

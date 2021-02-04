@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\StudentGroup;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,15 +14,7 @@ class StudentGroupType extends AbstractType
     {
         $builder
             ->add('nickname')
-            ->add('createdAt')
-            ->add('deletedAt')
-            ->add('password')
-            ->add('role')
-            ->add('countSucceed')
-            ->add('teacher')
-            ->add('helps')
-            ->add('challenges')
-            ->add('chat')
+            ->add('password', PasswordType::class)
         ;
     }
 
