@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ThymioChallenge{% endblock %}
+
+{% block body %}
+    <h1>Edit ThymioChallenge</h1>
+
+    {{ include('thymio_challenge/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('thymio_challenge_index') }}">back to list</a>
+
+    {{ include('thymio_challenge/_delete_form.html.twig') }}
+{% endblock %}
