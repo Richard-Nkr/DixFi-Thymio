@@ -6,6 +6,7 @@ use App\Entity\Chat;
 use App\Entity\Teacher;
 use App\Form\TeacherType;
 use App\Repository\TeacherRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,37 +30,6 @@ class TeacherController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="teacher_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $teacher = new Teacher();
-        $form = $this->createForm(TeacherType::class, $teacher);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $teacher->setCreatedAt(new \DateTime('now'));
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($teacher);
-            $entityManager->flush();
-            $chat = new Chat();
-            $chat->setTeacher($teacher);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($chat);
-            $entityManager->flush();
-            $teacher->setChat($chat);
-
-            return $this->redirectToRoute('teacher_index');
-        }
-
-        return $this->render('teacher/new.html.twig', [
-            'teacher' => $teacher,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="teacher_show", methods={"GET"})
