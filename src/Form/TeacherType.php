@@ -18,9 +18,9 @@ class TeacherType extends AbstractType
         $builder
             ->add('nickname')
             ->add('password', PasswordType::class)
-            ->add('mailTeacher')
-            ->add('nameTeacher')
-            ->add('firstNameTeacher')
+            ->add('mail')
+            ->add('name')
+            ->add('firstName')
             ->add('role', ChoiceType::class, [
                 'choices' => [
                     'Enseignant' => 'teacher',
