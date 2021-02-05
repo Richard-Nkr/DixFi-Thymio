@@ -3,39 +3,18 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    {% if app.session.get('user')%}
+    <a href="{{ path('user_deconnexion') }}"> <button value="Se déconnecter"> Se déconnecter </button> </a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nickname</th>
-                <th>CreatedAt</th>
-                <th>DeletedAt</th>
-                <th>Password</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.nickname }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.deletedAt ? user.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <a href="{{ path('user_show') }}"> <button value="See profil"> Voir profil </button></a>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+        {% if app.session.get('role')=="teacher" %}
+        <a href="{{ path('student_group_new') }}"> <button value="Create groups"> Create groups </button></a>
+        {% endif %}
+
+    {% else %}
+    <a href="{{ path('user_connexion') }}"> <button value="Se connecter"> Se connecter </button> </a>
+
+    <a href="{{ path('user_guest_new') }}"> <button value="Create new"> Create new </button></a>
+    {% endif %}
 {% endblock %}

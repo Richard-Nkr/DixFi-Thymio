@@ -13,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
  *     "user"="User",
  *     "student_group"="StudentGroup",
- *     "teacher"="Teacher",
+ *     "user_guest"="UserGuest",
+ *     "teacher"="Teacher"
  * })
  */
 class User
@@ -107,7 +108,7 @@ class User
 
     public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
 
         return $this;
     }
