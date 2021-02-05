@@ -6,6 +6,7 @@ use App\Entity\StudentGroup;
 use App\Form\StudentGroupType;
 use App\Repository\GroupRepository;
 use App\Repository\StudentGroupRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,9 +34,10 @@ class StudentGroupController extends AbstractController
      * @Route("/new", name="student_group_new", methods={"GET","POST"})
      * @param Request $request
      * @param Session $session
+     * @param UserRepository $userRepository
      * @return Response
      */
-    public function new(Request $request, Session $session): Response
+    public function new(Request $request, Session $session, UserRepository $userRepository): Response
     {
         $studentGroup = new StudentGroup();
         $form = $this->createForm(StudentGroupType::class, $studentGroup);
@@ -51,8 +53,8 @@ class StudentGroupController extends AbstractController
             $studentGroup->setRole("group");
             $studentGroup->setCountSucceed(0);
             var_dump($session->get('user'));
-            $studentGroup->setTeacher($session->get('user'));
-            $studentGroup->setChat(($session->get('user'))->getChat());
+            $studentGroup->setTeacher($userRepository->findOneById($session->get('user')->getId()));
+            $studentGroup->setChat($userRepository->findOneById($session->get('user')->getId())->getChat());
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 

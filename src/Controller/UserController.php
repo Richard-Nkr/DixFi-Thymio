@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Chat;
+use App\Entity\Teacher;
 use App\Entity\User;
+use App\Form\TeacherType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,8 +48,6 @@ class UserController extends AbstractController
             $id= $user->getId();
             //on récupère le code crypté
             $passHash = $userRepository->findOneById($id)->getPassword() ?? "pas d'utilisateur";
-            var_dump($passHash);
-            var_dump($user->getPassword());
             //cette méthode vérifie que le mot de passe saisie et le hash correspondent
             $password = password_verify($user->getPassword(), $passHash);
             if ($password) {
@@ -96,31 +97,6 @@ class UserController extends AbstractController
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
         ]);
     }
 

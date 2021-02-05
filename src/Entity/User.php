@@ -13,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
  *     "user"="User",
  *     "student_group"="StudentGroup",
- *     "teacher"="Teacher",
+ *     "user_guest"="UserGuest",
+ *     "teacher"="Teacher"
  * })
  */
 class User

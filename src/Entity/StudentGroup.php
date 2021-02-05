@@ -21,7 +21,7 @@ class StudentGroup extends User
 
     /**
      * @ORM\ManyToOne(targetEntity=Teacher::class, inversedBy="groups")
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $teacher;
 
@@ -47,7 +47,7 @@ class StudentGroup extends User
 
     /**
      * @ORM\ManyToOne(targetEntity=Chat::class, inversedBy="groups")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="chat_id", nullable=false)
      */
     private $chat;
 
