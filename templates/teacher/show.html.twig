@@ -1,47 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Teacher's profil{% endblock %}
+{% block title %}Teacher{% endblock %}
 
 {% block body %}
-<fieldset class="formInscription">
-    <legend class="legendInscription">Hello {{ teacher.nickname }} !</legend>
-    <div class="form-group">
-        <p> Voici vos données personnelles </p>
+    <h1>Teacher</h1>
 
     <table class="table">
         <tbody>
 
             <tr>
-                <th> Votre Nickname :</th>
+                <th>Nickname</th>
                 <td>{{ teacher.nickname }}</td>
             </tr>
             <tr>
-                <th> Votre Identifiant :</th>
-                <td>{{ app.session.get('id_user') }}</td>
+                <th>CreatedAt</th>
+                <td>{{ teacher.createdAt ? teacher.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ teacher.password }}</td>
             </tr>
             <tr>
                 <th>Adresse mail :</th>
-                <td>{{ teacher.mail }}</td>
+                <td>{{ teacher.mailTeacher }}</td>
             </tr>
             <tr>
-                <th>Nom :</th>
-                <td>{{ teacher.name }}</td>
+                <th>nom :</th>
+                <td>{{ teacher.nameTeacher }}</td>
             </tr>
             <tr>
-                <th>Prénom :</th>
-                <td>{{ teacher.firstName}}</td>
-            </tr>
-            <tr>
-                <th>Le compte a été créé le :</th>
-                <td>{{ teacher.createdAt ? teacher.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>prénom :</th>
+                <td>{{ teacher.firstNameTeacher }}</td>
             </tr>
         </tbody>
     </table>
-    </div>
-    <a href="{{ path('student_group_index') }}">Voir mes groupes d'étudiants</a>
-    <br>
-    <a href="{{ path('teacher_edit', {'id': app.session.get("id_user")}) }}">Modifier mon profil</a>
-    <br>
-    <br>
+
+    <a href="{{ path('teacher_index') }}">back to list</a>
+
+    <a href="{{ path('teacher_edit', {'id': teacher.id}) }}">edit</a>
+
     {{ include('teacher/_delete_form.html.twig') }}
 {% endblock %}
