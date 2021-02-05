@@ -13,13 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
  *     "user"="User",
  *     "student_group"="StudentGroup",
- *     "teacher"="Teacher",
+ *     "user_guest"="UserGuest",
+ *     "teacher"="Teacher"
  * })
  */
 class User
 {
     /**
-     *
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -47,12 +48,22 @@ class User
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $role;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getNickname(): ?string
     {
@@ -97,7 +108,19 @@ class User
 
     public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
