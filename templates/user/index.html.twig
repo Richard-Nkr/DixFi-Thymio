@@ -3,18 +3,18 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    {% if app.session.get('user')%}
+    {% if app.session.get('id_user')%}
     <a href="{{ path('user_deconnexion') }}"> <button value="Se déconnecter"> Se déconnecter </button> </a>
-
+    <br>
     <a href="{{ path('user_show') }}"> <button value="See profil"> Voir profil </button></a>
-
+    <br>
         {% if app.session.get('role')=="teacher" %}
         <a href="{{ path('student_group_new') }}"> <button value="Create groups"> Create groups </button></a>
         {% endif %}
 
     {% else %}
     <a href="{{ path('user_connexion') }}"> <button value="Se connecter"> Se connecter </button> </a>
-
+    <br>
     <a href="{{ path('user_guest_new') }}"> <button value="Create new"> Create new </button></a>
     {% endif %}
 {% endblock %}

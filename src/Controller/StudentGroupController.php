@@ -6,6 +6,7 @@ use App\Entity\StudentGroup;
 use App\Form\StudentGroupType;
 use App\Repository\GroupRepository;
 use App\Repository\StudentGroupRepository;
+use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,12 +22,15 @@ class StudentGroupController extends AbstractController
     /**
      * @Route("/", name="student_group_index", methods={"GET"})
      * @param StudentGroupRepository $studentgroupRepository
+     * @param Session $session
+     * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function index(StudentGroupRepository $studentgroupRepository): Response
+    public function index(StudentGroupRepository $studentgroupRepository, Session $session, TeacherRepository $teacherRepository): Response
     {
         return $this->render('student_group/index.html.twig', [
             'student_groups' => $studentgroupRepository->findAll(),
+            'teacher' => $teacherRepository->findOneById($session->get('id_user')),
         ]);
     }
 
@@ -52,9 +56,9 @@ class StudentGroupController extends AbstractController
             $studentGroup->setCreatedAt(new \DateTime('now'));
             $studentGroup->setRole("group");
             $studentGroup->setCountSucceed(0);
-            var_dump($session->get('user'));
-            $studentGroup->setTeacher($userRepository->findOneById($session->get('user')->getId()));
-            $studentGroup->setChat($userRepository->findOneById($session->get('user')->getId())->getChat());
+            var_dump($userRepository->findOneById($session->get('id_user')));
+            $studentGroup->setTeacher($userRepository->findOneById($session->get('id_user')));
+            $studentGroup->setChat($userRepository->findOneById($session->get('id_user'))->getChat());
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 

@@ -34,10 +34,10 @@ class UserController extends AbstractController
     public function connexion(Request $request, UserRepository $userRepository, Session $session): Response
     {
         //en cas de connexion ouverte
-        if ($session->has('user')) {
+        if ($session->has('id_user')) {
 
             //on la referme, afin de pouvoir initier une nouvelle connexion
-            $session->remove('user');
+            $session->remove('id_user');
         }
 
         $user = new User();
@@ -53,7 +53,7 @@ class UserController extends AbstractController
             if ($password) {
                 $user = $userRepository->findOneById($id);
                 //on ouvre la connexion
-                $session->set('user', $user);
+                $session->set('id_user', $id);
                 $session->set('role',$user->getRole());
                 return $this->redirectToRoute('user_index', [
                     'user' => $user
@@ -80,10 +80,10 @@ class UserController extends AbstractController
     public function deconnexion(Request $request, UserRepository $userRepository, Session $session): Response
     {
         //en cas de connexion ouverte
-        if ($session->has('user')) {
+        if ($session->has('id_user')) {
 
             //on la referme, afin de pouvoir initier une nouvelle connexion
-            $session->remove('user');
+            $session->remove('id_user');
         }
         return $this->redirectToRoute('user_index');
     }
