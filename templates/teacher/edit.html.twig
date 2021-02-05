@@ -3,11 +3,9 @@
 {% block title %}Modifier compte Enseignant{% endblock %}
 
 {% block body %}
-    <fieldset class="formInscription">
-    <legend class="legendInscription">Modification de mon compte Enseignant</legend>
+    <h1>Modifier compte Enseignant</h1>
 
     {{ include('teacher/_form.html.twig', {'button_label': 'Update'}) }}
-    </fieldset>
 
     <a href="{{ path('teacher_index') }}">back to list</a>
 
