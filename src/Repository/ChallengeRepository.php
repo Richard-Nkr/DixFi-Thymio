@@ -19,6 +19,17 @@ class ChallengeRepository extends ServiceEntityRepository
         parent::__construct($registry, Challenge::class);
     }
 
+    public function findByDifficulty($difficulty): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.difficulty = :val')
+            ->setParameter('val', $difficulty)
+            ->orderBy('t.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Challenge[] Returns an array of Challenge objects
     //  */

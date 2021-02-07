@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Challenge;
 use App\Entity\ThymioChallenge;
 use App\Form\ThymioChallengeType;
 use App\Repository\ThymioChallengeRepository;
+use App\Repository\ChallengeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,17 +18,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class ThymioChallengeController extends AbstractController
 {
     /**
-     * @Route("/", name="thymio_challenge_index", methods={"GET"})
+     * @Route("/{difficulty}", name="thymio_challenge_index", methods={"GET"})
+     * @param ChallengeRepository $ChallengeRepository
+     * @param Challenge $challenge
+     * @return Response
      */
-    public function index(ThymioChallengeRepository $thymioChallengeRepository): Response
+    public function index(ChallengeRepository $ChallengeRepository, Challenge $challenge): Response
     {
         return $this->render('thymio_challenge/index.html.twig', [
-            'thymio_challenges' => $thymioChallengeRepository->findAll(),
+            'thymio_challenges' => $ChallengeRepository->findByDifficulty($challenge->getDifficulty()),
         ]);
     }
 
     /**
      * @Route("/new", name="thymio_challenge_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -49,7 +56,9 @@ class ThymioChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="thymio_challenge_show", methods={"GET"})
+     * @Route("/{id}/show", name="thymio_challenge_show", methods={"GET"})
+     * @param ThymioChallenge $thymioChallenge
+     * @return Response
      */
     public function show(ThymioChallenge $thymioChallenge): Response
     {
@@ -60,6 +69,9 @@ class ThymioChallengeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="thymio_challenge_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param ThymioChallenge $thymioChallenge
+     * @return Response
      */
     public function edit(Request $request, ThymioChallenge $thymioChallenge): Response
     {
@@ -80,6 +92,9 @@ class ThymioChallengeController extends AbstractController
 
     /**
      * @Route("/{id}", name="thymio_challenge_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param ThymioChallenge $thymioChallenge
+     * @return Response
      */
     public function delete(Request $request, ThymioChallenge $thymioChallenge): Response
     {

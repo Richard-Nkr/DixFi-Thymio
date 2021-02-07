@@ -3,35 +3,20 @@
 {% block title %}ThymioChallenge index{% endblock %}
 
 {% block body %}
-    <h1>ThymioChallenge index</h1>
+    <fieldset id="descriptionThymio"> Bienvenue sur les Dix'Fi de Thymio</fieldset>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Difficulty</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for thymio_challenge in thymio_challenges %}
-            <tr>
-                <td>{{ thymio_challenge.id }}</td>
-                <td>{{ thymio_challenge.name }}</td>
-                <td>{{ thymio_challenge.difficulty }}</td>
-                <td>
-                    <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">show</a>
-                    <a href="{{ path('thymio_challenge_edit', {'id': thymio_challenge.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+    {% for thymio_challenge in thymio_challenges %}
+            <fieldset class="thymioChallenge">
+                <legend class="legendChallenge"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
+                <div class="buttonStartChallenge">
+                    <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Commencer </button></a>
+                </div>
+                <div class="form-group">
+                    <p>Difficulté : {{ thymio_challenge.difficulty }}</p>
+                </div>
+            </fieldset>
+
         {% endfor %}
-        </tbody>
-    </table>
 
     <a href="{{ path('thymio_challenge_new') }}">Create new</a>
 {% endblock %}
