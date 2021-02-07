@@ -20,38 +20,13 @@ class ThymioChallengeController extends AbstractController
     /**
      * @Route("/{difficulty}", name="thymio_challenge_index", methods={"GET"})
      * @param ChallengeRepository $ChallengeRepository
-     * @param Challenge $challenge
+     * @param String $difficulty
      * @return Response
      */
-    public function index(ChallengeRepository $ChallengeRepository, Challenge $challenge): Response
+    public function index(ChallengeRepository $ChallengeRepository, String $difficulty): Response
     {
         return $this->render('thymio_challenge/index.html.twig', [
-            'thymio_challenges' => $ChallengeRepository->findByDifficulty($challenge->getDifficulty()),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="thymio_challenge_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $thymioChallenge = new ThymioChallenge();
-        $form = $this->createForm(ThymioChallengeType::class, $thymioChallenge);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($thymioChallenge);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('thymio_challenge_index');
-        }
-
-        return $this->render('thymio_challenge/new.html.twig', [
-            'thymio_challenge' => $thymioChallenge,
-            'form' => $form->createView(),
+            'thymio_challenges' => $ChallengeRepository->findByDifficulty($difficulty),
         ]);
     }
 
