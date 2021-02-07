@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ThymioChallenge{% endblock %}
+
+{% block body %}
+    <h1>Create new ThymioChallenge</h1>
+
+    {{ include('thymio_challenge/_form.html.twig') }}
+
+    <a href="{{ path('thymio_challenge_index') }}">back to list</a>
+{% endblock %}

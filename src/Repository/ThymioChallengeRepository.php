@@ -19,22 +19,12 @@ class ThymioChallengeRepository extends ServiceEntityRepository
         parent::__construct($registry, ThymioChallenge::class);
     }
 
-    // /**
-    //  * @return ThymioChallenge[] Returns an array of ThymioChallenge objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+     * @param $difficulty
+     * @return ThymioChallenge[] Returns an array of ThymioChallenge objects
+     */
+
+
 
     /*
     public function findOneBySomeField($value): ?ThymioChallenge

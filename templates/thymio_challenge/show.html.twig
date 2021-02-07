@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ThymioChallenge{% endblock %}
+
+{% block body %}
+
+<fieldset class="thymioChallenge">
+
+    <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
+
+                {{ thymio_challenge.difficulty }}
+
+                {{ thymio_challenge.description }}
+
+</fieldset>
+    <div>
+        <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}" style="margin: 41%;">
+            <button class="btn btn-success">Faire valider par notre professeur</button>
+        </a>
+    </div>
+    <div>
+        <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
+           <button type="button" class="btn btn-danger">Retour à la page des défis</button>
+        </a>
+    </div>
+
+{% endblock %}
