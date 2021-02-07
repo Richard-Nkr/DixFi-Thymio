@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserGuestRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserGuestRepository::class)
@@ -17,15 +18,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserGuest extends User
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\Email(
+     *     message = "L'adresse mail '{{ value }}' n'est pas une adresse valide."
+     * )
      */
     private $mail;
 
@@ -39,10 +38,6 @@ class UserGuest extends User
      */
     private $firstname;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getMail(): ?string
     {

@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UserGuestType extends AbstractType
+class UserGuestUpdateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,22 +25,15 @@ class UserGuestType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('mail', EmailType::class)
+            ->add('mail', EmailType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                ],
+            ])
             ->add('name')
-            ->add('firstName')
-            ->add('roles', ChoiceType::class, [
-                'constraints'=> [new Assert\Count([
-                'min' => 1,
-                'max' => 1,
-            ]),
-                ],
-                'choices' => [
-                    'Enseignant' => 'ROLE_TEACHER',
-                    'Utilisateur simple' => 'ROLE_USER_GUEST'
-                ],
-                'expanded'=>false,
-                'multiple' => true
-            ]);
+            ->add('firstName');
     }
 
     public function configureOptions(OptionsResolver $resolver)

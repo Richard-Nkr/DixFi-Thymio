@@ -7,6 +7,7 @@
         <div class="col-sm-14">
             {{ form_widget(form.nickname) }}
         </div>
+
     </div>
     <div class="form-group">
         {{ form_label(form.name, 'Nom : ') }}
@@ -22,14 +23,15 @@
     </div>
     <div class="form-group">
         {{ form_label(form.mail, 'Adresse mail : ') }}
+        <span class="error">{{ form_errors(form.mail) }}</span>
         <div class="col-sm-14">
             {{ form_widget(form.mail) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.role, 'Vous vous inscrivez en tant que : ') }}
+        {{ form_label(form.roles, 'Vous vous inscrivez en tant que : ') }}
         <div class="col-sm-14">
-            {{ form_widget(form.role) }}
+            {{ form_widget(form.roles) }}
         </div>
     </div>
     <div class="form-group">

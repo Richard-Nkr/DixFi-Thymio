@@ -7,13 +7,19 @@ use App\Entity\Teacher;
 use App\Entity\User;
 use App\Entity\UserGuest;
 use App\Form\UserGuestType;
+use App\Form\UserGuestUpdateType;
 use App\Form\UserType;
-use App\GestionHeritage\TeacherUserGuest;
+use App\Service\SecurizerRoles;
+use App\Service\TeacherUserGuest;
+use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 
 /**
  * @Route("/user/guest")
@@ -35,9 +41,13 @@ class UserGuestController extends AbstractController
     /**
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
+     * @param SecurizerRoles $securizerRoles
+     * @param TeacherUserGuest $teacherUserGuest
+     * @param NotifierInterface $notifier
+     * @param UserRepository $userRepository
      * @return Response
      */
-    public function new(Request $request, TeacherUserGuest $teacherUserGuest): Response
+    public function new(Request $request, SecurizerRoles $securizerRoles, TeacherUserGuest $teacherUserGuest, NotifierInterface $notifier, UserRepository $userRepository): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -48,23 +58,21 @@ class UserGuestController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $pass = password_hash($userguest->getPassword(), PASSWORD_DEFAULT);
             $userguest->setPassword($pass);
-            if ($userguest->getRole()=="teacher"){
+            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')){
                 $userguest = $teacherUserGuest->makeTeacher($userguest);
             }
             $entityManager->persist($userguest);
-            $entityManager->flush();
-            if ($userguest->getRole()=="teacher") {
+            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
                 $chat = new Chat();
                 $chat->setTeacher($userguest);
-                $entityManager = $this->getDoctrine()->getManager();
                 $userguest->setChat($chat);
                 $entityManager->persist($chat);
-                $entityManager->persist($userguest);
-                $entityManager->flush();
-
+                //à voir $entityManager->persist($userguest);
             }
-
-            return $this->redirectToRoute('user_index');
+            $entityManager->flush();
+            //$id = $userRepository->findUserId($userguest);
+            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant ".$userguest->getId()."", ['browser']));
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('user_guest/new.html.twig', [
@@ -93,7 +101,7 @@ class UserGuestController extends AbstractController
      */
     public function edit(Request $request, UserGuest $userGuest): Response
     {
-        $form = $this->createForm(UserGuestType::class, $userGuest);
+        $form = $this->createForm(UserGuestUpdateType::class, $userGuest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -118,7 +126,7 @@ class UserGuestController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$userGuest->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($userGuest);
+            $userGuest->setDeletedAt(new \DateTime());
             $entityManager->flush();
         }
 
