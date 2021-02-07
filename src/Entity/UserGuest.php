@@ -39,11 +39,6 @@ class UserGuest extends User
      */
     private $firstname;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getMail(): ?string
     {
         return $this->mail;

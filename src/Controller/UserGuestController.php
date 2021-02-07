@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Entity\UserGuest;
 use App\Form\UserGuestType;
 use App\Form\UserType;
+use App\Services\MailerService;
+use App\Services\MessageService;
 use App\GestionHeritage\TeacherUserGuest;
 use App\Repository\UserGuestRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,9 +37,12 @@ class UserGuestController extends AbstractController
     /**
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
+     * @param MessageService $messageService
+     * @param MailerService $mailerService
      * @return Response
      */
-    public function new(Request $request, TeacherUserGuest $teacherUserGuest): Response
+    public function new(Request $request, TeacherUserGuest $teacherUserGuest, MessageService $messageService,
+                        MailerService $mailerService): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -48,12 +53,14 @@ class UserGuestController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $pass = password_hash($userguest->getPassword(), PASSWORD_DEFAULT);
             $userguest->setPassword($pass);
-            if ($userguest->getRole()=="teacher"){
+            if ($userguest->getRole() == "teacher") {
                 $userguest = $teacherUserGuest->makeTeacher($userguest);
             }
             $entityManager->persist($userguest);
             $entityManager->flush();
-            if ($userguest->getRole()=="teacher") {
+            $mail = $userguest->getMail();
+            $id = $userguest->getId();
+            if ($userguest->getRole() == "teacher") {
                 $chat = new Chat();
                 $chat->setTeacher($userguest);
                 $entityManager = $this->getDoctrine()->getManager();
@@ -61,10 +68,16 @@ class UserGuestController extends AbstractController
                 $entityManager->persist($chat);
                 $entityManager->persist($userguest);
                 $entityManager->flush();
-
             }
+            $mailerService->send(
+                "Nouveau message",
+                "DixFix.Thymio@gmail.com",
+                $mail,
+                'votre id est '.$id.''
+            );
+            $messageService->addSuccess('Bien envoyé.');
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('user_connexion');
         }
 
         return $this->render('user_guest/new.html.twig', [
@@ -72,6 +85,7 @@ class UserGuestController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="user_guest_show", methods={"GET"})
