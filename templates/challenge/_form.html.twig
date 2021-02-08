@@ -1,4 +1,35 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<fieldset class="formInscription">
+    <legend class="legendInscription">Créer un nouveau défi</legend>
+    <div class="form-group">
+        {{ form_label(form.name, 'Nom du défi : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.name) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.description, 'Description : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.description) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.difficulty, 'Difficulté : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.difficulty) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.duration, 'Estimation de la durée (heure ou minutes) : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.duration) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.type, 'Veuillez choisir si vous voulez rendre le challenge public ou privé  : ') }}
+        <div class="col-sm-14">
+            {{ form_widget(form.type) }}
+        </div>
+    </div>
+</fieldset>
 {{ form_end(form) }}

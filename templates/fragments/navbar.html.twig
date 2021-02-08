@@ -1,34 +1,41 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <!--<a id="home-logo" href="#"><img id="imgThymio" src="{{ asset('images/logo-thymio3.png') }}" alt="Robot_Thymio"></a> -->
     <a class="navbar-brand" href="{{ path('home') }}">Les Dix'Fi de Thymio</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown" class="nav-item active" >
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="nav-link" href="#">Les Dix'Fi </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}">Easy DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}">Medium DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}">Hard DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}">Extreme DixFi's</a>
-                    </div>
+            <li class="nav-item dropdown" class="nav-item active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false" class="nav-link" href="#">Les Dix'Fi </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}">Easy
+                        DixFi's</a>
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}">Medium
+                        DixFi's</a>
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}">Hard
+                        DixFi's</a>
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}">Extreme
+                        DixFi's</a>
+                </div>
                 </a>
             </li>
-            <li class="nav-item active" >
-                <a class="nav-link" href="#">Les Teachers'Fi
-                    <span class="sr-only">(current)</span>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('challenge_new') }}">Les Teachers'Fi
+                <span class="sr-only">(current)</span>
                 </a>
             </li>
 
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item active" >
+            <li class="nav-item active">
                 <a class="nav-link" href="{{ path('user_index') }}">
-                        <img id="profilIcone" class="nav-item active" src="{{ asset('images/profil.png') }}" alt="Icone_Profil">
+                    <img id="profilIcone" class="nav-item active" src="{{ asset('images/profil.png') }}"
+                         alt="Icone_Profil">
                 </a>
             </li>
         </ul>

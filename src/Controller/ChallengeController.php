@@ -17,6 +17,8 @@ class ChallengeController extends AbstractController
 {
     /**
      * @Route("/", name="challenge_index", methods={"GET"})
+     * @param ChallengeRepository $challengeRepository
+     * @return Response
      */
     public function index(ChallengeRepository $challengeRepository): Response
     {
@@ -27,6 +29,8 @@ class ChallengeController extends AbstractController
 
     /**
      * @Route("/new", name="challenge_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -35,6 +39,7 @@ class ChallengeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($challenge);
             $entityManager->flush();
@@ -50,6 +55,8 @@ class ChallengeController extends AbstractController
 
     /**
      * @Route("/{id}", name="challenge_show", methods={"GET"})
+     * @param Challenge $challenge
+     * @return Response
      */
     public function show(Challenge $challenge): Response
     {
@@ -60,6 +67,9 @@ class ChallengeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="challenge_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Challenge $challenge
+     * @return Response
      */
     public function edit(Request $request, Challenge $challenge): Response
     {
@@ -80,6 +90,9 @@ class ChallengeController extends AbstractController
 
     /**
      * @Route("/{id}", name="challenge_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Challenge $challenge
+     * @return Response
      */
     public function delete(Request $request, Challenge $challenge): Response
     {

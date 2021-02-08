@@ -35,6 +35,7 @@ class UserGuestController extends AbstractController
     /**
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
+     * @param TeacherUserGuest $teacherUserGuest
      * @return Response
      */
     public function new(Request $request, TeacherUserGuest $teacherUserGuest): Response
@@ -61,7 +62,6 @@ class UserGuestController extends AbstractController
                 $entityManager->persist($chat);
                 $entityManager->persist($userguest);
                 $entityManager->flush();
-
             }
 
             return $this->redirectToRoute('user_index');

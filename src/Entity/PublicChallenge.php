@@ -17,7 +17,6 @@ class PublicChallenge extends Challenge
     private $nameCorrectionPDF;
 
 
-
     /**
      * @ORM\Column(type="datetime")
      */
