@@ -5,11 +5,12 @@
 {% block body %}
 
     {# nous testons si la variable message existe #}
-    {% if message is defined %}
-        <div class="alert alert-danger">
+    {% for message in app.flashes('notification') %}
+        <div class="alert alert-dismissible alert-success">
             {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-    {% endif %}
+    {% endfor %}
 
     {{ include('user/_form.html.twig') }}
 

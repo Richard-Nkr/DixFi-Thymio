@@ -15,6 +15,8 @@ use App\Repository\UserGuestRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -37,12 +39,12 @@ class UserGuestController extends AbstractController
     /**
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
-     * @param MessageService $messageService
      * @param MailerService $mailerService
+     * @param NotifierInterface $notifier
      * @return Response
      */
-    public function new(Request $request, TeacherUserGuest $teacherUserGuest, MessageService $messageService,
-                        MailerService $mailerService): Response
+    public function new(Request $request, TeacherUserGuest $teacherUserGuest,
+                        MailerService $mailerService, NotifierInterface $notifier): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -75,7 +77,8 @@ class UserGuestController extends AbstractController
                 $mail,
                 'votre id est '.$id.''
             );
-            $messageService->addSuccess('Bien envoyé.');
+            $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter
+            afin de vous connecter.", ['browser']));
 
             return $this->redirectToRoute('user_connexion');
         }
