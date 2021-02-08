@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GestionHeritage;
+namespace App\Service;
 
 use App\Entity\Chat;
 use App\Entity\Teacher;
@@ -20,7 +20,7 @@ class TeacherUserGuest
     {
         $teacher = new Teacher();
         $teacher->setPassword($userguest->getPassword());
-        $teacher->setRole("teacher");
+        $teacher->setRoles(['ROLE_TEACHER']);
         $teacher->setCreatedAt($userguest->getCreatedAt());
         $teacher->setFirstname($userguest->getFirstname());
         $teacher->setMail($userguest->getMail());

@@ -20,13 +20,7 @@ class TeacherType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('mail')
             ->add('name')
-            ->add('firstName')
-            ->add('role', ChoiceType::class, [
-                'choices' => [
-                    'Enseignant' => 'teacher',
-                    'Utilisateur simple' => 'user_guest',
-                ],
-            ]);
+            ->add('firstName');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -1,7 +1,6 @@
 {{ form_start(form, {'attr': {'id': 'new_edit_user_guest'}}) }}
     {# utilisation de classes bootstrap pour la mise en forme #}
-<fieldset class="formInscription">
-    <legend class="legendInscription">Création d'un compte</legend>
+
     <div class="form-group">
         {{ form_label(form.nickname, 'Surnom : ') }}
         <div class="col-sm-14">
@@ -29,14 +28,6 @@
         </div>
     </div>
     <div class="form-group">
-        <br>
-        {{ form_label(form.roles, 'Vous vous inscrivez en tant que : ', { 'attr': { 'class': 'list' } }) }}
-        <p> <i>(Attention, veuillez choisir une seule option)</i></p>
-        <div class="col-sm-14">
-            {{ form_widget(form.roles) }}
-        </div>
-    </div>
-    <div class="form-group">
         {{ form_label(form.password, 'Mot de passe : ') }}
         <div class="col-sm-14">
             {{ form_widget(form.password)}}
@@ -50,5 +41,4 @@
     </div>
     <button class="btn btn-success">{{ button_label|default('Créer mon compte') }}</button>
 
-</fieldset>
 {{ form_end(form) }}
