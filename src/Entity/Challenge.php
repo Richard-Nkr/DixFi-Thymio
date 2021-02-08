@@ -63,9 +63,9 @@ class Challenge
     protected $duration;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=100)
      */
-    private $roles = [];
+    protected $role;
 
 
     public function __construct()
@@ -212,14 +212,14 @@ class Challenge
         return $this;
     }
 
-    public function getRoles(): ?array
+    public function getRole(): ?string
     {
-        return $this->roles;
+        return $this->role;
     }
 
-    public function setRoles(array $roles): self
+    public function setRole(string $role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }

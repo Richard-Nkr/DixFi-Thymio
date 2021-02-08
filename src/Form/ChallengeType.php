@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ChallengeType extends AbstractType
 {
@@ -26,13 +27,12 @@ class ChallengeType extends AbstractType
                 ],
             ])
             ->add('duration')
-            ->add('roles', ChoiceType::class, [
+            ->add('role', ChoiceType::class, [
                 'choices' => [
-                    'Public' => 'ROLE_PUBLIC_CHALLENGE',
-                    'Privée' => 'ROLE_PRIVATE_CHALLENGE',
+                    'Public' => "ROLE_PUBLIC_CHALLENGE",
+                    'Privée' => "ROLE_PRIVATE_CHALLENGE",
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

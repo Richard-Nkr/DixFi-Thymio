@@ -1,23 +1,25 @@
 <?php
 
 
-namespace App\GestionHeritage;
+namespace App\Service;
 
 
 use App\Entity\Challenge;
 use App\Entity\PrivateChallenge;
+use App\Entity\Teacher;
 
 class CreatePrivateChallenge
 {
-    public function makeTeacher(Challenge $challenge): PrivateChallenge
+    public function makePrivateChallenge(Challenge $challenge, Teacher $teacher): PrivateChallenge
     {
         $privateChallenge = new PrivateChallenge();
-        $privateChallenge->setName();
+        $privateChallenge->setName($challenge->getName());
         $privateChallenge->setCreatedAt(new \DateTime('now'));
-        $privateChallenge->setDescription();
-        $privateChallenge->setDifficulty();
-        $privateChallenge->setDuration();
-        $privateChallenge->setTeacher();
+        $privateChallenge->setDescription($challenge->getDescription());
+        $privateChallenge->setDifficulty($challenge->getDifficulty());
+        $privateChallenge->setDuration($challenge->getDuration());
+        $privateChallenge->setTeacher($teacher);
+        $privateChallenge->setRole($challenge->getRole());
 
         return $privateChallenge;
     }

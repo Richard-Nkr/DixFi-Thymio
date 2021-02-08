@@ -21,7 +21,7 @@ class TeacherUserGuest
         $teacher = new Teacher();
         $teacher->setPassword($userguest->getPassword());
         $teacher->setRoles(['ROLE_TEACHER']);
-        $teacher->setCreatedAt($userguest->getCreatedAt());
+        $teacher->getCreatedAt(new \DateTime('now'));
         $teacher->setFirstname($userguest->getFirstname());
         $teacher->setMail($userguest->getMail());
         $teacher->setName($userguest->getName());

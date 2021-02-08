@@ -46,7 +46,6 @@ class PublicChallenge extends Challenge
     }
 
 
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;

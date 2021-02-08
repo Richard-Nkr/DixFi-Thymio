@@ -43,15 +43,11 @@ class UserGuestController extends AbstractController
     /**
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
-<<<<<<< HEAD
-     * @param TeacherUserGuest $teacherUserGuest
-=======
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
      * @param TeacherUserGuest $teacherUserguest
      * @param CreateChat $createChat
-     * @param GestionPassword $createPassword
->>>>>>> develop
+     * @param GestionPassword $gestionPassword
      * @return Response
      */
     public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
@@ -63,27 +59,16 @@ class UserGuestController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $gestionPassword->createHashPassword($userguest);
-            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')){
+            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
                 $userguest = $teacherUserguest->makeTeacher($userguest);
             }
             $entityManager->persist($userguest);
-<<<<<<< HEAD
-            $entityManager->flush();
-            if ($userguest->getRole()=="teacher") {
-                $chat = new Chat();
-                $chat->setTeacher($userguest);
-                $entityManager = $this->getDoctrine()->getManager();
-                $userguest->setChat($chat);
-                $entityManager->persist($chat);
-                $entityManager->persist($userguest);
-                $entityManager->flush();
-=======
+
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
                 $entityManager->persist($createChat->create($userguest));
->>>>>>> develop
             }
             $entityManager->flush();
-            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant ".$userguest->getId()."", ['browser']));
+            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant " . $userguest->getId() . "", ['browser']));
             return $this->redirectToRoute('app_login');
         }
 
@@ -136,7 +121,7 @@ class UserGuestController extends AbstractController
      */
     public function delete(Request $request, UserGuest $userGuest): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$userGuest->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $userGuest->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $userGuest->setDeletedAt(new \DateTime());
             $entityManager->flush();
