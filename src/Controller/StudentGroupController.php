@@ -8,6 +8,7 @@ use App\Repository\GroupRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
+use App\Service\CreateChat;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,7 @@ class StudentGroupController extends AbstractController
     {
         return $this->render('student_group/index.html.twig', [
             'student_groups' => $studentgroupRepository->findAll(),
-            'teacher' => $teacherRepository->findOneById($session->get('id_user')),
+            'teacher'=>$this->getUser()
         ]);
     }
 
@@ -39,9 +40,10 @@ class StudentGroupController extends AbstractController
      * @param Request $request
      * @param Session $session
      * @param UserRepository $userRepository
+     * @param CreateChat $teacherUserGuest
      * @return Response
      */
-    public function new(Request $request, Session $session, UserRepository $userRepository): Response
+    public function new(Request $request, Session $session, UserRepository $userRepository, CreateChat $teacherUserGuest): Response
     {
         $studentGroup = new StudentGroup();
         $form = $this->createForm(StudentGroupType::class, $studentGroup);
@@ -54,11 +56,11 @@ class StudentGroupController extends AbstractController
             $pass = password_hash($studentGroup->getPassword(), PASSWORD_DEFAULT);
             $studentGroup->setPassword($pass);
             $studentGroup->setCreatedAt(new \DateTime('now'));
-            $studentGroup->setRole("group");
+            $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
             $studentGroup->setCountSucceed(0);
-            var_dump($userRepository->findOneById($session->get('id_user')));
-            $studentGroup->setTeacher($userRepository->findOneById($session->get('id_user')));
-            $studentGroup->setChat($userRepository->findOneById($session->get('id_user'))->getChat());
+            $teacher = $teacherUserGuest->makeTeacher($this->getUser());
+            $studentGroup->setTeacher($this->getUser());
+            $studentGroup->setChat($this->getUser()->getChat());
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 

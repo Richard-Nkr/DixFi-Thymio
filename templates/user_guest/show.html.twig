@@ -3,32 +3,37 @@
 {% block title %}UserGuest{% endblock %}
 
 {% block body %}
-    <h1>UserGuest</h1>
+<fieldset class="formInscription">
+    <legend class="legendInscription">Hello {{ user_guest.nickname }} !</legend>
+    <div class="form-group">
+        <p> Voici vos données personnelles </p>
 
-    <table class="table">
+
+        <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Votre identifiant</th>
                 <td>{{ user_guest.id }}</td>
             </tr>
             <tr>
-                <th>Mail</th>
+                <th>Votre adresse mail</th>
                 <td>{{ user_guest.mail }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Votre nome</th>
                 <td>{{ user_guest.name }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>Votre prénom</th>
                 <td>{{ user_guest.firstname }}</td>
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('user_guest_index') }}">back to list</a>
-
-    <a href="{{ path('user_guest_edit', {'id': user_guest.id}) }}">edit</a>
+    </div>
+</fieldset>
+    <a href="{{ path('user_index') }}">Retour en arrière</a>
+    <br>
+    <a href="{{ path('user_guest_edit', {'id': user_guest.id}) }}">Modifier votre profil</a>
 
     {{ include('user_guest/_delete_form.html.twig') }}
 {% endblock %}

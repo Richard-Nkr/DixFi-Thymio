@@ -15,6 +15,15 @@ class Teacher extends UserGuest
 {
 
     /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="teacher")
      */
     private $comments;

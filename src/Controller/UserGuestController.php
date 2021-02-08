@@ -7,13 +7,21 @@ use App\Entity\Teacher;
 use App\Entity\User;
 use App\Entity\UserGuest;
 use App\Form\UserGuestType;
+use App\Form\UserGuestUpdateType;
 use App\Form\UserType;
-use App\GestionHeritage\TeacherUserGuest;
+use App\Service\GestionPassword;
+use App\Service\SecurizerRoles;
+use App\Service\CreateChat;
+use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
+use App\Repository\UserRepository;
+use App\Service\TeacherUserGuest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 
 /**
  * @Route("/user/guest")
@@ -35,24 +43,31 @@ class UserGuestController extends AbstractController
     /**
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
+<<<<<<< HEAD
      * @param TeacherUserGuest $teacherUserGuest
+=======
+     * @param SecurizerRoles $securizerRoles
+     * @param NotifierInterface $notifier
+     * @param TeacherUserGuest $teacherUserguest
+     * @param CreateChat $createChat
+     * @param GestionPassword $createPassword
+>>>>>>> develop
      * @return Response
      */
-    public function new(Request $request, TeacherUserGuest $teacherUserGuest): Response
+    public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userguest->setCreatedAt(new \DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
-            $pass = password_hash($userguest->getPassword(), PASSWORD_DEFAULT);
-            $userguest->setPassword($pass);
-            if ($userguest->getRole()=="teacher"){
-                $userguest = $teacherUserGuest->makeTeacher($userguest);
+            $gestionPassword->createHashPassword($userguest);
+            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')){
+                $userguest = $teacherUserguest->makeTeacher($userguest);
             }
             $entityManager->persist($userguest);
+<<<<<<< HEAD
             $entityManager->flush();
             if ($userguest->getRole()=="teacher") {
                 $chat = new Chat();
@@ -62,9 +77,14 @@ class UserGuestController extends AbstractController
                 $entityManager->persist($chat);
                 $entityManager->persist($userguest);
                 $entityManager->flush();
+=======
+            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
+                $entityManager->persist($createChat->create($userguest));
+>>>>>>> develop
             }
-
-            return $this->redirectToRoute('user_index');
+            $entityManager->flush();
+            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant ".$userguest->getId()."", ['browser']));
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('user_guest/new.html.twig', [
@@ -93,7 +113,7 @@ class UserGuestController extends AbstractController
      */
     public function edit(Request $request, UserGuest $userGuest): Response
     {
-        $form = $this->createForm(UserGuestType::class, $userGuest);
+        $form = $this->createForm(UserGuestUpdateType::class, $userGuest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -118,7 +138,7 @@ class UserGuestController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$userGuest->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($userGuest);
+            $userGuest->setDeletedAt(new \DateTime());
             $entityManager->flush();
         }
 

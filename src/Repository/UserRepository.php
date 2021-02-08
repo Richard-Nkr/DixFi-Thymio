@@ -49,4 +49,14 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findUserId($userguest): ?id
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u = :val')
+            ->setParameter('val', $userguest)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
 }

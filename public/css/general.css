@@ -4,6 +4,11 @@
     font-weight: bold;
 }
 
+.error{
+    font-style: italic;
+    color: red;
+}
+
 body{
     text-align: center;
 }
@@ -15,7 +20,45 @@ a:hover {
     float: right;
 }
 
+.introButton{
+    font-size: 15px;
+    margin-top: 4%;
+}
 
+.greenButton{
+    text-align: center;
+    width: 30%;
+    font-size: 25px;
+    color: white;
+    background-color: lightgreen;
+    border-radius: 12px;
+    margin-bottom: 2%;
+    padding: 1%;
+}
+
+.orangeButton{
+    text-align: center;
+    width: 30%;
+    font-size: 25px;
+    color: white;
+    background-color: lightsalmon;
+    margin-bottom: 2%;
+    border-radius: 12px;
+    padding: 1%;
+}
+
+.list{
+    background-color: white;
+}
+.redButton{
+    text-align: center;
+    width: 30%;
+    font-size: 25px;
+    color: white;
+    background-color: lightcoral;
+    border-radius: 12px;
+    padding: 1%;
+}
 
 .formInscription{
     margin:3% 22% 3% 22%;
