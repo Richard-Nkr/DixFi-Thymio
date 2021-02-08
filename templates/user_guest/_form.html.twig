@@ -29,7 +29,9 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.roles, 'Vous vous inscrivez en tant que : ') }}
+        <br>
+        {{ form_label(form.roles, 'Vous vous inscrivez en tant que : ', { 'attr': { 'class': 'list' } }) }}
+        <p> <i>(Attention, veuillez choisir une seule option)</i></p>
         <div class="col-sm-14">
             {{ form_widget(form.roles) }}
         </div>

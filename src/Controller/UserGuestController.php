@@ -9,11 +9,13 @@ use App\Entity\UserGuest;
 use App\Form\UserGuestType;
 use App\Form\UserGuestUpdateType;
 use App\Form\UserType;
+use App\Service\GestionPassword;
 use App\Service\SecurizerRoles;
-use App\Service\TeacherUserGuest;
+use App\Service\CreateChat;
 use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
+use App\Service\TeacherUserGuest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,35 +44,29 @@ class UserGuestController extends AbstractController
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
      * @param SecurizerRoles $securizerRoles
-     * @param TeacherUserGuest $teacherUserGuest
      * @param NotifierInterface $notifier
-     * @param UserRepository $userRepository
+     * @param TeacherUserGuest $teacherUserguest
+     * @param CreateChat $createChat
+     * @param GestionPassword $createPassword
      * @return Response
      */
-    public function new(Request $request, SecurizerRoles $securizerRoles, TeacherUserGuest $teacherUserGuest, NotifierInterface $notifier, UserRepository $userRepository): Response
+    public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userguest->setCreatedAt(new \DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
-            $pass = password_hash($userguest->getPassword(), PASSWORD_DEFAULT);
-            $userguest->setPassword($pass);
+            $gestionPassword->createHashPassword($userguest);
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')){
-                $userguest = $teacherUserGuest->makeTeacher($userguest);
+                $userguest = $teacherUserguest->makeTeacher($userguest);
             }
             $entityManager->persist($userguest);
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
-                $chat = new Chat();
-                $chat->setTeacher($userguest);
-                $userguest->setChat($chat);
-                $entityManager->persist($chat);
-                //à voir $entityManager->persist($userguest);
+                $entityManager->persist($createChat->create($userguest));
             }
             $entityManager->flush();
-            //$id = $userRepository->findUserId($userguest);
             $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant ".$userguest->getId()."", ['browser']));
             return $this->redirectToRoute('app_login');
         }

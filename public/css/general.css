@@ -36,6 +36,20 @@ a:hover {
     padding: 1%;
 }
 
+.orangeButton{
+    text-align: center;
+    width: 30%;
+    font-size: 25px;
+    color: white;
+    background-color: lightsalmon;
+    margin-bottom: 2%;
+    border-radius: 12px;
+    padding: 1%;
+}
+
+.list{
+    background-color: white;
+}
 .redButton{
     text-align: center;
     width: 30%;

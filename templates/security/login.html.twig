@@ -20,12 +20,20 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputId">Id</label>
-    <input type="text" value="{{ last_username }}" name="id" id="inputId" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
+    <fieldset class="formInscription">
+        <legend class="legendInscription">Connexion à mon compte</legend>
+        <div class="form-group">
+            <label for="inputId">Identifiant :</label>
+            <div class="col-sm-14">
+            <input type="text" value="{{ last_username }}" name="id" id="inputId"  required autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Mot de passe :</label>
+            <div class="col-sm-14">
+            <input type="password" name="password" id="inputPassword"  required>
+            </div>
+        </div>
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
@@ -40,9 +48,10 @@
             </label>
         </div>
     #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+    <br>
+    <button class="btn btn-success" type="submit">
+        Se connecter
     </button>
+    </fieldset>
 </form>
 {% endblock %}

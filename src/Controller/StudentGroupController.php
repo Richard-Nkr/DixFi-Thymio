@@ -8,7 +8,7 @@ use App\Repository\GroupRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
-use App\Service\TeacherUserGuest;
+use App\Service\CreateChat;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,10 +40,10 @@ class StudentGroupController extends AbstractController
      * @param Request $request
      * @param Session $session
      * @param UserRepository $userRepository
-     * @param TeacherUserGuest $teacherUserGuest
+     * @param CreateChat $teacherUserGuest
      * @return Response
      */
-    public function new(Request $request, Session $session, UserRepository $userRepository, TeacherUserGuest $teacherUserGuest): Response
+    public function new(Request $request, Session $session, UserRepository $userRepository, CreateChat $teacherUserGuest): Response
     {
         $studentGroup = new StudentGroup();
         $form = $this->createForm(StudentGroupType::class, $studentGroup);

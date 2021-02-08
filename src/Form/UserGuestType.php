@@ -29,16 +29,17 @@ class UserGuestType extends AbstractType
             ->add('name')
             ->add('firstName')
             ->add('roles', ChoiceType::class, [
-                'constraints'=> [new Assert\Count([
-                'min' => 1,
-                'max' => 1,
-            ]),
+                'constraints'=> [
+                    new Assert\Count([
+                        'min' => 1,
+                        'max' => 1,
+                    ]),
                 ],
                 'choices' => [
                     'Enseignant' => 'ROLE_TEACHER',
                     'Utilisateur simple' => 'ROLE_USER_GUEST'
                 ],
-                'expanded'=>false,
+                'expanded'=>true,
                 'multiple' => true
             ]);
     }

@@ -5,17 +5,22 @@
 {% block body %}
     {% if app.user%}
         {% if is_granted('ROLE_TEACHER') %}
+            <p class="introButton"> <b> Consultez votre profil d'enseignant : </b></p>
             <a href="{{ path('teacher_show',{'id': app.user.id}) }}"> <button class="greenButton" value="See profil"> Voir mon profil enseignant </button></a>
             <br>
-        <a href="{{ path('student_group_new') }}"> <button value="Create groups"> Créer mes groupes </button></a>
-
+            <p class="introButton"> <b> Créez vos propres groupes étudiants : </b></p>
+        <a href="{{ path('student_group_new') }}"> <button class="orangeButton" value="Create groups"> Créer mes groupes </button></a>
+        <br>
         {% elseif is_granted('ROLE_STUDENT_GROUP') %}
+            <p class="introButton"> <b> Consultez le profil de votre groupe : </b></p>
             <a href="{{ path('student_group_show', {'id': app.user.id}) }}"> <button class="greenButton" value="See profil"> Voir le profil de mon groupe </button></a>
             <br>
          {% else %}
+             <p class="introButton"> <b> Consultez votre profil utilisateur : </b></p>
             <a href="{{ path('user_guest_show', {'id': app.user.id}) }}"> <button class="greenButton" value="See profil"> Voir mon profil utilisateur </button></a>
             <br>
         {% endif %}
+        <p class="introButton"> <b> Déconnectez-vous de votre espace : </b></p>
         <a href="{{ path('app_logout') }}"> <button class="redButton" value="Se déconnecter"> Se déconnecter </button> </a>
         <br>
     {% else %}
