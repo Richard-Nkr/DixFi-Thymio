@@ -42,43 +42,4 @@ class ThymioChallengeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="thymio_challenge_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param ThymioChallenge $thymioChallenge
-     * @return Response
-     */
-    public function edit(Request $request, ThymioChallenge $thymioChallenge): Response
-    {
-        $form = $this->createForm(ThymioChallengeType::class, $thymioChallenge);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('thymio_challenge_index');
-        }
-
-        return $this->render('thymio_challenge/edit.html.twig', [
-            'thymio_challenge' => $thymioChallenge,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="thymio_challenge_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param ThymioChallenge $thymioChallenge
-     * @return Response
-     */
-    public function delete(Request $request, ThymioChallenge $thymioChallenge): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$thymioChallenge->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($thymioChallenge);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('thymio_challenge_index');
-    }
 }

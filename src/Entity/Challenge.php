@@ -57,6 +57,11 @@ class Challenge
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $duration;
+
     public function __construct()
     {
         $this->status = new ArrayCollection();
@@ -185,6 +190,18 @@ class Challenge
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(string $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

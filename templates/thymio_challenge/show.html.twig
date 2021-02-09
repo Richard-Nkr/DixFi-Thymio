@@ -8,11 +8,21 @@
 
     <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
 
-                {{ thymio_challenge.difficulty }}
+    <p>Temps nécessaire : {{ thymio_challenge.duration }} </p>
+    <p> {{ thymio_challenge.difficulty }} </p>
 
-                {{ thymio_challenge.description }}
+    <p>  {{ thymio_challenge.description }} </p>
 
 </fieldset>
+
+    <div class="col-sm-4">
+       <!-- Ici mail -->
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Envoyer" class="btn btn-success" />
+    </div>
+
+
     <div>
         <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}" style="margin: 41%;">
             <button class="btn btn-success">Faire valider par notre professeur</button>
