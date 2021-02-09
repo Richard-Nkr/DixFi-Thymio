@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier votre profil utilisateur{% endblock %}
+
+{% block body %}
+<fieldset class="formInscription">
+    <legend class="legendInscription">Modification de votre compte</legend>
+
+
+    {{ include('user_guest/_form_update.html.twig', {'button_label': 'Update'}) }}
+</fieldset>
+    <a href="{{ path('user_guest_index') }}">back to list</a>
+
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -37,6 +38,7 @@ class UserRepository extends ServiceEntityRepository
     */
 
 
+
     public function findOneById($id): ?User
     {
         return $this->createQueryBuilder('u')
@@ -45,6 +47,16 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function findUserId($userguest): ?id
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u = :val')
+            ->setParameter('val', $userguest)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Teacher;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,10 +18,9 @@ class TeacherType extends AbstractType
         $builder
             ->add('nickname')
             ->add('password', PasswordType::class)
-            ->add('mailTeacher')
-            ->add('nameTeacher')
-            ->add('firstNameTeacher')
-        ;
+            ->add('mail')
+            ->add('name')
+            ->add('firstName');
     }
 
     public function configureOptions(OptionsResolver $resolver)

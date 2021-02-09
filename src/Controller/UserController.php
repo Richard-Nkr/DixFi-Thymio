@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+
+use App\Entity\Chat;
+use App\Entity\Teacher;
 use App\Entity\User;
+use App\Form\TeacherType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +34,10 @@ class UserController extends AbstractController
     public function connexion(Request $request, UserRepository $userRepository, Session $session): Response
     {
         //en cas de connexion ouverte
-        if ($session->has('user')) {
+        if ($session->has('id_user')) {
 
             //on la referme, afin de pouvoir initier une nouvelle connexion
-            $session->remove('user');
+            $session->remove('id_user');
         }
 
         $user = new User();
@@ -44,15 +48,16 @@ class UserController extends AbstractController
             $id= $user->getId();
             //on récupère le code crypté
             $passHash = $userRepository->findOneById($id)->getPassword() ?? "pas d'utilisateur";
-            var_dump($passHash);
-            var_dump($user->getPassword());
             //cette méthode vérifie que le mot de passe saisie et le hash correspondent
             $password = password_verify($user->getPassword(), $passHash);
             if ($password) {
                 $user = $userRepository->findOneById($id);
                 //on ouvre la connexion
-                $session->set('user', $user);
-                return $this->redirectToRoute('index');
+                $session->set('id_user', $id);
+                $session->set('role',$user->getRole());
+                return $this->redirectToRoute('user_index', [
+                    'user' => $user
+                ]);
             }
 
             return $this->render('user/connexion.html.twig', [
@@ -63,6 +68,24 @@ class UserController extends AbstractController
         return $this->render('user/connexion.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/deconnexion", name="user_deconnexion", methods={"GET", "POST"})
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param Session $session
+     * @return Response
+     */
+    public function deconnexion(Request $request, UserRepository $userRepository, Session $session): Response
+    {
+        //en cas de connexion ouverte
+        if ($session->has('id_user')) {
+
+            //on la referme, afin de pouvoir initier une nouvelle connexion
+            $session->remove('id_user');
+        }
+        return $this->redirectToRoute('user_index');
     }
 
     /**
@@ -78,40 +101,24 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
-     * @param Request $request
+     * @Route("/show", name="user_show", methods={"GET"})
+
+     * @param Session $session
      * @return Response
      */
-    public function new(Request $request): Response
+    public function show(Session $session): Response
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        if ($session->get('role')=="teacher") {
+            return $this->render('teacher/show.html.twig', [
+                'teacher' => $session->get('user'),
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            ]);
+        }else{
+            return $this->render('student_group/show.html.twig', [
+                'student_group' => $session->get('user'),
 
-            return $this->redirectToRoute('user_index');
+            ]);
         }
-
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
-     * @param User $user
-     * @return Response
-     */
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
     }
 
     /**

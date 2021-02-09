@@ -20,18 +20,18 @@ class Chat
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="chatMessage")
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="chat")
      */
     private $messages;
 
     /**
-     * @ORM\OneToOne(targetEntity=Teacher::class, inversedBy="chatTeacher", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Teacher::class, inversedBy="chat", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $teacher;
 
     /**
-     * @ORM\OneToMany(targetEntity=StudentGroup::class, mappedBy="chatStu")
+     * @ORM\OneToMany(targetEntity=StudentGroup::class, mappedBy="chat")
      */
     private $groups;
 

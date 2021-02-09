@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Chat;
 use App\Entity\StudentGroup;
-use App\Entity\Teacher;
 use App\Form\StudentGroupType;
 use App\Repository\GroupRepository;
+use App\Repository\StudentGroupRepository;
+use App\Repository\TeacherRepository;
+use App\Repository\UserRepository;
+use App\Service\CreateChat;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -19,33 +22,45 @@ class StudentGroupController extends AbstractController
 {
     /**
      * @Route("/", name="student_group_index", methods={"GET"})
-     * @param StudentGroupRepository $studentGroupRepository
+     * @param StudentGroupRepository $studentgroupRepository
+     * @param Session $session
+     * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function index(StudentGroupRepository $studentGroupRepository): Response
+    public function index(StudentGroupRepository $studentgroupRepository, Session $session, TeacherRepository $teacherRepository): Response
     {
         return $this->render('student_group/index.html.twig', [
-            'student_groups' => $studentGroupRepository->findAll(),
+            'student_groups' => $studentgroupRepository->findAll(),
+            'teacher'=>$this->getUser()
         ]);
     }
 
     /**
      * @Route("/new", name="student_group_new", methods={"GET","POST"})
      * @param Request $request
+     * @param Session $session
+     * @param UserRepository $userRepository
+     * @param CreateChat $teacherUserGuest
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Session $session, UserRepository $userRepository, CreateChat $teacherUserGuest): Response
     {
         $studentGroup = new StudentGroup();
         $form = $this->createForm(StudentGroupType::class, $studentGroup);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $studentGroup->setCreatedAt(new \DateTime('now'));
-            $studentGroup->setRole("user");
-            $studentGroup->setCountSucceed(0);
-            //$studentGroup->setTeacher();
+
             $entityManager = $this->getDoctrine()->getManager();
+
+            $pass = password_hash($studentGroup->getPassword(), PASSWORD_DEFAULT);
+            $studentGroup->setPassword($pass);
+            $studentGroup->setCreatedAt(new \DateTime('now'));
+            $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
+            $studentGroup->setCountSucceed(0);
+            //66-$teacher = $teacherUserGuest->makeTeacher($this->getUser());
+            $studentGroup->setTeacher($this->getUser());
+            $studentGroup->setChat($this->getUser()->getChat());
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 
@@ -72,9 +87,6 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="student_group_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param StudentGroup $studentGroup
-     * @return Response
      */
     public function edit(Request $request, StudentGroup $studentGroup): Response
     {
@@ -95,9 +107,6 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}", name="student_group_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param StudentGroup $studentGroup
-     * @return Response
      */
     public function delete(Request $request, StudentGroup $studentGroup): Response
     {
