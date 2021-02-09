@@ -22,6 +22,17 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
+            {% if is_granted('ROLE_TEACHER') %}
+            <li class="nav-item dropdown" class="nav-item active" >
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="nav-link" href="#">Votre espace Teacher </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Vos groupes en attente de validation</a>
+                    <a class="dropdown-item" href="#">La progression de vos groupes</a>
+                    <a class="dropdown-item" href="{{ path('teacher_show',{'id': app.user.id}) }}">Votre profil</a>
+                </div>
+                </a>
+            </li>
+            {% endif %}
 
         </ul>
 
