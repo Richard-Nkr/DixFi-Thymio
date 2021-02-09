@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\StudentGroup;
+use App\Entity\Teacher;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +21,30 @@ class StudentGroupRepository extends ServiceEntityRepository
         parent::__construct($registry, StudentGroup::class);
     }
 
-    // /**
-    //  * @return Group[] Returns an array of Group objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Teacher $teacher
+     * @return Teacher[] Returns an array of Teacher objects
+     */
+    public function findByTeacher(Teacher $teacher): ?array
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.teacher = :val')
+            ->setParameter('val', $teacher)
+            ->orderBy('t.id', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
+
+    public function findOneById($id): ?StudentGroup
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Group

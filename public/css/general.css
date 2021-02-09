@@ -89,3 +89,52 @@ a:hover {
     margin-top: 2%;
     border-radius: 20px;
 }
+
+.
+
+.titleChallenge{
+    font-variant: all-small-caps;
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+}
+.thymioChallenge{
+    margin:3% 22% 3% 22%;
+    border:2px solid #3b87c1;
+    border-radius: 12px;
+    background-color: #99caf1;
+    text-align: justify;
+    font-weight: bold;
+    padding: 2%;
+}
+
+.formValidate{
+    margin:3% 10% 3% 10%;
+    border:2px solid #3b87c1;
+    border-radius: 12px;
+    background-color: white;
+    text-align: justify;
+    padding: 2%;
+}
+
+#descriptionThymio{
+    background-color: #d22b2b;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    font-variant: all-small-caps;
+}
+
+.buttonStartChallenge{
+    float: right;
+    margin-top: 2%;
+}
+
+
+.titleChallenge{
+    font-variant: all-small-caps;
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+}

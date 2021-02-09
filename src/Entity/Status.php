@@ -46,13 +46,19 @@ class Status
      * @ORM\ManyToOne(targetEntity=StudentGroup::class, inversedBy="Status")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $groupStatus;
+    private $studentGroup;
 
     /**
      * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="status")
      * @ORM\JoinColumn(nullable=false)
      */
     private $challenge;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $submitted_at;
+    
 
     public function getId(): ?int
     {
@@ -84,14 +90,14 @@ class Status
         return $this;
     }
 
-    public function getNeedHelpBoolean(): ?bool
+    public function getNeedHelp(): ?bool
     {
-        return $this->needHelpBoolean;
+        return $this->needHelp;
     }
 
-    public function setNeedHelpBoolean(bool $needHelpBoolean): self
+    public function setNeedHelp(bool $needHelp): self
     {
-        $this->needHelpBoolean = $needHelpBoolean;
+        $this->needHelp = $needHelp;
 
         return $this;
     }
@@ -120,14 +126,14 @@ class Status
         return $this;
     }
 
-    public function getGroupStatus(): ?StudentGroup
+    public function getStudentGroup(): ?StudentGroup
     {
-        return $this->groupStatus;
+        return $this->studentGroup;
     }
 
-    public function setGroupStatus(?StudentGroup $groupStatus): self
+    public function setStudentGroup(?StudentGroup $studentGroup): self
     {
-        $this->groupStatus = $groupStatus;
+        $this->studentGroup = $studentGroup;
 
         return $this;
     }
@@ -140,6 +146,18 @@ class Status
     public function setChallenge(?Challenge $challenge): self
     {
         $this->challenge = $challenge;
+
+        return $this;
+    }
+
+    public function getSubmittedAt(): ?\DateTimeInterface
+    {
+        return $this->submitted_at;
+    }
+
+    public function setSubmittedAt(?\DateTimeInterface $submitted_at): self
+    {
+        $this->submitted_at = $submitted_at;
 
         return $this;
     }

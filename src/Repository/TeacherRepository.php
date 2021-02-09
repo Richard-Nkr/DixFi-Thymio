@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Teacher;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,22 +22,7 @@ class TeacherRepository extends ServiceEntityRepository
 
 
 
-    // /**
-    //  * @return Teacher[] Returns an array of Teacher objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+
     /**
      * Cette méthode va nous permettre de récupérer un utilisateur via son pseudo
      * @param $value
@@ -52,6 +38,16 @@ class TeacherRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function findOneById($id): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 
 }

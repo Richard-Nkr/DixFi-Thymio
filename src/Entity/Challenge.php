@@ -52,6 +52,7 @@ class Challenge
      */
     private $helps;
 
+
     public function __construct()
     {
         $this->status = new ArrayCollection();

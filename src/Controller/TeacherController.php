@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Chat;
+use App\Entity\Status;
+use App\Entity\StudentGroup;
 use App\Entity\Teacher;
 use App\Form\TeacherType;
+use App\Repository\StatusRepository;
+use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,6 +71,55 @@ class TeacherController extends AbstractController
             'teacher' => $teacher,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/validation/groups", name="validation_groups", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param TeacherRepository $teacherRepository
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function validateGroups(StatusRepository $statusRepository, TeacherRepository $teacherRepository, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $teacher = $teacherRepository->findOneById($this->getUser()->getId());
+        $studentgroups = $studentGroupRepository->findByTeacher($teacher);
+        return $this->render('teacher/validation_groups.html.twig', [
+            'teacher' => $teacher,
+            'studentgroups' => $studentgroups,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/list/challenges", name="list_challenges", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param int $id
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function listChallengesNotValidated(StatusRepository $statusRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($id);
+        $status = $statusRepository->findBy(['studentGroup' => $studentGroup,'statusInt' => 2]);
+        return $this->render('teacher/list_challenges.html.twig', [
+            'status' => $status,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/validate", name="validate", methods={"POST"})
+     * @param Status $status
+     * @return Response
+     */
+    public function validate(Status $status): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $status->setStatusInt(3);
+        $status->setFinishedAt(new \DateTime());
+        $entityManager->flush();
+
+        return $this->redirectToRoute('validation_groups');
     }
 
     /**
