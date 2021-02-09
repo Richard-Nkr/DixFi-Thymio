@@ -22,7 +22,7 @@ class ChallengeRepository extends ServiceEntityRepository
     public function findByDifficulty($difficulty): array
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.difficulty = :val')
+            ->where('t.difficulty = :val')
             ->setParameter('val', $difficulty)
             ->orderBy('t.id', 'ASC')
             ->setMaxResults(10)
