@@ -10,10 +10,10 @@
             <li class="nav-item dropdown" class="nav-item active" >
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="nav-link" href="#">Les Dix'Fi </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Easy DixFi's</a>
-                        <a class="dropdown-item" href="#">Medium DixFi's</a>
-                        <a class="dropdown-item" href="#">Hard DixFi's</a>
-                        <a class="dropdown-item" href="#">Extreme DixFi's</a>
+                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}">Easy DixFi's</a>
+                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}">Medium DixFi's</a>
+                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}">Hard DixFi's</a>
+                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}">Extreme DixFi's</a>
                     </div>
                 </a>
             </li>

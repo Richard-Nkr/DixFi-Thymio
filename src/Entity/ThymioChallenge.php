@@ -17,8 +17,4 @@ class ThymioChallenge extends Challenge
      */
     private $id;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 }

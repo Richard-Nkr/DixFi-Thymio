@@ -52,6 +52,16 @@ class Challenge
      */
     private $helps;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $duration;
+
     public function __construct()
     {
         $this->status = new ArrayCollection();
@@ -76,7 +86,7 @@ class Challenge
         return $this;
     }
 
-    public function getDifficulty(): ?int
+    public function getDifficulty(): ?string
     {
         return $this->difficulty;
     }
@@ -168,6 +178,30 @@ class Challenge
                 $help->setChallenge(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(string $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }
