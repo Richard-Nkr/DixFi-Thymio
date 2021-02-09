@@ -71,11 +71,9 @@ class UserGuestController extends AbstractController
                 $entityManager->persist($userguest);
                 $entityManager->flush();
             }
-            $mailerService->send(
-                "Nouveau message",
-                "DixFix.Thymio@gmail.com",
-                $mail,
-                'votre id est '.$id.''
+            $mailerService->sendId(
+                ''.$mail,
+                ''.$id
             );
             $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter
             afin de vous connecter.", ['browser']));
