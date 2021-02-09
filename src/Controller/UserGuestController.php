@@ -9,13 +9,13 @@ use App\Entity\UserGuest;
 use App\Form\UserGuestType;
 use App\Form\UserGuestUpdateType;
 use App\Form\UserType;
-use App\Service\GestionPassword;
+use App\Service\CreateStudentGroup;
 use App\Service\SecurizerRoles;
 use App\Service\CreateChat;
 use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
-use App\Service\TeacherUserGuest;
+use App\Service\ValidateChallenge;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,12 +45,12 @@ class UserGuestController extends AbstractController
      * @param Request $request
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
-     * @param TeacherUserGuest $teacherUserguest
+     * @param ValidateChallenge $teacherUserguest
      * @param CreateChat $createChat
-     * @param GestionPassword $createPassword
+     * @param CreateStudentGroup $createPassword
      * @return Response
      */
-    public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, ValidateChallenge $teacherUserguest, CreateChat $createChat, CreateStudentGroup $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);

@@ -11,6 +11,7 @@ use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
+use App\Service\ValidateChallenge;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -109,14 +110,15 @@ class TeacherController extends AbstractController
     /**
      * @Route("/{id}/validate", name="validate", methods={"POST"})
      * @param Status $status
+     * @param ValidateChallenge $validateChallenge
      * @return Response
      */
-    public function validate(Status $status): Response
+    public function validate(Status $status, ValidateChallenge $validateChallenge): Response
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $status->setStatusInt(3);
-        $status->setFinishedAt(new \DateTime());
+        $validateChallenge->handleStatus($status);
+        $validateChallenge->handleStudentGroup($status);
         $entityManager->flush();
 
         return $this->redirectToRoute('validation_groups');

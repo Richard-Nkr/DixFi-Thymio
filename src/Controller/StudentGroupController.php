@@ -9,6 +9,8 @@ use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
 use App\Service\CreateChat;
+use App\Service\CreateStudentGroup;
+use App\Service\GestionPassword;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,12 +40,12 @@ class StudentGroupController extends AbstractController
     /**
      * @Route("/new", name="student_group_new", methods={"GET","POST"})
      * @param Request $request
-     * @param Session $session
-     * @param UserRepository $userRepository
-     * @param CreateChat $teacherUserGuest
+     * @param TeacherRepository $teacherRepository
+     * @param GestionPassword $gestionPassword
+     * @param CreateStudentGroup $createStudentGroup
      * @return Response
      */
-    public function new(Request $request, Session $session, UserRepository $userRepository, CreateChat $teacherUserGuest): Response
+    public function new(Request $request, TeacherRepository $teacherRepository, GestionPassword $gestionPassword,CreateStudentGroup $createStudentGroup): Response
     {
         $studentGroup = new StudentGroup();
         $form = $this->createForm(StudentGroupType::class, $studentGroup);
@@ -52,15 +54,8 @@ class StudentGroupController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
-
-            $pass = password_hash($studentGroup->getPassword(), PASSWORD_DEFAULT);
-            $studentGroup->setPassword($pass);
-            $studentGroup->setCreatedAt(new \DateTime('now'));
-            $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
-            $studentGroup->setCountSucceed(0);
-            $teacher = $teacherUserGuest->makeTeacher($this->getUser());
-            $studentGroup->setTeacher($this->getUser());
-            $studentGroup->setChat($this->getUser()->getChat());
+            $gestionPassword->createHashPassword($studentGroup);
+            $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 

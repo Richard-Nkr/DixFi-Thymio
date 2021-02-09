@@ -16,9 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GestionPassword
 {
-    public function createHashPassword(UserGuest $userguest)
+    public function createHashPassword(User $user)
     {
-        $pass = password_hash($userguest->getPassword(), PASSWORD_DEFAULT);
-        $userguest->setPassword($pass);
+        $pass = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+        $user->setPassword($pass);
     }
 }
