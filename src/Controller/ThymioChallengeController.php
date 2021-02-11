@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * @Route("/thymio/challenge")
  */
@@ -25,8 +26,9 @@ class ThymioChallengeController extends AbstractController
      */
     public function index(ChallengeRepository $ChallengeRepository, String $difficulty): Response
     {
+
         return $this->render('thymio_challenge/index.html.twig', [
-            'thymio_challenges' => $ChallengeRepository->findByDifficulty($difficulty),
+            'thymio_challenges' => $ChallengeRepository->findByDifficulty($difficulty)
         ]);
     }
 
@@ -37,8 +39,11 @@ class ThymioChallengeController extends AbstractController
      */
     public function show(ThymioChallenge $thymioChallenge): Response
     {
+        $upload = new ThymioChallenge();
+        $form = $this->createForm(ThymioChallengeType::class, $upload);
         return $this->render('thymio_challenge/show.html.twig', [
             'thymio_challenge' => $thymioChallenge,
+            'form' => $form->createView(),
         ]);
     }
 
