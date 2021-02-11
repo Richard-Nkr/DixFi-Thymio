@@ -27,9 +27,9 @@
                 <td>{{ teacher.createdAt ? teacher.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ teacher.deletedAt ? teacher.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ teacher.password }}</td>
-                <td>{{ teacher.mailTeacher }}</td>
-                <td>{{ teacher.nameTeacher }}</td>
-                <td>{{ teacher.firstNameTeacher }}</td>
+                <td>{{ teacher.mail}}</td>
+                <td>{{ teacher.name }}</td>
+                <td>{{ teacher.firstName }}</td>
                 <td>
                     <a href="{{ path('teacher_show', {'id': teacher.id}) }}">show</a>
                     <a href="{{ path('teacher_edit', {'id': teacher.id}) }}">edit</a>
@@ -43,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('teacher_new') }}">Create new</a>
+    <a href="{{ path('teacher_show',{'id': app.user.username}) }}">Create new</a>
 {% endblock %}

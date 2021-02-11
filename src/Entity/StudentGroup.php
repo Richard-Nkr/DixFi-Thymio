@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupRepository;
+use App\Repository\StudentGroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=GroupRepository::class)
+ * @ORM\Entity(repositoryClass=StudentGroupRepository::class)
  * @ORM\Table(name="`student_group`")
  */
 class StudentGroup extends User
@@ -21,7 +21,7 @@ class StudentGroup extends User
 
     /**
      * @ORM\ManyToOne(targetEntity=Teacher::class, inversedBy="groups")
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $teacher;
 
@@ -47,7 +47,7 @@ class StudentGroup extends User
 
     /**
      * @ORM\ManyToOne(targetEntity=Chat::class, inversedBy="groups")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="chat_id", nullable=false)
      */
     private $chat;
 
