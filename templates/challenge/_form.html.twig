@@ -1,36 +1,50 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {{ form_start(form) }}
 <fieldset class="formInscription">
     <legend class="legendInscription">Créer un nouveau défi</legend>
-    <div class="form-group">
-        {{ form_label(form.name, 'Nom du défi : ') }}
-        <div class="col-sm-14">
-            {{ form_widget(form.name) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.description, 'Description : ') }}
-        <div class="col-sm-14">
-            {{ form_widget(form.description) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.difficulty, 'Difficulté : ') }}
-        <div class="col-sm-14">
-            {{ form_widget(form.difficulty) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.duration, 'Estimation de la durée (heure ou minutes) : ') }}
-        <div class="col-sm-14">
-            {{ form_widget(form.duration) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.role, 'Veuillez choisir si vous voulez rendre le challenge public ou privé  : ') }}
-        <div class="col-sm-14">
-            {{ form_widget(form.role) }}
-        </div>
-    </div>
+    <table class="form_table">
+        <tr>
+            <td class="td_label">
+                    {{ form_label(form.name, 'Nom du défi : ',  {'attr': {'class': 'form_label'} }) }}
+            </td>
+            <td class="td_field2">
+                    {{ form_widget(form.name, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                    {{ form_label(form.description, 'Description : ') }}
+            </td>
+            <td class="td_field2">
+                    {{ form_widget(form.description, { 'attr': {'class': 'form_field2'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                    {{ form_label(form.difficulty, 'Difficulté : ') }}
+            </td>
+            <td class="td_field2">
+                    {{ form_widget(form.difficulty, {'class': 'form_field' }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                    {{ form_label(form.duration, 'Durée : ') }}
+            </td>
+            <td class="td_field">
+                    {{ form_widget(form.duration, { 'attr': {'class': 'form_field', 'placeholder': '45 minutes / 1 heure', 'autocomplete': 'off'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                    {{ form_label(form.role, 'Type de défi : ') }}
+            </td>
+            <td class="td_field">
+                    {{ form_widget(form.role) }}
+            </td>
+        </tr>
+    </table>
     <button class="btn btn-success">{{ button_label|default('Créer le défi') }}</button>
 </fieldset>
 {{ form_end(form) }}

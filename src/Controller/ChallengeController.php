@@ -47,22 +47,23 @@ class ChallengeController extends AbstractController
         $challenge = new Challenge();
         $form = $this->createForm(ChallengeType::class, $challenge);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $teacher = $teacherRepository->findOneById($id);
-            if ($challenge->getRole() == "ROLE_PUBLIC_CHALLENGE") {
-                $challenge = $publicChallengeCreation->makePublicChallenge($challenge, $teacher);
-            } else {
-                $challenge = $createPrivateChallenge->makePrivateChallenge($challenge, $teacher);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $teacher = $teacherRepository->findOneById($id);
+                if ($challenge->getRole() == "ROLE_PUBLIC_CHALLENGE") {
+                    $challenge = $publicChallengeCreation->makePublicChallenge($challenge, $teacher);
+                } else {
+                    $challenge = $createPrivateChallenge->makePrivateChallenge($challenge, $teacher);
+                }
+                $entityManager->persist($challenge);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('challenge_index', [
+                    'teacher' => $session->get('user'),
+                ]);
             }
-            $entityManager->persist($challenge);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('challenge_index', [
-                'teacher' => $session->get('user'),
-            ]);
-
-        }
 
         return $this->render('challenge/new.html.twig', [
             'challenge' => $challenge,

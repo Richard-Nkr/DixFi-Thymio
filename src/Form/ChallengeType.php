@@ -29,9 +29,11 @@ class ChallengeType extends AbstractType
             ->add('duration')
             ->add('role', ChoiceType::class, [
                 'choices' => [
-                    'Public' => "ROLE_PUBLIC_CHALLENGE",
-                    'Privée' => "ROLE_PRIVATE_CHALLENGE",
+                    'Public : Disponible pour tout le monde' => "ROLE_PUBLIC_CHALLENGE",
+                    'Privée : Disponible uniquement pour ma classe' => "ROLE_PRIVATE_CHALLENGE",
                 ],
+                'expanded'=>true,
+                'multiple' => false
             ]);
     }
 
