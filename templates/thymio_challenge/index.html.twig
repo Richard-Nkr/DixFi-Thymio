@@ -9,7 +9,15 @@
             <fieldset class="thymioChallenge">
                 <legend class="legendChallenge"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
                 <div class="buttonStartChallenge">
-                    <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Commencer </button></a>
+                    {% if is_granted('ROLE_STUDENT_GROUP') %}
+                    <form method="post" action="{{ path('validate', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir commencer ce défi?');">
+                        {% endif %}
+                        <div class="buttonStartChallenge">
+                            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Commencer </button></a>
+                        </div>
+                        {% if is_granted('ROLE_STUDENT_GROUP') %}
+                    </form>
+                    {% endif %}
                 </div>
                 <div class="form-group">
                     <p>Difficulté : {{ thymio_challenge.difficulty }}</p>
