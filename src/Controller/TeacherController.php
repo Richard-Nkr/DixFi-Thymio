@@ -157,8 +157,8 @@ class TeacherController extends AbstractController
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $validateChallenge->handleStatus($status,false);
         $validateChallenge->handleStudentGroup($status,false);
+        $validateChallenge->handleStatus($status,false);
         $entityManager->flush();
 
         return $this->redirectToRoute('list_groups', ['purpose'=>'progress']);
@@ -174,8 +174,8 @@ class TeacherController extends AbstractController
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $validateChallenge->handleStatus($status,true);
         $validateChallenge->handleStudentGroup($status,true);
+        $validateChallenge->handleStatus($status,true);
         $entityManager->flush();
 
         return $this->redirectToRoute('list_groups', ['purpose'=>'validation']);

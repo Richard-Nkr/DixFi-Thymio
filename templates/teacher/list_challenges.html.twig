@@ -10,6 +10,12 @@
     <button class="btn btn-success">Valider </button>
     </div>
 </form>
+
+    <form method="post" action="{{ path('delete_validation', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir refuser ce défi?');">
+        <div class="buttonStartChallenge">
+            <button class="btn btn-success">Refuser le défi</button>
+        </div>
+    </form>
 </fieldset>
 {% else %}
     <p> Aucun Défi à valider </p>

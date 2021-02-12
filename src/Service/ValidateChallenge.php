@@ -37,7 +37,12 @@ class ValidateChallenge
             $studentGroup->setCountSucceed($studentGroup->getCountSucceed() + 1);
         }else{
             $studentGroup = $status->getStudentGroup();
-            $studentGroup->setCountSucceed($studentGroup->getCountSucceed() - 1);
+            if ($status->getStatusInt()==3) {
+                $studentGroup->setCountSucceed($studentGroup->getCountSucceed() - 1);
+                $status->setFinishedAt(NULL);
+            }
+            $status->setSubmittedAt(NULL);
+
         }
     }
 }
