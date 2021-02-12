@@ -10,6 +10,7 @@ use App\Service\PublicChallengeCreation;
 use App\Repository\ChallengeRepository;
 use App\Service\SecurizerRoles;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -33,6 +34,18 @@ class ChallengeController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", name="challenge_index", methods={"GET"})
+     * @param ChallengeRepository $challengeRepository
+     * @return Response
+     */
+    public function index_myChallenge(ChallengeRepository $challengeRepository): Response
+    {
+        return $this->render('challenge/index.html.twig', [
+            'challenges' => $challengeRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}/new", name="challenge_new", methods={"GET","POST"})
      * @param Request $request
      * @param PublicChallengeCreation $publicChallengeCreation
@@ -46,9 +59,12 @@ class ChallengeController extends AbstractController
     {
         $challenge = new Challenge();
         $form = $this->createForm(ChallengeType::class, $challenge);
+        $form->add('submit', SubmitType::class);
+
         $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                dd($form->getData());
                 $entityManager = $this->getDoctrine()->getManager();
                 $teacher = $teacherRepository->findOneById($id);
                 if ($challenge->getRole() == "ROLE_PUBLIC_CHALLENGE") {

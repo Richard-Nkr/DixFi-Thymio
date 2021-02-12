@@ -36,9 +36,12 @@ class HelpController extends AbstractController
     {
         $help = new Help();
         $form = $this->createForm(HelpType::class, $help);
+        $form->add('submit', SubmitType::class);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($form-getData());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($help);
             $entityManager->flush();

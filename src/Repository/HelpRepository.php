@@ -35,6 +35,16 @@ class HelpRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByIdChallenge($id):?Help
+    {
+        return $this->createQueryBuilder('h')
+            ->andWhere('h.challenge = :val')
+            ->setParameter('val', $id)
+            ->orderBy('h.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Help

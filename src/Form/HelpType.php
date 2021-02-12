@@ -12,11 +12,8 @@ class HelpType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('challenge')
             ->add('contentHelp')
             ->add('numberHelp')
-            //->add('groups')
-
         ;
     }
 
