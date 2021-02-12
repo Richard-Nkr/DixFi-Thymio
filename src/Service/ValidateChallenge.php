@@ -10,6 +10,7 @@ use App\Entity\UserGuest;
 use App\Form\UserGuestType;
 use App\Form\UserType;
 use App\Repository\UserGuestRepository;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +18,26 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ValidateChallenge
 {
-    public function handleStatus(Status $status)
+    public function handleStatus(Status $status, bool $validate)
     {
-        $status->setStatusInt(3);
-        $status->setFinishedAt(new \DateTime());
+        if($validate){
+            $status->setStatusInt(3);
+            $status->setFinishedAt(new \DateTime());
+        }else{
+            $status->setStatusInt(1);
+            $status->setFinishedAt(NULL);
+        }
+
     }
 
-    public function handleStudentGroup(Status $status)
+    public function handleStudentGroup(Status $status, bool $validate)
     {
-        $studentGroup = $status->getStudentGroup();
-        $studentGroup->setCountSucceed($studentGroup->getCountSucceed()+1);
+        if($validate) {
+            $studentGroup = $status->getStudentGroup();
+            $studentGroup->setCountSucceed($studentGroup->getCountSucceed() + 1);
+        }else{
+            $studentGroup = $status->getStudentGroup();
+            $studentGroup->setCountSucceed($studentGroup->getCountSucceed() - 1);
+        }
     }
 }

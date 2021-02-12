@@ -75,24 +75,32 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * @Route("/validation/groups", name="validation_groups", methods={"GET"})
+     * @Route("{purpose}/list/groups", name="list_groups", methods={"GET"})
      * @param StatusRepository $statusRepository
      * @param TeacherRepository $teacherRepository
      * @param StudentGroupRepository $studentGroupRepository
+     * @param String $purpose
      * @return Response
      */
-    public function validateGroups(StatusRepository $statusRepository, TeacherRepository $teacherRepository, StudentGroupRepository $studentGroupRepository): Response
+    public function listGroups(StatusRepository $statusRepository, TeacherRepository $teacherRepository, StudentGroupRepository $studentGroupRepository, String $purpose): Response
     {
         $teacher = $teacherRepository->findOneById($this->getUser()->getId());
         $studentgroups = $studentGroupRepository->findByTeacher($teacher);
-        return $this->render('teacher/validation_groups.html.twig', [
-            'teacher' => $teacher,
-            'studentgroups' => $studentgroups,
-        ]);
+        if ($purpose=="validation") {
+            return $this->render('teacher/validation_groups.html.twig', [
+                'teacher' => $teacher,
+                'studentgroups' => $studentgroups,
+            ]);
+        }elseif ($purpose=="progress"){
+            return $this->render('teacher/progression_groups.html.twig', [
+                'teacher' => $teacher,
+                'studentgroups' => $studentgroups,
+            ]);
+        }
     }
 
     /**
-     * @Route("/{id}/list/challenges", name="list_challenges", methods={"GET"})
+     * @Route("/{id}/list/challenges/not/validated", name="list_challenges_not_validated", methods={"GET"})
      * @param StatusRepository $statusRepository
      * @param int $id
      * @param StudentGroupRepository $studentGroupRepository
@@ -108,6 +116,55 @@ class TeacherController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/list/challenges/validated", name="list_challenges_validated.html.twig", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param int $id
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function listChallengesValidated(StatusRepository $statusRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($id);
+        $status = $statusRepository->findBy(['studentGroup' => $studentGroup,'statusInt' => 3]);
+        return $this->render('teacher/list_challenges_validated.html.twig', [
+            'status' => $status,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/list/challenges/progress", name="list_challenges_progress.html.twig", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param int $id
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function listChallengesInProgress(StatusRepository $statusRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($id);
+        $status = $statusRepository->findBy(['studentGroup' => $studentGroup,'statusInt' => [1,2]]);
+        return $this->render('teacher/list_challenges_progress.html.twig', [
+            'status' => $status,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/delete/validate", name="delete_validation", methods={"POST"})
+     * @param Status $status
+     * @param ValidateChallenge $validateChallenge
+     * @return Response
+     */
+    public function deleteValidation(Status $status, ValidateChallenge $validateChallenge): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $validateChallenge->handleStatus($status,false);
+        $validateChallenge->handleStudentGroup($status,false);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('list_groups', ['purpose'=>'progress']);
+    }
+
+    /**
      * @Route("/{id}/validate", name="validate", methods={"POST"})
      * @param Status $status
      * @param ValidateChallenge $validateChallenge
@@ -117,11 +174,11 @@ class TeacherController extends AbstractController
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $validateChallenge->handleStatus($status);
-        $validateChallenge->handleStudentGroup($status);
+        $validateChallenge->handleStatus($status,true);
+        $validateChallenge->handleStudentGroup($status,true);
         $entityManager->flush();
 
-        return $this->redirectToRoute('validation_groups');
+        return $this->redirectToRoute('list_groups', ['purpose'=>'validation']);
     }
 
     /**

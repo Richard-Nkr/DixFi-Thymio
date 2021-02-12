@@ -52,6 +52,11 @@ class Challenge
      */
     private $helps;
 
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $role;
+
 
     public function __construct()
     {
@@ -169,6 +174,18 @@ class Challenge
                 $help->setChallenge(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }

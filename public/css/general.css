@@ -117,6 +117,16 @@ a:hover {
     padding: 2%;
 }
 
+.legendValidation{
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    padding: 2px;
+    border: 1px solid midnightblue;
+    background-color: #1b5abe;
+    border-radius: 10px;
+}
+
 #descriptionThymio{
     background-color: #d22b2b;
     text-align: center;

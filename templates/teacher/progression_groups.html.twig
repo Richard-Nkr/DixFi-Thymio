@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %} La progression de vos groupes {% endblock %}
+{% block body %}
+    <fieldset id="descriptionThymio"> La progression de vos groupes sur les DixFi de Thymio </fieldset>
+
+    {% for studentgroup in studentgroups %}
+        <fieldset class="thymioChallenge">
+            <legend class="legendValidation"> Groupe n°{{ studentgroup.id }} : {{ studentgroup.nickname }}</legend>
+
+            {{ render(controller('App\\Controller\\TeacherController::listChallengesValidated', {'id': studentgroup.id}) ) }}
+            {{ render(controller('App\\Controller\\TeacherController::listChallengesInProgress', {'id': studentgroup.id}) ) }}
+        </fieldset>
+    {% endfor %}
+{% endblock %}
+
