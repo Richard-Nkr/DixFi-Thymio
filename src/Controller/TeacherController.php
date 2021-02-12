@@ -30,13 +30,11 @@ class TeacherController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{id}", name="teacher_show", methods={"GET"})
      * @param Teacher $teacher
      * @return Response
      */
-
 
     public function show(Teacher $teacher): Response
     {

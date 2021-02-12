@@ -23,6 +23,9 @@
                 <td>
                     <a href="{{ path('challenge_show', {'id': challenge.id}) }}">show</a>
                     <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">edit</a>
+                    <a href="{{ path('help_new', {'id': challenge.id}) }}">Ajouter un indice</a>
+                    <br>
+                    <a href="{{ path('help_show', {'id': challenge.id}) }}">Voir les indices</a>
                 </td>
             </tr>
         {% else %}

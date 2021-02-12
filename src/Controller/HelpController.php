@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Challenge;
 use App\Entity\Help;
 use App\Form\HelpType;
+use App\Repository\ChallengeRepository;
 use App\Repository\HelpRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,25 +30,27 @@ class HelpController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="help_new", methods={"GET","POST"})
+     * @Route("/{id}/new", name="help_new", methods={"GET","POST"})
      * @param Request $request
+     * @param ChallengeRepository $challengeRepository
+     * @param Challenge $challenge
+     * @param int $id
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ChallengeRepository $challengeRepository, Challenge $challenge, int $id): Response
     {
         $help = new Help();
         $form = $this->createForm(HelpType::class, $help);
-        $form->add('submit', SubmitType::class);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form-getData());
             $entityManager = $this->getDoctrine()->getManager();
+            $challenge = $challengeRepository->findOneById($id);
+            $help->setChallenge($challenge);
             $entityManager->persist($help);
             $entityManager->flush();
 
-            return $this->redirectToRoute('help_index');
+            return $this->redirectToRoute('challenge_index');
         }
 
         return $this->render('help/new.html.twig', [
@@ -62,6 +66,21 @@ class HelpController extends AbstractController
      */
     public function show(Help $help): Response
     {
+        return $this->render('help/show.html.twig', [
+            'help' => $help,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="help_show", methods={"GET"})
+     * @param Help $help
+     * @param int $id
+     * @param HelpRepository $helpRepository
+     * @return Response
+     */
+    public function list(Help $help, int $id, HelpRepository $helpRepository): Response
+    {
+        $help = $helpRepository->findByIdChallenge($id);
         return $this->render('help/show.html.twig', [
             'help' => $help,
         ]);
@@ -98,7 +117,7 @@ class HelpController extends AbstractController
      */
     public function delete(Request $request, Help $help): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$help->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $help->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($help);
             $entityManager->flush();

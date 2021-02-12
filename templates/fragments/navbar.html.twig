@@ -27,12 +27,15 @@
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                    aria-expanded="false" class="nav-link">Les Teachers'Fi</a>
                 <div class="dropdown-menu" style="margin-left: 22%;">
-                    <a class="dropdown-item" href="{{ path('challenge_new',{'id': '9'}) }}">Créer mes défis</a>
+                    {% if app.user %}
+                        {% if is_granted('ROLE_TEACHER') %}
+                            <a class="dropdown-item" href="{{ path('challenge_new',{'id': app.user.id}) }}">Créer mes défis</a>
+                            <a class="dropdown-item" href="{{ path('challenge_show',{'id': app.user.id}) }}">Voir mes défis</a>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </li>
-
         </ul>
-
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('user_index') }}">

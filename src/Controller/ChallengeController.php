@@ -34,11 +34,11 @@ class ChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="challenge_index", methods={"GET"})
+     * @Route("/{id}", name="challenge_show_myChallenge", methods={"GET"})
      * @param ChallengeRepository $challengeRepository
      * @return Response
      */
-    public function index_myChallenge(ChallengeRepository $challengeRepository): Response
+    public function show_myChallenge(ChallengeRepository $challengeRepository): Response
     {
         return $this->render('challenge/index.html.twig', [
             'challenges' => $challengeRepository->findAll(),
@@ -59,12 +59,9 @@ class ChallengeController extends AbstractController
     {
         $challenge = new Challenge();
         $form = $this->createForm(ChallengeType::class, $challenge);
-        $form->add('submit', SubmitType::class);
-
         $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                dd($form->getData());
                 $entityManager = $this->getDoctrine()->getManager();
                 $teacher = $teacherRepository->findOneById($id);
                 if ($challenge->getRole() == "ROLE_PUBLIC_CHALLENGE") {

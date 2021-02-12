@@ -3,7 +3,7 @@
 {{ form_start(form) }}
 <fieldset class="formInscription">
     <legend class="legendInscription">Créer un nouveau défi</legend>
-    <table class="form_table">
+    <table class="form_table2">
         <tr>
             <td class="td_label">
                 {{ form_label(form.name, 'Nom du défi : ',  {'attr': {'class': 'form_label'} }) }}
@@ -32,7 +32,7 @@
             <td class="td_label">
                 {{ form_label(form.duration, 'Durée : ') }}
             </td>
-            <td class="td_field">
+            <td class="td_field2">
                 {{ form_widget(form.duration, { 'attr': {'class': 'form_field', 'placeholder': '45 minutes / 1 heure', 'autocomplete': 'off'} }) }}
             </td>
         </tr>
@@ -40,7 +40,7 @@
             <td class="td_label">
                 {{ form_label(form.role, 'Type de défi : ') }}
             </td>
-            <td class="td_field">
+            <td class="td_field2">
                 {{ form_widget(form.role) }}
             </td>
         </tr>
@@ -48,4 +48,3 @@
     <button class="btn btn-success">{{ button_label|default('Créer le défi') }}</button>
 </fieldset>
 {{ form_end(form) }}
-

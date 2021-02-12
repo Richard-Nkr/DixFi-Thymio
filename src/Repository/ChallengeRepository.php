@@ -58,4 +58,15 @@ class ChallengeRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneById(int $id): ?Challenge
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
+
 }
