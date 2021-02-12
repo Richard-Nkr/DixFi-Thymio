@@ -1,3 +1,6 @@
 {{ form_start(form) }}
     {{ form_widget(form.file) }}
+<div class="form-group">
+    <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+</div>
 {{ form_end(form) }}

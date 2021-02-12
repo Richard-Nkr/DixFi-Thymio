@@ -54,7 +54,7 @@ class UserController extends AbstractController
                 $user = $userRepository->findOneById($id);
                 //on ouvre la connexion
                 $session->set('id_user', $id);
-                $session->set('role',$user->getRole());
+                $session->set('role',$user->getRoles());
                 return $this->redirectToRoute('user_index', [
                     'user' => $user
                 ]);

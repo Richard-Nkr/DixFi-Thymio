@@ -47,4 +47,14 @@ class StudentGroupRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOneById($id): ?StudentGroup
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

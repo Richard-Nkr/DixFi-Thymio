@@ -9,19 +9,22 @@ use App\Entity\UserGuest;
 use App\Form\UserGuestType;
 use App\Form\UserGuestUpdateType;
 use App\Form\UserType;
+
 use App\Service\GestionPassword;
 use App\Service\SecurizerRoles;
 use App\Service\CreateChat;
 use App\Repository\TeacherRepository;
+use App\Service\TeacherUserGuest;
+use App\Services\MailerService;
+use App\Services\MessageService;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
-use App\Service\TeacherUserGuest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/user/guest")
@@ -48,9 +51,10 @@ class UserGuestController extends AbstractController
      * @param TeacherUserGuest $teacherUserguest
      * @param CreateChat $createChat
      * @param GestionPassword $createPassword
+     * @param MailerService $mailerService
      * @return Response
      */
-    public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword, MailerService $mailerService): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -58,17 +62,33 @@ class UserGuestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $gestionPassword->createHashPassword($userguest);
-            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')){
+
+            $pass = password_hash($userguest->getPassword(), PASSWORD_DEFAULT);
+            $userguest->setPassword($pass);
+            if ($userguest->getRoles() == "teacher") {
                 $userguest = $teacherUserguest->makeTeacher($userguest);
             }
             $entityManager->persist($userguest);
-            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
-                $entityManager->persist($createChat->create($userguest));
-            }
             $entityManager->flush();
-            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant ".$userguest->getId()."", ['browser']));
-            return $this->redirectToRoute('app_login');
+            $mail = $userguest->getMail();
+            $id = $userguest->getId();
+            if ($userguest->getRoles() == "teacher") {
+                $chat = new Chat();
+                $chat->setTeacher($userguest);
+                $entityManager = $this->getDoctrine()->getManager();
+                $userguest->setChat($chat);
+                $entityManager->persist($chat);
+                $entityManager->persist($userguest);
+                $entityManager->flush();
+            }
+            $mailerService->sendId(
+                ''.$mail,
+                ''.$id
+            );
+            $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter
+            afin de vous connecter.", ['browser']));
+
+            return $this->redirectToRoute('user_connexion');
         }
 
         return $this->render('user_guest/new.html.twig', [
@@ -76,6 +96,7 @@ class UserGuestController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="user_guest_show", methods={"GET"})
