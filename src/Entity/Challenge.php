@@ -67,6 +67,11 @@ class Challenge
      */
     private $role;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $solutionPath;
+
 
     public function __construct()
     {
@@ -220,6 +225,18 @@ class Challenge
     public function setRole(string $role): self
     {
         $this->role = $role;
+        return $this;
+    }
+
+    public function getSolutionPath(): ?string
+    {
+        return $this->solutionPath;
+    }
+
+    public function setSolutionPath(?string $solutionPath): self
+    {
+        $this->solutionPath = $solutionPath;
+
         return $this;
     }
 }

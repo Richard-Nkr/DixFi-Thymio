@@ -28,6 +28,15 @@
             <button class="btn btn-success">Faire valider par notre professeur</button>
         </a>
     </div>
+
+
+    {% if is_granted('ROLE_TEACHER') %}
+    <div class="buttonStartChallenge">
+        <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
+    </div>
+        </form>
+    {% endif %}
+
     <div>
         <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
            <button type="button" class="btn btn-danger">Retour à la page des défis</button>

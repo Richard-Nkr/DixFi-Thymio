@@ -42,4 +42,17 @@ class ThymioChallengeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/{id}/solution", name="thymio_challenge_solution", methods={"GET"})
+     * @param ThymioChallenge $thymioChallenge
+     * @return Response
+     */
+    public function solution(ThymioChallenge $thymioChallenge, int $id): Response
+    {
+        return $this->render('thymio_challenge/solution.html.twig', [
+                'thymio_challenge' => $thymioChallenge,
+                'solutionPath' => $thymioChallenge->getSolutionPath(),
+        ]);
+    }
+
 }
