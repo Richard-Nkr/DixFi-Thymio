@@ -130,3 +130,21 @@ a:hover {
     color: white;
     font-size: 20px;
 }
+
+.solutionThymio{
+    background-color: #c4efc4;
+    margin:3% 22% 3% 22%;
+    border:2px solid #3d922d;
+    border-radius: 12px;
+}
+
+.solutionDescription{
+    text-align: justify;
+    margin: 2% 18% 2% 18%;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.imageSolution{
+    width: 58%;
+}

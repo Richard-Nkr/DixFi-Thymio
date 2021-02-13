@@ -15,28 +15,21 @@
 
 </fieldset>
 
-    <div class="col-sm-4">
-       <!-- Ici mail -->
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Envoyer" class="btn btn-success" />
-    </div>
-
-
+    {% if is_granted('ROLE_STUDENT_GROUP') %}
     <div>
         <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}" style="margin: 41%;">
             <button class="btn btn-success">Faire valider par notre professeur</button>
         </a>
     </div>
-
+    {% endif %}
 
     {% if is_granted('ROLE_TEACHER') %}
-    <div class="buttonStartChallenge">
+    <div>
         <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
     </div>
         </form>
     {% endif %}
-
+<br>
     <div>
         <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
            <button type="button" class="btn btn-danger">Retour à la page des défis</button>
