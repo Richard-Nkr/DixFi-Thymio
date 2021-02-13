@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -46,9 +48,10 @@ class ThymioChallengeController extends AbstractController
      * @param MailerService $mailerService
      * @param StudentGroupRepository $studentGroupRepository
      * @param int $id
+     * @param NotifierInterface $notifier
      * @return Response
      */
-    public function show(Request $request,SecurizerRoles $securizerRoles, ThymioChallenge $thymioChallenge, Session $session, MailerService $mailerService, StudentGroupRepository $studentGroupRepository, int $id): Response
+    public function show(Request $request,SecurizerRoles $securizerRoles, ThymioChallenge $thymioChallenge, Session $session, MailerService $mailerService, StudentGroupRepository $studentGroupRepository, int $id, NotifierInterface $notifier): Response
     {
         $upload = new ThymioChallenge();
         $form = $this->createForm(ThymioChallengeType::class, $upload);
@@ -56,7 +59,18 @@ class ThymioChallengeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($securizerRoles->isGranted($this->getUser(), 'ROLE_STUDENT_GROUP')){
                 $file = $upload->getFile();
-                $fileName =md5(uniqid()).'.'.$file->guessExtension();
+                //verification que le fichier est bien un fichier sb3
+                $verifExtension = $mailerService->verifExtension($file->getClientOriginalExtension());
+
+                if(!($verifExtension)){
+                    $notifier->send(new Notification("Le fichier doit etre un fichier scratch", ['browser']));
+                    return $this->render('thymio_challenge/show.html.twig', [
+                        'thymio_challenge' => $thymioChallenge,
+                        'form' => $form->createView(),
+                    ]);
+                }
+
+                $fileName =md5(uniqid()).'.'.$file->getClientOriginalExtension();
                 $file->move($this->getParameter('upload_directory'), $fileName);
                 $upload->setFile($fileName);
                 $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());

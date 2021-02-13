@@ -72,6 +72,13 @@ class MailerService
             print $e->getMessage()."\n";
             throw $e;
         }
+    }
 
+    public function verifExtension(String $extension): bool
+    {
+        if($extension === "sb3"){
+            return true;
+        }
+        return false;
     }
 }
