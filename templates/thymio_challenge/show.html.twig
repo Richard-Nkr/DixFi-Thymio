@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ThymioChallenge{% endblock %}
+
+{% block body %}
+
+<fieldset class="thymioChallenge">
+
+    <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
+
+    <p>Temps nécessaire : {{ thymio_challenge.duration }} </p>
+    <p> {{ thymio_challenge.difficulty }} </p>
+
+    <p>  {{ thymio_challenge.description }} </p>
+
+</fieldset>
+
+    <div class="col-sm-4">
+       <!-- Ici mail -->
+    </div>
+    {% if is_granted('ROLE_STUDENT_GROUP') %}
+    {% if status.statusInt==2 %}
+
+    <div class="form-group">
+        <input type="label" value="Envoyé" placeholder="Envoyé" readonly class="btn btn-success" />
+    </div>
+    {% elseif status.statusInt==3 %}
+    <div class="form-group">
+        <input type="submit" value="Validé" placeholder="Validé" readonly class="btn btn-success" />
+    </div>
+    {% else %}
+    <div>
+        <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}" style="margin: 41%;">
+            <button class="btn btn-success">Faire valider par notre professeur</button>
+        </a>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    {% if is_granted('ROLE_TEACHER') %}
+    <div class="buttonStartChallenge">
+        <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
+    </div>
+    {% endif %}
+
+    <div>
+        <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
+           <button type="button" class="btn btn-danger">Retour à la page des défis</button>
+        </a>
+    </div>
+
+{% endblock %}

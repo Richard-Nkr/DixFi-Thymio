@@ -53,9 +53,24 @@ class Challenge
     private $helps;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $duration;
+
+    /**
+     * @ORM\Column(type="string", length=20)
      */
     private $role;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $solutionPath;
 
 
     public function __construct()
@@ -82,7 +97,7 @@ class Challenge
         return $this;
     }
 
-    public function getDifficulty(): ?int
+    public function getDifficulty(): ?string
     {
         return $this->difficulty;
     }
@@ -178,6 +193,30 @@ class Challenge
         return $this;
     }
 
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(string $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+    }
+
+
     public function getRole(): ?string
     {
         return $this->role;
@@ -186,7 +225,17 @@ class Challenge
     public function setRole(string $role): self
     {
         $this->role = $role;
+        return $this;
+    }
 
+    public function getSolutionPath(): ?string
+    {
+        return $this->solutionPath;
+    }
+
+    public function setSolutionPath(?string $solutionPath): self
+    {
+        $this->solutionPath = $solutionPath;
         return $this;
     }
 }

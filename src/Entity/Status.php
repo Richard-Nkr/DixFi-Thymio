@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=StatusRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Status
 {
@@ -58,7 +59,40 @@ class Status
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $submitted_at;
-    
+
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setStartedAtValue(): void
+    {
+        $this->startedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setStatusIntValue(): void
+    {
+        $this->statusInt = 1;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setNeedHelpValue(): void
+    {
+        $this->needHelp = false;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCountHelpValue(): void
+    {
+        $this->countHelp = 0;
+    }
 
     public function getId(): ?int
     {

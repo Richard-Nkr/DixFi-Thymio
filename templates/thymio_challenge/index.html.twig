@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ThymioChallenge index{% endblock %}
+
+{% block body %}
+    <fieldset class="descriptionThymio"> Bienvenue sur les Dix'Fi de Thymio</fieldset>
+
+    {% for thymio_challenge in thymio_challenges %}
+            <fieldset class="thymioChallenge">
+                <legend class="legendChallenge"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
+                <div class="buttonStartChallenge">
+                    {% if is_granted('ROLE_STUDENT_GROUP') %}
+                    {{ render(controller('App\\Controller\\ThymioChallengeController::listStateChallenge', {'id': thymio_challenge.id}) ) }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <p>Difficulté : {{ thymio_challenge.difficulty }}</p>
+                </div>
+            </fieldset>
+
+        {% endfor %}
+
+{% endblock %}

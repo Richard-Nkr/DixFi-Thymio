@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Teacher;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,7 +28,7 @@ class TeacherRepository extends ServiceEntityRepository
      * Cette méthode va nous permettre de récupérer un utilisateur via son pseudo
      * @param $value
      * @return Teacher|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
 
     public function findOneByNickName($value): ?Teacher

@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Challenge;
+use App\Entity\ThymioChallenge;
+use App\Form\ThymioChallengeType;
+use App\Repository\StatusRepository;
+use App\Repository\StudentGroupRepository;
+use App\Repository\ThymioChallengeRepository;
+use App\Repository\ChallengeRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route("/thymio/challenge")
+ */
+class ThymioChallengeController extends AbstractController
+{
+    /**
+     * @Route("/{difficulty}", name="thymio_challenge_index", methods={"GET"})
+     * @param ChallengeRepository $ChallengeRepository
+     * @param String $difficulty
+     * @return Response
+     */
+    public function index(ChallengeRepository $ChallengeRepository, String $difficulty): Response
+    {
+        return $this->render('thymio_challenge/index.html.twig', [
+            'thymio_challenges' => $ChallengeRepository->findBy(['role' => 'ROLE_THYMIO','difficulty' => $difficulty]),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/list/state/challenges", name="list_state_challenges", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param ThymioChallenge $thymioChallenge
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function listStateChallenge(StatusRepository $statusRepository, ThymioChallenge $thymioChallenge, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
+        $status = $statusRepository->findOneBy(['studentGroup' => $studentGroup,'challenge' => $thymioChallenge]);
+        return $this->render('thymio_challenge/list_state_challenge.html.twig', [
+            'status' => $status,
+            'thymio_challenge' => $thymioChallenge,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/show", name="thymio_challenge_show", methods={"GET"})
+     * @param ThymioChallenge $thymioChallenge
+     * @param StudentGroupRepository $studentGroupRepository
+     * @param StatusRepository $statusRepository
+     * @return Response
+     */
+    public function show(ThymioChallenge $thymioChallenge, StudentGroupRepository $studentGroupRepository, StatusRepository $statusRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
+        $status = $statusRepository->findOneBy(['studentGroup' => $studentGroup,'challenge' => $thymioChallenge]);
+        return $this->render('thymio_challenge/show.html.twig', [
+            'thymio_challenge' => $thymioChallenge,
+            'status' => $statusRepository->findOneBy(['studentGroup' => $studentGroup,'challenge' => $thymioChallenge])
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/solution", name="thymio_challenge_solution", methods={"GET"})
+     * @param ThymioChallenge $thymioChallenge
+     * @return Response
+     */
+    public function solution(ThymioChallenge $thymioChallenge, int $id): Response
+    {
+        return $this->render('thymio_challenge/solution.html.twig', [
+                'thymio_challenge' => $thymioChallenge,
+                'solutionPath' => $thymioChallenge->getSolutionPath(),
+        ]);
+    }
+
+}

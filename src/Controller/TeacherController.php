@@ -2,20 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Chat;
 use App\Entity\Status;
-use App\Entity\StudentGroup;
 use App\Entity\Teacher;
 use App\Form\TeacherType;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
-use App\Repository\UserRepository;
 use App\Service\ValidateChallenge;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Intl\DateFormatter;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -36,18 +32,17 @@ class TeacherController extends AbstractController
     }
 
 
-
     /**
      * @Route("/{id}", name="teacher_show", methods={"GET"})
-     * @param Teacher $teacher
+     * @param TeacherRepository $teacherRepository
      * @return Response
      */
 
 
-    public function show(Teacher $teacher): Response
+    public function show(TeacherRepository $teacherRepository): Response
     {
         return $this->render('teacher/show.html.twig', [
-            'teacher' => $teacher,
+            'teacher' => $teacherRepository->findOneById($this->getUser()->getId()),
         ]);
     }
 
