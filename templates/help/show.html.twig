@@ -3,22 +3,25 @@
 {% block title %}Help{% endblock %}
 
 {% block body %}
-    <h1>Help</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ help.id }}</td>
-            </tr>
-            <tr>
-                <th>ContentHelp</th>
-                <td>{{ help.contentHelp }}</td>
-            </tr>
-            <tr>
-                <th>NumberHelp</th>
-                <td>{{ help.numberHelp }}</td>
-            </tr>
+        {% for help in helps %}
+            {% if help.challenge === challenge %}
+                <tr>
+                    <th>Id</th>
+                    <td>{{ help.id }}</td>
+                </tr>
+                <tr>
+                    <th>ContentHelp</th>
+                    <td>{{ help.contentHelp }}</td>
+                </tr>
+                <tr>
+                    <th>NumberHelp</th>
+                    <td>{{ help.numberHelp }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
         </tbody>
     </table>
 

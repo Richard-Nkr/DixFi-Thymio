@@ -87,6 +87,9 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="student_group_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param StudentGroup $studentGroup
+     * @return Response
      */
     public function edit(Request $request, StudentGroup $studentGroup): Response
     {

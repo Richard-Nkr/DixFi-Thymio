@@ -16,6 +16,7 @@
         </thead>
         <tbody>
         {% for help in helps %}
+            {% if help.challenge.id == challenge.id %}
             <tr>
                 <td>{{ help.id }}</td>
                 <td>{{ help.contentHelp }}</td>
@@ -26,10 +27,7 @@
                     <a href="{{ path('help_edit', {'id': help.id}) }}">edit</a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

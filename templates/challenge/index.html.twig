@@ -3,7 +3,6 @@
 {% block title %}Challenge index{% endblock %}
 
 {% block body %}
-    <h1>Challenge index</h1>
 
     <table class="table">
         <thead>
@@ -25,7 +24,7 @@
                     <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">edit</a>
                     <a href="{{ path('help_new', {'id': challenge.id}) }}">Ajouter un indice</a>
                     <br>
-                    <a href="{{ path('help_show', {'id': challenge.id}) }}">Voir les indices</a>
+                    <a href="{{ path('help_list', {'id': challenge.id}) }}">Voir les indices</a>
                 </td>
             </tr>
         {% else %}

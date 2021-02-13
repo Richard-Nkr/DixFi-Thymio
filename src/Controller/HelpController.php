@@ -30,6 +30,21 @@ class HelpController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", name="help_list", methods={"GET"})
+     * @param HelpRepository $helpRepository
+     * @param int $id
+     * @param ChallengeRepository $challengeRepository
+     * @return Response
+     */
+    public function list(HelpRepository $helpRepository, int $id, ChallengeRepository  $challengeRepository): Response
+    {
+        return $this->render('help/list.html.twig', [
+            'helps' => $helpRepository->findAll(),
+            'challenge' => $challengeRepository->findOneById($id)
+        ]);
+    }
+
+    /**
      * @Route("/{id}/new", name="help_new", methods={"GET","POST"})
      * @param Request $request
      * @param ChallengeRepository $challengeRepository
@@ -72,21 +87,6 @@ class HelpController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="help_show", methods={"GET"})
-     * @param Help $help
-     * @param int $id
-     * @param HelpRepository $helpRepository
-     * @return Response
-     */
-    public function list(Help $help, int $id, HelpRepository $helpRepository): Response
-    {
-        $help = $helpRepository->findByIdChallenge($id);
-        return $this->render('help/show.html.twig', [
-            'help' => $help,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="help_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Help $help
@@ -123,6 +123,6 @@ class HelpController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('help_index');
+        return $this->redirectToRoute('challenge_index');
     }
 }
