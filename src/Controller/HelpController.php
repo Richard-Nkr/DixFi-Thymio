@@ -10,6 +10,8 @@ use App\Repository\HelpRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -47,29 +49,42 @@ class HelpController extends AbstractController
     /**
      * @Route("/{id}/new", name="help_new", methods={"GET","POST"})
      * @param Request $request
+     * @param NotifierInterface $notifier
+     * @param HelpRepository $helpRepository
      * @param ChallengeRepository $challengeRepository
      * @param Challenge $challenge
      * @param int $id
      * @return Response
      */
-    public function new(Request $request, ChallengeRepository $challengeRepository, Challenge $challenge, int $id): Response
+    public function new(Request $request,NotifierInterface $notifier,HelpRepository $helpRepository,ChallengeRepository $challengeRepository, Challenge $challenge, int $id): Response
     {
         $help = new Help();
         $form = $this->createForm(HelpType::class, $help);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $challenge = $challengeRepository->findOneById($id);
-            $help->setChallenge($challenge);
-            $entityManager->persist($help);
-            $entityManager->flush();
+            if ($help->getNumberHelp() == sizeof($helpRepository->findByIdChallenge($id))+1){
+                $entityManager = $this->getDoctrine()->getManager();
+                $challenge = $challengeRepository->findOneById($id);
+                $help->setChallenge($challenge);
+                $entityManager->persist($help);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('challenge_index');
+                return $this->redirectToRoute('challenge_index');
+            }else{
+                $notifier->send(new Notification("Le numéro d'indice n'est pas cohérent ", ['browser']));
+                return $this->render('help/new.html.twig', [
+                    'help' => $help,
+                    'helps' => $helpRepository->findByIdChallenge($id),
+                    'form' => $form->createView(),
+                ]);
+            }
+
         }
 
         return $this->render('help/new.html.twig', [
             'help' => $help,
+            'helps' => $helpRepository->findByIdChallenge($id),
             'form' => $form->createView(),
         ]);
     }

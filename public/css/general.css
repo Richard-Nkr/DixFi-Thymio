@@ -259,6 +259,7 @@ a:hover {
     font-family: inherit;
     width: 100%;
     height: 150px;
+    outline: none;
     border-radius: 10px;
     padding: 10px;
     border:1px solid red;
@@ -272,6 +273,12 @@ a:hover {
 }
 
 .form_field2:focus {
+    outline: 0;
+    box-shadow: none;
+    border:3px solid red;
+}
+
+.form_field3:focus {
     outline: 0;
     box-shadow: none;
     border:3px solid red;

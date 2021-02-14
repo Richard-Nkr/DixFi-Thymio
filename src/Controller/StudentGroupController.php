@@ -58,7 +58,6 @@ class StudentGroupController extends AbstractController
             $studentGroup->setCreatedAt(new \DateTime('now'));
             $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
             $studentGroup->setCountSucceed(0);
-            //66-$teacher = $teacherUserGuest->makeTeacher($this->getUser());
             $studentGroup->setTeacher($this->getUser());
             $studentGroup->setChat($this->getUser()->getChat());
             $entityManager->persist($studentGroup);

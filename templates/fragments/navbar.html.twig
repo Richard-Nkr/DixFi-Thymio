@@ -29,10 +29,15 @@
                 <div class="dropdown-menu" style="margin-left: 22%;">
                     {% if app.user %}
                         {% if is_granted('ROLE_TEACHER') %}
-                            <a class="dropdown-item" href="{{ path('challenge_new',{'id': app.user.id}) }}">Créer mes défis</a>
-                            <a class="dropdown-item" href="{{ path('challenge_show',{'id': app.user.id}) }}">Voir mes défis</a>
+                            <a class="dropdown-item" href="{{ path('challenge_new',{'id': app.user.id}) }}">Créer mes
+                                défis</a>
+                            <a class="dropdown-item" href="{{ path('challenge_show',{'id': app.user.id}) }}">Voir mes
+                                défis</a>
+                            <a class="dropdown-item" href="#">Voir les
+                                défis privées</a>
                         {% endif %}
                     {% endif %}
+                    <a class="dropdown-item" href="#">Voir les défis public</a>
                 </div>
             </li>
         </ul>
