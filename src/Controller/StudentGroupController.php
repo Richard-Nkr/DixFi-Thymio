@@ -102,6 +102,9 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}", name="student_group_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param StudentGroup $studentGroup
+     * @return Response
      */
     public function delete(Request $request, StudentGroup $studentGroup): Response
     {

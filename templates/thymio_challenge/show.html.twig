@@ -4,6 +4,14 @@
 
 {% block body %}
 
+
+    {% for message in app.flashes('notification') %}
+        <div class="alert alert-info alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
+
 <fieldset class="thymioChallenge">
 
     <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
@@ -15,9 +23,7 @@
 
 </fieldset>
 
-    <div class="col-sm-4">
-       <!-- Ici mail -->
-    </div>
+
     {% if is_granted('ROLE_STUDENT_GROUP') %}
     {% if status.statusInt==2 %}
 
@@ -29,11 +35,9 @@
         <input type="submit" value="Validé" placeholder="Validé" readonly class="btn btn-success" />
     </div>
     {% else %}
-    <div>
-        <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}" style="margin: 41%;">
-            <button class="btn btn-success">Faire valider par notre professeur</button>
-        </a>
-    </div>
+        <div class="col-sm-4" style="margin:0 auto;">
+            {{ include('thymio_challenge/_add_file_form.html.twig') }}
+        </div>
     {% endif %}
     {% endif %}
 
@@ -42,6 +46,8 @@
         <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
     </div>
     {% endif %}
+
+
 
     <div>
         <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">

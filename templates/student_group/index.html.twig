@@ -3,42 +3,42 @@
 {% block title %}StudentGroup index{% endblock %}
 
 {% block body %}
-<fieldset class="formInscription">
-    <legend class="legendInscription">{{ teacher.nickname }}'s Student Groups !</legend>
-    <div class="form-group">
+    <fieldset class="formInscription">
+        <legend class="legendInscription">{{ teacher.nickname }}'s Student Groups !</legend>
+        <div class="form-group">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Identifiant</th>
-                <th>Pseudo</th>
-                <th>Date de création</th>
-                <th>Date de suppression</th>
-                <th>ThymioChallenge(s) réussi(s)</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for student_group in student_groups %}
-        {% if student_group.teacher==app.user %}
-            <tr>
-                <td>{{ student_group.id }}</td>
-                <td>{{ student_group.nickname }}</td>
-                <td>{{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ student_group.deletedAt ? student_group.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ student_group.countSucceed }}</td>
-                <td>
-                    <a href="{{ path('student_group_delete', {'id': student_group.id}) }}">DELETE</a>
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Pseudo</th>
+                    <th>Date de création</th>
+                    <th>Date de suppression</th>
+                    <th>ThymioChallenge(s) réussi(s)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student_group in student_groups %}
+                    {% if student_group.teacher==app.user %}
+                        <tr>
+                            <td>{{ student_group.id }}</td>
+                            <td>{{ student_group.nickname }}</td>
+                            <td>{{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ student_group.deletedAt ? student_group.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ student_group.countSucceed }}</td>
+                            <td>
+                                <a href="{{ path('student_group_delete', {'id': student_group.id}) }}">DELETE</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="8">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </fieldset>
     <a href="{{ path('student_group_new') }}">Créer un nouveau groupe</a>
     <br>

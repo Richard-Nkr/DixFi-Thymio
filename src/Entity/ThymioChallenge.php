@@ -17,4 +17,23 @@ class ThymioChallenge extends Challenge
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $file;
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+
+
 }

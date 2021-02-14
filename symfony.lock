@@ -99,6 +99,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
+    "jms/metadata": {
+        "version": "2.4.0"
+    },
     "laminas/laminas-code": {
         "version": "4.0.0"
     },
@@ -148,6 +151,18 @@
         },
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "71599f5b0fdeeeec0fb90e9b17c85e6f5e1350c1"
+        },
+        "files": [
+            "./public/.htaccess"
         ]
     },
     "symfony/asset": {
@@ -262,6 +277,15 @@
             "./src/Controller/.gitignore",
             "./src/Kernel.php"
         ]
+    },
+    "symfony/google-mailer": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.4",
+            "ref": "f8fd4ddb9b477510f8f4bce2b9c054ab428c0120"
+        }
     },
     "symfony/http-client": {
         "version": "v5.2.1"
@@ -525,6 +549,18 @@
     },
     "twig/twig": {
         "version": "v3.2.1"
+    },
+    "vich/uploader-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "c4f5755b37fb65b9c6a3cbdae91205c15a137ed4"
+        },
+        "files": [
+            "./config/packages/vich_uploader.yaml"
+        ]
     },
     "webmozart/assert": {
         "version": "1.9.1"

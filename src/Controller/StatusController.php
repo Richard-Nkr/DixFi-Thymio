@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Status;
 use App\Entity\ThymioChallenge;
+use App\Form\ThymioChallengeType;
 use App\Repository\StudentGroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,9 +42,8 @@ class StatusController extends AbstractController
 
         $entityManager->persist($status);
         $entityManager->flush();
-        return $this->render('thymio_challenge/show.html.twig', [
-            'thymio_challenge' => $thymioChallenge,
-            'status' => $status,
+        return $this->redirectToRoute('thymio_challenge_show', [
+            'id' => $thymioChallenge->getId()
         ]);
     }
 }

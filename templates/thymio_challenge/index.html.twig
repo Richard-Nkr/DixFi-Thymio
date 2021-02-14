@@ -11,6 +11,10 @@
                 <div class="buttonStartChallenge">
                     {% if is_granted('ROLE_STUDENT_GROUP') %}
                     {{ render(controller('App\\Controller\\ThymioChallengeController::listStateChallenge', {'id': thymio_challenge.id}) ) }}
+                    {% elseif is_granted('ROLE_TEACHER') %}
+                        <div class="buttonStartChallenge">
+                            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
+                        </div>
                     {% endif %}
                 </div>
                 <div class="form-group">
