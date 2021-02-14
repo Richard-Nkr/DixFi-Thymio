@@ -18,6 +18,7 @@ use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
 use App\Service\TeacherUserGuest;
 use App\Service\ValidateChallenge;
+use App\Services\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,14 +46,16 @@ class UserGuestController extends AbstractController
     /**
      * @Route("/new", name="user_guest_new", methods={"GET","POST"})
      * @param Request $request
+     * @param MailerService $mailerService
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
-     * @param ValidateChallenge $teacherUserguest
+     * @param TeacherUserGuest $teacherUserguest
      * @param CreateChat $createChat
-     * @param CreateStudentGroup $gestionPassword
+     * @param GestionPassword $gestionPassword
      * @return Response
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function new(Request $request, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -68,8 +71,14 @@ class UserGuestController extends AbstractController
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
                 $entityManager->persist($createChat->create($userguest));
             }
-            $entityManager->flush();
-            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant ".$userguest->getId()."", ['browser']));
+            $entityManager->flush();$mail = $userguest->getMail();
+            $id = $userguest->getId();
+            $mailerService->sendId(
+                ''.$mail,
+                ''.$id
+            );
+            $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter
+            afin de vous connecter.", ['browser']));
             return $this->redirectToRoute('app_login');
         }
 
