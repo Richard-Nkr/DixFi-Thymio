@@ -31,13 +31,12 @@ class TeacherController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("/{id}", name="teacher_show", methods={"GET"})
+     * @Route("/show", name="teacher_show", methods={"GET"})
+
      * @param TeacherRepository $teacherRepository
      * @return Response
      */
-
 
     public function show(TeacherRepository $teacherRepository): Response
     {
@@ -47,20 +46,21 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="teacher_edit", methods={"GET","POST"})
+     * @Route("/edit", name="teacher_edit", methods={"GET","POST"})
      * @param Request $request
-     * @param Teacher $teacher
+     * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function edit(Request $request, Teacher $teacher): Response
+    public function edit(Request $request, TeacherRepository $teacherRepository): Response
     {
+        $teacher = $teacherRepository->findOneById($this->getUser()->getId());
         $form = $this->createForm(TeacherType::class, $teacher);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('teacher_index');
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('teacher/edit.html.twig', [
@@ -177,7 +177,7 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="teacher_delete", methods={"DELETE"})
+     * @Route("/delete", name="teacher_delete", methods={"DELETE"})
      * @param Request $request
      * @param Teacher $teacher
      * @return Response
@@ -189,7 +189,6 @@ class TeacherController extends AbstractController
             $entityManager->remove($teacher);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('teacher_index');
     }
 }

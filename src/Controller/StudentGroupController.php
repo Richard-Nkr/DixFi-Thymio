@@ -56,6 +56,15 @@ class StudentGroupController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $gestionPassword->createHashPassword($studentGroup);
             $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
+
+            $pass = password_hash($studentGroup->getPassword(), PASSWORD_DEFAULT);
+            $studentGroup->setPassword($pass);
+            $studentGroup->setCreatedAt(new \DateTime('now'));
+            $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
+            $studentGroup->setCountSucceed(0);
+            $studentGroup->setTeacher($this->getUser());
+            $studentGroup->setChat($this->getUser()->getChat());
+
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 
@@ -82,6 +91,9 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="student_group_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param StudentGroup $studentGroup
+     * @return Response
      */
     public function edit(Request $request, StudentGroup $studentGroup): Response
     {

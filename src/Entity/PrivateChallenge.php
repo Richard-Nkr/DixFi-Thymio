@@ -10,14 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PrivateChallenge extends Challenge
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-
 
     /**
      * @ORM\Column(type="datetime")
@@ -34,11 +26,6 @@ class PrivateChallenge extends Challenge
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $deletedAt;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
 
     public function getCreatedAt(): ?\DateTimeInterface

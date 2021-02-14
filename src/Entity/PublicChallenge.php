@@ -17,7 +17,6 @@ class PublicChallenge extends Challenge
     private $nameCorrectionPDF;
 
 
-
     /**
      * @ORM\Column(type="datetime")
      */
@@ -45,7 +44,6 @@ class PublicChallenge extends Challenge
 
         return $this;
     }
-
 
 
     public function getCreatedAt(): ?\DateTimeInterface

@@ -7,16 +7,22 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown" class="nav-item active" >
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="nav-link" href="#">Les Dix'Fi </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}">Easy DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}">Medium DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}">Hard DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}">Extreme DixFi's</a>
-                    </div>
+            <li class="nav-item dropdown" class="nav-item active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false" class="nav-link">Les Dix'Fi </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}">Easy
+                        DixFi's</a>
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}">Medium
+                        DixFi's</a>
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}">Hard
+                        DixFi's</a>
+                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}">Extreme
+                        DixFi's</a>
+                </div>
                 </a>
             </li>
+
 
             <li class="nav-item dropdown" class="nav-item active">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
@@ -35,8 +41,25 @@
                 </div>
             </li>
             {% endif %}
-        </ul>
 
+            <li class="nav-item active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false" class="nav-link">Les Teachers'Fi</a>
+                <div class="dropdown-menu" style="margin-left: 22%;">
+                    {% if app.user %}
+                        {% if is_granted('ROLE_TEACHER') %}
+                            <a class="dropdown-item" href="{{ path('challenge_new') }}">Créer mes
+                                défis</a>
+                            <a class="dropdown-item" href="{{ path('challenge_show_myChallenge') }}">Voir mes
+                                défis</a>
+                            <a class="dropdown-item" href="#">Voir les
+                                défis privées</a>
+                        {% endif %}
+                    {% endif %}
+                    <a class="dropdown-item" href="#">Voir les défis public</a>
+                </div>
+            </li>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('user_index') }}">

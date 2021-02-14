@@ -1,20 +1,28 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {{ form_start(form) }}
 
 <fieldset class="formInscription">
     <legend class="legendInscription">Connexion à mon compte</legend>
-    <div class="form-group">
-        {{ form_label(form.nickname, 'Surnom : ') }}
-        <div class="col-sm-14">
-            {{ form_widget(form.nickname) }}
-        </div>
-    </div>
+    <table class="form_table">
+        <tr>
+            <td class="td_label3">
+                {{ form_label(form.nickname, 'Surnom : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.password, 'Mot de passe : ') }}
+            </td>
+            <td>
+                {{ form_widget(form.password, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+    </table>
 
-    <div class="form-group">
-        {{ form_label(form.password, 'Mot de passe : ') }}
-        <div class="col-sm-14">
-            {{ form_widget(form.password)}}
-        </div>
-    </div>
 
     <button class="btn btn-success">{{ button_label|default('Se connecter') }}</button>
 
