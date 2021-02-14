@@ -20,12 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HandleStatus
 {
-    public function updateStatus(Status $status)
+    public function updateStatus(Status $status) : Status
     {
+
         if ($status->getStatusInt()==0){
             $status->setStatusInt(1);
         }elseif ($status->getStatusInt()==1){
             $status->setStatusInt(2);
         }
+        return $status;
     }
 }

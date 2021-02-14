@@ -120,7 +120,9 @@ class ThymioChallengeController extends AbstractController
                     '../public/uploads/'.$fileName
                 );
                 $handleStatus->updateStatus($status);
+                $entityManager = $this->getDoctrine()->getManager();
                 unlink('../public/uploads/'.$fileName);
+                $entityManager->flush();
             }
         }
 
