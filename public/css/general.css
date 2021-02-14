@@ -101,6 +101,7 @@ a:hover {
 }
 
 .thymioChallenge{
+    font-size: 15px;
     margin:3% 22% 3% 22%;
     border:2px solid #3b87c1;
     border-radius: 12px;
@@ -166,5 +167,7 @@ a:hover {
 }
 
 .imageSolution{
-    width: 58%;
+    width: 65%;
+    height: auto;
 }
+

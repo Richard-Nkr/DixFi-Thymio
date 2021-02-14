@@ -16,10 +16,9 @@
 
     <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
 
-    <p>Temps nécessaire : {{ thymio_challenge.duration }} </p>
-    <p> {{ thymio_challenge.difficulty }} </p>
-
-    <p>  {{ thymio_challenge.description }} </p>
+    <p><u>Temps nécessaire</u> : {{ thymio_challenge.duration }} </p>
+    <p><u>Difficulté</u> : {{ thymio_challenge.difficulty }} </p>
+    <p><u>Description</u> : {{ thymio_challenge.description }} </p>
 
 </fieldset>
 
@@ -47,7 +46,7 @@
         <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
     </div>
     {% endif %}
-
+<br>
     <div>
         <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
            <button type="button" class="btn btn-danger">Retour à la page des défis</button>
