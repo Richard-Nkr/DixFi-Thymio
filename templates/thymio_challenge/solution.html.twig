@@ -2,5 +2,17 @@
 
 {% block title %}ThymioChallenge Correction{% endblock %}
 {% block body %}
-    <img src="{{thymio_challenge.solutionPath}}" alt="SolutionDixFi">
+    <fieldset class="descriptionThymio">
+        Solution du défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}
+    </fieldset>
+  <p class="solutionDescription">Objectif du défi : {{ thymio_challenge.description }} </p>
+<fieldset class="solutionThymio">
+        <img class="imageSolution" src="{{thymio_challenge.solutionPath}}" alt="SolutionDixFi">
+    </fieldset>
+    <div>
+        <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
+            <button type="button" class="btn btn-danger">Retour sur les Dix'Fi {{ thymio_challenge.difficulty }}</button>
+        </a>
+    </div>
+
 {% endblock %}

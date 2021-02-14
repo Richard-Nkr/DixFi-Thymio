@@ -39,15 +39,14 @@
             {{ include('thymio_challenge/_add_file_form.html.twig') }}
         </div>
     {% endif %}
+
     {% endif %}
 
     {% if is_granted('ROLE_TEACHER') %}
-    <div class="buttonStartChallenge">
+    <div>
         <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
     </div>
     {% endif %}
-
-
 
     <div>
         <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">

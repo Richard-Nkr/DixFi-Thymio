@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <!--<a id="home-logo" href="#"><img id="imgThymio" src="{{ asset('images/logo-thymio3.png') }}" alt="Robot_Thymio"></a> -->
     <a class="navbar-brand" href="{{ path('home') }}">Les Dix'Fi de Thymio</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,10 +18,10 @@
                 </a>
             </li>
 
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Les Teachers'Fi
-                    <span class="sr-only">(current)</span>
-                </a>
+            <li class="nav-item dropdown" class="nav-item active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false" class="nav-link" >Les Teachers'Fi </a>
+
             </li>
             {% if is_granted('ROLE_TEACHER') %}
 
