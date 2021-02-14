@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Challenge;
+use App\Entity\PrivateChallenge;
 use App\Form\ChallengeType;
+use App\Repository\PrivateChallengeRepository;
+use App\Repository\PublicChallengeRepository;
 use App\Repository\TeacherRepository;
 use App\Service\CreatePrivateChallenge;
 use App\Service\PublicChallengeCreation;
@@ -28,34 +31,38 @@ class ChallengeController extends AbstractController
      */
     public function index(ChallengeRepository $challengeRepository): Response
     {
-        return $this->render('challenge/index.html.twig', [
+        return $this->render( 'challenge/index.html.twig', [
             'challenges' => $challengeRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="challenge_show_myChallenge", methods={"GET"})
-     * @param ChallengeRepository $challengeRepository
+     * @Route("/show_myChallenge", name="challenge_show_myChallenge", methods={"GET"})
+     * @param PrivateChallengeRepository $privateChallengeRepository
+     * @param PublicChallengeRepository $publicChallengeRepository
+     * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function show_myChallenge(ChallengeRepository $challengeRepository): Response
+    public function show_myChallenge(PrivateChallengeRepository $privateChallengeRepository, PublicChallengeRepository $publicChallengeRepository, TeacherRepository $teacherRepository): Response
     {
-        return $this->render('challenge/index.html.twig', [
-            'challenges' => $challengeRepository->findAll(),
+        return $this->render('challenge/show_my_challenge.html.twig', [
+            'public_challenges' => $publicChallengeRepository->findAll(),
+            'private_challenges' => $privateChallengeRepository->findAll(),
+            'teacher' => $teacherRepository->findOneById($this->getUser()->getId()),
         ]);
+
     }
 
     /**
-     * @Route("/{id}/new", name="challenge_new", methods={"GET","POST"})
+     * @Route("/new", name="challenge_new", methods={"GET","POST"})
      * @param Request $request
      * @param PublicChallengeCreation $publicChallengeCreation
      * @param Session $session
      * @param CreatePrivateChallenge $createPrivateChallenge
-     * @param int $id
      * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function new(Request $request, PublicChallengeCreation $publicChallengeCreation, Session $session, CreatePrivateChallenge $createPrivateChallenge, int $id, TeacherRepository $teacherRepository): Response
+    public function new(Request $request, PublicChallengeCreation $publicChallengeCreation, Session $session, CreatePrivateChallenge $createPrivateChallenge, TeacherRepository $teacherRepository): Response
     {
         $challenge = new Challenge();
         $form = $this->createForm(ChallengeType::class, $challenge);
@@ -63,7 +70,7 @@ class ChallengeController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
-                $teacher = $teacherRepository->findOneById($id);
+                $teacher = $teacherRepository->findOneById($this->getUser()->getId());
                 if ($challenge->getRole() == "ROLE_PUBLIC_CHALLENGE") {
                     $challenge = $publicChallengeCreation->makePublicChallenge($challenge, $teacher);
                 } else {

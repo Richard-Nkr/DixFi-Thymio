@@ -7,26 +7,18 @@
     <table class="form_table">
         <tr>
             <td class="td_label3">
-                <div class="form-group">
-                    {{ form_label(form.nickname, 'Surnom : ') }}
-                </div>
+                {{ form_label(form.nickname, 'Surnom : ') }}
             </td>
             <td class="td_field2">
-                <div class="col-sm-14">
-                    {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
-                </div>
+                {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td>
-                <div class="form-group">
-                    {{ form_label(form.password, 'Mot de passe : ') }}
-                </div>
+                {{ form_label(form.password, 'Mot de passe : ') }}
             </td>
             <td>
-                <div class="col-sm-14">
-                    {{ form_widget(form.password, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
-                </div>
+                {{ form_widget(form.password, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
     </table>

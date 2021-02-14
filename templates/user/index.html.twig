@@ -6,7 +6,7 @@
     {% if app.user %}
         {% if is_granted('ROLE_TEACHER') %}
             <p class="introButton"><b> Consultez votre profil d'enseignant : </b></p>
-            <a href="{{ path('teacher_show',{'id': app.user.id}) }}">
+            <a href="{{ path('teacher_show') }}">
                 <button class="greenButton" value="See profil"> Voir mon profil enseignant</button>
             </a>
             <br>

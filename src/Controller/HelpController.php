@@ -70,7 +70,7 @@ class HelpController extends AbstractController
                 $entityManager->persist($help);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('challenge_index');
+                return $this->redirectToRoute('challenge_show_myChallenge');
             }else{
                 $notifier->send(new Notification("Le numéro d'indice n'est pas cohérent ", ['browser']));
                 return $this->render('help/new.html.twig', [
@@ -79,7 +79,6 @@ class HelpController extends AbstractController
                     'form' => $form->createView(),
                 ]);
             }
-
         }
 
         return $this->render('help/new.html.twig', [
