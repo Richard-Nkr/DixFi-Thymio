@@ -102,6 +102,7 @@
 
     "jms/metadata": {
         "version": "2.4.0"
+        },
     "illuminate/bus": {
         "version": "v8.26.1"
     },
@@ -603,6 +604,7 @@
         "files": [
             "./config/packages/vich_uploader.yaml"
         ]
+        },
 
     "voku/portable-ascii": {
         "version": "1.5.6"

@@ -21,10 +21,8 @@ class TeacherUserGuest
         $teacher = new Teacher();
         $teacher->setPassword($userguest->getPassword());
         $teacher->setRoles(['ROLE_TEACHER']);
-<<<<<<< HEAD
-=======
         $teacher->getCreatedAt(new \DateTime('now'));
->>>>>>> feature_create_challenge
+
         $teacher->setFirstname($userguest->getFirstname());
         $teacher->setMail($userguest->getMail());
         $teacher->setName($userguest->getName());

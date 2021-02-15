@@ -69,16 +69,6 @@ class Challenge
 
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $duration;
-
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $role;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $solutionPath;
@@ -250,28 +240,5 @@ class Challenge
         return $this;
     }
 
-    public function getDuration(): ?string
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(string $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
 
 }
