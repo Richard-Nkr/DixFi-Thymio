@@ -3,10 +3,11 @@
 {% block title %}UserGuest index{% endblock %}
 
 {% block body %}
-    <h1>UserGuest index</h1>
+    <div class="context">
+        <h1>UserGuest index</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Mail</th>
@@ -14,26 +15,27 @@
                 <th>Firstname</th>
                 <th>actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for user_guest in user_guests %}
-            <tr>
-                <td>{{ user_guest.id }}</td>
-                <td>{{ user_guest.mail }}</td>
-                <td>{{ user_guest.name }}</td>
-                <td>{{ user_guest.firstname }}</td>
-                <td>
-                    <a href="{{ path('user_guest_show', {'id': user_guest.id}) }}">show</a>
-                    <a href="{{ path('user_guest_edit', {'id': user_guest.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for user_guest in user_guests %}
+                <tr>
+                    <td>{{ user_guest.id }}</td>
+                    <td>{{ user_guest.mail }}</td>
+                    <td>{{ user_guest.name }}</td>
+                    <td>{{ user_guest.firstname }}</td>
+                    <td>
+                        <a href="{{ path('user_guest_show', {'id': user_guest.id}) }}">show</a>
+                        <a href="{{ path('user_guest_edit', {'id': user_guest.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('user_guest_new') }}">Create new</a>
+        <a href="{{ path('user_guest_new') }}">Create new</a>
+    </div>
 {% endblock %}

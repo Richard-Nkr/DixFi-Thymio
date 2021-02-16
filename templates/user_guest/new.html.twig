@@ -3,6 +3,7 @@
 {% block title %}Création d'un compte{% endblock %}
 
 {% block body %}
+<div class="context">
     {# nous testons si la variable message existe #}
     {% if message is defined %}
         <div class="alert alert-danger">
@@ -13,4 +14,5 @@
     {{ include('user_guest/_form.html.twig') }}
 
     <a href="{{ path('user_index') }}">back to list</a>
+</div>
 {% endblock %}

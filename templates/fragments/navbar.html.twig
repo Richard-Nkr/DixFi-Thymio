@@ -1,96 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{{ path('home') }}">Les Dix'Fi de Thymio</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown" class="nav-item active">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false" class="nav-link">Les Dix'Fi </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}">Easy
-                        DixFi's</a>
-                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}">Medium
-                        DixFi's</a>
-                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}">Hard
-                        DixFi's</a>
-                    <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}">Extreme
-                        DixFi's</a>
-                </div>
-                </a>
-            </li>
-
-
-            <li class="nav-item dropdown" class="nav-item active">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false" class="nav-link" >Les Teachers'Fi </a>
-
-            </li>
-            {% if is_granted('ROLE_TEACHER') %}
-
-            <li class="nav-item dropdown" class="nav-item active">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false" class="nav-link" >Votre espace Teacher </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ path('list_groups',{'purpose': 'validation'}) }}">Validation des défis de mes groupes</a>
-                    <a class="dropdown-item" href="{{ path('list_groups',{'purpose': 'progress'}) }}">La progression de mes groupes</a>
-                    <a class="dropdown-item" href="{{ path('teacher_show',{'id': app.user.id}) }}">Mon profil</a>
-                </div>
-            </li>
-            {% endif %}
-
-            <li class="nav-item active">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false" class="nav-link">Les Teachers'Fi</a>
-                <div class="dropdown-menu" style="margin-left: 22%;">
-                    {% if app.user %}
-                        {% if is_granted('ROLE_TEACHER') %}
-                            <a class="dropdown-item" href="{{ path('challenge_new') }}">Créer mes
-                                défis</a>
-                            <a class="dropdown-item" href="{{ path('challenge_show_myChallenge') }}">Voir mes
-                                défis</a>
-                            <a class="dropdown-item" href="#">Voir les
-                                défis privées</a>
-                        {% endif %}
-                    {% endif %}
-                    <a class="dropdown-item" href="#">Voir les défis public</a>
-                </div>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('user_index') }}">
-                    <img id="profilIcone" class="nav-item active" src="{{ asset('images/profil.png') }}"
-                         alt="Icone_Profil">
-                </a>
-            </li>
-        </ul>
-
-    </div>
-</nav>
-<nav class="menu">
+<nav class="menu" id="menu_navabr">
     <ol>
-        <li class="menu-item"><a href="#0">Home</a></li>
-        <li class="menu-item"><a href="#0">About</a></li>
         <li class="menu-item">
-            <a href="#0">Widgets</a>
+            <a href="{{ path('home') }}" class="home">
+                <i class="fas fa-home"></i>
+                <span>Les Dix'Fi de Thymio</span>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#0" class="widgets">
+                <i class="fas fa-trophy"></i>
+                <span>Les Dix'Fi</span>
+            </a>
             <ol class="sub-menu">
-                <li class="menu-item"><a href="#0">Big Widgets</a></li>
-                <li class="menu-item"><a href="#0">Bigger Widgets</a></li>
-                <li class="menu-item"><a href="#0">Huge Widgets</a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"class="item--a"><span>Dix'Fi Facile</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"class="item--a"><span>Dix'Fi Moyen</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}"class="item--a"><span>Dix'Fi Difficile</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}"class="item--a"><span>Dix'Fi Extrême</span></a></li>
             </ol>
         </li>
         <li class="menu-item">
-            <a href="#0">Kabobs</a>
+            <a href="#0" class="widgets">
+                <i class="fas fa-pen"></i>
+                <span>Widgets</span>
+            </a>
+
+        </li>
+        <li class="menu-item">
+            <a href="#0" class="kabobs">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Kabobs</span>
+            </a>
             <ol class="sub-menu">
-                <li class="menu-item"><a href="#0">Shishkabobs</a></li>
-                <li class="menu-item"><a href="#0">BBQ kabobs</a></li>
-                <li class="menu-item"><a href="#0">Summer kabobs</a></li>
+                <li class="menu-item"><a href="#0" class="item--a"><span>Shishkabobs</span></a></li>
+                <li class="menu-item"><a href="#0" class="item--b"><span>BBQ kabobs</span></a></li>
+                <li class="menu-item"><a href="#0" class="item--c"><span>Summer kabobs</span></a></li>
             </ol>
         </li>
-        <li class="menu-item"><a href="#0">Contact</a></li>
+        <li class="menu-item">
+            <a href="{{ path('user_index') }}" class="contact">
+                <i class="fas fa-user-alt"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li>
     </ol>
 </nav>

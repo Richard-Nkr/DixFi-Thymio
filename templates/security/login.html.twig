@@ -4,6 +4,7 @@
 
 
 {% block body %}
+    <div class="context">
     <form method="post">
         {% for message in app.flashes('notification') %}
             <div class="alert alert-info alert-dismissible fade show">
@@ -69,9 +70,11 @@
             </div>
             #}
             <br>
-            <button class="btn btn-success" type="submit">
+            <button class="btnG" type="submit">
                 Se connecter
             </button>
         </fieldset>
     </form>
+    </div>
 {% endblock %}
+
