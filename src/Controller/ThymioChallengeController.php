@@ -12,9 +12,11 @@ use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\ThymioChallengeRepository;
 use App\Repository\ChallengeRepository;
+use App\Service\DocumentGenerator;
 use App\Service\HandleStatus;
 use App\Service\SecurizerRoles;
 use App\Services\MailerService;
+use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,6 +70,23 @@ class ThymioChallengeController extends AbstractController
      */
     public function solution(ThymioChallenge $thymioChallenge, int $id): Response
     {
+        return $this->render('thymio_challenge/solution.html.twig', [
+            'thymio_challenge' => $thymioChallenge,
+            'solutionPath' => $thymioChallenge->getSolutionPath(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/create/pdf", name="thymio_challenge_create_pdf", methods={"GET","POST"})
+     * @param ThymioChallenge $thymioChallenge
+     * @param DocumentGenerator $documentGenerator
+     * @return Response
+     */
+    public function createPDF(ThymioChallenge $thymioChallenge, DocumentGenerator $documentGenerator): Response
+    {
+
+        $documentGenerator->generatePdf('thymio_challenge/solution.html.twig', ['thymio_challenge'=>$thymioChallenge]);
+        //  et on l'affiche dans un   objet Response
         return $this->render('thymio_challenge/solution.html.twig', [
             'thymio_challenge' => $thymioChallenge,
             'solutionPath' => $thymioChallenge->getSolutionPath(),

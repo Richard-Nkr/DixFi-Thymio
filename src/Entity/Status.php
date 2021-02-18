@@ -60,6 +60,11 @@ class Status
      */
     private $submitted_at;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
 
 
     /**
@@ -192,6 +197,18 @@ class Status
     public function setSubmittedAt(?\DateTimeInterface $submitted_at): self
     {
         $this->submitted_at = $submitted_at;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }

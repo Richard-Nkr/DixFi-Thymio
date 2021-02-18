@@ -15,4 +15,9 @@
         </a>
     </div>
 
+    <form method="post" action="{{ path('thymio_challenge_create_pdf', {'id': thymio_challenge.id}) }}">
+        <div class="buttonStartChallenge">
+            <button class="btn btn-success"> PDF de la correction du DixFi {{ thymio_challenge.id }}  </button>
+        </div>
+    </form>
 {% endblock %}
