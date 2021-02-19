@@ -4,7 +4,6 @@
 
 
 {% block body %}
-    <div class="context">
     <form method="post">
         {% for message in app.flashes('notification') %}
             <div class="alert alert-info alert-dismissible fade show">
@@ -75,6 +74,5 @@
             </button>
         </fieldset>
     </form>
-    </div>
 {% endblock %}
 

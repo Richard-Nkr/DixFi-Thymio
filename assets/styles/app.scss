@@ -101,7 +101,6 @@ a {
 
         &.widgets, &.kabobs {
           &::before {
-            content: "";
             display: block;
             width: 0px;
             height: 0;
@@ -238,11 +237,8 @@ a {
   }
 }
 
-
-
 $red : #e53935;
 $green : #4CAF50;
-
 
 @mixin buttonBG($bg) {
   border: 2px solid $bg;
@@ -295,6 +291,8 @@ $green : #4CAF50;
   text-decoration: none;
   text-transform: uppercase;
 }
+
+
 
 
 

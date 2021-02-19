@@ -12,11 +12,9 @@
 
     {% block stylesheets %}{% endblock %}
 </head>
-
 <body>
 
 {% include 'fragments/navbar.html.twig' %}
-
 <div class="area">
     <ul class="circles">
         <li></li>
@@ -29,11 +27,17 @@
         <li></li>
         <li></li>
         <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
     </ul>
+</div>
+<div class="context">
+    {% block body %}
+    {% endblock %}
 </div>
 
 
-{% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <script src="https://kit.fontawesome.com/b51ada4409.js" crossorigin="anonymous"></script>

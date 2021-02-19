@@ -12,10 +12,14 @@
                 <span>Les Dix'Fi</span>
             </a>
             <ol class="sub-menu">
-                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"class="item--a"><span>Dix'Fi Facile</span></a></li>
-                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"class="item--a"><span>Dix'Fi Moyen</span></a></li>
-                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}"class="item--a"><span>Dix'Fi Difficile</span></a></li>
-                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}"class="item--a"><span>Dix'Fi Extrême</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
+                                                 class="item--a"><span>Dix'Fi Facile</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"
+                                                 class="item--a"><span>Dix'Fi Moyen</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}"
+                                                 class="item--a"><span>Dix'Fi Difficile</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}"
+                                                 class="item--a"><span>Dix'Fi Extrême</span></a></li>
             </ol>
         </li>
         <li class="menu-item">
@@ -25,17 +29,29 @@
             </a>
 
         </li>
+        {% if is_granted('ROLE_TEACHER') %}
+            <li class="menu-item">
+                <a href="#0" class="kabobs">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Mon espace Teacher</span>
+                </a>
+
+                <ol class="sub-menu">
+                    <li class="menu-item"><a href="{{ path('list_groups',{'purpose': 'validation'}) }}" class="item--a"><span>Validation des défis de mes groupes</span></a>
+                    </li>
+                    <li class="menu-item"><a href="{{ path('list_groups',{'purpose': 'progress'}) }}"
+                                             class="item--b"><span> Progression de mes groupes</span></a></li>
+                </ol>
+            </li>
+        {% else %}
         <li class="menu-item">
             <a href="#0" class="kabobs">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Kabobs</span>
+                <i class="fas fa-lock"></i>
+                <span>Espace réservé aux Teachers</span>
             </a>
-            <ol class="sub-menu">
-                <li class="menu-item"><a href="#0" class="item--a"><span>Shishkabobs</span></a></li>
-                <li class="menu-item"><a href="#0" class="item--b"><span>BBQ kabobs</span></a></li>
-                <li class="menu-item"><a href="#0" class="item--c"><span>Summer kabobs</span></a></li>
-            </ol>
         </li>
+        {% endif %}
+
         <li class="menu-item">
             <a href="{{ path('user_index') }}" class="contact">
                 <i class="fas fa-user-alt"></i>
