@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ThymioChallenge{% endblock %}
+{% block title %} Défi Thymio n°{{ thymio_challenge.id }} {% endblock %}
 
 {% block body %}
 
@@ -12,7 +12,10 @@
         </div>
     {% endfor %}
 
-<fieldset class="thymioChallenge">
+    <img style="width:" src="{{thymio_challenge.imagePath}}" alt="image_défiThymio">
+
+
+    <fieldset class="thymioChallenge">
 
     <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
 
@@ -42,12 +45,12 @@
 
     {% endif %}
 
-    {% if is_granted('ROLE_TEACHER') %}
+    {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_USER_GUEST')%}
     <div>
         <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
     </div>
     {% endif %}
-
+    <br>
     <div>
         <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
            <button type="button" class="btn btn-danger">Retour à la page des défis</button>

@@ -73,6 +73,11 @@ class Challenge
      */
     private $solutionPath;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagePath;
+
 
     public function __construct()
     {
@@ -237,6 +242,18 @@ class Challenge
     public function setSolutionPath(?string $solutionPath): self
     {
         $this->solutionPath = $solutionPath;
+        return $this;
+    }
+
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    public function setImagePath(?string $imagePath): self
+    {
+        $this->imagePath = $imagePath;
+
         return $this;
     }
 

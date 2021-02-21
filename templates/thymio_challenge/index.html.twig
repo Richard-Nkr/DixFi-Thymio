@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ThymioChallenge index{% endblock %}
+{% block title %}Les Dix'Fi de Thymio{% endblock %}
 
 {% block body %}
     <fieldset class="descriptionThymio"> Bienvenue sur les Dix'Fi de Thymio</fieldset>
@@ -14,6 +14,10 @@
                     {% elseif is_granted('ROLE_TEACHER') %}
                         <div class="buttonStartChallenge">
                             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
+                        </div>
+                    {% elseif is_granted('ROLE_USER_GUEST') %}
+                        <div class="buttonStartChallenge">
+                            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Commencer </button> </a>
                         </div>
                     {% endif %}
                 </div>
