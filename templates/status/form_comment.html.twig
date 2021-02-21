@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+<td>
+    {# utilisation de classes bootstrap pour la mise en forme #}
+
+    {{ form_widget(form.comment) }}
+</td>
+<td></td>
+<td></td>
+<td>
+    <div class="form-group">
+        {{ form_widget(form.id, {'attr': {'value': form.id.vars.value|default(soloStatus.id)}}) }}
+
+    <button class="btn btn-success"> {{ button_label|default('Envoyer') }} </button>
+    </div>
+</td>
+{{ form_end(form) }}
+

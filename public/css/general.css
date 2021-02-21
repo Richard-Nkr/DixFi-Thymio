@@ -171,3 +171,24 @@ a:hover {
     height: auto;
 }
 
+
+.tableValidate {
+    text-align: center;
+    margin: auto;
+    border-color: black;
+}
+
+#span_txt2{
+    font-style: italic;
+}
+
+.messageTeacher{
+    background-color: white;
+    border-radius: 10px;
+    padding: 2px;
+
+}
+
+
+
+

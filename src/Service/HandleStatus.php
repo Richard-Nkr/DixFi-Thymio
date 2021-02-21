@@ -25,8 +25,11 @@ class HandleStatus
 
         if ($status->getStatusInt()==0){
             $status->setStatusInt(1);
+            $status->setStartedAt(new \DateTime());
         }elseif ($status->getStatusInt()==1){
             $status->setStatusInt(2);
+            $status->setSubmittedAt(new \DateTime());
+            $status->setComment(null);
         }
         return $status;
     }

@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Status
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -66,6 +68,17 @@ class Status
     private $comment;
 
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * @ORM\PrePersist
@@ -99,10 +112,7 @@ class Status
         $this->countHelp = 0;
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+
 
 
     public function getStatusInt(): ?int

@@ -9,8 +9,8 @@
         <fieldset class="thymioChallenge">
             <legend class="legendValidation"> Groupe n°{{ studentgroup.id }} : {{ studentgroup.nickname }}</legend>
             <p> Le groupe «{{ studentgroup.nickname }}» a une progression de : <b>{{ studentgroup.countSucceed / 10 *100}}% </b></p>
-            {{ render(controller('App\\Controller\\TeacherController::listChallengesValidated', {'id': studentgroup.id}) ) }}
-            {{ render(controller('App\\Controller\\TeacherController::listChallengesInProgress', {'id': studentgroup.id}) ) }}
+            {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesValidated', {'id': studentgroup.id}) ) }}
+            {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesInProgress', {'id': studentgroup.id}) ) }}
         </fieldset>
     {% endfor %}
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Status;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -46,4 +47,13 @@ class StatusRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneById($id): ?Status
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

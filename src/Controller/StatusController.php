@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Status;
 use App\Entity\ThymioChallenge;
+use App\Form\StatusType;
+use App\Form\TeacherType;
 use App\Form\ThymioChallengeType;
+use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
+use App\Repository\TeacherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +27,26 @@ class StatusController extends AbstractController
     {
         return $this->render('status/index.html.twig', [
             'controller_name' => 'StatusController',
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/add/comment", name="add_comment", methods={"GET","POST"})
+     * @param Request $request
+     * @param StatusRepository $statusRepository
+     * @param Status $status
+     * @param TeacherRepository $teacherRepository
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function addComment(Request $request,StatusRepository $statusRepository, Status $status, TeacherRepository $teacherRepository, StudentGroupRepository $studentGroupRepository): Response
+    {
+
+        $form = $this->createForm(StatusType::class, $status);
+        $form->handleRequest($request);
+        return $this->render('status/form_comment.html.twig', [
+            'soloStatus' => $status,
+            'form' => $form->createView(),
         ]);
     }
 

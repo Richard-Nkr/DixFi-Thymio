@@ -145,9 +145,60 @@ class ThymioChallengeController extends AbstractController
             }
         }
 
+
+
         return $this->render('thymio_challenge/show.html.twig', [
             'thymio_challenge' => $thymioChallenge,
             'form' => $form->createView(),
+            'status' => $status,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/list/challenges/not/validated", name="list_challenges_not_validated", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param int $id
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function listChallengesNotValidated(StatusRepository $statusRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($id);
+        $status = $statusRepository->findBy(['studentGroup' => $studentGroup, 'statusInt' => 2]);
+        return $this->render('teacher/list_challenges.html.twig', [
+            'status' => $status,
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}/list/challenges/progress", name="list_challenges_progress.html.twig", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param int $id
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function listChallengesInProgress(StatusRepository $statusRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($id);
+        $status = $statusRepository->findBy(['studentGroup' => $studentGroup, 'statusInt' => [1, 2]]);
+        return $this->render('teacher/list_challenges_progress.html.twig', [
+            'status' => $status,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/list/challenges/validated", name="list_challenges_validated.html.twig", methods={"GET"})
+     * @param StatusRepository $statusRepository
+     * @param int $id
+     * @param StudentGroupRepository $studentGroupRepository
+     * @return Response
+     */
+    public function listChallengesValidated(StatusRepository $statusRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($id);
+        $status = $statusRepository->findBy(['studentGroup' => $studentGroup, 'statusInt' => 3]);
+        return $this->render('teacher/list_challenges_validated.html.twig', [
             'status' => $status,
         ]);
     }

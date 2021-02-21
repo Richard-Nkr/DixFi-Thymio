@@ -8,7 +8,11 @@
     {% for thymio_challenge in thymio_challenges %}
             <fieldset class="thymioChallenge">
                 <legend class="legendChallenge"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
-                <div class="buttonStartChallenge">
+
+                <div class="form-group">
+                    <p>Difficulté : {{ thymio_challenge.difficulty }}</p>
+                </div>
+
                     {% if is_granted('ROLE_STUDENT_GROUP') %}
                     {{ render(controller('App\\Controller\\ThymioChallengeController::listStateChallenge', {'id': thymio_challenge.id}) ) }}
                     {% elseif is_granted('ROLE_TEACHER') %}
@@ -16,10 +20,7 @@
                             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
                         </div>
                     {% endif %}
-                </div>
-                <div class="form-group">
-                    <p>Difficulté : {{ thymio_challenge.difficulty }}</p>
-                </div>
+
             </fieldset>
 
         {% endfor %}

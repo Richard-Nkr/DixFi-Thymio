@@ -4,21 +4,50 @@
 <div>
     <p> Le défi n°{{ statusSolo.challenge.id }} <i>«{{ statusSolo.challenge.name }}»</i> est en attente de validation. Le mail avec la solution du groupe vous a été envoyé le : <i>{{ statusSolo.submittedAt|date('Y-m-d H:i:s')}}</i></p>
 </div>
-    {% if status.comment=='null' %}
+    <hr>
+    {% if statusSolo.comment==NULL %}
+        <table class="tableValidate">
+            <tr>
+                {{ render(controller('App\\Controller\\StatusController::addComment', {'id': statusSolo.id}) ) }}
+            </tr>
+        </table>
 
-<form method="post" action="{{ path('validate', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
-    <div class="buttonStartChallenge">
-        <span id="span_txt2" style="display:none;">Ajouter un commentaire destiné à votre groupe</span>
+        <hr>
+        {% else %}
+            <table class="tableValidate">
+                <tr>
+                    <td> <p> Vous avez laissé un commentaire à votre groupe</p></td>
+                </tr>
+            </table>
+            <hr>
+    {% endif %}
+    <table class="tableValidate">
+        <tr>
+            <td class="celluleValidate" valign="bottom" >
+                <br>
+                <p> Procédez à l'évaluation rapide du DixFi n°{{ statusSolo.challenge.id }} : </p>
+            </td>
+            <td></td>
+            <td class="celluleValidate">
+                <form method="post" action="{{ path('validate', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
+                    <div class="buttonStartChallenge">
 
-    <button class="btn btn-success">Valider </button>
-    </div>
-</form>
+                        <button class="btn btn-success">Valider </button>
+                    </div>
+                </form>
+            </td>
+            <td class="celluleValidate">
+                <form method="post" action="{{ path('delete_validation', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir refuser ce défi?');">
+                    <div class="buttonStartChallenge">
+                        <button class="btn btn-danger">Refuser le défi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
 
-    <form method="post" action="{{ path('delete_validation', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir refuser ce défi?');">
-        <div class="buttonStartChallenge">
-            <button class="btn btn-success">Refuser le défi</button>
-        </div>
-    </form>
+
+
 </fieldset>
 {% else %}
     <p> Aucun Défi à valider </p>

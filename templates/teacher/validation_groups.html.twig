@@ -8,7 +8,7 @@
         {% for studentgroup in studentgroups %}
             <fieldset class="thymioChallenge">
                 <legend class="legendValidation"> Groupe n°{{ studentgroup.id }} : {{ studentgroup.nickname }}</legend>
-                {{ render(controller('App\\Controller\\TeacherController::listChallengesNotValidated', {'id': studentgroup.id}) ) }}
+                {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesNotValidated', {'id': studentgroup.id}) ) }}
             </fieldset>
         {% endfor %}
 {% endblock %}
