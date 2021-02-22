@@ -3,82 +3,77 @@
 {% block title %}Challenge index{% endblock %}
 
 {% block body %}
-    <fieldset class="formInscription">
-        <legend class="legendInscription">Mes défis</legend>
-        <table class="table">
-            <thead>
-            <tr>
-                <td colspan="4" style="font-size: 20px">Mes défis publics</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Difficulty</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            </tr>
-            {% for challenge in public_challenges %}
-                {% if challenge.teacher == teacher %}
-                    <tr>
-                        <td>{{ challenge.id }}</td>
-                        <td>{{ challenge.name }}</td>
-                        <td>{{ challenge.difficulty }}</td>
-                        <td>
-                            <a href="{{ path('challenge_show', {'id': challenge.id}) }}">Voir ce défi</a> <br>
-                            <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">Editer ce défi</a> <br>
-                            <a href="{{ path('help_new', {'id': challenge.id}) }}">Ajouter un indice</a> <br>
-                            <a href="{{ path('help_list', {'id': challenge.id}) }}">Voir les indices</a>
-                        </td>
-                    </tr>
-                {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="4">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <table class="table">
-            <thead>
-            <tr>
-                <td colspan="4" style="font-size: 20px">Mes défis privées</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Difficulty</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            </tr>
+    <fieldset class="showChallenge">
+        <legend>Mes défis publics</legend>
+        {% for challenge in public_challenges %}
+            {% if challenge.teacher == teacher %}
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ challenge.name }}</h5>
+                        <p class="card-text">{{ challenge.difficulty }}</p>
+                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">Voir ce défi</a> <br>
+                        <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">Editer ce défi</a> <br>
+                        <a href="{{ path('help_new', {'id': challenge.id}) }}">Ajouter un indice</a> <br>
+                        <a href="{{ path('help_list', {'id': challenge.id}) }}">Voir les indices</a>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    </fieldset>
+
+
+
+    <fieldset class="showChallenge">
+        <legend>Mes défis privés</legend>
+        <div class="challenge_container">
             {% for challenge in private_challenges %}
                 {% if challenge.teacher == app.user %}
-                    <tr>
-                        <td>{{ challenge.id }}</td>
-                        <td>{{ challenge.name }}</td>
-                        <td>{{ challenge.difficulty }}</td>
-                        <td>
-                            <a href="{{ path('challenge_show', {'id': challenge.id}) }}">Voir ce défi</a> <br>
-                            <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">Editer ce défi</a> <br>
-                            <a href="{{ path('help_new', {'id': challenge.id}) }}">Ajouter un indice</a> <br>
-                            <a href="{{ path('help_list', {'id': challenge.id}) }}">Voir les indices</a>
-                        </td>
-                    </tr>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nom du défi : {{ challenge.name }}</h5>
+                            <p class="card-text">Difficulté : {{ challenge.difficulty }}</p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">
+                                            <button class="btnB">Voir ce
+                                                défi
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
+                                            <button class="btnB">Editer ce défi</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('help_new', {'id': challenge.id}) }}">
+                                            <button class="btnB">Ajouter un indice</button>
+                                        </a>
+                                    </td>
+                                    <td>
+
+                                        <a href="{{ path('help_list', {'id': challenge.id}) }}">
+                                            <button class="btnB">Voir les indices</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
                 {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="4">no records found</td>
-                </tr>
             {% endfor %}
-            </tbody>
-        </table>
-        <a href="{{ path('challenge_new',{'id': app.user.id}) }}">Create new</a>
+        </div>
     </fieldset>
+
+    <a href="{{ path('challenge_new',{'id': app.user.id}) }}">
+        <button class="btnG">Créer un défi</button>
+    </a>
 
 {% endblock %}
 

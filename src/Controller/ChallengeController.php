@@ -37,13 +37,13 @@ class ChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/show_myChallenge", name="challenge_show_myChallenge", methods={"GET"})
+     * @Route("/showMyChallenge", name="challenge_showMyChallenge", methods={"GET"})
      * @param PrivateChallengeRepository $privateChallengeRepository
      * @param PublicChallengeRepository $publicChallengeRepository
      * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function show_myChallenge(PrivateChallengeRepository $privateChallengeRepository, PublicChallengeRepository $publicChallengeRepository, TeacherRepository $teacherRepository): Response
+    public function showMyChallenge(PrivateChallengeRepository $privateChallengeRepository, PublicChallengeRepository $publicChallengeRepository, TeacherRepository $teacherRepository): Response
     {
         return $this->render('challenge/show_my_challenge.html.twig', [
             'public_challenges' => $publicChallengeRepository->findAll(),
@@ -79,7 +79,7 @@ class ChallengeController extends AbstractController
                 $entityManager->persist($challenge);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('challenge_index', [
+                return $this->redirectToRoute('challenge_show_myChallenge', [
                     'teacher' => $session->get('user'),
                 ]);
             }
