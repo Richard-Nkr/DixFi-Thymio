@@ -4,25 +4,50 @@
 
 {% block body %}
     <fieldset class="showChallenge">
-        <legend>Mes défis publics</legend>
-        {% for challenge in public_challenges %}
-            {% if challenge.teacher == teacher %}
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ challenge.name }}</h5>
-                        <p class="card-text">{{ challenge.difficulty }}</p>
-                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">Voir ce défi</a> <br>
-                        <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">Editer ce défi</a> <br>
-                        <a href="{{ path('help_new', {'id': challenge.id}) }}">Ajouter un indice</a> <br>
-                        <a href="{{ path('help_list', {'id': challenge.id}) }}">Voir les indices</a>
+        <legend>Mes défis privés</legend>
+        <div class="challenge_container">
+            {% for challenge in public_challenges %}
+                {% if challenge.teacher == app.user %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"> {{ challenge.name }}</h4>
+                            <h5 class="card-text"> {{ challenge.difficulty }}</h5>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">
+                                            <button class="btnB">Voir ce
+                                                défi
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
+                                            <button class="btnB">Editer ce défi</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('help_new', {'id': challenge.id}) }}">
+                                            <button class="btnB">Ajouter un indice</button>
+                                        </a>
+                                    </td>
+                                    <td>
+
+                                        <a href="{{ path('help_list', {'id': challenge.id}) }}">
+                                            <button class="btnB">Voir les indices</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
 
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </fieldset>
-
 
 
     <fieldset class="showChallenge">
@@ -32,8 +57,8 @@
                 {% if challenge.teacher == app.user %}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Nom du défi : {{ challenge.name }}</h5>
-                            <p class="card-text">Difficulté : {{ challenge.difficulty }}</p>
+                                 <h2 class="card-title">{{ challenge.name }}</h2>
+                            <h4 class="card-text"> {{ challenge.difficulty }}</h4>
                             <table>
                                 <tr>
                                     <td>

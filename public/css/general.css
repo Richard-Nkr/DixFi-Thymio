@@ -1,18 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
 
 * {
-    margin: 0px;
-    padding: 0px;
+    box-sizing: border-box;
 }
 
 html {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
+    background-color: #5FB1EE;
     text-align: center;
-    min-height: 100%;
     font-family: 'Exo', sans-serif;
+    height: 100%;
 }
 
 h1 {
@@ -606,14 +608,14 @@ a:hover {
 .showChallenge {
     background-color: white;
     margin: 2% auto;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 1022px;
 }
 
 fieldset.showChallenge legend {
     background-color: #0B75C9;
     color: white;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 3px 6px;
     margin: 2% auto;
     width: 30%;
@@ -624,12 +626,15 @@ fieldset.showChallenge legend {
     width: 18rem;
     margin: 20px;
     background-color: #0b75c9;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .card-title {
     font-weight: bold;
     font-size: 18px;
+}
+.card-body{
+    text-align: center;
 }
 
 .challenge_container {

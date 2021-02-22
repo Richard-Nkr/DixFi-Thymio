@@ -23,7 +23,7 @@ class PublicChallengeCreation
         $publicChallenge->setDifficulty($challenge->getDifficulty());
         $publicChallenge->setDuration($challenge->getDuration());
         $publicChallenge->setTeacher($teacher);
-        $publicChallenge->setNameCorrectionPDF();
+        $publicChallenge->setRole($challenge->getRole());
 
         return $publicChallenge;
     }

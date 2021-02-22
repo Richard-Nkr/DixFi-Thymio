@@ -79,7 +79,7 @@ class ChallengeController extends AbstractController
                 $entityManager->persist($challenge);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('challenge_show_myChallenge', [
+                return $this->redirectToRoute('challenge_showMyChallenge', [
                     'teacher' => $session->get('user'),
                 ]);
             }
