@@ -26,7 +26,6 @@ a {
 }
 
 
-
 .menu {
   @media (max-width: 991px) {
     width: 256px;
@@ -63,7 +62,6 @@ a {
           display: block;
           font-size: 32px;
           transform: translateY(25px);
-          transition: transform 400ms ease;
           transition: .4s cubic-bezier(.94, 1.60, .5, 1);
         }
 
@@ -72,8 +70,6 @@ a {
         span {
           display: block;
           margin-top: .2em;
-          transition: transform 300ms ease,
-          opacity 150ms ease;
           transition: .35s cubic-bezier(.54, 1.60, .5, 1);
           transform: translateY(70px);
           opacity: 0;
@@ -108,7 +104,6 @@ a {
             border-right: 15px solid transparent;
             border-bottom: 15px solid #9fdfff;
             transition: transform 700ms ease, opacity 900ms ease;
-            transition: .35s cubic-bezier(.54, 1.60, .5, 1);
             position: absolute;
             bottom: 0;
             @media (max-width: 991px) {
@@ -139,6 +134,7 @@ a {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
           }
+
           &::before {
             @media (max-width: 991px) {
               border-top-width: 450px;
@@ -163,7 +159,6 @@ a {
         width: 120%;
         transform: translateY(-400px);
         transition: transform 150ms ease;
-        transition: .2s cubic-bezier(.94, 1.60, .5, 1);
         @media (max-width: 991px) {
           transform: translate(-20%, -234px);
         }
@@ -186,7 +181,6 @@ a {
               border-top: 0;
               border-right: 0;
             }
-            transition: all 110ms ease;
             transition: .2s cubic-bezier(0.57, 0.21, 0.69, 3.25);
 
             span {
@@ -237,60 +231,115 @@ a {
   }
 }
 
-$red : #e53935;
-$green : #4CAF50;
+$red: #d2151c;
+$bg_red: #d4344d;
 
-@mixin buttonBG($bg) {
-  border: 2px solid $bg;
-  color: $bg;
+$blue: #184bdd;
+$bg_blue: #1423bc;
+
+$green: #2cac10;
+$bg_green: #60f367;
+
+@mixin myButton($color,$bg) {
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 18px;
+  letter-spacing: 2px;
+  position: relative;
+  background-color: $color;
+  border: none;
+  color: #fff;
+  padding: 20px;
+  width: 250px;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #193047;
+  border-radius: 4px;
   &:hover {
-    background-color: $bg;
-    transition: all 0.3s ease-in-out;
+    background: #f1ecec;
+    box-shadow: 0px 2px 10px 5px $bg;
+    color: #000;
+  }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  &:active:after {
+
+  }
+  &:focus {
+    outline: 0;
   }
 }
 
-.container{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  height: 97vh;
-  .btn{
-    padding: 40px 90px;
-    width: 180px;
-    height: 80px;
-    outline: none;
-    cursor: pointer;
-    background-color: black;
-    transition: .5s;
-    border-radius: 5px;
-    &:hover{
-      border: none;
-      color: white;
-      font-size: 28px;
-      transform:scale(1.1);
-    }
+@mixin myButton2($color,$bg) {
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  background-color: $color;
+  border: none;
+  color: #fff;
+  padding: 5px;
+  width: 120px;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #193047;
+  border-radius: 4px;
+  &:hover {
+    background: #f1ecec;
+    box-shadow: 0px 2px 10px 5px $bg;
+    color: #000;
   }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  &:active:after {
 
+  }
+  &:focus {
+    outline: 0;
+  }
 }
 
-.red{
-  @include buttonBG($red);
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-  font-weight: bold;
-  font-size: 24px;
-  text-decoration: none;
-  text-transform: uppercase;
+.btnR {
+  @include myButton($red, $bg_red);
 }
-.green{
-  @include buttonBG($green);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  font-size: 20px;
-  text-decoration: none;
-  text-transform: uppercase;
+
+.btnG {
+  @include myButton($green, $bg_green);
 }
+
+.btnC {
+  @include myButton2($green, $bg_green);
+}
+
+.btnB {
+  @include myButton2($blue, $bg_blue);
+}
+
+
+
+
+
+
 
 
 

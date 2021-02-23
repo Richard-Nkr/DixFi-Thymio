@@ -19,6 +19,16 @@ class PublicChallengeRepository extends ServiceEntityRepository
         parent::__construct($registry, PublicChallenge::class);
     }
 
+    public function findOneById($id): ?PublicChallenge
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return PublicChallenge[] Returns an array of PublicChallenge objects
     //  */

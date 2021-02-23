@@ -4,18 +4,33 @@ namespace App\Entity;
 
 use App\Repository\PublicChallengeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=PublicChallengeRepository::class)
+ * @Vich\Uploadable
  */
 class PublicChallenge extends Challenge
 {
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string",length=30, nullable=true)
+     *
+     * @var string | null
      */
-    private $nameCorrectionPDF;
+    private $nameCorrection;
 
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="correction", fileNameProperty="nameCorrection")
+     *
+     * @var File
+     */
+    private $fileCorrection;
 
     /**
      * @ORM\Column(type="datetime")
@@ -33,18 +48,39 @@ class PublicChallenge extends Challenge
      */
     private $deletedAt;
 
-    public function getNameCorrectionPDF(): ?string
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updateAt;
+
+    public function getNameCorrection(): ?string
     {
-        return $this->nameCorrectionPDF;
+        return $this->nameCorrection;
     }
 
-    public function setNameCorrectionPDF(string $nameCorrectionPDF): self
+    public function setNameCorrection(string $nameCorrection): self
     {
-        $this->nameCorrectionPDF = $nameCorrectionPDF;
+        $this->nameCorrection = $nameCorrection;
 
         return $this;
     }
 
+    public function getFileCorrection(): ?File
+    {
+        return $this->fileCorrection;
+    }
+
+    /**
+     * @param File|UploadedFile|null $fileCorrection
+     */
+    public function setFileCorrection(?File $fileCorrection = null): void
+    {
+        $this->fileCorrection = $fileCorrection;
+
+        if (null !== $fileCorrection) {
+            $this->updateAt = new \DateTimeImmutable();
+        }
+    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -78,6 +114,18 @@ class PublicChallenge extends Challenge
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    {
+        $this->updateAt = $updateAt;
 
         return $this;
     }

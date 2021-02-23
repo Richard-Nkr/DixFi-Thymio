@@ -4,7 +4,7 @@
 
 {% block body %}
     <fieldset class="showChallenge">
-        <legend>Mes défis privés</legend>
+        <legend>Mes défis publics</legend>
         <div class="challenge_container">
             {% for challenge in public_challenges %}
                 {% if challenge.teacher == app.user %}
@@ -15,7 +15,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">
+                                        <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
                                             <button class="btnB">Voir ce
                                                 défi
                                             </button>
@@ -37,6 +37,14 @@
 
                                         <a href="{{ path('help_list', {'id': challenge.id}) }}">
                                             <button class="btnB">Voir les indices</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+
+                                        <a href="{{ path('public_challenge_addCorrection', {'id': challenge.id}) }}">
+                                            <button class="btnC">Ajouter la correction</button>
                                         </a>
                                     </td>
                                 </tr>
@@ -62,7 +70,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">
+                                        <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
                                             <button class="btnB">Voir ce
                                                 défi
                                             </button>
