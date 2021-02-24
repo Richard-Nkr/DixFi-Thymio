@@ -12,6 +12,10 @@
                 <span>Les Dix'Fi</span>
             </a>
             <ol class="sub-menu">
+                {% if is_granted('ROLE_TEACHER') %}
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_activate_progression') }}"
+                                                 class="item--a"><span>Activation de la progression</span></a></li>
+                {% endif %}
                 <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
                                                  class="item--a"><span>Dix'Fi Facile</span></a></li>
                 <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"

@@ -10,6 +10,7 @@ use App\Form\ThymioChallengeType;
 use App\Repository\StatusRepository;
 
 use App\Repository\StudentGroupRepository;
+use App\Repository\TeacherRepository;
 use App\Repository\ThymioChallengeRepository;
 use App\Repository\ChallengeRepository;
 use App\Service\DocumentGenerator;
@@ -175,6 +176,17 @@ class ThymioChallengeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/activate/progression", name="thymio_challenge_activate_progression", methods={"GET"})
+     * @param TeacherRepository $teacherRepository
+     * @return Response
+     */
+    public function activateProgression(TeacherRepository $teacherRepository)
+    {
+        return $this->render('thymio_challenge/activate_progression.html.twig', [
+            'teacher' => $teacherRepository->findOneById($this->getUser()->getId()),
+        ]);
+    }
 
     /**
      * @Route("/{id}/list/challenges/progress", name="list_challenges_progress.html.twig", methods={"GET"})
