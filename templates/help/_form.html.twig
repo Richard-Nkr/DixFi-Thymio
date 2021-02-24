@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+<fieldset class="formInscription">
+    <legend class="legendInscription">Ajout d'un indice</legend>
+    <table class="form_table2">
+        <tr>
+            <td colspan="2" style="font-size: 18px"> Il y a actuellement {{ helps|length }} indice(s) pour ce challenge </td>
+        </tr>
+        <tr>
+            <td class="td_label4">
+                {{ form_label(form.numberHelp, 'Numéro d\'indice : ', {'attr': {'class': 'form_label2'}}) }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.numberHelp, {'attr': {'class': 'form_field'}}) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label4">
+                {{ form_label(form.contentHelp, 'Indice : ', {'attr': {'class': 'form_label'}}) }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.contentHelp, {'attr': {'class': 'form_field3'}}) }}
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-success">{{ button_label|default('Ajouter l\'indice') }}</button>
+</fieldset>
+{{ form_end(form) }}
+

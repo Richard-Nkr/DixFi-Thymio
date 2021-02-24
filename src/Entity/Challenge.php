@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
  *     "challenge"="Challenge",
- *     "pivate_challenge"="PrivateChallenge",
+ *     "private_challenge"="PrivateChallenge",
  *     "public_challenge"="PublicChallenge",
  *     "thymio_challenge"="ThymioChallenge",
  * })
@@ -25,47 +25,48 @@ class Challenge
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $difficulty;
+    protected $difficulty;
 
     /**
      * @ORM\OneToMany(targetEntity=Status::class, mappedBy="challenge")
      */
-    private $status;
+    protected $status;
 
     /**
      * @ORM\ManyToMany(targetEntity=StudentGroup::class, inversedBy="challenges")
      */
-    private $groups;
+    protected $groups;
 
     /**
      * @ORM\OneToMany(targetEntity=Help::class, mappedBy="challenge")
      */
-    private $helps;
+    protected $helps;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    protected $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      */
-    private $duration;
+    protected $duration;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=100)
      */
-    private $role;
+    protected $role;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -214,6 +215,7 @@ class Challenge
     public function setDescription(string $description): self
     {
         $this->description = $description;
+        return $this;
     }
 
 
@@ -238,4 +240,6 @@ class Challenge
         $this->solutionPath = $solutionPath;
         return $this;
     }
+
+
 }

@@ -64,13 +64,15 @@ class UserGuestController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $gestionPassword->createHashPassword($userguest);
-            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')){
+            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
                 $userguest = $teacherUserguest->makeTeacher($userguest);
             }
             $entityManager->persist($userguest);
+
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
                 $entityManager->persist($createChat->create($userguest));
             }
+
             $entityManager->flush();$mail = $userguest->getMail();
             $id = $userguest->getId();
             $mailerService->sendId(
@@ -79,6 +81,8 @@ class UserGuestController extends AbstractController
             );
             $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter
             afin de vous connecter.", ['browser']));
+            $entityManager->flush();
+            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant " . $userguest->getId() . "", ['browser']));
             return $this->redirectToRoute('app_login');
         }
 
@@ -131,7 +135,7 @@ class UserGuestController extends AbstractController
      */
     public function delete(Request $request, UserGuest $userGuest): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$userGuest->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $userGuest->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $userGuest->setDeletedAt(new \DateTime());
             $entityManager->flush();

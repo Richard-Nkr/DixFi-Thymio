@@ -3,14 +3,14 @@
 {% block title %}Création d'un compte{% endblock %}
 
 {% block body %}
-    {# nous testons si la variable message existe #}
-    {% if message is defined %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endif %}
+        {# nous testons si la variable message existe #}
+        {% if message is defined %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endif %}
 
-    {{ include('user/_form_inscription.html.twig') }}
+        {{ include('user/_form_inscription.html.twig') }}
 
-    <a href="{{ path('teacher_index') }}">back to list</a>
+        <a href="{{ path('teacher_index') }}">back to list</a>
 {% endblock %}

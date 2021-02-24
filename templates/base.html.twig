@@ -3,16 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+
+    <link href="{{ asset('css/navbar.scss') }}" rel="stylesheet">
     <link href="{{ asset('images/thymio-logo.png') }}" rel="shortcut icon">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+    {{ encore_entry_link_tags('app') }}
+    <link href="{{ asset('/build/app.scss') }}" rel="stylesheet">
+
+
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+
 {% include 'fragments/navbar.html.twig' %}
+<div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div class="context">
+    {% block body %}
+    {% endblock %}
+</div>
 
-
-{% block body %}{% endblock %}
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

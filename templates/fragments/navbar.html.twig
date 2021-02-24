@@ -1,50 +1,76 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{{ path('home') }}">Les Dix'Fi de Thymio</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="menu" id="menu_navabr">
+    <ol>
+        <li class="menu-item">
+            <a href="{{ path('home') }}" class="home">
+                <i class="fas fa-home"></i>
+                <span>Les Dix'Fi de Thymio</span>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#0" class="widgets">
+                <i class="fas fa-trophy"></i>
+                <span>Les Dix'Fi</span>
+            </a>
+            <ol class="sub-menu">
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
+                                                 class="item--a"><span>Dix'Fi Facile</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"
+                                                 class="item--a"><span>Dix'Fi Moyen</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}"
+                                                 class="item--a"><span>Dix'Fi Difficile</span></a></li>
+                <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}"
+                                                 class="item--a"><span>Dix'Fi Extrême</span></a></li>
+            </ol>
+        </li>
+        <li class="menu-item">
+            <a href="#0" class="widgets">
+                <i class="fas fa-pen"></i>
+                <span>Teachers'Fi</span>
+            </a>
+            <ol class="sub-menu">
+                <li class="menu-item"><a class="dropdown-item" href="#"><span>Tous les défis</span></a>
+                </li>
+                {% if is_granted('ROLE_TEACHER') %}
+                    <li class="menu-item"><a class="dropdown-item"
+                                             href="{{ path('challenge_new') }}"><span>Créer un défi</span></a>
+                    </li>
+                    <li class="menu-item"><a class="dropdown-item" href="{{ path('challenge_showMyChallenge') }}"><span>Voir mes défis </span></a>
+                    </li>
+                {% endif %}
+            </ol>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown" class="nav-item active" >
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="nav-link" href="#">Les Dix'Fi </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}">Easy DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}">Medium DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}">Hard DixFi's</a>
-                        <a class="dropdown-item" href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}">Extreme DixFi's</a>
-                    </div>
+        </li>
+        {% if is_granted('ROLE_TEACHER') %}
+            <li class="menu-item">
+                <a href="#0" class="kabobs">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Mon espace Teacher</span>
+                </a>
+
+                <ol class="sub-menu">
+                    <li class="menu-item"><a href="{{ path('list_groups_to_validate') }}" class="item--a"><span>Validation des défis de mes groupes</span></a>
+                    </li>
+                    <li class="menu-item"><a href="{{ path('list_groups_progress') }}"
+                                             class="item--b"><span> Progression de mes groupes</span></a></li>
+                    <li class="menu-item"><a href="{{ path('teacher_show') }}"
+                                             class="item--b"><span> Mon profil</span></a></li>
+                </ol>
+            </li>
+
+        {% else %}
+            <li class="menu-item">
+                <a href="#0" class="kabobs">
+                    <i class="fas fa-lock"></i>
+                    <span>Espace réservé aux Teachers</span>
                 </a>
             </li>
+        {% endif %}
 
-            <li class="nav-item dropdown" class="nav-item active">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false" class="nav-link" >Les Teachers'Fi </a>
-
-            </li>
-            {% if is_granted('ROLE_TEACHER') %}
-
-            <li class="nav-item dropdown" class="nav-item active">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false" class="nav-link" >Votre espace Teacher </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ path('list_groups_to_validate') }}">Validation des défis de mes groupes</a>
-                    <a class="dropdown-item" href="{{ path('list_groups_progress') }}">La progression de mes groupes</a>
-                    <a class="dropdown-item" href="{{ path('teacher_show') }}">Mon profil</a>
-                </div>
-            </li>
-            {% endif %}
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('user_index') }}">
-                    <img id="profilIcone" class="nav-item active" src="{{ asset('images/profil.png') }}"
-                         alt="Icone_Profil">
-                </a>
-            </li>
-        </ul>
-
-    </div>
+        <li class="menu-item">
+            <a href="{{ path('user_index') }}" class="contact">
+                <i class="fas fa-user-alt"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li>
+    </ol>
 </nav>

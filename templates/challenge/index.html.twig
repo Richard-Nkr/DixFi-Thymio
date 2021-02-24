@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Challenge index{% endblock %}
+
+{% block body %}
+    <fieldset class="formInscription">
+        <legend class="legendInscription">Mes défis</legend>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Difficulty</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for challenge in challenges %}
+                <tr>
+                    <td>{{ challenge.id }}</td>
+                    <td>{{ challenge.name }}</td>
+                    <td>{{ challenge.difficulty }}</td>
+                    <td>
+                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">Voir ce défi</a> <br>
+                        <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">Editer ce défi</a> <br>
+                        <a href="{{ path('help_new', {'id': challenge.id}) }}">Ajouter un indice</a> <br>
+                        <a href="{{ path('help_list', {'id': challenge.id}) }}">Voir les indices</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('challenge_new',{'id': app.user.id}) }}">Create new</a>
+    </fieldset>
+
+{% endblock %}
+
