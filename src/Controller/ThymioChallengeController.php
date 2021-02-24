@@ -12,6 +12,7 @@ use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\ThymioChallengeRepository;
 use App\Repository\ChallengeRepository;
+use App\Repository\UserGuestRepository;
 use App\Service\HandleStatus;
 use App\Service\SecurizerRoles;
 use App\Services\MailerService;
@@ -47,17 +48,32 @@ class ThymioChallengeController extends AbstractController
      * @Route("/{id}/list/state/challenges", name="list_state_challenges", methods={"GET"})
      * @param StatusRepository $statusRepository
      * @param ThymioChallenge $thymioChallenge
+     * @param SecurizerRoles $securizerRoles
      * @param StudentGroupRepository $studentGroupRepository
+     * @param UserGuestRepository $userGuestRepository
      * @return Response
      */
-    public function listStateChallenge(StatusRepository $statusRepository, ThymioChallenge $thymioChallenge, StudentGroupRepository $studentGroupRepository): Response
+    public function listStateChallenge(StatusRepository $statusRepository, ThymioChallenge $thymioChallenge, SecurizerRoles $securizerRoles, StudentGroupRepository $studentGroupRepository, UserGuestRepository $userGuestRepository): Response
     {
-        $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
-        $status = $statusRepository->findOneBy(['studentGroup' => $studentGroup,'challenge' => $thymioChallenge]);
-        return $this->render('thymio_challenge/list_state_challenge.html.twig', [
-            'status' => $status,
-            'thymio_challenge' => $thymioChallenge,
-        ]);
+
+        if ($securizerRoles->isGranted($this->getUser(), 'ROLE_STUDENT_GROUP')){
+            $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
+            $status = $statusRepository->findOneBy(['studentGroup' => $studentGroup,'challenge' => $thymioChallenge]);
+            return $this->render('thymio_challenge/list_state_challenge.html.twig', [
+                'status' => $status,
+                'thymio_challenge' => $thymioChallenge,
+            ]);
+        }
+
+        if ($securizerRoles->isGranted($this->getUser(), 'ROLE_USER_GUEST')){
+            $userGuest = $userGuestRepository->findOneById($this->getUser()->getId());
+            $status = $statusRepository->findOneBy(['studentGroup' => $userGuest,'challenge' => $thymioChallenge]);
+            return $this->render('thymio_challenge/list_state_challenge.html.twig', [
+                'status' => $status,
+                'thymio_challenge' => $thymioChallenge,
+            ]);
+        }
+
     }
 
 
@@ -77,6 +93,11 @@ class ThymioChallengeController extends AbstractController
 
     /**
      * @Route("/{id}/show", name="thymio_challenge_show", methods={"GET", "POST"})
+     * @param Request $request
+     * @param HandleStatus $handleStatus
+     * @param SecurizerRoles $securizerRoles
+     * @param StatusRepository $statusRepository
+     * @param ThymioChallenge $thymioChallenge
      * @param Session $session
      * @param MailerService $mailerService
      * @param StudentGroupRepository $studentGroupRepository

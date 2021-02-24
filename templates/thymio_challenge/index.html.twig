@@ -9,13 +9,13 @@
             <fieldset class="thymioChallenge">
                 <legend class="legendChallenge"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
                 <div class="buttonStartChallenge">
-                    {% if is_granted('ROLE_STUDENT_GROUP') %}
+                    {% if is_granted('ROLE_STUDENT_GROUP') or is_granted('ROLE_USER_GUEST') %}
                     {{ render(controller('App\\Controller\\ThymioChallengeController::listStateChallenge', {'id': thymio_challenge.id}) ) }}
                     {% elseif is_granted('ROLE_TEACHER') %}
                         <div class="buttonStartChallenge">
                             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
                         </div>
-                    {% elseif is_granted('ROLE_USER_GUEST') %}
+                    {% else %}
                         <div class="buttonStartChallenge">
                             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Commencer </button> </a>
                         </div>

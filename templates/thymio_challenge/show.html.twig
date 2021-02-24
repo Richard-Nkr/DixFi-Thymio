@@ -12,11 +12,11 @@
         </div>
     {% endfor %}
 
-    <img style="width:" src="{{thymio_challenge.imagePath}}" alt="image_défiThymio">
-
+    <video controls>
+        <source src="/images/dixfi_8.mp4" type="video/mp4">
+    </video>
 
     <fieldset class="thymioChallenge">
-
     <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
 
     <p>Temps nécessaire : {{ thymio_challenge.duration }} </p>
