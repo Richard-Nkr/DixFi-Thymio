@@ -45,7 +45,7 @@ class ChatController extends AbstractController
             return $this->redirectToRoute('teacher_index');
         }
 /**
-        return $this->render('chat/new.html.twig', [
+        return $this->render('chat/add_correction.html.twig', [
             'chat' => $chat,
             'form' => $form->createView(),
         ]); **/
