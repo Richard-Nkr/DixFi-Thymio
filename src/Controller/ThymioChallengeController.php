@@ -96,6 +96,11 @@ class ThymioChallengeController extends AbstractController
 
     /**
      * @Route("/{id}/show", name="thymio_challenge_show", methods={"GET", "POST"})
+     * @param Request $request
+     * @param HandleStatus $handleStatus
+     * @param SecurizerRoles $securizerRoles
+     * @param StatusRepository $statusRepository
+     * @param ThymioChallenge $thymioChallenge
      * @param Session $session
      * @param MailerService $mailerService
      * @param StudentGroupRepository $studentGroupRepository
