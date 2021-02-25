@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Activation du déblocage de niveaux {% endblock %}
+
+{% block body %}
+    <fieldset class="showChallenge">
+        <legend>Activer le déblocage de niveaux</legend>
+        <div class="challenge_container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"> Activer le déblocage de niveaux, c'est quoi ?</h4>
+                            <table>
+                                <tr>
+                                   <td> <p> Activer le déblocage de niveaux signifie qu'un groupe étudiant n'aura accès aux défis d'un niveau Z que si tous les défis des niveaux inférieurs X et Y auront été validés </p>
+                                        <p> Avoir recours à cette progression vous permettra de superviser davantage le travail de vos groupes en contrôlant leur accès aux défis </p>
+                                        <p> Exemple : Soit A un de vos groupes étudiants. Si A n'a pas validez l'ensemble des DixFi Easy, alors A ne pourra ni commencer les DixFi Medium, ni les DixFi Hard, ni le DixFi final Extreme</p>
+                                   </td>
+
+                                <tr>
+                                    <td colspan="2">
+
+                                        <form method="post" action="{{ path('thymio_challenge_activate_deblocage') }}" onsubmit="return confirm('Etes-vous sur de vouloir activer le déblocage de niveaux ?');">
+
+                                            <button class="btn btn-success" name="activate">Activer</button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+        </div>
+    </fieldset>
+
+{% endblock %}
+
+
+

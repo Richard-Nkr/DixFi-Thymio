@@ -49,6 +49,11 @@ class Teacher extends UserGuest
      */
     private $publicChallenges;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $progression;
+
 
     public function __construct()
     {
@@ -187,6 +192,18 @@ class Teacher extends UserGuest
                 $publicChallenge->setTeacher(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProgression(): ?bool
+    {
+        return $this->progression;
+    }
+
+    public function setProgression(?bool $progression): self
+    {
+        $this->progression = $progression;
 
         return $this;
     }

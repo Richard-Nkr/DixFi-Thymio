@@ -1,0 +1,50 @@
+
+{% if teacher.progression==true %}
+{% if count <=4 %}
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
+                                 class="item--a"><span>Dix'Fi Facile</span></a></li>
+<li class="menu-item item--a"><a href="#0"
+                                 class="item--a"><span>Dix'Fi Moyen</span></a></li>
+<li class="menu-item item--a"><a href="#0"
+                                 class="item--a"><span>Dix'Fi Difficile</span></a></li>
+<li class="menu-item item--a"><a href="#0"
+                                 class="item--a"><span>Dix'Fi Extrême</span></a></li>
+{% elseif count <=7 %}
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
+                                 class="item--a"><span>Dix'Fi Facile</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"
+                                 class="item--a"><span>Dix'Fi Moyen</span></a></li>
+<li class="menu-item item--a"><a href="#0"
+                                 class="item--a"><span>Dix'Fi Difficile</span></a></li>
+<li class="menu-item item--a"><a href="#0"
+                                 class="item--a"><span>Dix'Fi Extrême</span></a></li>
+{% elseif count<=9 %}
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
+                                 class="item--a"><span>Dix'Fi Facile</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"
+                                 class="item--a"><span>Dix'Fi Moyen</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}"
+                                 class="item--a"><span>Dix'Fi Difficile</span></a></li>
+<li class="menu-item item--a"><a href="#0"
+                                 class="item--a"><span>Dix'Fi Extrême</span></a></li>
+{% else %}
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
+                                 class="item--a"><span>Dix'Fi Facile</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"
+                                 class="item--a"><span>Dix'Fi Moyen</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}"
+                                 class="item--a"><span>Dix'Fi Difficile</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}"
+                                 class="item--a"><span>Dix'Fi Extrême</span></a></li>
+{% endif %}
+{% else %}
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
+                                 class="item--a"><span>Dix'Fi Facile</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'medium'}) }}"
+                                 class="item--a"><span>Dix'Fi Moyen</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'hard'}) }}"
+                                 class="item--a"><span>Dix'Fi Difficile</span></a></li>
+<li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'extreme'}) }}"
+                                 class="item--a"><span>Dix'Fi Extrême</span></a></li>
+{% endif %}
+

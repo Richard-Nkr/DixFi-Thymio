@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\StudentGroup;
 use App\Form\StudentGroupType;
 use App\Repository\GroupRepository;
+use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
 use App\Service\CreateChat;
 use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
+use App\Service\SortChallenges;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,6 +78,29 @@ class StudentGroupController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/block/levels", name="student_group_block_levels", methods={"GET"})
+     * @param StudentGroupRepository $studentGroupRepository
+     * @param SortChallenges $sortChallenges
+     * @param StatusRepository $statusRepository
+     * @return Response
+     */
+    public function blockLevels(StudentGroupRepository $studentGroupRepository, SortChallenges $sortChallenges, StatusRepository $statusRepository): Response
+    {
+        $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
+        $teacher = $studentGroup->getTeacher();
+        $count = 0;
+        if($teacher->getProgression()==true){
+            $challenges = $statusRepository->findBy(['studentGroup'=>$studentGroup,'statusInt'=>3]);
+            $count = $sortChallenges->sort($challenges);
+        }
+        return $this->render('student_group/menu_thymio_challenges.html.twig', [
+            'teacher'=>$teacher,
+            'count' => $count,
+        ]);
+    }
+
 
     /**
      * @Route("/{id}", name="student_group_show", methods={"GET"})

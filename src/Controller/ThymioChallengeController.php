@@ -177,13 +177,39 @@ class ThymioChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/activate/progression", name="thymio_challenge_activate_progression", methods={"GET"})
+     * @Route("/activate/deblocage", name="thymio_challenge_activate_deblocage", methods={"POST","GET"})
+     * @param Request $request
      * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function activateProgression(TeacherRepository $teacherRepository)
+    public function activateDeblocage(Request $request,TeacherRepository $teacherRepository)
     {
-        return $this->render('thymio_challenge/activate_progression.html.twig', [
+        if (($request->getMethod() == 'POST')){
+            $teacher = $teacherRepository->findOneById($this->getUser()->getId());
+            $teacher->setProgression(true);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('activate_deblocage.html.twig', [
+            'teacher' => $teacherRepository->findOneById($this->getUser()->getId()),
+        ]);
+    }
+
+    /**
+     * @Route("/desactivate/deblocage", name="thymio_challenge_desactivate_deblocage", methods={"POST","GET"})
+     * @param Request $request
+     * @param TeacherRepository $teacherRepository
+     * @return Response
+     */
+    public function desactivateDeblocage(Request $request,TeacherRepository $teacherRepository)
+    {
+        if (($request->getMethod() == 'POST')){
+            $teacher = $teacherRepository->findOneById($this->getUser()->getId());
+            $teacher->setProgression(false);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('thymio_challenge/desactivate_deblocage.html.twig', [
             'teacher' => $teacherRepository->findOneById($this->getUser()->getId()),
         ]);
     }
