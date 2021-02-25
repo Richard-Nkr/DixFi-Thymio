@@ -38,7 +38,7 @@ class HelpController extends AbstractController
      * @param ChallengeRepository $challengeRepository
      * @return Response
      */
-    public function list(HelpRepository $helpRepository, int $id, ChallengeRepository  $challengeRepository): Response
+    public function list(HelpRepository $helpRepository, int $id, ChallengeRepository $challengeRepository): Response
     {
         return $this->render('help/list.html.twig', [
             'helps' => $helpRepository->findAll(),
@@ -56,29 +56,27 @@ class HelpController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function new(Request $request,NotifierInterface $notifier,HelpRepository $helpRepository,ChallengeRepository $challengeRepository, Challenge $challenge, int $id): Response
+    public function new(Request $request, NotifierInterface $notifier, HelpRepository $helpRepository, ChallengeRepository $challengeRepository, Challenge $challenge, int $id): Response
     {
         $help = new Help();
         $form = $this->createForm(HelpType::class, $help);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($help->getNumberHelp() == sizeof($helpRepository->findByIdChallenge($id))+1){
+            if ($help->getNumberHelp() > 4) {
+                $notifier->send(new Notification("Le nombre d'indice maximum est de 4 ", ['browser']));
+            } elseif ($help->getNumberHelp() == sizeof($helpRepository->findByIdChallenge($id)) + 1) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $challenge = $challengeRepository->findOneById($id);
                 $help->setChallenge($challenge);
                 $entityManager->persist($help);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('challenge_show_myChallenge');
-            }else{
+                return $this->redirectToRoute('challenge_showMyChallenge');
+            } else {
                 $notifier->send(new Notification("Le numéro d'indice n'est pas cohérent ", ['browser']));
-                return $this->render('help/new.html.twig', [
-                    'help' => $help,
-                    'helps' => $helpRepository->findByIdChallenge($id),
-                    'form' => $form->createView(),
-                ]);
             }
+
         }
 
         return $this->render('help/new.html.twig', [

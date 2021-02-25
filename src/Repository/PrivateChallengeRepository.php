@@ -47,4 +47,13 @@ class PrivateChallengeRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneById(?int $id)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

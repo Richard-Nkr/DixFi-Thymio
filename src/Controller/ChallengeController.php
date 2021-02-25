@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Challenge;
 use App\Entity\PrivateChallenge;
+use App\Entity\PublicChallenge;
 use App\Form\ChallengeType;
+use App\Form\PublicChallengeType;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Repository\TeacherRepository;
@@ -37,7 +39,7 @@ class ChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/showMyChallenge", name="challenge_showMyChallenge", methods={"GET"})
+     * @Route("/showMyChallenges", name="challenge_showMyChallenge", methods={"GET"})
      * @param PrivateChallengeRepository $privateChallengeRepository
      * @param PublicChallengeRepository $publicChallengeRepository
      * @param TeacherRepository $teacherRepository
@@ -84,7 +86,6 @@ class ChallengeController extends AbstractController
                 ]);
             }
 
-
         return $this->render('challenge/new.html.twig', [
             'challenge' => $challenge,
             'form' => $form->createView(),
@@ -92,14 +93,51 @@ class ChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="challenge_show", methods={"GET"})
-     * @param Challenge $challenge
+     * @Route("/{id}/addCorrection", name="challenge_addCorrection", methods={"GET","POST"})
+     * @param Request $request
+     * @param PublicChallengeRepository $publicChallengeRepository
+     * @param int $id
+     * @param ChallengeRepository $challengeRepository
      * @return Response
      */
-    public function show(Challenge $challenge): Response
+    public function addCorrection(Request $request, PublicChallengeRepository $publicChallengeRepository, int $id, ChallengeRepository $challengeRepository): Response
+    {
+        $publicChallenge = $publicChallengeRepository->findOneById($id);
+        $form = $this->createForm(PublicChallengeType::class, $publicChallenge);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($publicChallenge);
+            $entityManager->flush();
+
+            return $this->render('challenge/show.html.twig', [
+                'public_challenge' => $publicChallengeRepository->findOneById($id),
+                'challenge' => $challengeRepository->findOneById($id),
+                'form' => $form->createView(),
+            ]);
+        }
+
+        return $this->render('challenge/add_correction.html.twig', [
+            'public_challenges' => $publicChallengeRepository->findOneById($id),
+            'challenge' => $challengeRepository->findOneById($id),
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="challenge_show", methods={"GET"})
+     * @param Challenge $challenge
+     * @param PrivateChallengeRepository $privateChallengeRepository
+     * @param PublicChallengeRepository $publicChallengeRepository
+     * @return Response
+     */
+    public function show(Challenge $challenge, PrivateChallengeRepository  $privateChallengeRepository, PublicChallengeRepository  $publicChallengeRepository): Response
     {
         return $this->render('challenge/show.html.twig', [
             'challenge' => $challenge,
+            'private_challenge' => $privateChallengeRepository->findOneById($challenge->getId()),
+            'public_challenge' => $publicChallengeRepository->findOneById($challenge->getId()),
         ]);
     }
 
@@ -108,9 +146,10 @@ class ChallengeController extends AbstractController
      * @param Request $request
      * @param Challenge $challenge
      * @param int $id
+     * @param PublicChallengeRepository $publicChallengeRepository
      * @return Response
      */
-    public function edit(Request $request, Challenge $challenge, int $id): Response
+    public function edit(Request $request, Challenge $challenge, int $id, PublicChallengeRepository $publicChallengeRepository): Response
     {
         $form = $this->createForm(ChallengeType::class, $challenge);
         $form->handleRequest($request);
@@ -118,7 +157,7 @@ class ChallengeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('public_challenge_show',[
+            return $this->redirectToRoute('challenge_show',[
                 'id' => $id,
                 'challenge' => $challenge,
             ]);
@@ -143,7 +182,24 @@ class ChallengeController extends AbstractController
             $entityManager->remove($challenge);
             $entityManager->flush();
         }
+        return $this->redirectToRoute('challenge_showMyChallenge');
+    }
 
-        return $this->redirectToRoute('challenge_index');
+    /**
+     * @Route("/{id}", name="challenge_deleteCorrection", methods={"DELETE"})
+     * @param Request $request
+     * @param Challenge $challenge
+     * @param PublicChallengeRepository $publicChallengeRepository
+     * @return Response
+     */
+    public function deleteCorrection(Request $request, Challenge $challenge, PublicChallengeRepository $publicChallengeRepository): Response
+    {
+        $publicChallenge = $publicChallengeRepository->findOneById($challenge->getId());
+        if ($this->isCsrfTokenValid('delete' . $challenge->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($publicChallenge->getNameCorrection());
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('challenge_showMyChallenge');
     }
 }

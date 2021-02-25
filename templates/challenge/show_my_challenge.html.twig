@@ -15,7 +15,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
+                                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">
                                             <button class="btnB">Voir ce
                                                 défi
                                             </button>
@@ -41,12 +41,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-
-                                        <a href="{{ path('public_challenge_addCorrection', {'id': challenge.id}) }}">
+                                    <td>
+                                        <a href="{{ path('challenge_addCorrection', {'id': challenge.id}) }}">
                                             <button class="btnC">Ajouter la correction</button>
                                         </a>
                                     </td>
+                                    {% if challenge.nameCorrection != null %}
+                                        <td>
+                                            <a href="{{ path('challenge_deleteCorrection', {'id': challenge.id}) }}">
+                                                <button class="btnC">Supprimer la correction</button>
+                                            </a>
+                                        </td>
+                                        {% endif %}
                                 </tr>
                             </table>
                         </div>
@@ -70,7 +76,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
+                                        <a href="{{ path('challenge_show', {'id': challenge.id}) }}">
                                             <button class="btnB">Voir ce
                                                 défi
                                             </button>

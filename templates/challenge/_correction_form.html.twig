@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+
+<h2>(Attention la correction ne pourra pas être modifié)</h2>
+{{ form_label(form.fileCorrection) }}
+    {{ form_widget(form.fileCorrection) }}
+
+<br>
+<button class="btnG">{{ button_label|default('Ajouter la correction') }}</button>
+
+{{ form_end(form) }}

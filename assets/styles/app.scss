@@ -98,7 +98,7 @@ a {
         &.widgets, &.kabobs {
           &::before {
             display: block;
-            width: 0px;
+            width: 0;
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
@@ -240,6 +240,12 @@ $bg_blue: #1423bc;
 $green: #2cac10;
 $bg_green: #60f367;
 
+$orange: #de8957;
+$bg_orange: #b55005;
+
+$orange: #de8957;
+$bg_orange: #b55005;
+
 @mixin myButton($color,$bg) {
   text-align: center;
   text-transform: uppercase;
@@ -332,6 +338,13 @@ $bg_green: #60f367;
 }
 
 .btnB {
+  @include myButton2($blue, $bg_blue);
+}
+
+.btnB2 {
+  @include myButton($blue, $bg_blue);
+}
+.btnO {
   @include myButton2($blue, $bg_blue);
 }
 

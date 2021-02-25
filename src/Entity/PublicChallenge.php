@@ -51,14 +51,14 @@ class PublicChallenge extends Challenge
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updateAt;
+    private $updatedAt;
 
     public function getNameCorrection(): ?string
     {
         return $this->nameCorrection;
     }
 
-    public function setNameCorrection(string $nameCorrection): self
+    public function setNameCorrection(?string $nameCorrection): self
     {
         $this->nameCorrection = $nameCorrection;
 
@@ -78,7 +78,7 @@ class PublicChallenge extends Challenge
         $this->fileCorrection = $fileCorrection;
 
         if (null !== $fileCorrection) {
-            $this->updateAt = new \DateTimeImmutable();
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
@@ -118,14 +118,14 @@ class PublicChallenge extends Challenge
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
