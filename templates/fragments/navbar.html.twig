@@ -22,7 +22,7 @@
                                                      class="item--a"><span>Activation du déblocage </span></a></li>
                 {% endif %}
                 {% endif %}
-                {% if is_granted('ROLE_STUDENT_GROUP') %}
+                {% if is_granted('ROLE_STUDENT_GROUP') and app.user.teacher.progression==true %}
                     {{ render(controller('App\\Controller\\StudentGroupController::blockLevels') ) }}
                 {% else %}
                 <li class="menu-item item--a"><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}"
