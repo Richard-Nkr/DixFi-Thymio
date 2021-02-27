@@ -7,17 +7,15 @@
     </fieldset>
   <p class="solutionDescription">Objectif du défi : {{ thymio_challenge.description }} </p>
 <fieldset class="solutionThymio">
-        <img class="imageSolution" src="{{thymio_challenge.solutionPath}}" alt="SolutionDixFi">
+        <img class="imageSolution" src="{{asset(thymio_challenge.solutionPath)}}" alt="SolutionDixFi">
     </fieldset>
     <div>
-        <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
+        <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty})  }}">
             <button type="button" class="btn btn-danger">Retour sur les Dix'Fi {{ thymio_challenge.difficulty }}</button>
         </a>
     </div>
-
-    <form method="post" action="{{ path('thymio_challenge_create_pdf', {'id': thymio_challenge.id}) }}">
-        <div class="buttonStartChallenge">
-            <button class="btn btn-success"> PDF de la correction du DixFi {{ thymio_challenge.id }}  </button>
-        </div>
+    <br>
+    <form method="post" action="{{ path('thymio_challenge_create_pdf', {'id': thymio_challenge.id}) }}" target="_blank">
+            <button  class="btn btn-success"> Générer le pdf de la correction du DixFi {{ thymio_challenge.id }}  </button>
     </form>
 {% endblock %}

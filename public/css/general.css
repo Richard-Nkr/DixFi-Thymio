@@ -514,5 +514,30 @@ fieldset.showChallenge legend {
     flex-basis: auto;
 }
 
+.bodyPDF{
+    background-color: white;
+}
+
+.objectifPDF{
+    background-color: #5FB1EE;
+    color:white;
+    font-size: 20px;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+.imageSolutionPDF{
+    width: 100%;
+}
+.solutionThymioPDF {
+    background-color: #c4efc4;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #3d922d;
+    border-radius: 12px;
+    width: 80%;
+
+}
+
 
 

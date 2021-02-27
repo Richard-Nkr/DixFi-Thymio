@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>ThymioChallenge</title>
+
+    <link href="{{ absolute_url(asset('css/general.css')) }}" rel="stylesheet">
+
+
+</head>
+<body class="bodyPDF">
+<div>
+    <fieldset class="descriptionThymio">
+        Solution du défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}
+    </fieldset>
+    <fieldset class="objectifPDF">
+    <p class="solutionPDF">Objectif du défi : {{ thymio_challenge.description }} </p>
+    </fieldset>
+    <br>
+    <p> Titulaire de la classe : {{ app.user.name }} {{ app.user.firstname }}</p>
+    <fieldset class="solutionThymioPDF">
+        <img class="imageSolutionPDF" src="{{ absolute_url(asset(thymio_challenge.solutionPath)) }}" alt="SolutionDixFi">
+    </fieldset>
+</div>
+</body>
