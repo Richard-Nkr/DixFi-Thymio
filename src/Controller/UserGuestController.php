@@ -111,7 +111,6 @@ class UserGuestController extends AbstractController
             $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter
             afin de vous connecter.", ['browser']));
             $entityManager->flush();
-            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant " . $userguest->getId() . "", ['browser']));
             return $this->redirectToRoute('app_login');
         }
 
@@ -145,6 +144,7 @@ class UserGuestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($userGuest->getPassword()); //ICI DD !!!!!!!!!!!!!!!!!!!!!
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_guest_index');

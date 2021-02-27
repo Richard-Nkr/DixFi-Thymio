@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Yt{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+
+    <tr>
+        <td class="td_label">
+            {{ form_label(form.request, 'Votre recherche : ') }}
+        </td>
+        <td class="td_field2">
+            {{ form_widget(form.request, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+        </td>
+    </tr>
+    {{ form_end(form) }}
+<div>
+    {% for video in videos %}
+        {#  <div> {{ video.snippet.title }}</div> #}
+        <div class="youtube-video">
+            <div> {{ video.snippet.title }}</div>
+            <iframe width="320" height="300" src="https://www.youtube.com/embed/{{ video.id.videoId }}" allowfullscreen></iframe>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

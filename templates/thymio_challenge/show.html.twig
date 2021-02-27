@@ -4,6 +4,7 @@
 
 {% block body %}
 
+    {{ include('youtube/show.html.twig') }}
 
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
