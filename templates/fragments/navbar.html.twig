@@ -28,8 +28,12 @@
                 <span>Teachers'Fi</span>
             </a>
             <ol class="sub-menu">
-                <li class="menu-item"><a class="dropdown-item" href=""><span>Tous les défis</span></a>
+                <li class="menu-item"><a class="dropdown-item" href="{{ path('public_challenge_index') }}"><span>Les défis publics</span></a>
                 </li>
+                {% if is_granted('ROLE_STUDENT_GROUP') %}
+                    <li class="menu-item"><a class="dropdown-item" href="{{ path('private_challenge_index') }}"><span>Les défis de mon professeur</span></a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_TEACHER') %}
                     <li class="menu-item"><a class="dropdown-item"
                                              href="{{ path('challenge_new') }}"><span>Créer un défi</span></a>
@@ -58,10 +62,17 @@
             <li class="menu-item">
                 <a href="#0" class="kabobs">
                     <i class="fas fa-lock"></i>
-                    <span>Espace réservé aux Teachers</span>
+                    <span>Espace privé Teachers</span>
                 </a>
             </li>
         {% endif %}
+
+        <li class="menu-item">
+            <a href="{{ path('home') }}" class="aide">
+                <i class="fas fa-question"></i>
+                <span>Aide</span>
+            </a>
+        </li>
 
         <li class="menu-item">
             <a href="{{ path('user_index') }}" class="contact">

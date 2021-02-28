@@ -33,7 +33,7 @@ a {
 
   ol {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     @media (max-width: 991px) {
       grid-template-columns: 1fr;
     }
@@ -70,12 +70,17 @@ a {
         span {
           display: block;
           margin-top: .2em;
+          margin-bottom: .2em;
           transition: .35s cubic-bezier(.54, 1.60, .5, 1);
           transform: translateY(70px);
           opacity: 0;
         }
 
         &.home {
+          background: lighten(#1a8fe7, 0);
+        }
+
+        &.aide {
           background: lighten(#1a8fe7, 0);
         }
 

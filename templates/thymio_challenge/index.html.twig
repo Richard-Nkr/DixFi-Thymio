@@ -1,26 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ThymioChallenge index{% endblock %}
+{% block title %} Les défis Thymio {% endblock %}
 
 {% block body %}
 
+<fieldset class="showChallenge">
+    <legend> Les DixFi de Thymio </legend>
+    <div class="challenge_container">
     {% for thymio_challenge in thymio_challenges %}
-            <fieldset class="thymioChallenge">
-                <legend class="legendChallenge"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
-                <div class="buttonStartChallenge">
-                    {% if is_granted('ROLE_STUDENT_GROUP') %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</h4> <hr>
+                <h5 class="card-body"> Temps : {{ thymio_challenge.duration }}</h5>
+            </div>
+            <div class="buttonStartChallenge">
+                {% if is_granted('ROLE_STUDENT_GROUP') %}
                     {{ render(controller('App\\Controller\\ThymioChallengeController::listStateChallenge', {'id': thymio_challenge.id}) ) }}
-                    {% elseif is_granted('ROLE_TEACHER') %}
-                        <div class="buttonStartChallenge">
-                            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <p>Difficulté : {{ thymio_challenge.difficulty }}</p>
-                </div>
-            </fieldset>
+                {% elseif is_granted('ROLE_TEACHER') %}
+                    <div class="buttonStartChallenge">
+                        <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
 
         {% endfor %}
+    </div>
+</fieldset>
 
 {% endblock %}

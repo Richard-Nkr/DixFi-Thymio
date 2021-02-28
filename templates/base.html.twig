@@ -15,6 +15,7 @@
 <body>
 
 {% include 'fragments/navbar.html.twig' %}
+
 <div class="area">
     <ul class="circles">
         <li></li>
@@ -53,5 +54,9 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 </body>
-
+<div class="footer">
+    {% block footer %}
+        {% include 'fragments/footer.html.twig' %}
+    {% endblock %}
+</div>
 </html>

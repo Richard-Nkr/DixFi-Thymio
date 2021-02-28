@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les défis privés{% endblock %}
+
+{% block body %}
+
+    <fieldset class="showChallenge">
+        <legend> Les défis de votre professeur </legend>
+        <div class="challenge_container">
+            {% for private_challenge in private_challenges %}
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"> Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</h4> <hr>
+                        <h5 class="card-text"> Difficulté : {{ private_challenge.difficulty }}</h5>
+                        <h5 class="card-text">Crée le : {{ private_challenge.createdAt ? private_challenge.createdAt|date('d-m-Y') : '' }}</h5>
+                        <h5 class="card-text">Durée : {{ private_challenge.duration }} </h5>
+                    </div>
+                    <div class="buttonStartChallenge">
+                        <a href="{{ path('private_challenge_show', {'id': private_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
+                    </div>
+                </div>
+            {% else %}
+                <p> Aucun défi n'a été crée par votre professeur.</p>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+{% endblock %}

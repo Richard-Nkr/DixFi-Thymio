@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les défis publics{% endblock %}
+
+{% block body %}
+<fieldset class="showChallenge">
+    <legend> Bienvenue sur les défis publics </legend>
+    <div class="challenge_container">
+        {% for public_challenge in public_challenges %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"> Défi n°{{ public_challenge.id }} : {{ public_challenge.name }}</h4> <hr>
+                <h5 class="card-text"> Difficulté : {{ public_challenge.difficulty }}</h5>
+                <h5 class="card-text">Crée le : {{ public_challenge.createdAt ? public_challenge.createdAt|date('d-m-Y') : '' }}</h5>
+                <h5 class="card-text">Durée : {{ public_challenge.duration }} </h5>
+            </div>
+            <div class="buttonStartChallenge">
+                <a href="{{ path('public_challenge_show', {'id': public_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
+            </div>
+        </div>
+        {% else %}
+            <p> Aucun défi public n'a été crée pour le moment.</p>
+        {% endfor %}
+    </div>
+</fieldset>
+{% endblock %}
