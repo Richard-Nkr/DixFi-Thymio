@@ -126,15 +126,15 @@ class ChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="challenge_show", methods={"GET"})
+     * @Route("/{id}/showChallenge", name="challenge_showChallenge", methods={"GET"})
      * @param Challenge $challenge
      * @param PrivateChallengeRepository $privateChallengeRepository
      * @param PublicChallengeRepository $publicChallengeRepository
      * @return Response
      */
-    public function show(Challenge $challenge, PrivateChallengeRepository  $privateChallengeRepository, PublicChallengeRepository  $publicChallengeRepository): Response
+    public function showChallenge(Challenge $challenge, PrivateChallengeRepository  $privateChallengeRepository, PublicChallengeRepository  $publicChallengeRepository): Response
     {
-        return $this->render('challenge/show.html.twig', [
+        return $this->render('challenge/show_challenge.html.twig', [
             'challenge' => $challenge,
             'private_challenge' => $privateChallengeRepository->findOneById($challenge->getId()),
             'public_challenge' => $publicChallengeRepository->findOneById($challenge->getId()),
