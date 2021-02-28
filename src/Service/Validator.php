@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Entity\User;
 use App\Entity\UserGuest;
 use App\Services\MailerService;
 use App\Validator\ContainsAlphanumeric;
@@ -25,12 +26,12 @@ class Validator
 
 
     /**
-     * @param UserGuest $userguest
+     * @param User $user
      * @return ConstraintViolationListInterface
      */
-    public function PassWordValidator(UserGuest $userguest): ConstraintViolationListInterface
+    public function PassWordValidator(User $user): ConstraintViolationListInterface
     {
-        $pw = $userguest->getPassword();
+        $pw = $user->getPassword();
         //La confirmation de mpd ? getQuoi ?
         $validator = Validation::createValidator();
         $violations = $validator->validate($pw, [
@@ -42,14 +43,14 @@ class Validator
     }
 
     /**
-     * @param UserGuest $userguest
+     * @param User $user
      * @return ConstraintViolationListInterface
      */
-    public function FieldsValidator(UserGuest $userguest) : ConstraintViolationListInterface
+    public function FieldsValidator(User $user) : ConstraintViolationListInterface
     {
-        $nn = $userguest->getNickname();
-        $name = $userguest->getName();
-        $fname = $userguest->getFirstname();
+        $nn = $user->getNickname();
+        $name = $user->getName();
+        $fname = $user->getFirstname();
         $validator = Validation::createValidator();
         $violations1 = $validator->validate($nn, [
             new Length(['max' => 20]),

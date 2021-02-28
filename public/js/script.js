@@ -6,6 +6,7 @@ $("#new_edit_user_guest").on('submit', function(){
     }
 })
 
+
 function hideElement(id,hide) {
     let elt = document.getElementById();
     if (hide) {
