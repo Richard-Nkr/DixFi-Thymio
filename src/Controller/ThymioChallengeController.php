@@ -41,6 +41,7 @@ class ThymioChallengeController extends AbstractController
         return $this->render('thymio_challenge/index.html.twig', [
             'thymio_challenges' => $ChallengeRepository->findBy(['role' => 'ROLE_THYMIO','difficulty' => $difficulty]),
         ]);
+
     }
 
     /**

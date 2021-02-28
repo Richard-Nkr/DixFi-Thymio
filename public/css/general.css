@@ -5,7 +5,7 @@
 }
 
 html {
-    height: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
 }
@@ -13,7 +13,7 @@ html {
 body {
     background-color: #5FB1EE;
     text-align: center;
-    height: 100%;
+    min-height: 100%;
 }
 
 h1 {
@@ -97,13 +97,39 @@ a:hover {
     background-color: #f44336;
 }
 
+.challengeH1{
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    color: #b71b1b;
+    font-size: 24px;
+}
+
 .legendChallenge {
     font-size: 18px;
     text-align: center;
     color: white;
     padding: 2px;
-    border: 1px solid midnightblue;
-    background-color: #1b5abe;
+    border: 1px solid #2cac10;
+    background-color: #1c8109;
+    border-radius: 10px;
+}
+
+#descriptionIndex{
+    margin: 7% 7% auto;
+    border: 3px solid #3b87c1;
+    border-radius: 12px;
+    background-color: white;
+    text-align: justify;
+    padding: 4%;
+    font-size: 16px;
+}
+
+#legendIndex{
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    padding: 4px;
+    border: 3px solid #ab2020;
+    background-color: #be172b;
     border-radius: 10px;
 }
 
@@ -118,9 +144,9 @@ a:hover {
 
 .thymioChallenge {
     margin: 3% 22% 3% 22%;
-    border: 2px solid #3b87c1;
+    border: 3px solid #3b87c1;
     border-radius: 12px;
-    background-color: #99caf1;
+    background-color: white;
     text-align: justify;
     font-weight: bold;
     padding: 2%;
@@ -156,8 +182,7 @@ a:hover {
 }
 
 .buttonStartChallenge {
-    float: right;
-    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
 .titleChallenge {
@@ -310,7 +335,7 @@ a:hover {
 
 .context {
     width: 100%;
-    height: 100%;
+    height: auto;
     position: absolute;
     top: 15vh;
 
@@ -457,16 +482,16 @@ a:hover {
 
 .showChallenge {
     background-color: white;
-    margin: 2% auto;
+    margin: 4% auto;
     border-radius: 20px;
-    width: 1022px;
+    width: 1250px;
 }
 
 fieldset.showChallenge legend {
-    background-color: #0B75C9;
+    background-color: #be0c0c;
     color: white;
     border-radius: 20px;
-    padding: 3px 6px;
+    padding: 6px 12px;
     margin: 2% auto;
     width: 30%;
 }
@@ -474,7 +499,7 @@ fieldset.showChallenge legend {
 .card {
     color: white;
     width: 18rem;
-    margin: 20px;
+    margin: 0 auto;
     background-color: #0b75c9;
     border-radius: 20px;
 }
@@ -482,17 +507,17 @@ fieldset.showChallenge legend {
 .card-title {
     font-weight: bold;
     font-size: 18px;
+    text-align: center;
 }
 .card-body{
-    text-align: center;
+    text-align: justify;
+    font-size: 16px;
 }
 
 .challenge_container {
-    display: inline-flex;
+    padding: 5%;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     flex-basis: auto;
 }
-
-
-
