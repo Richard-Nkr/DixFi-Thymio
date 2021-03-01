@@ -7,7 +7,7 @@
                 {{ form_label(form.nickname, 'Surnom : ') }}
             </td>
             <td class="td_field2">
-                {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.nickname, { 'attr': {'class': 'form_field','placeholder':app.user.nickname, 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
@@ -15,7 +15,7 @@
                 {{ form_label(form.name, 'Nom : ') }}
             </td>
             <td class="td_field2">
-                {{ form_widget(form.name, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.name, { 'attr': {'class': 'form_field','placeholder':app.user.name, 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
@@ -23,7 +23,7 @@
                 {{ form_label(form.firstName, 'Prénom : ') }}
             </td>
             <td class="td_field2">
-                {{ form_widget(form.firstName, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.firstName, { 'attr': {'class': 'form_field','placeholder':app.user.firstname, 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
@@ -32,7 +32,7 @@
                 <span class="error">{{ form_errors(form.mail) }}</span>
             </td>
             <td class="td_field2">
-                {{ form_widget(form.mail, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.mail, { 'attr': {'class': 'form_field','placeholder':app.user.mail, 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
