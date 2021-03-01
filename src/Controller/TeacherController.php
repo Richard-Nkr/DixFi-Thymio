@@ -9,6 +9,7 @@ use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Service\GestionPassword;
+use App\Service\UpdateTeacher;
 use App\Service\ValidateChallenge;
 use App\Service\Validator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,14 +53,15 @@ class TeacherController extends AbstractController
     /**
      * @Route("/edit", name="teacher_edit", methods={"GET","POST"})
      * @param Request $request
-     * @param NotifierInterface $notifier
-     * @param GestionPassword $gestionPassword
+     * @param UpdateTeacher $updateTeacher
      * @param TeacherRepository $teacherRepository
+     * @param GestionPassword $gestionPassword
+     * @param NotifierInterface $notifier
      * @return Response
      */
-    public function edit(Request $request, TeacherRepository $teacherRepository, GestionPassword $gestionPassword, NotifierInterface $notifier): Response
+    public function edit(Request $request, UpdateTeacher $updateTeacher, TeacherRepository $teacherRepository, GestionPassword $gestionPassword, NotifierInterface $notifier): Response
     {
-        $teacher = $teacherRepository->findOneById($this->getUser()->getId());
+        $teacher = new Teacher();
         $form = $this->createForm(TeacherType::class, $teacher);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +81,9 @@ class TeacherController extends AbstractController
             }
             //fin
 
+            $teacher2 = $teacherRepository->findOneById($this->getUser()->getId());
             $gestionPassword->createHashPassword($teacher);
+            $updateTeacher->update($teacher,$teacher2);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('user_index');
         }

@@ -16,7 +16,7 @@ use App\Service\CreateChat;
 use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
-use App\Service\TeacherUserGuest;
+use App\Service\UpdateTeacher;
 use App\Service\ValidateChallenge;
 use App\Service\Validator;
 use App\Validator\ContainsAlphanumericPassWord;
@@ -58,13 +58,13 @@ class UserGuestController extends AbstractController
      * @param MailerService $mailerService
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
-     * @param TeacherUserGuest $teacherUserguest
+     * @param UpdateTeacher $teacherUserguest
      * @param CreateChat $createChat
      * @param GestionPassword $gestionPassword
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, UpdateTeacher $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
