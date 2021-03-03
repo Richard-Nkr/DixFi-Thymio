@@ -4,7 +4,6 @@
 
 {% block body %}
 
-
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
             {{ message }}
@@ -13,15 +12,25 @@
     {% endfor %}
 
     <fieldset class="thymioChallenge">
-
         <legend class="legendChallenge">Défi n°{{ public_challenge.id }} : {{ public_challenge.name }}</legend>
         <p> Crée le : {{ public_challenge.createdAt ? public_challenge.createdAt|date('d-m-Y') : '' }} </p>
         <p>Temps nécessaire : {{ public_challenge.duration }} </p>
         <p> Difficulté : {{ public_challenge.difficulty }} </p>
         <p> Description : {{ public_challenge.description }} </p>
-        <p> Nom du fichier de correction : {{ public_challenge.nameCorrection }}</p>
-        <img src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
-
     </fieldset>
-
+    <script src="public/js/widget.js"></script>
+    <script>
+        var botmanWidget = {
+            frameEndpoint: '{{ path("chatframe") }}',
+            chatServer: '{{ path("message") }}',
+            introMessage: 'Bonjour, je suis Thymio et je suis ici pour t\'aider. Ecrit "indice" si tu as besoin d\'aide !',
+            title: 'Thymio',
+            mainColor: '#CECECE',
+            bubbleAvatarUrl: 'https://www.thymio.org/wp-content/uploads/2019/03/thymio-launcher-icon.png',
+            bubbleBackground: "#030101" ,
+            placeholderText: 'Ecris ton message ici !',
+            aboutText: '',
+        };
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 {% endblock %}

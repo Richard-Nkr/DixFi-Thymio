@@ -1,4 +1,7 @@
 {
+    "botman/driver-web": {
+        "version": "1.5.1"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
