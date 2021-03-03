@@ -56,11 +56,9 @@ class StudentGroupController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
-            $gestionPassword->createHashPassword($studentGroup);
-            $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
 
-            $pass = password_hash($studentGroup->getPassword(), PASSWORD_DEFAULT);
-            $studentGroup->setPassword($pass);
+            $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
+            $gestionPassword->createHashPassword($studentGroup);
             $studentGroup->setCreatedAt(new \DateTime('now'));
             $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
             $studentGroup->setCountSucceed(0);
