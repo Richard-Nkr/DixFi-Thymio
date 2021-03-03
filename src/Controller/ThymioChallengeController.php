@@ -203,7 +203,7 @@ class ThymioChallengeController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('home');
         }
-        return $this->render('activate_deblocage.html.twig', [
+        return $this->render('thymio_challenge/activate_deblocage.html.twig', [
             'teacher' => $teacherRepository->findOneById($this->getUser()->getId()),
         ]);
     }
