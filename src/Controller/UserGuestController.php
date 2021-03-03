@@ -16,6 +16,7 @@ use App\Service\CreateChat;
 use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
+use App\Service\TeacherGenerator;
 use App\Service\UpdateTeacher;
 use App\Service\ValidateChallenge;
 use App\Service\Validator;
@@ -58,13 +59,13 @@ class UserGuestController extends AbstractController
      * @param MailerService $mailerService
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
-     * @param UpdateTeacher $teacherUserguest
+     * @param TeacherGenerator $teacherGenerator
      * @param CreateChat $createChat
      * @param GestionPassword $gestionPassword
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, UpdateTeacher $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator, CreateChat $createChat, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -94,7 +95,7 @@ class UserGuestController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $gestionPassword->createHashPassword($userguest);
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
-                $userguest = $teacherUserguest->makeTeacher($userguest);
+                $userguest = $teacherGenerator->generate($userguest);
             }
             $entityManager->persist($userguest);
 

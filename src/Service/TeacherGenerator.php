@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TeacherUserGuest
+class TeacherGenerator
 {
-    public function makeTeacher(UserGuest $userguest): Teacher
+    public function generate(UserGuest $userguest): Teacher
     {
         $teacher = new Teacher();
         $teacher->setPassword($userguest->getPassword());
