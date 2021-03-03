@@ -16,15 +16,25 @@ use App\Service\CreateChat;
 use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
-use App\Service\TeacherUserGuest;
+use App\Service\TeacherGenerator;
+use App\Service\UpdateTeacher;
 use App\Service\ValidateChallenge;
+use App\Service\Validator;
+use App\Validator\ContainsAlphanumericPassWord;
+use App\Validator\UniqueMail;
+use App\Validator\UniqueMailValidator;
 use App\Services\MailerService;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Validation;
 
 /**
  * @Route("/user/guest")
@@ -49,31 +59,51 @@ class UserGuestController extends AbstractController
      * @param MailerService $mailerService
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
-     * @param TeacherUserGuest $teacherUserguest
+     * @param TeacherGenerator $teacherGenerator
      * @param CreateChat $createChat
      * @param GestionPassword $gestionPassword
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherUserGuest $teacherUserguest, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator, CreateChat $createChat, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Début validation des champs
+            $validator = new Validator();
+            $violations = $validator->PassWordValidator($userguest);
+            $violations->addAll($validator->FieldsValidator(($userguest)));
+            $mailValidator = $validator->mail($this->getDoctrine(),$userguest->getMail());
+            if (0 !== count($violations) || $mailValidator) {
+                if($mailValidator){
+                    $notifier->send(new Notification('Cette adresse mail est déjà utilisée.', ['browser']));
+                }
+                foreach ($violations as $violation) {
+                    $notifier->send(new Notification($violation->getMessage(), ['browser']));
+                }
+                return $this->render('user_guest/new.html.twig', [
+                    'user_guest' => $userguest,
+                    'form' => $form->createView(),
+                ]);
+            }
+            //fin
+
             $entityManager = $this->getDoctrine()->getManager();
             $gestionPassword->createHashPassword($userguest);
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
-                $userguest = $teacherUserguest->makeTeacher($userguest);
+                $userguest = $teacherGenerator->generate($userguest);
             }
             $entityManager->persist($userguest);
 
             if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
                 $entityManager->persist($createChat->create($userguest));
             }
-
-            $entityManager->flush();$mail = $userguest->getMail();
+            $entityManager->flush();
+            $mail = $userguest->getMail();
             $id = $userguest->getId();
             $mailerService->sendId(
                 ''.$mail,

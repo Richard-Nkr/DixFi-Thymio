@@ -9,10 +9,15 @@ use App\Form\TeacherType;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
+use App\Service\GestionPassword;
+use App\Service\UpdateTeacher;
 use App\Service\ValidateChallenge;
+use App\Service\Validator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -48,18 +53,38 @@ class TeacherController extends AbstractController
     /**
      * @Route("/edit", name="teacher_edit", methods={"GET","POST"})
      * @param Request $request
+     * @param UpdateTeacher $updateTeacher
      * @param TeacherRepository $teacherRepository
+     * @param GestionPassword $gestionPassword
+     * @param NotifierInterface $notifier
      * @return Response
      */
-    public function edit(Request $request, TeacherRepository $teacherRepository): Response
+    public function edit(Request $request, UpdateTeacher $updateTeacher, TeacherRepository $teacherRepository, GestionPassword $gestionPassword, NotifierInterface $notifier): Response
     {
-        $teacher = $teacherRepository->findOneById($this->getUser()->getId());
+        $teacher = new Teacher();
         $form = $this->createForm(TeacherType::class, $teacher);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
+            //Début validation des champs
+            $validator = new Validator();
+            $violations = $validator->PassWordValidator($teacher);
+            $violations->addAll($validator->FieldsValidator(($teacher)));
+            if (0 !== count($violations)) {
+                foreach ($violations as $violation) {
+                    $notifier->send(new Notification($violation->getMessage(), ['browser']));
+                }
+                return $this->render('teacher/edit.html.twig', [
+                    'teacher' => $teacher,
+                    'form' => $form->createView(),
+                ]);
+            }
+            //fin
+
+            $teacher2 = $teacherRepository->findOneById($this->getUser()->getId());
+            $gestionPassword->createHashPassword($teacher);
+            $updateTeacher->update($teacher,$teacher2);
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('user_index');
         }
 

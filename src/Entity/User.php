@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Validator\Constraints as MyConstraint;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
