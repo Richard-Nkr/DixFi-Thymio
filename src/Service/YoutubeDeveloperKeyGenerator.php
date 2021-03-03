@@ -11,11 +11,14 @@ class YoutubeDeveloperKeyGenerator
 {
     public function DeveloperKeyGenerator() : String
     {
-        $rand = rand (1,10);
+        return "AIzaSyB6jlKn0q2QDja0YQG_4fcmJ7g_wwLHP6c";
+        /*
+        NE RESPECTE PAS LES REGLES DE QUOTAS
+        $rand = rand (1,2);
         if($rand == 1) {
             return "AIzaSyBmEk81PP_SPTelCV5XJIFPJ07j2p_6gSw";
         }
-        elseif( $rand==2){
+        else{
             return "AIzaSyB6jlKn0q2QDja0YQG_4fcmJ7g_wwLHP6c";
         }
         elseif( $rand==3){
@@ -41,6 +44,6 @@ class YoutubeDeveloperKeyGenerator
         }
         elseif( $rand==10){
             return "AIzaSyCoaXOEIA0aarm8yEh3FugpG3Wc-2Jcxtk";
-        }
+        }*/
     }
 }
