@@ -46,6 +46,17 @@ class HelpRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByNumberHelp($numberHelp,$id): ?Help
+    {
+        return $this->createQueryBuilder('h')
+            ->Where('')
+            ->andWhere('h.numberHelp = :val')
+            ->setParameter('val', $numberHelp)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Help
     {

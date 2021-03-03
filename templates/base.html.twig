@@ -7,7 +7,6 @@
     <link href="{{ asset('images/thymio-logo.png') }}" rel="shortcut icon">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/general.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="public/css/chat.min.css">
     {{ encore_entry_link_tags('app') }}
     <link href="{{ asset('/build/app.scss') }}" rel="stylesheet">
 
@@ -38,6 +37,11 @@
 <div class="context">
     {% block body %}
     {% endblock %}
+    <div class="footer">
+        {% block footer %}
+            {% include 'fragments/footer.html.twig' %}
+        {% endblock %}
+    </div>
 </div>
 
 
@@ -54,11 +58,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 </body>
-<div class="footer">
-    {% block footer %}
-        {% include 'fragments/footer.html.twig' %}
-    {% endblock %}
-</div>
+
 </html>

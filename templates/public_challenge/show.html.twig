@@ -18,18 +18,17 @@
         <p> Difficulté : {{ public_challenge.difficulty }} </p>
         <p> Description : {{ public_challenge.description }} </p>
     </fieldset>
-    <script src="public/js/widget.js"></script>
     <script>
         var botmanWidget = {
             frameEndpoint: '{{ path("chatframe") }}',
-            chatServer: '{{ path("message") }}',
+            chatServer: '{{ path("message")}}',
             introMessage: 'Bonjour, je suis Thymio et je suis ici pour t\'aider. Ecrit "indice" si tu as besoin d\'aide !',
             title: 'Thymio',
-            mainColor: '#CECECE',
-            bubbleAvatarUrl: 'https://www.thymio.org/wp-content/uploads/2019/03/thymio-launcher-icon.png',
-            bubbleBackground: "#030101" ,
+            mainColor: '#ffffff',
+            bubbleAvatarUrl: 'https://www.my-etechno.com/995-large_default/robot-thymio-wireless.jpg',
             placeholderText: 'Ecris ton message ici !',
             aboutText: '',
+            userId: '{{ public_challenge.id }}',
         };
     </script>
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>

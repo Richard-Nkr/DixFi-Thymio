@@ -4,8 +4,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Challenge;
+use App\Repository\ChallengeRepository;
 use App\Service\BotConversation;
-use App\Service\OnboardingConversation;
 use BotMan\BotMan\Cache\SymfonyCache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
@@ -21,38 +22,49 @@ use BotMan\BotMan\Drivers\DriverManager;
 class BotController extends AbstractController{
 
 
-
     /**
      * @Route("/message", name="message")
+     * @param ChallengeRepository $challengeRepository
+     * @param Challenge $challenge
+     * @return Response
      */
-    function messageAction(Request $request)
+    function messageAction(ChallengeRepository $challengeRepository, Challenge $challenge): Response
     {
-        DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
-
-        // Configuration for the BotMan WebDriver
         $config = [];
 
-        // Create BotMan instance
-        $botman = BotManFactory::create($config);
+        DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
 
-        // Give the bot some things to listen for.
-        $botman->hears('(hello|hi|hey)', function (BotMan $bot) {
-            $bot->reply('Hello!');
+        $adapter = new FilesystemAdapter();
+
+        $botman = BotManFactory::create($config, new SymfonyCache($adapter));
+
+        $botman->hears('indice', function($bot){
+            $bot->startConversation(new BotConversation);
         });
 
-        // Set a fallback
-        $botman->fallback(function (BotMan $bot) {
-            $bot->reply('Sorry, I did not understand.');
+        $botman->hears('non', function ($bot) {
+
+            $bot->reply('Ok bon courage ! Ecris le mot "indice" si tu as besoin de mon aide !');
         });
 
-        // Start listening
+        $botman->hears('oui', function ($bot) {
+
+            $bot->startConversation(new BotConversation);
+
+        });
+
+        $botman->fallback(function($bot) {
+            $bot->reply("Désolé, je n'ai pas compris ton message...");
+        });
+
         $botman->listen();
 
-        return new Response();
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/bot", name="homepage")
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
