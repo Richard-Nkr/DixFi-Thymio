@@ -51,7 +51,7 @@ class PublicChallenge extends Challenge
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updateAt;
+    private $updatedAt;
 
     public function getNameCorrection(): ?string
     {
@@ -118,15 +118,20 @@ class PublicChallenge extends Challenge
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function __toString() : String
+    {
+        return $this->name;
     }
 }

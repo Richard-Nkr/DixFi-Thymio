@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210225095029 extends AbstractMigration
+final class Version20210304105337 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -27,6 +27,7 @@ final class Version20210225095029 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE help CHANGE id id INT NOT NULL');
+        $this->addSql('ALTER TABLE public_challenge CHANGE name_correction name_correction VARCHAR(30) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE update_at updated_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE `teacher` DROP progression');
     }
 }
