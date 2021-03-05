@@ -13,7 +13,7 @@
             </div>
         {% endfor %}
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-danger"> Les informations transmises sont erronées </div>
         {% endif %}
 
         {% if app.user %}

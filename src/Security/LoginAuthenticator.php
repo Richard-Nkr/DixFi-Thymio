@@ -71,7 +71,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Id could not be found.');
+            throw new CustomUserMessageAuthenticationException("L'identifiant est inconnu");
         }
 
         return $user;
@@ -84,6 +84,8 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param $credentials
+     * @return string|null
      */
     public function getPassword($credentials): ?string
     {

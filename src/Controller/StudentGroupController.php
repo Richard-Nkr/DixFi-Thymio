@@ -56,11 +56,10 @@ class StudentGroupController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
-            $gestionPassword->createHashPassword($studentGroup);
+
             $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
 
-            $pass = password_hash($studentGroup->getPassword(), PASSWORD_DEFAULT);
-            $studentGroup->setPassword($pass);
+            $gestionPassword->createHashPassword($studentGroup);
             $studentGroup->setCreatedAt(new \DateTime('now'));
             $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
             $studentGroup->setCountSucceed(0);
@@ -92,8 +91,8 @@ class StudentGroupController extends AbstractController
         $teacher = $studentGroup->getTeacher();
         $count = 0;
         if($teacher->getProgression()==true){
-            $challenges = $statusRepository->findBy(['studentGroup'=>$studentGroup,'statusInt'=>3]);
-            $count = $sortChallenges->sort($challenges);
+            $statusList = $statusRepository->findBy(['studentGroup'=>$studentGroup,'statusInt'=>3]);
+            $count = $sortChallenges->sort($statusList);
         }
         return $this->render('student_group/menu_thymio_challenges.html.twig', [
             'teacher'=>$teacher,

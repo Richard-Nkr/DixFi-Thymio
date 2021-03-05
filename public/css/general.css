@@ -88,6 +88,25 @@ a:hover {
     padding-bottom: 2%;
 }
 
+.formListG{
+    margin: 2% auto;
+    border-radius: 12px;
+    background-color: #e57373;
+    text-align: center;
+    font-weight: bold;
+    width: 60%;
+    padding-bottom: 2%;
+}
+
+.formG{
+    margin: 2% auto;
+    border-radius: 12px;
+    background-color: #e57373;
+    text-align: center;
+    font-weight: bold;
+    width: 25%;
+    padding-bottom: 2%;
+}
 
 .legendInscription {
     font-size: 18px;
@@ -182,7 +201,6 @@ a:hover {
 }
 
 
-
 .tableValidate {
     text-align: center;
     margin: auto;
@@ -248,6 +266,16 @@ a:hover {
     vertical-align: text-top;
     font-size: 18px;
     text-align: left;
+    margin-left: 100px;
+    padding: 5px;
+}
+
+.td_label4 {
+    vertical-align: text-top;
+    color: white;
+    width: 20%;
+    font-size: 18px;
+    text-align: center;
     margin-left: 100px;
     padding: 5px;
 }

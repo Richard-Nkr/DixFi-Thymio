@@ -1,42 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}StudentGroup{% endblock %}
+{% block title %}Mon Groupe{% endblock %}
 
 {% block body %}
-    <h1>StudentGroup</h1>
+<fieldset class="formG">
+    <legend class="legendInscription"> Mon groupe d'étudiants</legend>
+    <div class="form-group">
 
-    <table class="table">
-        <tbody>
+        <table class="table">
+            <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ student_group.id }}</td>
+                <th class="td_label4">Votre Identifiant</th>
+                <td class="td_label3">{{ student_group.id }}</td>
             </tr>
             <tr>
-                <th>Nickname</th>
-                <td>{{ student_group.nickname }}</td>
+                <th class="td_label4">Pseudo du groupe</th>
+                <td class="td_label3">{{ student_group.nickname }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th class="td_label4">Votre enseignant</th>
+                <td class="td_label3">{{ student_group.teacher.name }} {{ student_group.teacher.firstName }}</td>
             </tr>
             <tr>
-                <th>DeletedAt</th>
-                <td>{{ student_group.deletedAt ? student_group.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th class="td_label4">Date de création</th>
+                <td class="td_label3">{{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ student_group.password }}</td>
+                <th class="td_label4" style="width:34%;">Niveau de progression</th>
+                <td class="td_label3">{{ student_group.countSucceed*10 }}%</td>
             </tr>
-            <tr>
-                <th>CountSucceed</th>
-                <td>{{ student_group.countSucceed }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+        <a href="{{ path('user_index') }}">
+            <button class="btnG"> Revenir au Menu</button>
+        </a>
 
-    <a href="{{ path('student_group_index') }}">back to list</a>
-
-    <a href="{{ path('student_group_edit', {'id': student_group.id}) }}">edit</a>
-
-    {{ include('student_group/_delete_form.html.twig') }}
-{% endblock %}
+        {% endblock %}

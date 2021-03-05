@@ -1,33 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}StudentGroup index{% endblock %}
+{% block title %}Liste de vos groupes d'étudiants{% endblock %}
 
 {% block body %}
-    <fieldset class="formInscription">
+    <fieldset class="formListG">
         <legend class="legendInscription">{{ teacher.nickname }}'s Student Groups !</legend>
         <div class="form-group">
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Identifiant</th>
-                    <th>Pseudo</th>
-                    <th>Date de création</th>
-                    <th>Date de suppression</th>
-                    <th>ThymioChallenge(s) réussi(s)</th>
+                    <th class="td_label4">Identifiant</th>
+                    <th class="td_label4">Pseudo</th>
+                    <th class="td_label4">Date de création</th>
+                    <th class="td_label4" style="width:40%;">ThymioChallenge(s) réussi(s)</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for student_group in student_groups %}
                     {% if student_group.teacher==app.user %}
                         <tr>
-                            <td>{{ student_group.id }}</td>
-                            <td>{{ student_group.nickname }}</td>
-                            <td>{{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                            <td>{{ student_group.deletedAt ? student_group.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-                            <td>{{ student_group.countSucceed }}</td>
+                            <td class="td_label3">{{ student_group.id }}</td>
+                            <td class="td_label3">{{ student_group.nickname }}</td>
+                            <td class="td_label3">{{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td class="td_label3" style="width:40%;">{{ student_group.countSucceed }}</td>
                             <td>
-                                <a href="{{ path('student_group_delete', {'id': student_group.id}) }}">DELETE</a>
+                                <a href="{{ path('student_group_delete', {'id': student_group.id}) }}"> <button class="btn btn-danger"> DELETE </button></a>
                             </td>
                         </tr>
                     {% endif %}
@@ -40,7 +39,9 @@
             </table>
         </div>
     </fieldset>
-    <a href="{{ path('student_group_new') }}">Créer un nouveau groupe</a>
-    <br>
-    <a href="{{ path('teacher_show', {'id':teacher.id })}}"> Revenir en arrière sur mon profil</a>
+    <div>
+    <a href="{{ path('student_group_new') }}"> <button class="btnG"> Créer un groupe </button></a>
+
+    <a href="{{ path('teacher_show', {'id':teacher.id })}}"> <button class="btnG" style="margin-left: 5em;"> Voir mon profil </button> </a>
+    </div>
 {% endblock %}

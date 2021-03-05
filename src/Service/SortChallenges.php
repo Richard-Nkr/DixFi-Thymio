@@ -7,29 +7,32 @@ use phpDocumentor\Reflection\Types\Array_;
 
 class SortChallenges
 {
-    public function sort(array $challenges) : int
+    public function sort(array $statusList) : int
     {
         $count = 0;
-        foreach($challenges as $challenge){
+        foreach($statusList as $status){
+            $challenge=$status->getChallenge();
             if ($challenge->getRole()=="ROLE_THYMIO"){
-                if($challenge->getDifficulty()=="easy"){
-                    $count+=1;
+                if($challenge->getDifficulty()=="Easy"){
+                    $count=$count+1;
                 }
             }
         }
         if ($count==4){
-            foreach($challenges as $challenge){
+            foreach($statusList as $status){
+                $challenge=$status->getChallenge();
                 if ($challenge->getRole()=="ROLE_THYMIO"){
-                    if($challenge->getDifficulty()=="medium"){
+                    if($challenge->getDifficulty()=="Medium"){
                         $count+=1;
                     }
                 }
             }
         }
         if ($count==7){
-            foreach($challenges as $challenge){
+            foreach($statusList as $status){
+                $challenge=$status->getChallenge();
                 if ($challenge->getRole()=="ROLE_THYMIO"){
-                    if($challenge->getDifficulty()=="hard"){
+                    if($challenge->getDifficulty()=="Hard"){
                         $count+=1;
                     }
                 }
