@@ -4,53 +4,56 @@
 
 {% block body %}
 
+    {{ include('youtube/show.html.twig') }}
 
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
         </div>
     {% endfor %}
 
-<fieldset class="thymioChallenge">
+    <fieldset class="thymioChallenge">
 
-    <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
+        <legend class="legendChallenge">Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
 
-    <p>Temps nécessaire : {{ thymio_challenge.duration }} </p>
-    <p> {{ thymio_challenge.difficulty }} </p>
+        <p><u>Temps nécessaire</u> : {{ thymio_challenge.duration }} </p>
+        <p><u>Difficulté</u> : {{ thymio_challenge.difficulty }} </p>
+        <p><u>Description</u> : {{ thymio_challenge.description }} </p>
 
-    <p>  {{ thymio_challenge.description }} </p>
-
-</fieldset>
+    </fieldset>
 
 
     {% if is_granted('ROLE_STUDENT_GROUP') %}
-    {% if status.statusInt==2 %}
+        {% if status.statusInt==2 %}
 
-    <div class="form-group">
-        <input type="label" value="Envoyé" placeholder="Envoyé" readonly class="btn btn-success" />
-    </div>
-    {% elseif status.statusInt==3 %}
-    <div class="form-group">
-        <input type="submit" value="Validé" placeholder="Validé" readonly class="btn btn-success" />
-    </div>
-    {% else %}
-        <div class="col-sm-4" style="margin:0 auto;">
-            {{ include('thymio_challenge/_add_file_form.html.twig') }}
-        </div>
-    {% endif %}
+            <div class="form-group">
+                <input type="label" value="Envoyé" placeholder="Envoyé" readonly class="btn btn-success"/>
+            </div>
+        {% elseif status.statusInt==3 %}
+            <div class="form-group">
+                <input type="submit" value="Validé" placeholder="Validé" readonly class="btn btn-success"/>
+            </div>
+        {% else %}
+            <div class="col-sm-4" style="margin:0 auto;">
+                {{ include('thymio_challenge/_add_file_form.html.twig') }}
+            </div>
+        {% endif %}
 
     {% endif %}
 
     {% if is_granted('ROLE_TEACHER') %}
-    <div>
-        <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}"> <button class="btn btn-success"> Voir la correction </button></a>
-    </div>
+        <div>
+            <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}">
+                <button class="btn btn-success"> Voir la correction</button>
+            </a>
+        </div>
     {% endif %}
     <br>
     <div>
         <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
-           <button type="button" class="btn btn-danger">Retour à la page des défis</button>
+            <button type="button" class="btn btn-danger">Retour à la page des défis</button>
         </a>
     </div>
 

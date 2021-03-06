@@ -7,35 +7,35 @@
     <table class="form_table">
         <tr>
             <td class="td_label">
-                    {{ form_label(form.nickname, 'Surnom : ') }}
+                {{ form_label(form.nickname, 'Surnom : ') }}
             </td>
             <td class="td_field2">
-                    {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label">
-                    {{ form_label(form.name, 'Nom : ') }}
+                {{ form_label(form.name, 'Nom : ') }}
             </td>
             <td class="td_field2">
-                    {{ form_widget(form.name, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.name, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label">
-                    {{ form_label(form.firstName, 'Prénom : ') }}
+                {{ form_label(form.firstName, 'Prénom : ') }}
             </td>
             <td class="td_field2">
-                    {{ form_widget(form.firstName, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.firstName, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label">
-                    {{ form_label(form.mail, 'Adresse mail : ') }}
-                    <span class="error">{{ form_errors(form.mail) }}</span>
+                {{ form_label(form.mail, 'Adresse mail : ') }}
+                <span class="error">{{ form_errors(form.mail) }}</span>
             </td>
             <td class="td_field2">
-                    {{ form_widget(form.mail, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.mail, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
@@ -49,18 +49,18 @@
         </tr>
         <tr>
             <td class="td_label">
-                    {{ form_label(form.password, 'Mot de passe : ') }}
+                {{ form_label(form.password, 'Mot de passe : ') }}
             </td>
             <td class="td_field2">
-                    {{ form_widget(form.password, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.password, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label">
-                    <label for="verifpass">Saisir une seconde fois votre mot de passe : </label>
+                <label for="verifpass">Saisir une seconde fois votre mot de passe : </label>
             </td>
             <td class="td_field2">
-                    <input class="form_field" type="password" id="verifpass" required>
+                <input class="form_field" type="password" id="verifpass" required>
             </td>
         </tr>
     </table>

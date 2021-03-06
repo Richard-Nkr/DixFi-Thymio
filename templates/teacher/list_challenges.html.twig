@@ -4,9 +4,12 @@
 <div>
     <p> Le défi n°{{ statusSolo.challenge.id }} <i>«{{ statusSolo.challenge.name }}»</i> est en attente de validation. Le mail avec la solution du groupe vous a été envoyé le : <i>{{ statusSolo.submittedAt|date('Y-m-d H:i:s')}}</i></p>
 </div>
+    {% if status.comment=='null' %}
 
 <form method="post" action="{{ path('validate', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
     <div class="buttonStartChallenge">
+        <span id="span_txt2" style="display:none;">Ajouter un commentaire destiné à votre groupe</span>
+
     <button class="btn btn-success">Valider </button>
     </div>
 </form>
@@ -20,5 +23,6 @@
 {% else %}
     <p> Aucun Défi à valider </p>
 {% endfor %}
+
 
 
