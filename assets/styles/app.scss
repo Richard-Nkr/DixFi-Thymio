@@ -80,11 +80,7 @@ a {
           background: lighten(#1a8fe7, 0);
         }
 
-        &.aide {
-          background: lighten(#1a8fe7, 0);
-        }
-
-        &.about {
+        &.information {
           background: lighten(#1a8fe7, 0);
         }
 
@@ -239,6 +235,9 @@ a {
 $red: #d2151c;
 $bg_red: #d4344d;
 
+$orange: #f88102;
+$bg_orange: #fa8934;
+
 $blue: #184bdd;
 $bg_blue: #1423bc;
 
@@ -326,6 +325,10 @@ $bg_green: #60f367;
 
 .btnR {
   @include myButton($red, $bg_red);
+}
+
+.btnO {
+  @include myButton($orange, $bg_orange);
 }
 
 .btnG {

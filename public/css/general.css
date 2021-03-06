@@ -13,7 +13,10 @@ html {
 body {
     background-color: #5FB1EE;
     text-align: center;
-    min-height: 100%;
+}
+
+.bodyContent{
+    padding-bottom: 8%;
 }
 
 h1 {
@@ -338,14 +341,13 @@ a:hover {
     height: auto;
     position: absolute;
     top: 15vh;
-
 }
 
 .area {
     background: #5FB1EE;
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
     width: 100%;
-    height: 150vh;
+    height: 90vh;
 
 }
 
@@ -365,7 +367,7 @@ a:hover {
     height: 20px;
     background: rgba(255, 255, 255, 0.2);
     animation: animate 25s linear infinite;
-    bottom: -300px;
+    bottom: -10px;
 
 }
 
@@ -484,14 +486,14 @@ a:hover {
     background-color: white;
     margin: 4% auto;
     border-radius: 20px;
-    width: 1250px;
+    width: 80%;
 }
 
 fieldset.showChallenge legend {
     background-color: #be0c0c;
     color: white;
     border-radius: 20px;
-    padding: 6px 12px;
+    padding: 1%;
     margin: 2% auto;
     width: 30%;
 }
@@ -499,7 +501,7 @@ fieldset.showChallenge legend {
 .card {
     color: white;
     width: 18rem;
-    margin: 0 auto;
+    margin: 1% auto;
     background-color: #0b75c9;
     border-radius: 20px;
 }
@@ -520,4 +522,52 @@ fieldset.showChallenge legend {
     flex-direction: row;
     flex-wrap: wrap;
     flex-basis: auto;
+}
+
+.divBody{
+    margin-bottom: 10%;
+}
+
+.userGuide{
+    margin: 3% 8% 3% 8%;
+    border: 3px solid #9b1717;
+    border-radius: 12px;
+    background-color: white;
+    text-align: justify;
+    padding: 2% 4% 2% 4%;
+}
+
+.legendUserGuide{
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    padding: 2px;
+    border: 1px solid #701920;
+    background-color: #be1b20;
+    border-radius: 10px;
+}
+
+.titleGuide{
+    padding: 10px;
+    background-color: #003e80;
+    margin:2% 30% 2% 30%;
+    border-radius:10px;
+    color: white;
+}
+
+
+#contactUs{
+    margin: 2% 18% auto;
+    border: 3px solid #9b1717;
+    border-radius: 12px;
+    background-color: white;
+    text-align: justify;
+    padding: 10px 50px 5px 50px;
+}
+
+footer{
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }

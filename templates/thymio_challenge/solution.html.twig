@@ -2,6 +2,7 @@
 
 {% block title %}ThymioChallenge Correction{% endblock %}
 {% block body %}
+    <div class="divBody">
     <fieldset class="descriptionThymio">
         Solution du défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}
     </fieldset>
@@ -14,5 +15,5 @@
             <button type="button" class="btn btn-danger">Retour sur les Dix'Fi {{ thymio_challenge.difficulty }}</button>
         </a>
     </div>
-
+    </div>
 {% endblock %}
