@@ -22,6 +22,7 @@ class StatusRepository extends ServiceEntityRepository
 
     /**
      * @param array $groups
+     * @param int $status
      * @return Status[] Returns an array of Status objects
      */
     public function findByGroupsAndStatus(array $groups, int $status)

@@ -9,7 +9,7 @@
         </div>
 
     {% endif %}
-    {% if status.statusInt==1 %}
+    {% if status.statusInt==1 OR status.statusInt==-1 %}
         <div class="buttonStartChallenge">
             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
                 <button class="btn btn-success"> Continuer le défi</button>

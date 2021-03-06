@@ -18,13 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ValidateChallenge
 {
-    public function handleStatus(Status $status, bool $validate)
+    public function handleValidation(Status $status, bool $validate)
     {
         if($validate){
             $status->setStatusInt(3);
             $status->setFinishedAt(new \DateTime());
         }else{
-            $status->setStatusInt(1);
+            $status->setStatusInt(-1);
             $status->setFinishedAt(NULL);
         }
 

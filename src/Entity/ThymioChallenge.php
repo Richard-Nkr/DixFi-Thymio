@@ -11,23 +11,4 @@ use Doctrine\ORM\Mapping as ORM;
 class ThymioChallenge extends Challenge
 {
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $file;
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function setFile($file): self
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-
-
 }
