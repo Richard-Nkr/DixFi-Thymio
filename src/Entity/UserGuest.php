@@ -31,7 +31,7 @@ class UserGuest extends User
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\Column(type="string", length=40)
@@ -72,5 +72,10 @@ class UserGuest extends User
         $this->firstname = $firstname;
 
         return $this;
+    }
+
+    public function __toString() : String
+    {
+        return $this->name;
     }
 }

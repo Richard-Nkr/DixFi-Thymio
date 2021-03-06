@@ -68,7 +68,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $credentials['id']]);
-
+        //dd($user->getRoles());
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Id could not be found.');

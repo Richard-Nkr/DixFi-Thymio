@@ -203,4 +203,5 @@ class User implements UserInterface, \Serializable
             // $this->salt
             ) = unserialize($serialized);
     }
+
 }
