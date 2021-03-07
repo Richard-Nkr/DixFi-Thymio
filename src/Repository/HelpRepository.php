@@ -35,7 +35,7 @@ class HelpRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findByIdChallenge($id):array
+    public function findByIdChallenge($id): ?array
     {
         return $this->createQueryBuilder('h')
             ->andWhere('h.challenge = :val')

@@ -8,7 +8,8 @@
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
         </div>
     {% endfor %}
 
@@ -19,9 +20,26 @@
         <p>Temps nécessaire : {{ public_challenge.duration }} </p>
         <p> Difficulté : {{ public_challenge.difficulty }} </p>
         <p> Description : {{ public_challenge.description }} </p>
-        <p> Nom du fichier de correction : {{ public_challenge.nameCorrection }}</p>
-        <img src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+        <p>Indice 1 : {{ indices[0].contentHelp }} </p>
 
     </fieldset>
+    {% block javascripts %}
+        <script>
+            var botmanWidget = {
+                frameEndpoint: '{{ path("chatframe") }}',
+                chatServer: '{{ path("message") }}',
+                introMessage: 'Bonjour, je suis Thymio et je suis ici pour t\'aider. Ecrit "indice" si tu as besoin d\'aide !',
+                title: 'Thymio',
+                mainColor: '#CECECE',
+                bubbleBackground: "#ffffff" ,
+                bubbleAvatarUrl: "https://www.my-etechno.com/995-large_default/robot-thymio-wireless.jpg",
+                placeholderText: 'Ecris ton message ici !',
+                aboutText: '',
+                userId: '{{ public_challenge.id }}'
+            };
+        </script>
+        <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    {% endblock %}
+
 
 {% endblock %}

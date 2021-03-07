@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PublicChallenge;
 use App\Form\PublicChallengeType;
+use App\Repository\HelpRepository;
 use App\Repository\PublicChallengeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,12 +63,14 @@ class PublicChallengeController extends AbstractController
      * @Route("/{id}/show", name="public_challenge_show", methods={"GET"})
      * @param PublicChallengeRepository $publicChallengeRepository
      * @param int $id
+     * @param HelpRepository $helpRepository
      * @return Response
      */
-    public function show(PublicChallengeRepository $publicChallengeRepository, int $id): Response
+    public function show(PublicChallengeRepository $publicChallengeRepository, int $id, HelpRepository $helpRepository): Response
     {
         return $this->render('public_challenge/show.html.twig', [
             'public_challenge' => $publicChallengeRepository->findOneById($id),
+            'indices' => $helpRepository->findByIdChallenge($id),
         ]);
     }
 

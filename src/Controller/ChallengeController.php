@@ -151,13 +151,13 @@ class ChallengeController extends AbstractController
      */
     public function edit(Request $request, Challenge $challenge, int $id, PublicChallengeRepository $publicChallengeRepository): Response
     {
-        $form = $this->createForm(ChallengeType::class, $challenge);
+        $form = $this->createForm(PublicChallengeType::class, $publicChallenge);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('challenge_show',[
+            return $this->redirectToRoute('challenge_showMyChallenge',[
                 'id' => $id,
                 'challenge' => $challenge,
             ]);
