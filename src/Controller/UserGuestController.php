@@ -2,39 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Chat;
-use App\Entity\Teacher;
-use App\Entity\User;
+
 use App\Entity\UserGuest;
 use App\Form\UserGuestType;
 use App\Form\UserGuestUpdateType;
-use App\Form\UserType;
-use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\SecurizerRoles;
 use App\Service\CreateChat;
-use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
-use App\Repository\UserRepository;
 use App\Service\TeacherGenerator;
-use App\Service\UpdateTeacher;
-use App\Service\ValidateChallenge;
 use App\Service\Validator;
-use App\Validator\ContainsAlphanumericPassWord;
-use App\Validator\UniqueMail;
-use App\Validator\UniqueMailValidator;
-use App\Services\MailerService;
-use Doctrine\ORM\EntityRepository;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Validation;
 
 /**
  * @Route("/user/guest")
@@ -112,7 +96,6 @@ class UserGuestController extends AbstractController
             $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter
             afin de vous connecter.", ['browser']));
             $entityManager->flush();
-            $notifier->send(new Notification("Afin de pouvoir vous connecter, enregistrez l'identifiant suivant " . $userguest->getId() . "", ['browser']));
             return $this->redirectToRoute('app_login');
         }
 
@@ -146,6 +129,7 @@ class UserGuestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($userGuest->getPassword()); //ICI DD !!!!!!!!!!!!!!!!!!!!!
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_guest_index');

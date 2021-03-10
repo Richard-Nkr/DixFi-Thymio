@@ -17,6 +17,7 @@
 <body>
 
 {% include 'fragments/navbar.html.twig' %}
+
 <div class="area">
     <ul class="circles">
         <li></li>
@@ -36,21 +37,20 @@
         <li></li>
         <li></li>
         <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
     </ul>
 </div>
+
 <div class="context">
+    <div class="bodyContent">
     {% block body %}
     {% endblock %}
+    </div>
+    <footer>
+        {% block footer %}
+            {% include 'fragments/footer.html.twig' %}
+        {% endblock %}
+    </footer>
 </div>
-
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

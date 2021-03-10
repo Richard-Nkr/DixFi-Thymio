@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Vidéos youtube {% endblock %}
+
+{% block body %}
+    <div class="divBody">
+        <div>
+            <h3 class="titleGuide">Bienvenue sur la plateforme Youtube destinée à Thymio.</h3>
+            <hr style="margin-left: 10%; margin-right: 10%">
+
+            <p>Vous pouvez effectuer des recherches concernant le robot Thymio afin de mieux vous familiariser avec ce
+                robot
+                !
+                Attention : Il vous suffit d'indiquer ce que vous souhaitez connaître, sans avoir besoin de citer
+                Thymio.</p>
+        </div>
+        <div style="text-align: center; margin-bottom: 4%;">
+            {{ form_start(form) }}
+
+            <p>{{ form_label(form.request, 'Votre recherche : ') }}</p>
+            <p>{{ form_widget(form.request, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}</p>
+            <button class="btnG">{{ button_label|default('Rechercher') }}</button>
+            {{ form_end(form) }}
+
+        </div>
+
+        <div>
+            <div class="row">
+                {% for video in videos %}
+                    <div class="col">
+                        <div style="margin-top: 10%;"> {{ video.snippet.title }} </div>
+                       <div><iframe width="320" height="300" src="https://www.youtube.com/embed/{{ video.id.videoId }}"
+                                    allowfullscreen></iframe></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

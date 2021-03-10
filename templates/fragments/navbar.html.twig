@@ -1,4 +1,4 @@
-<nav class="menu" id="menu_navabr">
+<nav class="menu" id="menu_navbar">
     <ol>
         <li class="menu-item">
             <a href="{{ path('home') }}" class="home">
@@ -6,6 +6,14 @@
                 <span>Les Dix'Fi de Thymio</span>
             </a>
         </li>
+
+        <li class="menu-item">
+            <a href="{{ path('youtube_index') }}" class="information">
+                <i class="fas fa-info"></i>
+                <span>Thymio c'est quoi ?</span>
+            </a>
+        </li>
+
         <li class="menu-item">
             <a href="#0" class="widgets">
                 <i class="fas fa-trophy"></i>
@@ -42,8 +50,12 @@
                 <span>Teachers'Fi</span>
             </a>
             <ol class="sub-menu">
-                <li class="menu-item"><a class="dropdown-item" href="#"><span>Tous les défis</span></a>
+                <li class="menu-item"><a class="dropdown-item" href="{{ path('public_challenge_index') }}"><span>Les défis publics</span></a>
                 </li>
+                {% if is_granted('ROLE_STUDENT_GROUP') %}
+                    <li class="menu-item"><a class="dropdown-item" href="{{ path('private_challenge_index') }}"><span>Les défis de mon professeur</span></a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_TEACHER') %}
                     <li class="menu-item"><a class="dropdown-item"
                                              href="{{ path('challenge_new') }}"><span>Créer un défi</span></a>
@@ -62,7 +74,7 @@
                 </a>
 
                 <ol class="sub-menu">
-                    <li class="menu-item"><a href="{{ path('list_groups_to_validate') }}" class="item--a"><span>Validation des défis de mes groupes</span></a>
+                    <li class="menu-item"><a href="{{ path('list_groups_to_validate') }}" class="item--a"><span>Validation des groupes</span></a>
                     </li>
                     <li class="menu-item"><a href="{{ path('list_groups_progress') }}"
                                              class="item--b"><span> Progression de mes groupes</span></a></li>
@@ -75,7 +87,7 @@
             <li class="menu-item">
                 <a href="#0" class="kabobs">
                     <i class="fas fa-lock"></i>
-                    <span>Espace réservé aux Teachers</span>
+                    <span>Espace privé Teachers</span>
                 </a>
             </li>
         {% endif %}

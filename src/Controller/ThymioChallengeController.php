@@ -2,24 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Challenge;
-use App\Entity\User;
+
 use App\Entity\ThymioChallenge;
 use App\Form\ThymioChallengeType;
-
 use App\Repository\StatusRepository;
-
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
-use App\Repository\ThymioChallengeRepository;
 use App\Repository\ChallengeRepository;
 use App\Service\DocumentGenerator;
 use App\Service\HandleStatus;
 use App\Service\SecurizerRoles;
-use App\Services\MailerService;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use App\Service\MailerService;
 use Knp\Snappy\Pdf;
-use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +41,7 @@ class ThymioChallengeController extends AbstractController
         return $this->render('thymio_challenge/index.html.twig', [
             'thymio_challenges' => $ChallengeRepository->findBy(['role' => 'ROLE_THYMIO','difficulty' => $difficulty]),
         ]);
+
     }
 
     /**

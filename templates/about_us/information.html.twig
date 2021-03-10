@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos de nous{% endblock %}
+
+{% block body %}
+
+
+    <div class="bg-light">
+        <div class="container py-5">
+            <h3 class="titleGuide">A propos... </h3>
+        </div>
+    </div>
+
+    <div class="bg-white py-5">
+        <div class="container py-5">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 px-7 mx-auto"> <img src="{{ asset('images/child.png') }}" alt="child" class="img-fluid mb-4 mb-lg-0"></div>
+
+                <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
+                    <h2 class="font-weight-light"> Nos objectifs : </h2>
+                    <p class="font-italic text-muted mb-4">Notre mission est avant tout d'aider les jeunes à apprendre dès le plus jeune âge le code informatique à l'aide de différents défis </p><a href="{{ path('thymio_challenge_index', {'difficulty' : 'easy'}) }}" class="btn btn-light px-5 rounded-pill shadow-sm">Voir les défis</a>
+                </div>
+            </div>
+        </div>
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
+                    <h2 class="font-weight-light">Nos valeurs : </h2>
+                    <p class="font-italic text-muted mb-4"> Faire de notre projet un endroit accueillant, chalereux. Passer du bon temps ensemble, même au cours d'une journée de travail.</p>
+                </div>
+                <div class="col-lg-5 px-5 mx-auto"><img src="{{ asset('images/valeurs.png') }}" alt="" class="img-fluid mb-3 mb-lg-0"></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bg-light py-4">
+        <div class="container py-4">
+            <div class="bg-light">
+                <div class="container py-5">
+                    <h3 class="titleGuide">Les fondateurs</h3>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-xl-3 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src="{{ asset('images/rebecca.jpg') }}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Rebecca GRENET</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/rebecca-grenet-b625681b8/" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src="{{ asset('images/madeleine.jpg') }}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Madeleine SCHMIT</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a target="_blank" href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src="{{ asset('images/michael.jpg') }}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Michael NAMET</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/michael-namet-7631781b7/" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src="{{ asset('images/richard.jpg') }}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Richard NAKARMI</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/richard-nakarmi-182913188/" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

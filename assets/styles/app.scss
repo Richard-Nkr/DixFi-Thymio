@@ -27,13 +27,13 @@ a {
 
 
 .menu {
-  @media (max-width: 991px) {
+  @media (max-width: 300px) {
     width: 256px;
   }
 
   ol {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     @media (max-width: 991px) {
       grid-template-columns: 1fr;
     }
@@ -70,6 +70,7 @@ a {
         span {
           display: block;
           margin-top: .2em;
+          margin-bottom: .2em;
           transition: .35s cubic-bezier(.54, 1.60, .5, 1);
           transform: translateY(70px);
           opacity: 0;
@@ -79,7 +80,7 @@ a {
           background: lighten(#1a8fe7, 0);
         }
 
-        &.about {
+        &.information {
           background: lighten(#1a8fe7, 0);
         }
 
@@ -234,8 +235,11 @@ a {
 $red: #d2151c;
 $bg_red: #d4344d;
 
+$orange: #f88102;
+$bg_orange: #fa8934;
+
 $blue: #184bdd;
-$bg_blue: #1423bc;
+$bg_blue: #1926ab;
 
 $green: #2cac10;
 $bg_green: #60f367;
@@ -244,7 +248,7 @@ $bg_green: #60f367;
   text-align: center;
   text-transform: uppercase;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 2px;
   position: relative;
   background-color: $color;
@@ -323,6 +327,10 @@ $bg_green: #60f367;
   @include myButton($red, $bg_red);
 }
 
+.btnO {
+  @include myButton($orange, $bg_orange);
+}
+
 .btnG {
   @include myButton($green, $bg_green);
 }
@@ -331,6 +339,9 @@ $bg_green: #60f367;
   @include myButton2($green, $bg_green);
 }
 
+.btnB2{
+  @include myButton($blue, $bg_blue);
+}
 .btnB {
   @include myButton2($blue, $bg_blue);
 }

@@ -3,7 +3,7 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
-
+    <div class="divBody">
     {# nous testons si la variable message existe #}
     {% for message in app.flashes('notification') %}
              <div class="alert alert-info alert-dismissible fade show">
@@ -15,5 +15,5 @@
 
     {{ include('user/_form.html.twig') }}
 
-    <a href="{{ path('user_index') }}">back to list</a>
+    </div>
 {% endblock %}

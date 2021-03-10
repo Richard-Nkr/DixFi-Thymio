@@ -1,9 +1,15 @@
 {{ form_start(form) }}
-{{ form_label(form.fileCorrection) }}
-    {{ form_widget(form.fileCorrection) }}
+<div class="bodyContent">
 
-    <button class="btn btn-success">{{ button_label|default('Ajouter la correction') }}</button>
+    <fieldset class="showChallenge">
+        <legend>Ajouter votre correction</legend>
+        <p>Attention ! Le fichier que vous devez télécharger doit être au format JPG, JPEG, ou PNG.</p>
 
-{{ form_end(form) }}
+        {{ form_widget(form.fileCorrection) }}
+    </fieldset>
+    <div class="buttonMargin">
+        <button class="btnG">{{ button_label|default('Ajouter la correction') }}</button>
+    </div>
+</div>
 
 {{ form_end(form) }}

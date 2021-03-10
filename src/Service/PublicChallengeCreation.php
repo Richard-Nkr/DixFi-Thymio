@@ -27,4 +27,13 @@ class PublicChallengeCreation
 
         return $publicChallenge;
     }
+
+    public function verifExtension(String $extension): bool
+    {
+        if(($extension==="jpg") || ($extension ==="jpeg") || ($extension ==="png")){
+            return true;
+        }
+        return false;
+    }
+
 }

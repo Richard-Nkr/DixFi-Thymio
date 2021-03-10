@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aide{% endblock %}
+
+{% block body %}
+    <h3 class="titleGuide">Présentation de la semaine Thymio</h3>
+    <div>
+        <img id="imgThymio" src="{{ asset('images/weekThymio.jpg') }}" alt="Robot_Thymio">
+    </div>
+
+    <h3 class="titleGuide">Manuel d'utilisation des Dix'Fi de Thymio</h3>
+
+    <fieldset class="userGuide">
+        <legend class="legendUserGuide">Création d'un compte</legend>
+        <div style="text-align: center;">
+            <img style="margin-bottom: 3%; width:60%;" src="{{ asset('images/inscription.png') }}" alt="aideInscription">
+        </div>
+        <p><u>Etapes :</u></p>
+        <ul>
+            <li> 1 : Remplir vos données</li> <hr>
+            <li> 2 : Choisir votre compte. Vous avez le choix entre un enseignant ou un utilisateur simple. <br> &nbsp - L'enseignant permet d'avoir accès à des groupes d'étudiants, ainsi que la fonctionnalité de créer des défis publics/privés. <br> &nbsp - L'utilisateur peut effectuer les défis en obtenant sa progression. </li> <hr>
+            <li> 3 : Inscrire deux fois votre mot de passe</li> <hr>
+            <li> 4 : Valider votre inscription. Vous recevrez un mail contenant un numéro. Veillez à le conserver, il sera nécessaire pour la connexion !</li>
+        </ul>
+    </fieldset>
+
+    <fieldset class="userGuide">
+        <legend class="legendUserGuide">Connexion à son compte</legend>
+        <div style="text-align: center;">
+            <img style="margin-bottom: 3%; width:60%;" src="{{ asset('images/connexion.png') }}" alt="aideConnexion">
+        </div>
+        <p><u>Etapes :</u></p>
+        <ul>
+            <li> 1 : Inscrire votre identifiant reçu par email lors de votre inscription</li> <hr>
+            <li> 2 : Inscrire votre mot de passe</li> <hr>
+            <li> 3 : Appuyer sur "Se Connecter"</li>
+        </ul>
+    </fieldset>
+
+    <fieldset class="userGuide">
+        <legend class="legendUserGuide">Les défis</legend>
+    </fieldset>
+
+    <h4 class="titleGuide">Vous rencontrez un autre soucis ?</h4>
+        <a href="{{ path('contact_index') }}"> <button class="btnG"> Contactez-nous ! <i class="fas fa-envelope"></i> </button> </a>
+
+{% endblock %}

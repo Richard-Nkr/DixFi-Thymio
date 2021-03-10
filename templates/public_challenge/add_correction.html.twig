@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New PublicChallenge{% endblock %}
+{% block title %}Ajouter une correction{% endblock %}
 
 {% block body %}
 
+    {% for message in app.flashes('notification') %}
+        <div class="alert alert-info alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
 
     {{ include('public_challenge/_form.html.twig') }}
 

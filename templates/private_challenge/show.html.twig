@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Défi privée n° {{ private_challenge.id }}{% endblock %}
+
+{% block body %}
+
+
+    {% for message in app.flashes('notification') %}
+        <div class="alert alert-info alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
+
+    <fieldset class="thymioChallenge">
+
+        <legend class="legendChallenge">Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</legend>
+        <p> Crée le : {{ private_challenge.createdAt ? private_challenge.createdAt|date('d-m-Y') : '' }} </p>
+        <p>Temps nécessaire : {{ private_challenge.duration }} </p>
+        <p> Difficulté : {{ private_challenge.difficulty }} </p>
+        <p> Description : {{ private_challenge.description }} </p>
+
+    </fieldset>
+
+{% endblock %}

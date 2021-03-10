@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier compte Enseignant{% endblock %}
+{% block title %}Modifier mon compte Enseignant{% endblock %}
 
 {% block body %}
     {% for message in app.flashes('notification') %}
@@ -10,7 +10,7 @@
         </div>
     {% endfor %}
 
-    {{ include('teacher/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('teacher/_form.html.twig', {'button_label': 'Modifier'}) }}
 
 
     {{ include('teacher/_delete_form.html.twig') }}

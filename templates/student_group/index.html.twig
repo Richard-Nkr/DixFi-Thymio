@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de vos groupes d'étudiants{% endblock %}
+
+{% block title %}Liste des groupes{% endblock %}
 
 {% block body %}
-    <fieldset class="formListG">
-        <legend class="legendInscription">{{ teacher.nickname }}'s Student Groups !</legend>
+    <h3 class="titleGuide">Mes groupes :</h3>
+    <fieldset class="userIndex">
         <div class="form-group">
-
             <table class="table">
                 <thead>
                 <tr>
@@ -32,16 +32,25 @@
                     {% endif %}
                 {% else %}
                     <tr>
-                        <td colspan="8">no records found</td>
+                        <td colspan="8">Aucun groupe créé</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
+        <br>
     </fieldset>
-    <div>
-    <a href="{{ path('student_group_new') }}"> <button class="btnG"> Créer un groupe </button></a>
+    <div class="buttonMargin">
+        <a href="{{ path('student_group_new') }}">
+            <button class="btnG">Créer un nouveau groupe</button>
+        </a>
+    </div>
 
-    <a href="{{ path('teacher_show', {'id':teacher.id })}}"> <button class="btnG" style="margin-left: 5em;"> Voir mon profil </button> </a>
+    <div class="buttonMargin">
+        <a href="{{ path('teacher_show', {'id':teacher.id }) }}">
+            <button class="btnB2">
+                Revenir à mon profil
+            </button>
+        </a>
     </div>
 {% endblock %}

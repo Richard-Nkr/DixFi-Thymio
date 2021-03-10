@@ -5,7 +5,7 @@
 }
 
 html {
-    height: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
 }
@@ -13,7 +13,10 @@ html {
 body {
     background-color: #5FB1EE;
     text-align: center;
-    height: 100%;
+}
+
+.bodyContent{
+    padding-bottom: 8%;
 }
 
 h1 {
@@ -116,13 +119,39 @@ a:hover {
     background-color: #f44336;
 }
 
+.challengeH1{
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    color: #b71b1b;
+    font-size: 24px;
+}
+
 .legendChallenge {
     font-size: 18px;
     text-align: center;
     color: white;
     padding: 2px;
-    border: 1px solid midnightblue;
-    background-color: #1b5abe;
+    border: 1px solid #2cac10;
+    background-color: #1c8109;
+    border-radius: 10px;
+}
+
+#descriptionIndex{
+    margin: 7% 7% auto;
+    border: 3px solid #3b87c1;
+    border-radius: 12px;
+    background-color: white;
+    text-align: justify;
+    padding: 4%;
+    font-size: 16px;
+}
+
+#legendIndex{
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    padding: 4px;
+    border: 3px solid #ab2020;
+    background-color: #be172b;
     border-radius: 10px;
 }
 
@@ -130,16 +159,26 @@ a:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 38%;
+    width: 42%;
+    margin-top: 2%;
+    border-radius: 20px;
+}
+
+
+#weekThymio {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     margin-top: 2%;
     border-radius: 20px;
 }
 
 .thymioChallenge {
     margin: 3% 22% 3% 22%;
-    border: 2px solid #3b87c1;
+    border: 3px solid #3b87c1;
     border-radius: 12px;
-    background-color: #99caf1;
+    background-color: white;
     text-align: justify;
     font-weight: bold;
     padding: 2%;
@@ -175,8 +214,12 @@ a:hover {
 }
 
 .buttonStartChallenge {
-    float: right;
-    margin-top: 2%;
+    margin-bottom: 3%;
+    text-align: center;
+}
+
+.buttonMargin{
+    margin: 2%;
 }
 
 .titleChallenge {
@@ -240,7 +283,7 @@ a:hover {
 
 .td_field2 {
     vertical-align: text-top;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     padding: 10px;
     width: 62%;
@@ -248,7 +291,7 @@ a:hover {
 
 .td_label {
     vertical-align: text-top;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     margin-left: 100px;
     padding: 5px;
@@ -257,14 +300,14 @@ a:hover {
 .td_label2 {
     width: 16%;
     vertical-align: top;
-    font-size: 18px;
+    font-size: 16px;
     padding: 5px;
     text-align: left;
 }
 
 .td_label3 {
     vertical-align: text-top;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     margin-left: 100px;
     padding: 5px;
@@ -282,7 +325,7 @@ a:hover {
 
 .td_label4 {
     vertical-align: top;
-    font-size: 18px;
+    font-size: 16px;
     padding: 5px;
     text-align: left;
 }
@@ -312,7 +355,7 @@ a:hover {
     background-color: white;
     outline: none;
     height: 40px;
-    border: 1px solid red;
+    border: 1px solid #0066ff;
 }
 
 .form_field2 {
@@ -321,7 +364,7 @@ a:hover {
     height: 300px;
     border-radius: 10px;
     padding: 10px;
-    border: 1px solid red;
+    border: 1px solid #0066ff;
     background-color: white;
 }
 
@@ -357,17 +400,16 @@ a:hover {
 
 .context {
     width: 100%;
-    height: 100%;
+    height: auto;
     position: absolute;
     top: 15vh;
-
 }
 
 .area {
     background: #5FB1EE;
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
     width: 100%;
-    height: 150vh;
+    height: 90vh;
 
 }
 
@@ -387,7 +429,7 @@ a:hover {
     height: 20px;
     background: rgba(255, 255, 255, 0.2);
     animation: animate 25s linear infinite;
-    bottom: -300px;
+    bottom: -10px;
 
 }
 
@@ -504,38 +546,45 @@ a:hover {
 
 .showChallenge {
     background-color: white;
-    margin: 2% auto;
+    text-align: justify;
+    margin: 4% auto;
     border-radius: 20px;
-    width: 1022px;
+    font-size: 16px;
+    padding: 3%;
+    width: 80%;
 }
 
 fieldset.showChallenge legend {
     background-color: #0B75C9;
+    text-align: center;
     color: white;
     border-radius: 20px;
-    padding: 3px 6px;
+    padding: 1%;
     margin: 2% auto;
-    width: 30%;
+    width: 40%;
 }
 
 .card {
     color: white;
     width: 18rem;
-    margin: 20px;
-    background-color: #0b75c9;
+    margin: 1% auto;
+    background-color: #5db1ef;
     border-radius: 20px;
 }
 
 .card-title {
     font-weight: bold;
     font-size: 18px;
+    text-align: center;
 }
 .card-body{
-    text-align: center;
+    text-align: justify;
+    font-size: 16px;
 }
 
 .challenge_container {
-    display: inline-flex;
+    padding: 5%;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     flex-basis: auto;
@@ -566,5 +615,60 @@ fieldset.showChallenge legend {
 
 }
 
+.divBody {
+    margin-bottom: 10%;
+}
+
+.userGuide{
+    margin: 3% 8% 3% 8%;
+    border: 3px solid #9b1717;
+    border-radius: 12px;
+    background-color: white;
+    text-align: justify;
+    padding: 2% 4% 2% 4%;
+}
+
+.legendUserGuide{
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    padding: 2px;
+    border: 1px solid #701920;
+    background-color: #be1b20;
+    border-radius: 10px;
+}
+
+.titleGuide{
+    padding: 10px;
+    background-color: #003e80;
+    margin:2% 30% 2% 30%;
+    border-radius:10px;
+    color: white;
+}
 
 
+#contactUs{
+    margin: 2% 18% auto;
+    border: 3px solid #9b1717;
+    border-radius: 12px;
+    background-color: white;
+    text-align: justify;
+    padding: 10px 50px 5px 50px;
+}
+
+footer{
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.userIndex{
+    margin: 3% 22% 3% 22%;
+    border: 3px solid #3b87c1;
+    border-radius: 12px;
+    background-color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 2%;
+}
