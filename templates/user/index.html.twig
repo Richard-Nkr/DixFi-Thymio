@@ -5,8 +5,10 @@
 {% block body %}
     <div class="divBody">
         {% if app.user %}
+            <h3 class="titleGuide"> Bienvenue sur votre espace {{ app.user.nickname }}</h3>
+
             {% if is_granted('ROLE_TEACHER') %}
-                <p class="b"><b> Consultez votre profil d'enseignant : </b></p>
+                <p class="b"><b> Consultez votre profil d'enseignant et vos groupes : </b></p>
                 <a href="{{ path('teacher_show') }}">
                     <button class="btnG" value="See profil"> Voir mon profil enseignant</button>
                 </a>

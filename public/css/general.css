@@ -140,7 +140,17 @@ a:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 38%;
+    width: 42%;
+    margin-top: 2%;
+    border-radius: 20px;
+}
+
+
+#weekThymio {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     margin-top: 2%;
     border-radius: 20px;
 }
@@ -188,6 +198,10 @@ a:hover {
     margin-bottom: 3%;
 }
 
+.buttonMargin{
+    margin: 2%;
+}
+
 .titleChallenge {
     font-variant: all-small-caps;
     font-weight: bold;
@@ -231,7 +245,7 @@ a:hover {
 
 .td_field2 {
     vertical-align: text-top;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     padding: 10px;
     width: 62%;
@@ -239,7 +253,7 @@ a:hover {
 
 .td_label {
     vertical-align: text-top;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     margin-left: 100px;
     padding: 5px;
@@ -248,14 +262,14 @@ a:hover {
 .td_label2 {
     width: 16%;
     vertical-align: top;
-    font-size: 18px;
+    font-size: 16px;
     padding: 5px;
     text-align: left;
 }
 
 .td_label3 {
     vertical-align: text-top;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     margin-left: 100px;
     padding: 5px;
@@ -263,7 +277,7 @@ a:hover {
 
 .td_label4 {
     vertical-align: top;
-    font-size: 18px;
+    font-size: 16px;
     padding: 5px;
     text-align: left;
 }
@@ -570,4 +584,14 @@ footer{
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.userIndex{
+    margin: 3% 22% 3% 22%;
+    border: 3px solid #3b87c1;
+    border-radius: 12px;
+    background-color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 2%;
 }

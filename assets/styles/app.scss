@@ -239,7 +239,7 @@ $orange: #f88102;
 $bg_orange: #fa8934;
 
 $blue: #184bdd;
-$bg_blue: #1423bc;
+$bg_blue: #1926ab;
 
 $green: #2cac10;
 $bg_green: #60f367;
@@ -248,7 +248,7 @@ $bg_green: #60f367;
   text-align: center;
   text-transform: uppercase;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 2px;
   position: relative;
   background-color: $color;
@@ -339,6 +339,9 @@ $bg_green: #60f367;
   @include myButton2($green, $bg_green);
 }
 
+.btnB2{
+  @include myButton($blue, $bg_blue);
+}
 .btnB {
   @include myButton2($blue, $bg_blue);
 }

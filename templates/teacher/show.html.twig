@@ -3,20 +3,20 @@
 {% block title %}Mon profil de Teacher{% endblock %}
 
 {% block body %}
-<fieldset class="formInscription">
-    <legend class="legendInscription">Hello {{ teacher.nickname }} !</legend>
+    <h3 class="titleGuide">Bonjour {{ teacher.nickname }} !</h3>
+    <fieldset class="userIndex">
     <div class="form-group">
-        <p> Voici vos données personnelles </p>
-
-    <table class="table">
-        <tbody>
+        <h4> Voici vos données personnelles </h4>
+        <br>
+        <table class="table">
+            <tbody>
 
             <tr>
-                <th> Votre Nickname :</th>
+                <th> Votre surnom :</th>
                 <td>{{ teacher.nickname }}</td>
             </tr>
             <tr>
-                <th> Votre Identifiant :</th>
+                <th> Votre identifiant :</th>
                 <td>{{ teacher.id }}</td>
             </tr>
             <tr>
@@ -29,19 +29,26 @@
             </tr>
             <tr>
                 <th>Prénom :</th>
-                <td>{{ teacher.firstName}}</td>
+                <td>{{ teacher.firstName }}</td>
             </tr>
             <tr>
                 <th>Le compte a été créé le :</th>
                 <td>{{ teacher.createdAt ? teacher.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <br>
     </div>
-    <a href="{{ path('student_group_index') }}">Voir mes groupes d'étudiants</a>
-    <br>
-    <a href="{{ path('teacher_edit') }}">Modifier mon profil</a>
-    <br>
-    <br>
+    </fieldset>
+    <div class="buttonMargin">
+        <a href="{{ path('student_group_index') }}">
+            <button class="btnB2"> Voir mes groupes</button>
+        </a>
+    </div>
+    <div class="buttonMargin">
+        <a href="{{ path('teacher_edit') }}">
+            <button class="btnG"> Modifier mon profil</button>
+        </a>
+    </div>
     {{ include('teacher/_delete_form.html.twig') }}
 {% endblock %}

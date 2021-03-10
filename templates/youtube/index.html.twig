@@ -4,7 +4,7 @@
 {% block body %}
     <div class="divBody">
         <div>
-            <h2>Bienvenue sur la plateforme Youtube destinée à Thymio.</h2>
+            <h3 class="titleGuide">Bienvenue sur la plateforme Youtube destinée à Thymio.</h3>
             <hr style="margin-left: 10%; margin-right: 10%">
 
             <p>Vous pouvez effectuer des recherches concernant le robot Thymio afin de mieux vous familiariser avec ce
@@ -18,7 +18,7 @@
 
             <p>{{ form_label(form.request, 'Votre recherche : ') }}</p>
             <p>{{ form_widget(form.request, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}</p>
-            <button class="btn btn-success">{{ button_label|default('Rechercher') }}</button>
+            <button class="btnG">{{ button_label|default('Rechercher') }}</button>
             {{ form_end(form) }}
 
         </div>

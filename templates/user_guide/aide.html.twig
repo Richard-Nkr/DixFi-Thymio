@@ -3,6 +3,11 @@
 {% block title %}Aide{% endblock %}
 
 {% block body %}
+    <h3 class="titleGuide">Présentation de la semaine Thymio</h3>
+    <div>
+        <img id="imgThymio" src="{{ asset('images/weekThymio.jpg') }}" alt="Robot_Thymio">
+    </div>
+
     <h3 class="titleGuide">Manuel d'utilisation des Dix'Fi de Thymio</h3>
 
     <fieldset class="userGuide">
@@ -36,7 +41,7 @@
         <legend class="legendUserGuide">Les défis</legend>
     </fieldset>
 
-    <h4 class="titleGuide">Vous rencontrez un autre soucis ? Contactez-nous ! <i class="fas fa-envelope"></i></h4>
-        <a href="{{ path('contact_index') }}"> <button class="btn btn-success text-md-center"> Accéder au formulaire </button> </a>
+    <h4 class="titleGuide">Vous rencontrez un autre soucis ?</h4>
+        <a href="{{ path('contact_index') }}"> <button class="btnG"> Contactez-nous ! <i class="fas fa-envelope"></i> </button> </a>
 
 {% endblock %}

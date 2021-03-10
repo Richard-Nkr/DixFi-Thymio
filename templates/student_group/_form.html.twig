@@ -5,30 +5,31 @@
     <table class="form_table">
         <tr>
             <td class="td_label3">
-                    {{ form_label(form.nickname, 'Nom du groupe : ') }}
+                {{ form_label(form.nickname, 'Nom du groupe : ') }}
             </td>
             <td class="td_field2">
-                    {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.nickname, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label3">
-                    {{ form_label(form.password, 'Mot de passe : ') }}
+                {{ form_label(form.password, 'Mot de passe : ') }}
             </td>
             <td class="td_field2">
-                    {{ form_widget(form.password, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} })}}
+                {{ form_widget(form.password, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label3">
-                    <label for="verifpass">Saisir une seconde fois le mot de passe : </label>
+                <label for="verifpass">Saisir une seconde fois le mot de passe : </label>
             </td>
             <td class="td_field2">
-                    <input class="form_field" type="password" id="verifpass" required>
+                <input class="form_field" type="password" id="verifpass" required>
             </td>
         </tr>
     </table>
-
-        <button class="btn btn-success">{{ button_label|default('Créer le groupe') }}</button>
+    <div class="buttonMargin">
+        <button class="btnG">{{ button_label|default('Créer le groupe') }}</button>
+    </div>
 </fieldset>
 {{ form_end(form) }}

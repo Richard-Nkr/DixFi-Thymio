@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}StudentGroup index{% endblock %}
+{% block title %}Liste des groupes{% endblock %}
 
 {% block body %}
-    <fieldset class="formInscription">
-        <legend class="legendInscription">{{ teacher.nickname }}'s Student Groups !</legend>
-        <div class="form-group">
 
+    <h3 class="titleGuide">Mes groupes :</h3>
+    <fieldset class="userIndex">
+        <div class="form-group">
             <table class="table">
                 <thead>
                 <tr>
@@ -27,20 +27,31 @@
                             <td>{{ student_group.deletedAt ? student_group.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>{{ student_group.countSucceed }}</td>
                             <td>
-                                <a href="{{ path('student_group_delete', {'id': student_group.id}) }}">DELETE</a>
+                                <a href="{{ path('student_group_delete', {'id': student_group.id}) }}">Supprimer</a>
                             </td>
                         </tr>
                     {% endif %}
                 {% else %}
                     <tr>
-                        <td colspan="8">no records found</td>
+                        <td colspan="8">Aucun groupe créé</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
+        <br>
     </fieldset>
-    <a href="{{ path('student_group_new') }}">Créer un nouveau groupe</a>
-    <br>
-    <a href="{{ path('teacher_show', {'id':teacher.id })}}"> Revenir en arrière sur mon profil</a>
+    <div class="buttonMargin">
+        <a href="{{ path('student_group_new') }}">
+            <button class="btnG">Créer un nouveau groupe</button>
+        </a>
+    </div>
+
+    <div class="buttonMargin">
+        <a href="{{ path('teacher_show', {'id':teacher.id }) }}">
+            <button class="btnB2">
+                Revenir à mon profil
+            </button>
+        </a>
+    </div>
 {% endblock %}
