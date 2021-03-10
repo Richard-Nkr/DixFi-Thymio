@@ -21,6 +21,11 @@
         <p> Description : {{ public_challenge.description }} </p>
         <p> Nom du fichier de correction : {{ public_challenge.nameCorrection }}</p>
         <img src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+        <form method="post" action="{{ path('public_challenge_create_pdf', {'id': public_challenge.id}) }}">
+            <div class="buttonStartChallenge">
+                <button class="btnG"> PDF correction du DixFi {{ public_challenge.id }}  </button>
+            </div>
+        </form>
 
     </fieldset>
 

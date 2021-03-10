@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>PublicChallenge - Corection sous format PDF</title>
+
+    <link href="{{ absolute_url(asset('css/general.css')) }}" rel="stylesheet">
+
+
+</head>
+<body class="bodyPDF">
+<div>
+    <fieldset class="descriptionThymio">
+        Solution du défi n°{{ public_challenge.id }} : {{ public_challenge.name }}
+    </fieldset>
+    <fieldset class="objectifPDF">
+        <p class="solutionPDF">Objectif du défi : {{ public_challenge.description }} </p>
+    </fieldset>
+    <br>
+    <p> Challenge rédigé par : {{ public_challenge.teacher.name }} {{ public_challenge.teacher.firstname }} ({{ public_challenge.createdAt|date('Y-m-d') }})</p>
+    <fieldset class="solutionThymioPDF">
+        <img class="imageSolutionPDF" src="{{ absolute_url(asset(public_challenge.solutionPath)) }}" alt="SolutionDixFi">
+    </fieldset>
+</div>
+</body>
