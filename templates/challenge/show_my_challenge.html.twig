@@ -12,42 +12,53 @@
                         <div class="card-body">
                             <h4 class="card-title"> {{ challenge.name }}</h4>
                             <h5 class="card-text"> {{ challenge.difficulty }}</h5>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
-                                            <button class="btnB">Voir ce défi </button>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
-                                            <button class="btnB">Editer ce défi</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="{{ path('help_new', {'id': challenge.id}) }}">
-                                            <button class="btnB">Ajouter un indice</button>
-                                        </a>
-                                    </td>
-                                    <td>
-
-                                        <a href="{{ path('help_list', {'id': challenge.id}) }}">
-                                            <button class="btnB">Voir les indices</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% if challenge.nameCorrection == null %}
-                                <tr>
-                                    <td colspan="2">
-                                        <a href="{{ path('public_challenge_addCorrection', {'id': challenge.id}) }}">
-                                            <button class="btnC">Ajouter la correction</button>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="buttonMargin">
+                                                <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
+                                                    <button class="btnB">Voir ce défi</button>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="buttonMargin">
+                                                <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
+                                                    <button class="btnB">Editer ce défi</button>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="buttonMargin">
+                                                <a href="{{ path('help_new', {'id': challenge.id}) }}">
+                                                    <button class="btnB">Ajouter un indice</button>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="buttonMargin">
+                                                <a href="{{ path('help_list', {'id': challenge.id}) }}">
+                                                    <button class="btnB">Voir les indices</button>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% if challenge.nameCorrection == null %}
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <div class="buttonMargin">
+                                                    <a href="{{ path('public_challenge_addCorrection', {'id': challenge.id}) }}">
+                                                        <button class="btnC">Ajouter la correction</button>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     {% endif %}
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -64,34 +75,41 @@
                 {% if challenge.teacher == app.user %}
                     <div class="card">
                         <div class="card-body">
-                                 <h2 class="card-title">{{ challenge.name }}</h2>
+                            <h2 class="card-title">{{ challenge.name }}</h2>
                             <h4 class="card-text"> {{ challenge.difficulty }}</h4>
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
-                                            <button class="btnB">Voir ce
-                                                défi
-                                            </button>
-                                        </a>
+                                        <div class="buttonMargin">
+                                            <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
+                                                <button class="btnB">Voir ce
+                                                    défi
+                                                </button>
+                                            </a>
+                                        </div>
                                     </td>
                                     <td>
-                                        <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
-                                            <button class="btnB">Editer ce défi</button>
-                                        </a>
+                                        <div class="buttonMargin">
+                                            <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
+                                                <button class="btnB">Editer ce défi</button>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="{{ path('help_new', {'id': challenge.id}) }}">
-                                            <button class="btnB">Ajouter un indice</button>
-                                        </a>
+                                        <div class="buttonMargin">
+                                            <a href="{{ path('help_new', {'id': challenge.id}) }}">
+                                                <button class="btnB">Ajouter un indice</button>
+                                            </a>
+                                        </div>
                                     </td>
                                     <td>
-
-                                        <a href="{{ path('help_list', {'id': challenge.id}) }}">
-                                            <button class="btnB">Voir les indices</button>
-                                        </a>
+                                        <div class="buttonMargin">
+                                            <a href="{{ path('help_list', {'id': challenge.id}) }}">
+                                                <button class="btnB">Voir les indices</button>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>

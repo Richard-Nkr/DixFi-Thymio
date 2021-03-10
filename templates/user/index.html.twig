@@ -5,7 +5,7 @@
 {% block body %}
     <div class="divBody">
         {% if app.user %}
-            <h1> Bienvenue sur votre espace {{ app.user.nickname }}</h1>
+            <h3 class="titleGuide"> Bienvenue sur votre espace {{ app.user.nickname }}</h3>
 
             {% if is_granted('ROLE_TEACHER') %}
                 <p class="introButton"><b> Consultez votre profil d'enseignant et vos groupes : </b></p>
