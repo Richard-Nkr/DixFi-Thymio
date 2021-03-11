@@ -36,6 +36,14 @@
                 {{ form_widget(form.duration, { 'attr': {'class': 'form_field', 'placeholder': '45 minutes / 1 heure', 'autocomplete': 'off'} }) }}
             </td>
         </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.role, 'Type de défi : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.role) }}
+            </td>
+        </tr>
     </table>
     <button class="btn btn-success">{{ button_label|default('Editer le défi') }}</button>
 </fieldset>

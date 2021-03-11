@@ -6,22 +6,21 @@
     {% if public_challenge != null %}
         <fieldset class="showChallenge">
             <legend>{{ public_challenge.name }}</legend>
-            <table class="form_table">
+            <table class="showChallengeTable">
                 <tr>
-                    <td>Difficulté</td>
+                    <td class="labelChallenge">Difficulté :</td>
                     <td>
                         <h3>{{ public_challenge.difficulty }}</h3>
                     </td>
                 </tr>
                 <tr>
-                    <td>Description :</td>
-                    <td>
-
-                        <h5>{{ public_challenge.description }}</h5>
+                    <td class="labelChallenge">Description :</td>
+                    <td class="testTD">
+                        <div class="descriptionChallenge"><p>{{ public_challenge.description }}</p></div>
                     </td>
                 </tr>
                 <tr>
-                    <td>Nom du fichier de correction :</td>
+                    <td class="td_label">Nom du fichier de correction :</td>
                     <td>
                         <h3>{{ public_challenge.nameCorrection }}</h3>
                     </td>
@@ -42,6 +41,13 @@
                     <td>Difficulté</td>
                     <td>
                         <h3>{{ private_challenge.difficulty }}</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description :</td>
+                    <td>
+
+                        <h5>{{ private_challenge.description }}</h5>
                     </td>
                 </tr>
                 <tr>

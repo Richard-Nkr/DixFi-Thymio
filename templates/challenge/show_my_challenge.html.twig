@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title"> {{ challenge.name }}</h4>
-                            <h5 class="card-text"> {{ challenge.difficulty }}</h5>
+                            <h5 class="card-title"> {{ challenge.difficulty }}</h5>
                             <table>
                                 <tr>
                                     <td>
@@ -40,20 +40,15 @@
                                         </a>
                                     </td>
                                 </tr>
+                                {% if challenge.nameCorrection == null %}
                                 <tr>
                                     <td>
                                         <a href="{{ path('challenge_addCorrection', {'id': challenge.id}) }}">
                                             <button class="btnC">Ajouter la correction</button>
                                         </a>
                                     </td>
-                                    {% if challenge.nameCorrection != null %}
-                                        <td>
-                                            <a href="{{ path('challenge_deleteCorrection', {'id': challenge.id}) }}">
-                                                <button class="btnC">Supprimer la correction</button>
-                                            </a>
-                                        </td>
-                                        {% endif %}
                                 </tr>
+                                {% endif %}
                             </table>
                         </div>
                     </div>
@@ -71,8 +66,8 @@
                 {% if challenge.teacher == app.user %}
                     <div class="card">
                         <div class="card-body">
-                                 <h2 class="card-title">{{ challenge.name }}</h2>
-                            <h4 class="card-text"> {{ challenge.difficulty }}</h4>
+                            <h4 class="card-title"> {{ challenge.name }}</h4>
+                            <h5 class="card-title"> {{ challenge.difficulty }}</h5>
                             <table>
                                 <tr>
                                     <td>

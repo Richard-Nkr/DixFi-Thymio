@@ -20,7 +20,11 @@
         <p>Temps nécessaire : {{ public_challenge.duration }} </p>
         <p> Difficulté : {{ public_challenge.difficulty }} </p>
         <p> Description : {{ public_challenge.description }} </p>
-        <p>Indice 1 : {{ indices[0].contentHelp }} </p>
+        <p> Nom fichier de correction : {{ public_challenge.nameCorrection}} </p>
+        <img style="width: 50%; height: auto; margin-top:50px;margin-bottom: 50px;"src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+        {% for indice in indices %}
+        <p>Indice numéro {{ indice.numberHelp }} : {{indice.contentHelp}}</p>
+        {% endfor %}
 
     </fieldset>
     {% block javascripts %}

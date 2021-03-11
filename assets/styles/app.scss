@@ -27,8 +27,8 @@ a {
 
 
 .menu {
-  @media (max-width: 991px) {
-    width: 256px;
+  @media (max-width: 1000px) {
+    width: 300px;
   }
 
   ol {
@@ -44,7 +44,7 @@ a {
 
       a {
         text-decoration: none;
-        height: 65px;
+        height: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;

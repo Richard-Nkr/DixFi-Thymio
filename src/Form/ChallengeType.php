@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,14 +33,13 @@ class ChallengeType extends AbstractType
             ])
             ->add('duration', TextType::class)
             ->add('role', ChoiceType::class, [
-                'choices' => [
-                    'Public : Disponible pour tout le monde' => "ROLE_PUBLIC_CHALLENGE",
-                    'Privée : Disponible uniquement pour ma classe' => "ROLE_PRIVATE_CHALLENGE",
-                ],
-                'expanded' => true,
-                'multiple' => false,
-            ])
-            ;
+                    'choices' => [
+                        'Public : Disponible pour tout le monde' => "ROLE_PUBLIC_CHALLENGE",
+                        'Privée : Disponible uniquement pour ma classe' => "ROLE_PRIVATE_CHALLENGE",
+                    ],
+                    'expanded' => true,
+                    'multiple' => false,
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

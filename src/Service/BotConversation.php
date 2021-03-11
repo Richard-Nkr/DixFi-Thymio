@@ -2,40 +2,25 @@
 
 namespace App\Service;
 
-
+use App\Repository\HelpRepository;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 
 class BotConversation extends Conversation
 {
-    protected string $firstname;
+    protected string $idChallenge;
 
-    protected string $email;
-
-    public function askFirstname()
+    public function askIdChallenge()
     {
-        $this->ask('Hello! What is your firstname?', function(Answer $answer) {
-            // Save result
-            $this->firstname = $answer->getText();
+        $this->ask('Quelle est le numéro du défi ?', function (Answer $answer) {
+            $this->idChallenge = $answer->getText();
+            $this->say('Le numéro du défi est le ' . $this->idChallenge);
 
-            $this->say('Nice to meet you '.$this->firstname);
-            $this->askEmail();
-        });
-    }
-
-    public function askEmail()
-    {
-        $this->ask('One more thing - what is your email?', function(Answer $answer) {
-            // Save result
-            $this->email = $answer->getText();
-
-            $this->say('Great - that is all we need, '.$this->firstname);
         });
     }
 
     public function run()
     {
-        // This will be called immediately
-        $this->askFirstname();
+        $this->askIdChallenge();
     }
 }

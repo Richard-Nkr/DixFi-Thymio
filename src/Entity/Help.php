@@ -24,14 +24,10 @@ class Help
      */
     private $contentHelp;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=StudentGroup::class, mappedBy="helps")
-     */
-    private $groups;
 
     /**
      * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="helps")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $challenge;
 
@@ -40,9 +36,15 @@ class Help
      */
     private $numberHelp;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="helps_checked")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +111,33 @@ class Help
     public function setNumberHelp(int $numberHelp): self
     {
         $this->numberHelp = $numberHelp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addHelpsChecked($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeHelpsChecked($this);
+        }
 
         return $this;
     }

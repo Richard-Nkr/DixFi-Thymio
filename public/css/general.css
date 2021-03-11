@@ -484,7 +484,11 @@ a:hover {
     background-color: white;
     margin: 4% auto;
     border-radius: 20px;
-    width: 1250px;
+    width: 65%;
+}
+.showChallengeTable {
+    margin: 4% auto;
+    width: 65%;
 }
 
 fieldset.showChallenge legend {
@@ -499,7 +503,6 @@ fieldset.showChallenge legend {
 .card {
     color: white;
     width: 18rem;
-    margin: 0 auto;
     background-color: #0b75c9;
     border-radius: 20px;
 }
@@ -516,8 +519,20 @@ fieldset.showChallenge legend {
 
 .challenge_container {
     padding: 5%;
-    display: flex;
-    flex-direction: row;
+    display: inline-flex;
     flex-wrap: wrap;
-    flex-basis: auto;
+    gap: 12px;
 }
+
+.descriptionChallenge{
+    text-align: justify;
+    width: 60%;
+    margin: auto;
+}
+
+.labelChallenge{
+    font-size: 20px;
+}
+
+
+

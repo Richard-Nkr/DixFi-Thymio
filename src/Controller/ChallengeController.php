@@ -7,6 +7,7 @@ use App\Entity\PrivateChallenge;
 use App\Entity\PublicChallenge;
 use App\Form\ChallengeType;
 use App\Form\PublicChallengeType;
+use App\Repository\HelpRepository;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Repository\TeacherRepository;
@@ -111,7 +112,7 @@ class ChallengeController extends AbstractController
             $entityManager->persist($publicChallenge);
             $entityManager->flush();
 
-            return $this->render('challenge/show.html.twig', [
+            return $this->render('public_challenge/show.html.twig', [
                 'public_challenge' => $publicChallengeRepository->findOneById($id),
                 'challenge' => $challengeRepository->findOneById($id),
                 'form' => $form->createView(),
@@ -146,18 +147,17 @@ class ChallengeController extends AbstractController
      * @param Request $request
      * @param Challenge $challenge
      * @param int $id
-     * @param PublicChallengeRepository $publicChallengeRepository
      * @return Response
      */
-    public function edit(Request $request, Challenge $challenge, int $id, PublicChallengeRepository $publicChallengeRepository): Response
+    public function edit(Request $request, Challenge $challenge, int $id): Response
     {
-        $form = $this->createForm(PublicChallengeType::class, $publicChallenge);
+        $form = $this->createForm(ChallengeType::class, $challenge);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('challenge_showMyChallenge',[
+            return $this->redirectToRoute('public_challenge_show',[
                 'id' => $id,
                 'challenge' => $challenge,
             ]);
@@ -173,12 +173,19 @@ class ChallengeController extends AbstractController
      * @Route("/{id}", name="challenge_delete", methods={"DELETE"})
      * @param Request $request
      * @param Challenge $challenge
+     * @param HelpRepository $helpRepository
+     * @param int $id
      * @return Response
      */
-    public function delete(Request $request, Challenge $challenge): Response
+    public function delete(Request $request, Challenge $challenge, HelpRepository $helpRepository, int $id ): Response
     {
         if ($this->isCsrfTokenValid('delete' . $challenge->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $helps = $helpRepository->findByIdChallenge($id);
+
+            foreach ($helps as $help) {
+                $entityManager->remove($help);
+            }
             $entityManager->remove($challenge);
             $entityManager->flush();
         }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,6 +58,17 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Help::class, inversedBy="users")
+     * @ORM\JoinTable(name="utilisation_indice")
+     */
+    private $helps_checked;
+
+    public function __construct()
+    {
+        $this->helps_checked = new ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist
@@ -201,5 +214,29 @@ class User implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection|Help[]
+     */
+    public function getHelpsChecked(): Collection
+    {
+        return $this->helps_checked;
+    }
+
+    public function addHelpsChecked(Help $helpsChecked): self
+    {
+        if (!$this->helps_checked->contains($helpsChecked)) {
+            $this->helps_checked[] = $helpsChecked;
+        }
+
+        return $this;
+    }
+
+    public function removeHelpsChecked(Help $helpsChecked): self
+    {
+        $this->helps_checked->removeElement($helpsChecked);
+
+        return $this;
     }
 }

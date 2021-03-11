@@ -31,11 +31,6 @@ class StudentGroup extends User
     private $children;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Help::class, inversedBy="groups")
-     */
-    private $helps;
-
-    /**
      * @ORM\OneToMany(targetEntity=Status::class, mappedBy="studentGroup")
      */
     private $status;

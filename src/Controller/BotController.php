@@ -3,13 +3,11 @@
 
 namespace App\Controller;
 
-
-
-use App\Repository\HelpRepository;
 use App\Service\BotConversation;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Cache\SymfonyCache;
 use BotMan\BotMan\Drivers\DriverManager;
+use Illuminate\Support\Facades\DB;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +38,9 @@ class BotController extends AbstractController
 
             $bot->reply('Ok bon courage ! Ecris le mot "indice" si tu as besoin de mon aide !');
         });
+
+
+
 
         $botman->fallback(function($bot) {
             $bot->reply("Désolé, je n'ai pas compris ton message...");
