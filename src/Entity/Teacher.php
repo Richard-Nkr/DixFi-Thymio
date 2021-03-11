@@ -34,12 +34,6 @@ class Teacher extends UserGuest
     private $groups;
 
     /**
-     * @ORM\OneToOne(targetEntity=Chat::class, inversedBy="teacher")
-     * @ORM\JoinColumn
-     */
-    private $chat;
-
-    /**
      * @ORM\OneToMany(targetEntity=PrivateChallenge::class, mappedBy="teacher")
      */
     private $privateChallenges;
@@ -124,17 +118,6 @@ class Teacher extends UserGuest
         return $this;
     }
 
-    public function getChat(): ?Chat
-    {
-        return $this->chat;
-    }
-
-    public function setChat(Chat $chat): self
-    {
-        $this->chat = $chat;
-
-        return $this;
-    }
 
     /**
      * @return Collection|PrivateChallenge[]

@@ -12,6 +12,14 @@ class Youtube
 {
 
     /**
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
      * @ORM\Column(type="string", length=100)
      */
     private $request;

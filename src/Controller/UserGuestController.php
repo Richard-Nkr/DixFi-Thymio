@@ -44,12 +44,11 @@ class UserGuestController extends AbstractController
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
      * @param TeacherGenerator $teacherGenerator
-     * @param CreateChat $createChat
      * @param GestionPassword $gestionPassword
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator,GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -129,7 +128,6 @@ class UserGuestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($userGuest->getPassword()); //ICI DD !!!!!!!!!!!!!!!!!!!!!
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_guest_index');

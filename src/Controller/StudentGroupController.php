@@ -64,7 +64,6 @@ class StudentGroupController extends AbstractController
             $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
             $studentGroup->setCountSucceed(0);
             $studentGroup->setTeacher($this->getUser());
-            $studentGroup->setChat($this->getUser()->getChat());
 
             $entityManager->persist($studentGroup);
             $entityManager->flush();
