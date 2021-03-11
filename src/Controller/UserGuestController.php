@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Chat;
 use App\Entity\Teacher;
 use App\Entity\User;
 use App\Entity\UserGuest;
@@ -12,7 +11,6 @@ use App\Form\UserType;
 use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\SecurizerRoles;
-use App\Service\CreateChat;
 use App\Repository\TeacherRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserRepository;
@@ -60,12 +58,11 @@ class UserGuestController extends AbstractController
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
      * @param TeacherGenerator $teacherGenerator
-     * @param CreateChat $createChat
      * @param GestionPassword $gestionPassword
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator, CreateChat $createChat, GestionPassword $gestionPassword): Response
+    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);

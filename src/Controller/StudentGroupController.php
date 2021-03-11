@@ -9,7 +9,6 @@ use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
-use App\Service\CreateChat;
 use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\SortChallenges;
@@ -65,7 +64,6 @@ class StudentGroupController extends AbstractController
             $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
             $studentGroup->setCountSucceed(0);
             $studentGroup->setTeacher($this->getUser());
-            $studentGroup->setChat($this->getUser()->getChat());
 
             $entityManager->persist($studentGroup);
             $entityManager->flush();

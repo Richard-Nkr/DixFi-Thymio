@@ -45,11 +45,6 @@ class StudentGroup extends User
      */
     private $challenges;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Chat::class, inversedBy="groups")
-     * @ORM\JoinColumn(name="chat_id", nullable=false)
-     */
-    private $chat;
 
 
 
@@ -198,16 +193,5 @@ class StudentGroup extends User
         return $this;
     }
 
-    public function getChat(): ?Chat
-    {
-        return $this->chat;
-    }
-
-    public function setChat(?Chat $chat): self
-    {
-        $this->chat = $chat;
-
-        return $this;
-    }
 
 }
