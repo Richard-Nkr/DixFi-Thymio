@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Bienvenue sur Les DixFi de Thymio {{ name }}!
+    Bienvenue sur Les DixFi de Thymio!
 {% endblock %}
 {% block stylesheets %}
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
@@ -9,8 +9,23 @@
 
 {% block body %}
 
-    <h1> Bienvenue sur les Dix'Fi de Thymio !  </h1>
-    <div> <img id="imgThymio" src="{{ asset('images/thymio-white.png') }}" alt="Robot_Thymio"></div>
+    <h1> Bienvenue sur les Dix'Fi de Thymio ! </h1>
+    <div><img id="imgThymio" src="{{ asset('images/thymio-white.png') }}" alt="Robot_Thymio"></div>
 
 
 {% endblock %}
+    {% block javascripts %}
+        <script>
+            var botmanWidget = {
+                frameEndpoint: '{{ path("chatframe") }}',
+                chatServer: '{{ path("message") }}',
+                introMessage: 'Bonjour, je suis Thymio et je suis ici pour t\'aider!',
+                title: 'Le robot Thymio',
+                mainColor: '#ffffff',
+                bubbleAvatarUrl: 'https://www.my-etechno.com/995-large_default/robot-thymio-wireless.jpg',
+                placeholderText: 'Ecris ton message ici !',
+                aboutText: '',
+            };
+        </script>
+        <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    {% endblock %}
