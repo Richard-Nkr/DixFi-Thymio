@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Twig\Environment;
 
 class AccessDeniedListener implements EventSubscriberInterface
 {
@@ -29,6 +30,7 @@ class AccessDeniedListener implements EventSubscriberInterface
             return;
         }
         //$event->setResponse(new Response(null, 404));
+        $event->setResponse(new Response(include('../templates/access_denied/index.html')));
 
         //$event->stopPropagation();
     }
