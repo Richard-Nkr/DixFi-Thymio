@@ -58,7 +58,8 @@ class BotConversation extends Conversation
                         }
                         else if ($this->selectedValue=="Scratch, suite Thymio"){
                             $attachment="https://www.thymio.org/fr/programmer/ ";
-                            $this->say("OK je comprends ta question. Voici mon lien préféré à ce sujet : <a href=".$attachment." target='_blank'> https://www.thymio.org/fr/programmer/  </a> ");
+                            $attachment2="https://www.fun-mooc.fr/courses/course-v1:inria+41017+session01/80b8f640c7fe42e98bc0f54dc65c0d50/#:~:text=%20%20%201%20Lancer%20Thymio%20Suite%202,sur%20le%20bouton%20%22Programmer%20avec%20Scratch%22%20More";
+                            $this->say("OK je comprends ta question. Voici mes liens préférés à ce sujet : <a href=".$attachment." target='_blank'> https://www.thymio.org/fr/programmer/  </a> <a href=".$attachment2."  target='_blank'> Cliques ici pour avoir plus d'infos sur la manipulation </a>");
                         }
                         $this->ask("J'espère que ce(s) lien(s) répondra/répondront à toutes tes questions. Puis-je encore t'aider ?(oui/non)",function (Answer $answer){
                             if($answer->getText()=="oui"){
