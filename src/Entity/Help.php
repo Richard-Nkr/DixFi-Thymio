@@ -37,7 +37,7 @@ class Help
     private $numberHelp;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="helps_checked")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="helps_checked")
      */
     private $users;
 

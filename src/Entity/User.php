@@ -60,7 +60,7 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @ORM\ManyToMany(targetEntity=Help::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Help::class, mappedBy="users")
      * @ORM\JoinTable(name="utilisation_indice")
      */
     private $helps_checked;

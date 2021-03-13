@@ -37,16 +37,13 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 
-
-
     public function findOneById($id): ?User
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :val')
             ->setParameter('val', $id)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 
     public function findUserId($userguest): ?id
@@ -55,8 +52,7 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('u = :val')
             ->setParameter('val', $userguest)
             ->getQuery()
-            ->getOneOrNullResult()
-            ;
+            ->getOneOrNullResult();
     }
 
 }

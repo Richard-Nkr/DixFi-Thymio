@@ -534,5 +534,17 @@ fieldset.showChallenge legend {
     font-size: 20px;
 }
 
+#num2{
+    display: none;
+}
+
+#num3{
+    display: none;
+}
+
+#num4{
+    display: none;
+}
+
 
 

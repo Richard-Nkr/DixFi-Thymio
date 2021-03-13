@@ -22,12 +22,22 @@
         <p> Description : {{ public_challenge.description }} </p>
         <p> Nom fichier de correction : {{ public_challenge.nameCorrection}} </p>
         <img style="width: 50%; height: auto; margin-top:50px;margin-bottom: 50px;"src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
-        {% for indice in indices %}
-        <p>Indice numéro {{ indice.numberHelp }} : {{indice.contentHelp}}</p>
-        {% endfor %}
 
+        {% for indice in indices %}
+        <p id="num{{ indice.numberHelp }}">Indice numéro {{ indice.numberHelp }} : {{indice.contentHelp}}</p>
+            <br>
+        {% endfor %}
+        <button onclick="myFunction()">Voir l'indice suivant</button>
+        <p id="demo"></p>
     </fieldset>
     {% block javascripts %}
+      <script>
+          let compteur = 1;
+          function myFunction() {
+              compteur++;
+              document.getElementById("num".concat(compteur.toString())).style.display = "inline";
+          }
+      </script>
         <script>
             var botmanWidget = {
                 frameEndpoint: '{{ path("chatframe") }}',
