@@ -36,7 +36,7 @@ class StudentGroup extends User
     private $helps;
 
     /**
-     * @ORM\OneToMany(targetEntity=Status::class, mappedBy="studentGroup")
+     * @ORM\OneToMany(targetEntity=Status::class, mappedBy="studentGroup", cascade={"remove"})
      */
     private $status;
 

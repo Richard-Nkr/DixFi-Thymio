@@ -127,40 +127,23 @@ class ThymioChallengeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($securizerRoles->isGranted($this->getUser(), 'ROLE_STUDENT_GROUP')){
                 $file = $upload->getFile();
-                //verification que le fichier est bien un fichier sb3
                 $verifExtension = $mailerService->verifExtension($file->getClientOriginalExtension());
-
                 if(!($verifExtension)){
                     $notifier->send(new Notification("Le fichier doit etre un fichier scratch", ['browser']));
                     return $this->render('thymio_challenge/show.html.twig', [
-                        'thymio_challenge' => $thymioChallenge,
-                        'form' => $form->createView(),
-                        'status' => $status,
+                        'thymio_challenge' => $thymioChallenge, 'form' => $form->createView(), 'status' => $status,
                     ]);
                 }
-
                 $fileName =md5(uniqid()).'.'.$file->getClientOriginalExtension();
                 $file->move($this->getParameter('upload_directory'), $fileName);
                 $upload->setFile($fileName);
-                $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
-                $groupName = $studentGroup->getNickname();
-                $teacherMail= $studentGroup->getTeacher()->getMail();
-                $numDefi = $id;
-                $mailerService->sendFile(
-                    $groupName,
-                    $teacherMail,
-                    $numDefi,
-                    '../public/uploads/'.$fileName
-                );
+                $mailerService->sendFile($studentGroup->getNickname(), $studentGroup->getTeacher()->getMail(), $id, '../public/uploads/'.$fileName);
                 $handleStatus->updateStatus($status);
                 $entityManager = $this->getDoctrine()->getManager();
                 unlink('../public/uploads/'.$fileName);
                 $entityManager->flush();
             }
         }
-
-
-
         return $this->render('thymio_challenge/show.html.twig', [
             'thymio_challenge' => $thymioChallenge,
             'form' => $form->createView(),

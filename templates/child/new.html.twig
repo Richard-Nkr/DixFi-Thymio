@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter des élèves au groupe{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('notification') %}
+        <div class="alert alert-info alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
+    <br>
+    <p> ATTENTION ! Cette étape n'est en aucun cas obligatoire, mais sert à vous faciliter la recherche des membres d'un groupe.</p>
+    <p> Nous conseillons de créer des groupes de 3 à 6 étudiants. <b>N'oubliez pas de leur communiquer mot de passe et identifiant du groupe.</b> </p>
+    {{ include('child/_form.html.twig') }}
+
+    <a href="{{ path('student_group_index') }}"> <button class="btnG" style="display:inline-block;margin-top: 3em;"> Voir mes groupes </button> </a>
+
+{% endblock %}

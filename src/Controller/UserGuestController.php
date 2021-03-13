@@ -82,9 +82,6 @@ class UserGuestController extends AbstractController
             }
             $entityManager->persist($userguest);
 
-            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
-                $entityManager->persist($createChat->create($userguest));
-            }
             $entityManager->flush();
             $mail = $userguest->getMail();
             $id = $userguest->getId();

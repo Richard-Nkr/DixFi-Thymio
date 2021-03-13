@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\StudentGroup;
 use App\Form\StudentGroupType;
+use App\Repository\ChildRepository;
 use App\Repository\GroupRepository;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
@@ -60,15 +61,11 @@ class StudentGroupController extends AbstractController
             $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
 
             $gestionPassword->createHashPassword($studentGroup);
-            $studentGroup->setCreatedAt(new \DateTime('now'));
-            $studentGroup->setRoles(["ROLE_STUDENT_GROUP"]);
-            $studentGroup->setCountSucceed(0);
-            $studentGroup->setTeacher($this->getUser());
 
             $entityManager->persist($studentGroup);
             $entityManager->flush();
 
-            return $this->redirectToRoute('student_group_index');
+            return $this->redirectToRoute('child_new', ['id'=>$studentGroup->getId()]);
         }
 
         return $this->render('student_group/new.html.twig', [
@@ -103,12 +100,15 @@ class StudentGroupController extends AbstractController
     /**
      * @Route("/{id}", name="student_group_show", methods={"GET"})
      * @param StudentGroup $studentGroup
+     * @param ChildRepository $childRepository
      * @return Response
      */
-    public function show(StudentGroup $studentGroup): Response
+    public function show(StudentGroup $studentGroup, ChildRepository $childRepository): Response
     {
+        $children = $childRepository->findBy(['studentGroup'=>$studentGroup]);
         return $this->render('student_group/show.html.twig', [
             'student_group' => $studentGroup,
+            'children'=>$children,
         ]);
     }
 

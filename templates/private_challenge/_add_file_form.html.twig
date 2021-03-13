@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+<p style="font-family: Roboto, Arial, sans-serif;"><b>Vous pouvez insérer ici votre fichier afin de montrer votre travail à votre professeur :</b></p>
+
+{{ form_widget(form.file) }}
+<div class="form-group">
+    <br>
+    <button class="btnG">{{ button_label|default('Envoyer à notre professeur') }}</button>
+</div>
+{{ form_end(form) }}

@@ -31,7 +31,7 @@ class Child
      * @ORM\ManyToOne(targetEntity=StudentGroup::class, inversedBy="children")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $groupChild;
+    private $studentGroup;
 
     public function getId(): ?int
     {
@@ -66,12 +66,12 @@ class Child
 
     public function getGroupChild(): ?StudentGroup
     {
-        return $this->groupChild;
+        return $this->studentGroup;
     }
 
-    public function setGroupChild(?StudentGroup $groupChild): self
+    public function setGroupChild(?StudentGroup $studentGroup): self
     {
-        $this->groupChild = $groupChild;
+        $this->studentGroup = $studentGroup;
 
         return $this;
     }

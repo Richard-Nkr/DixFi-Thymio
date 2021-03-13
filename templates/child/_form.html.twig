@@ -1,0 +1,29 @@
+{{ form_start(form, {'attr': {'id': 'new_edit_child'}}) }}
+
+<fieldset class="formInscription">
+    <legend class="legendInscription">Ajouter des étudiants au groupe</legend>
+    <table class="form_table">
+        <tr>
+            <td class="td_label3">
+                {{ form_label(form.nameChild, 'Nom de l\'élève : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.nameChild, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label3">
+                {{ form_label(form.firstNameChild, 'Prénom de l\'élève : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.firstNameChild, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+    </table>
+    <div class="buttonMargin">
+        <button class="btnG">{{ button_label|default('Ajouter l\'élève') }}</button>
+    </div>
+</fieldset>
+
+
+{{ form_end(form) }}

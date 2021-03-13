@@ -6,6 +6,7 @@ namespace App\Controller;
 
 
 use App\Service\BotConversation;
+use App\Service\BotSaveConversation;
 use BotMan\BotMan\Cache\SymfonyCache;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,14 +49,7 @@ class BotController extends AbstractController{
 
         // Set a fallback
         $botman->fallback(function (BotMan $bot) {
-            $bot->ask('Je parle très mal français, ma spécialité est le langage de programmation.. On recommence la conversation ?(oui/non)',function (Answer $answer) use ($bot) {
-                if($answer->getText()=="oui"){
-                    $bot->startConversation(new BotConversation);
-                }
-                else{
-                    $bot->reply("Pardon de ne pas avoir compris, je dois rapidement améliorer mon français.. En tout cas je te souhaite une belle journée et amuses-toi bien sur le site. A bientôt !");
-                }
-            });
+            $bot->startConversation(new BotSaveConversation);
         });
 
         // Start listening

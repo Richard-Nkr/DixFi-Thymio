@@ -18,6 +18,18 @@
                 <td class="td_label3">{{ student_group.nickname }}</td>
             </tr>
             <tr>
+                <th class="td_label4">Les membres du groupe</th>
+                <td class="td_label3">
+                    {% if children!=null %}
+                    {% for child in children %}
+                    <p> {{ child.nameChild }} {{ child.firstNameChild }}</p>
+                    {% endfor %}
+                    {% else %}
+                    <p>Pas de membres indiqués</p>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
                 <th class="td_label4">Votre enseignant</th>
                 <td class="td_label3">{{ student_group.teacher.name }} {{ student_group.teacher.firstName }}</td>
             </tr>

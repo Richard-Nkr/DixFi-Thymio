@@ -74,6 +74,7 @@ class MailerService
         }
     }
 
+
     public function verifExtension(String $extension): bool
     {
         if($extension === "sb3"){

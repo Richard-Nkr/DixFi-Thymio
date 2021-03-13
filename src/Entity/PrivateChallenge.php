@@ -12,6 +12,23 @@ class PrivateChallenge extends Challenge
 {
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $file;
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;

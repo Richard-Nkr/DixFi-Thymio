@@ -29,17 +29,17 @@ class Teacher extends UserGuest
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=StudentGroup::class, mappedBy="teacher")
+     * @ORM\OneToMany(targetEntity=StudentGroup::class, mappedBy="teacher", cascade={"remove"})
      */
     private $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity=PrivateChallenge::class, mappedBy="teacher")
+     * @ORM\OneToMany(targetEntity=PrivateChallenge::class, mappedBy="teacher", cascade={"remove"})
      */
     private $privateChallenges;
 
     /**
-     * @ORM\OneToMany(targetEntity=PublicChallenge::class, mappedBy="teacher")
+     * @ORM\OneToMany(targetEntity=PublicChallenge::class, mappedBy="teacher", cascade={"remove"})
      */
     private $publicChallenges;
 
