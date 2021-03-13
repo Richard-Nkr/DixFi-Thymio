@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Service\BotConversation;
 use BotMan\BotMan\Cache\SymfonyCache;
+use BotMan\BotMan\Messages\Incoming\Answer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,25 +33,29 @@ class BotController extends AbstractController{
         // Configuration for the BotMan WebDriver
         $config = [];
 
+        $adapter = new FilesystemAdapter();
         // Create BotMan instance
-        $botman = BotManFactory::create($config);
+        $botman = BotManFactory::create($config, new SymfonyCache($adapter));
 
         // Give the bot some things to listen for.
         $botman->hears('(Bonjour|Coucou|Salut)', function (BotMan $bot) {
-            $bot->reply("Je suis là pour t'aider. Faisons connaissance");
-            $bot->typesAndWaits(1);
-            $bot->ask("Comment t'appelles-tu?", function($answer, $bot){
-                $bot->reply('Welcome '.$answer->getText());
-            });
+            $bot->startConversation(new BotConversation);
         });
 
         $botman->hears('Merci|Au revoir', function(BotMan $bot){
-            $bot->reply("A bientôt!");
+            $bot->reply("A bientôt, je te souhaite une belle journée et amuses-toi bien sur le site !");
         });
 
         // Set a fallback
         $botman->fallback(function (BotMan $bot) {
-            $bot->reply('Je parle très mal français, ma spécialité est le langage de programmation.. Peux-tu répéter?');
+            $bot->ask('Je parle très mal français, ma spécialité est le langage de programmation.. On recommence la conversation ?(oui/non)',function (Answer $answer) use ($bot) {
+                if($answer->getText()=="oui"){
+                    $bot->startConversation(new BotConversation);
+                }
+                else{
+                    $bot->reply("Pardon de ne pas avoir compris, je dois rapidement améliorer mon français.. En tout cas je te souhaite une belle journée et amuses-toi bien sur le site. A bientôt !");
+                }
+            });
         });
 
         // Start listening
