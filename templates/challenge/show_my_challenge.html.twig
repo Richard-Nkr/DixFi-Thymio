@@ -10,6 +10,7 @@
                 {% if challenge.teacher == app.user %}
                     <div class="card">
                         <div class="card-body">
+                            <h4 class="card-title">n°{{ challenge.id }}</h4>
                             <h4 class="card-title"> {{ challenge.name }}</h4>
                             <h5 class="card-title"> {{ challenge.difficulty }}</h5>
                             <table>

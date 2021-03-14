@@ -49,30 +49,38 @@
                 </td>
             </tr>
             <tr></tr>
+            <tr>
+                <td colspan="2" class="td_indices">{{ indices|length }} indice(s) disponible</td>
+            </tr>
+            <br>
+
             {% for indice in indices %}
                 <tr>
-                        <td class="td_label_indice"> Indice {{ indice.numberHelp }} :</td>
-                        <td class="td_label_indice2" id="num{{ indice.numberHelp }}">{{ indice.contentHelp }}</td>
+                    <td colspan="2">
+                        <p id="num{{ indice.numberHelp }}" class="td_label_indice"> Indice {{ indice.numberHelp }}
+                            : {{ indice.contentHelp }}</p>
+                    </td>
                 </tr>
-
             {% endfor %}
             <tr>
-                <td>
-                    <button class="btnC" onclick="myFunction()">Voir un indice</button>
-                </td>
+                <td  colspan="2" class="td_image"><button class="btnC" onclick="myFunction()">Voir un indice</button></td>
             </tr>
             <tr>
-                <td>
-                    <button class="btnB" onclick="myFunction2()">Voir la correction</button>
-                </td>
+                <td colspan="2" class="td_image"><button class="btnB" onclick="myFunction2()">Voir la correction</button></td>
+            </tr>
+
+
+
             <tr>
-                <td colspan="2">
+                <td colspan="2" class="td_image">
                     <img id="correction" style="width: 50%; height: auto; margin-top:50px;margin-bottom: 50px;"
-                         src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+                         src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}" alt="Correction">
                 </td>
             </tr>
+
         </table>
     </fieldset>
+
     {% block javascripts %}
         <script>
             let compteur = 0;
