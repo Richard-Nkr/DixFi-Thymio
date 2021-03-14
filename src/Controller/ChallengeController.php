@@ -96,12 +96,13 @@ class ChallengeController extends AbstractController
     /**
      * @Route("/{id}/addCorrection", name="challenge_addCorrection", methods={"GET","POST"})
      * @param Request $request
+     * @param HelpRepository $helpRepository
      * @param PublicChallengeRepository $publicChallengeRepository
      * @param int $id
      * @param ChallengeRepository $challengeRepository
      * @return Response
      */
-    public function addCorrection(Request $request, PublicChallengeRepository $publicChallengeRepository, int $id, ChallengeRepository $challengeRepository): Response
+    public function addCorrection(Request $request, HelpRepository $helpRepository, PublicChallengeRepository $publicChallengeRepository, int $id, ChallengeRepository $challengeRepository): Response
     {
         $publicChallenge = $publicChallengeRepository->findOneById($id);
         $form = $this->createForm(PublicChallengeType::class, $publicChallenge);
@@ -116,6 +117,7 @@ class ChallengeController extends AbstractController
                 'public_challenge' => $publicChallengeRepository->findOneById($id),
                 'challenge' => $challengeRepository->findOneById($id),
                 'form' => $form->createView(),
+                'indices' => $helpRepository->findByIdChallenge($id),
             ]);
         }
 

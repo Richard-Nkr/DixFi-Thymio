@@ -534,6 +534,10 @@ fieldset.showChallenge legend {
     font-size: 20px;
 }
 
+#num1{
+    display: none;
+}
+
 #num2{
     display: none;
 }
@@ -544,6 +548,36 @@ fieldset.showChallenge legend {
 
 #num4{
     display: none;
+}
+
+#correction{
+    display: none;
+}
+
+.challenge_table{
+    margin: 0 auto;
+    width: 80%;
+}
+
+.indice_content{
+    width: 40%;
+    text-align: justify;
+    background-color: #9c27b0;
+    font-size: 20px;
+}
+.indice_label{
+    width: 30%;
+    text-align: left;
+    vertical-align: top;
+    font-size: 15px;
+}
+.td_label_indice{
+    font-size: 18px;
+    background-color: #9c27b0;
+
+}
+.td_label_indice2{
+    font-size: 20px;
 }
 
 

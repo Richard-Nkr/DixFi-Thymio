@@ -14,30 +14,79 @@
     {% endfor %}
 
     <fieldset class="thymioChallenge">
-
         <legend class="legendChallenge">Défi n°{{ public_challenge.id }} : {{ public_challenge.name }}</legend>
-        <p> Crée le : {{ public_challenge.createdAt ? public_challenge.createdAt|date('d-m-Y') : '' }} </p>
-        <p>Temps nécessaire : {{ public_challenge.duration }} </p>
-        <p> Difficulté : {{ public_challenge.difficulty }} </p>
-        <p> Description : {{ public_challenge.description }} </p>
-        <p> Nom fichier de correction : {{ public_challenge.nameCorrection}} </p>
-        <img style="width: 50%; height: auto; margin-top:50px;margin-bottom: 50px;"src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
-
-        {% for indice in indices %}
-        <p id="num{{ indice.numberHelp }}">Indice numéro {{ indice.numberHelp }} : {{indice.contentHelp}}</p>
-            <br>
-        {% endfor %}
-        <button onclick="myFunction()">Voir l'indice suivant</button>
-        <p id="demo"></p>
+        <table class="challenge_table">
+            <tr>
+                <td class="indice_label">
+                    Crée le :
+                </td>
+                <td>
+                    {{ public_challenge.createdAt ? public_challenge.createdAt|date('d-m-Y') : '' }}
+                </td>
+            </tr>
+            <tr>
+                <td class="indice_label">
+                    Temps nécessaire :
+                </td>
+                <td>
+                    {{ public_challenge.duration }}
+                </td>
+            </tr>
+            <tr>
+                <td class="indice_label">
+                    Difficulté :
+                </td>
+                <td>
+                    {{ public_challenge.difficulty }}
+                </td>
+            </tr>
+            <tr>
+                <td class="indice_label">
+                    Description :
+                </td>
+                <td>
+                    {{ public_challenge.description }}
+                </td>
+            </tr>
+            <tr></tr>
+                {% for indice in indices %}
+                    <tr id="num{{ indice.numberHelp }}" >
+                        <td style="width: 1000px" class="td_label_indice">
+                            Indice {{ indice.numberHelp }} :
+                        </td>
+                        <td>{{ indice.contentHelp }}</td>
+                    </tr>
+                {% endfor %}
+            <tr>
+                <td>
+                    <button class="btnC" onclick="myFunction()">Voir un indice </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btnB" onclick="myFunction2()">Voir la correction</button>
+                </td>
+            <tr>
+                <td colspan="2">
+                    <img id="correction" style="width: 50%; height: auto; margin-top:50px;margin-bottom: 50px;"
+                         src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+                </td>
+            </tr>
+        </table>
     </fieldset>
     {% block javascripts %}
-      <script>
-          let compteur = 1;
-          function myFunction() {
-              compteur++;
-              document.getElementById("num".concat(compteur.toString())).style.display = "inline";
-          }
-      </script>
+        <script>
+            let compteur = 0;
+
+            function myFunction() {
+                compteur++;
+                document.getElementById("num".concat(compteur.toString())).style.display = "inline";
+            }
+
+            function myFunction2() {
+                document.getElementById("correction").style.display = "inline";
+            }
+        </script>
         <script>
             var botmanWidget = {
                 frameEndpoint: '{{ path("chatframe") }}',
@@ -45,7 +94,7 @@
                 introMessage: 'Bonjour, je suis Thymio et je suis ici pour t\'aider. Ecrit "indice" si tu as besoin d\'aide !',
                 title: 'Thymio',
                 mainColor: '#CECECE',
-                bubbleBackground: "#ffffff" ,
+                bubbleBackground: "#ffffff",
                 bubbleAvatarUrl: "https://www.my-etechno.com/995-large_default/robot-thymio-wireless.jpg",
                 placeholderText: 'Ecris ton message ici !',
                 aboutText: '',
