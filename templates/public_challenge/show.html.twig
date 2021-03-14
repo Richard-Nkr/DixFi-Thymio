@@ -17,49 +17,48 @@
         <legend class="legendChallenge">Défi n°{{ public_challenge.id }} : {{ public_challenge.name }}</legend>
         <table class="challenge_table">
             <tr>
-                <td class="indice_label">
+                <td class="td_label_indice">
                     Crée le :
                 </td>
-                <td>
+                <td class="td_label_indice2">
                     {{ public_challenge.createdAt ? public_challenge.createdAt|date('d-m-Y') : '' }}
                 </td>
             </tr>
             <tr>
-                <td class="indice_label">
+                <td class="td_label_indice">
                     Temps nécessaire :
                 </td>
-                <td>
+                <td class="td_label_indice2">
                     {{ public_challenge.duration }}
                 </td>
             </tr>
             <tr>
-                <td class="indice_label">
+                <td class="td_label_indice">
                     Difficulté :
                 </td>
-                <td>
+                <td class="td_label_indice2">
                     {{ public_challenge.difficulty }}
                 </td>
             </tr>
             <tr>
-                <td class="indice_label">
+                <td class="td_label_indice">
                     Description :
                 </td>
-                <td>
+                <td class="td_label_indice2">
                     {{ public_challenge.description }}
                 </td>
             </tr>
             <tr></tr>
-                {% for indice in indices %}
-                    <tr id="num{{ indice.numberHelp }}" >
-                        <td style="width: 1000px" class="td_label_indice">
-                            Indice {{ indice.numberHelp }} :
-                        </td>
-                        <td>{{ indice.contentHelp }}</td>
-                    </tr>
-                {% endfor %}
+            {% for indice in indices %}
+                <tr>
+                        <td class="td_label_indice"> Indice {{ indice.numberHelp }} :</td>
+                        <td class="td_label_indice2" id="num{{ indice.numberHelp }}">{{ indice.contentHelp }}</td>
+                </tr>
+
+            {% endfor %}
             <tr>
                 <td>
-                    <button class="btnC" onclick="myFunction()">Voir un indice </button>
+                    <button class="btnC" onclick="myFunction()">Voir un indice</button>
                 </td>
             </tr>
             <tr>

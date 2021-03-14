@@ -573,12 +573,15 @@ fieldset.showChallenge legend {
 }
 .td_label_indice{
     font-size: 18px;
-    background-color: #9c27b0;
+    text-align: start;
+    vertical-align: top;
+    width: 20%;
 
 }
 .td_label_indice2{
-    font-size: 20px;
+    text-align: -moz-center;
+    font-size: 18px;
+    width: 50%;
 }
-
 
 
