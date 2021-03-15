@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Se connecter{% endblock %}
 
 
 {% block body %}
@@ -22,9 +22,9 @@
             </div>
         {% endif %}
 
-        <fieldset class="formInscription2">
-            <legend class="legendInscription">Connexion à mon compte</legend>
-            <table class="form_table3">
+        <fieldset class="showChallenge2">
+            <legend>Connexion à mon compte</legend>
+            <table class="form_table3" align="center">
                 <tr>
                     <td class="td_label3">
                         <div class="form-group">
@@ -69,10 +69,13 @@
             </div>
             #}
             <br>
+        </fieldset>
+
+        <div class="buttonMargin">
             <button class="btnG" type="submit">
                 Se connecter
             </button>
-        </fieldset>
+        </div>
     </form>
 {% endblock %}
 

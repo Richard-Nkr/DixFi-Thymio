@@ -3,10 +3,10 @@
 
 {% block title %} La progression de vos groupes {% endblock %}
 {% block body %}
-    <fieldset class="descriptionThymio"> La progression de vos groupes sur les DixFi de Thymio </fieldset>
+    <h1 class="h1title"> La progression de vos groupes sur les Dix'Fi de Thymio </h1>
 
     {% for studentgroup in studentgroups %}
-        <fieldset class="thymioChallenge">
+        <fieldset class="showChallenge2">
             <legend class="legendValidation"> Groupe n°{{ studentgroup.id }} : {{ studentgroup.nickname }}</legend>
             <p> Le groupe «{{ studentgroup.nickname }}» a une progression de : <b>{{ studentgroup.countSucceed / 10 *100}}% </b></p>
             {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesValidated', {'id': studentgroup.id}) ) }}

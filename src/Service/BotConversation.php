@@ -81,7 +81,7 @@ class BotConversation extends Conversation
         $this->ask("Dans ce cas-là, je peux te raconter une petite blague afin d'embellir ta journée?(oui/non)",function (Answer $answer){
             if($answer->getText()=="oui"){
                 $this->ask("Quelle est la différence entre un robot et du ketchup?",function (Answer $answer){
-                    if((strpos($answer->getText(),"automate")!=false) || (strpos($answer->getText(),"automates")!=false) || (strpos($answer->getText(),"aux tomates")!=false) ){
+                    if((strpos($answer->getText(),"automate")!=false) || (strpos($answer->getText(),"automates")!=false) || (strpos($answer->getText(),"aux tomates")!=false) || ($answer->getText() == "automate") || ($answer->getText() == "automates") || ($answer->getText() == "aux tomates")){
                         $this->say("Wooow, tu me surprends. Tu es prêt pour nos défis j\'en suis certain !");
                         $this->say("Alors je te souhaite une très belle journée ".$this->firstname." et amuses-toi bien sur le site ! :-)");
                     }

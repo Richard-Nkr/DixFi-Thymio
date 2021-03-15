@@ -1,7 +1,7 @@
 {{ form_start(form, {'attr': {'id': 'new_edit_studentGroup'}}) }}
 
-<fieldset class="formInscription">
-    <legend class="legendInscription">Création d'un groupe</legend>
+<fieldset class="showChallenge">
+    <legend>Création d'un groupe</legend>
     <table class="form_table">
         <tr>
             <td class="td_label3">
@@ -28,10 +28,9 @@
             </td>
         </tr>
     </table>
-    <div class="buttonMargin">
-        <button class="btnG">{{ button_label|default('Créer le groupe') }}</button>
-    </div>
 </fieldset>
-
+<div class="buttonMargin">
+    <button class="btnG">{{ button_label|default('Créer le groupe') }}</button>
+</div>
 
 {{ form_end(form) }}

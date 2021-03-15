@@ -64,7 +64,7 @@ class MailerService
                 ->from('DixFix.Thymio@gmail.com')
                 ->to($to)
                 ->subject("Dix'Fi de Thymio groupe ".$groupName."")
-                ->text("Vous trouverez ci-joint un fichier pour le defi : ".$numDefi." du goupe : ".$groupName)
+                ->text("Vous trouverez ci-joint un fichier pour le defi : ".$numDefi." du groupe : ".$groupName)
                 ->attachFromPath($filePath);
 
             $this->mailer->send($email);

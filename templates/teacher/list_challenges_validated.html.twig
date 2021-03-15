@@ -1,19 +1,21 @@
 {% for statusSolo in status %}
     {% if statusSolo.challenge.role=="ROLE_THYMIO" %}
-    <fieldset class="formValidate">
-        <h4> Les DixFi validés</h4>
-    <div>
-     <p> Le défi Thymio n°{{ statusSolo.challenge.id }} <i>«{{ statusSolo.challenge.name }}»</i> a été validé le : <i>{{ statusSolo.finishedAt|date('Y-m-d H:i:s')}}</i></p>
-        </div>
+        <fieldset class="formValidate">
+            <h4> Les Dix'Fi validés</h4>
+            <div>
+                <p> Le défi Thymio n°{{ statusSolo.challenge.id }} <i>«{{ statusSolo.challenge.name }}»</i> a été validé
+                    le : <i>{{ statusSolo.finishedAt|date('Y-m-d H:i:s') }}</i></p>
+            </div>
 
-    <form method="post" action="{{ path('delete_validation', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer la validation de ce défi?');">
-    <div class="buttonStartChallenge">
-    <button class="btn btn-success">Remettre le défi à 0 </button>
-    </div>
-</form>
-</fieldset>
-{% else %}
-    <p> Aucun défi n'a été validé </p>
+            <form method="post" action="{{ path('delete_validation', {'id': statusSolo.id}) }}"
+                  onsubmit="return confirm('Etes-vous certain de vouloir supprimer la validation de ce défi?');">
+                <div class="buttonStartChallenge">
+                    <button class="btnC">Remettre le défi à 0</button>
+                </div>
+            </form>
+        </fieldset>
+    {% else %}
+        <p> Aucun défi n'a été validé pour l'instant </p>
     {% endif %}
 {% endfor %}
 

@@ -2,28 +2,28 @@
 
 namespace App\Repository;
 
-
-use App\Entity\User;
-use App\Entity\UserGuest;
+use App\Entity\ThymioChallenge;
+use App\Entity\UserGuestStatus;
+use App\Service\HandleStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @method UserGuest|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserGuest|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserGuest[]    findAll()
- * @method UserGuest[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method UserGuestStatus|null find($id, $lockMode = null, $lockVersion = null)
+ * @method UserGuestStatus|null findOneBy(array $criteria, array $orderBy = null)
+ * @method UserGuestStatus[]    findAll()
+ * @method UserGuestStatus[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserGuestRepository extends ServiceEntityRepository
+class UserGuestStatusRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserGuest::class);
+        parent::__construct($registry, UserGuestStatus::class);
     }
 
 
-
-    public function findOneById($id): ?UserGuest
+    public function findOneById($id): ?UserGuestStatus
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :val')
@@ -34,7 +34,7 @@ class UserGuestRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return UserGuest[] Returns an array of UserGuest objects
+    //  * @return UserGuestStatus[] Returns an array of UserGuestStatus objects
     //  */
     /*
     public function findByExampleField($value)
@@ -51,7 +51,7 @@ class UserGuestRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?UserGuest
+    public function findOneBySomeField($value): ?UserGuestStatus
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.exampleField = :val')

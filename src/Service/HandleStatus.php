@@ -2,21 +2,8 @@
 
 namespace App\Service;
 
-use App\Entity\Chat;
 use App\Entity\Status;
-use App\Entity\StudentGroup;
-use App\Entity\Teacher;
-use App\Entity\ThymioChallenge;
-use App\Entity\User;
-use App\Entity\UserGuest;
-use App\Form\UserGuestType;
-use App\Form\UserType;
-use App\Repository\StatusRepository;
-use App\Repository\UserGuestRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\UserGuestStatus;
 
 class HandleStatus
 {
@@ -33,4 +20,17 @@ class HandleStatus
         }
         return $status;
     }
+
+    public function updateStatusUserGuest(UserGuestStatus $userGuestStatus) : UserGuestStatus
+    {
+
+        if ($userGuestStatus->getStatusInt()==0){
+            $userGuestStatus->setStatusInt(1);
+            $userGuestStatus->setStartedAt(new \DateTime());
+        }elseif ($userGuestStatus->getStatusInt()==1){
+            $userGuestStatus->setStatusInt(2);
+        }
+        return $userGuestStatus;
+    }
+
 }

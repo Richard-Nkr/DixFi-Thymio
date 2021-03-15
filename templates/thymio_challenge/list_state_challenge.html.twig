@@ -2,7 +2,7 @@
     {% if status.comment() != null %}
         <div>
             <fieldset class="messageTeacher">
-            <p><span class="alert-danger"> ATTENTION </span>! VOUS AVEZ UN MESSAGE DE VOTRE PROFESSEUR </p>
+            <p><span> ATTENTION </span>! Vous avez un message de votre professeur </p>
 
             <p> Professeur {{ status.studentGroup.teacher.name }} à groupe {{ status.studentGroup.nickname }}: <i> {{ status.comment }}</i></p>
             </fieldset>
@@ -12,19 +12,20 @@
     {% if status.statusInt==1 %}
         <div class="buttonStartChallenge">
             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
-                <button class="btn btn-success"> Continuer le défi</button>
+                <button class="btnG"> Continuer le défi</button>
+                <button class="btnG"> Continuer le défi</button>
             </a>
         </div>
     {% elseif status.statusInt==2 %}
         <div class="buttonStartChallenge">
             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
-                <button class="btn btn-success"> Défi en attente de validation</button>
+                <button class="btnG"> Défi en attente de validation</button>
             </a>
         </div>
     {% else %}
         <div class="buttonStartChallenge">
             <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
-                <button class="btn btn-success"> Bravo ! Défi validé</button>
+                <button class="btnG"> Bravo ! Défi validé</button>
             </a>
         </div>
     {% endif %}
@@ -32,7 +33,7 @@
     <form method="post" action="{{ path('status_create', {'id': thymio_challenge.id}) }}"
           onsubmit="return confirm('Etes-vous certain de vouloir commencer ce défi?');">
         <div class="buttonStartChallenge">
-            <button class="btn btn-success"> Commencer</button>
+            <button class="btnG"> Commencer</button>
         </div>
     </form>
 {% endif %}

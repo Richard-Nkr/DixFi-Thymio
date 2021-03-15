@@ -2,8 +2,8 @@
 
 {{ form_start(form, {'attr': {'id': 'new_edit_user_guest'}}) }}
 
-<fieldset class="formInscription2">
-    <legend class="legendInscription">Création d'un compte</legend>
+<fieldset class="showChallenge">
+    <legend>Création d'un compte</legend>
     <table class="form_table">
         <tr>
             <td class="td_label">
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td class="td_label">
-                {{ form_label(form.roles, 'Vous êtes : ', { 'attr': { 'class': 'form_field' } }) }}
+                {{ form_label(form.name, 'Vous êtes : ', { 'attr': { 'class': 'form_field' } }) }}
                 <p>(un choix possible) </p>
             </td>
             <td class="td_field2">
@@ -64,8 +64,9 @@
             </td>
         </tr>
     </table>
-
-    <button class="btn btn-success">{{ button_label|default('Créer mon compte') }}</button>
-
 </fieldset>
+<div class="buttonMargin">
+    <button class="btnG">{{ button_label|default('Créer mon compte') }}</button>
+</div>
+
 {{ form_end(form) }}

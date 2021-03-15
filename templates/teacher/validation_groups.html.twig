@@ -3,13 +3,21 @@
 
 {% block title %} Les groupes en attente de validation {% endblock %}
 {% block body %}
-        <fieldset class="descriptionThymio"> Vos groupes en attente de validation des DixFi</fieldset>
+    <h1 class="h1title"> Vos groupes en attente de validation des Dix'Fi</h1>
+    <hr class="helpHr">
+    <div style="margin: 2% 4% 1% 4%;">
+        <div class="row">
+            {% for studentgroup in studentgroups %}
+                <div class="col-sm-6">
+                    <fieldset class="showChallenge">
+                        <legend class="legendValidation"> Groupe n°{{ studentgroup.id }}
+                            : {{ studentgroup.nickname }}</legend>
+                        {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesNotValidated', {'id': studentgroup.id}) ) }}
+                    </fieldset>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
-        {% for studentgroup in studentgroups %}
-            <fieldset class="thymioChallenge">
-                <legend class="legendValidation"> Groupe n°{{ studentgroup.id }} : {{ studentgroup.nickname }}</legend>
-                {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesNotValidated', {'id': studentgroup.id}) ) }}
-            </fieldset>
-        {% endfor %}
 {% endblock %}
 

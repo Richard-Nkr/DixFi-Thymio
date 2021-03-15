@@ -12,9 +12,9 @@
         </div>
     {% endfor %}
 
-    <fieldset class="thymioChallenge">
+    <fieldset class="showChallenge">
 
-        <legend class="legendChallenge">Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</legend>
+        <legend>Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</legend>
         <p> Crée le : {{ private_challenge.createdAt ? private_challenge.createdAt|date('d-m-Y') : '' }} </p>
         <p>Temps nécessaire : {{ private_challenge.duration }} </p>
         <p> Difficulté : {{ private_challenge.difficulty }} </p>

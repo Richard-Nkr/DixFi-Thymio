@@ -10,11 +10,9 @@
         </div>
     {% endfor %}
 
-<fieldset class="formInscription">
-    <legend class="legendInscription">Modification de votre compte</legend>
-
-
-    {{ include('user_guest/_form_update.html.twig', {'button_label': 'Update'}) }}
+<fieldset class="showChallenge2">
+    <legend>Modification de votre compte</legend>
+    {{ include('user_guest/_form_update.html.twig', {'button_label': 'Modifier'}) }}
 </fieldset>
-    <a href="{{ path('user_guest_index') }}">back to list</a>
+    <a href="{{ path('user_guest_index') }}"> <button class="btnG">Retour à mon profil</button></a>
 {% endblock %}

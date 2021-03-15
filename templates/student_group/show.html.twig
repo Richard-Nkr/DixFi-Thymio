@@ -3,22 +3,22 @@
 {% block title %}Mon Groupe{% endblock %}
 
 {% block body %}
-<fieldset class="formG">
-    <legend class="legendInscription"> Mon groupe d'étudiants</legend>
+<fieldset class="showChallenge2">
+    <legend> Mon groupe d'étudiants</legend>
     <div class="form-group">
 
         <table class="table">
             <tbody>
             <tr>
-                <th class="td_label4">Votre Identifiant</th>
+                <th>Votre Identifiant</th>
                 <td class="td_label3">{{ student_group.id }}</td>
             </tr>
             <tr>
-                <th class="td_label4">Pseudo du groupe</th>
+                <th>Pseudo du groupe</th>
                 <td class="td_label3">{{ student_group.nickname }}</td>
             </tr>
             <tr>
-                <th class="td_label4">Les membres du groupe</th>
+                <th>Les membres du groupe</th>
                 <td class="td_label3">
                     {% if children!=null %}
                     {% for child in children %}
@@ -30,15 +30,15 @@
                 </td>
             </tr>
             <tr>
-                <th class="td_label4">Votre enseignant</th>
+                <th>Votre enseignant</th>
                 <td class="td_label3">{{ student_group.teacher.name }} {{ student_group.teacher.firstName }}</td>
             </tr>
             <tr>
-                <th class="td_label4">Date de création</th>
+                <th>Date de création du compte</th>
                 <td class="td_label3">{{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th class="td_label4" style="width:34%;">Niveau de progression</th>
+                <th>Niveau de progression</th>
                 <td class="td_label3">{{ student_group.countSucceed*10 }}%</td>
             </tr>
             </tbody>

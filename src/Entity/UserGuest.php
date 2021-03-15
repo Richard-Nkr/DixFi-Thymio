@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserGuestRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -38,6 +40,16 @@ class UserGuest extends User
      */
     private $firstname;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserGuestStatus::class, mappedBy="userGuest")
+     */
+    private $Challenge;
+
+    public function __construct()
+    {
+        $this->Challenge = new ArrayCollection();
+    }
+
     public function getMail(): ?string
     {
         return $this->mail;
@@ -70,6 +82,36 @@ class UserGuest extends User
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserGuestStatus[]
+     */
+    public function getChallenge(): Collection
+    {
+        return $this->Challenge;
+    }
+
+    public function addChallenge(UserGuestStatus $challenge): self
+    {
+        if (!$this->Challenge->contains($challenge)) {
+            $this->Challenge[] = $challenge;
+            $challenge->setUserGuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChallenge(UserGuestStatus $challenge): self
+    {
+        if ($this->Challenge->removeElement($challenge)) {
+            // set the owning side to null (unless already changed)
+            if ($challenge->getUserGuest() === $this) {
+                $challenge->setUserGuest(null);
+            }
+        }
 
         return $this;
     }

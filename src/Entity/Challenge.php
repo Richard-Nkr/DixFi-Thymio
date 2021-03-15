@@ -73,12 +73,18 @@ class Challenge
      */
     private $solutionPath;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserGuestStatus::class, mappedBy="Challenge")
+     */
+    private $userGuestStatuses;
+
 
     public function __construct()
     {
         $this->status = new ArrayCollection();
         $this->groups = new ArrayCollection();
         $this->helps = new ArrayCollection();
+        $this->userGuestStatuses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -238,6 +244,36 @@ class Challenge
     public function setSolutionPath(?string $solutionPath): self
     {
         $this->solutionPath = $solutionPath;
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserGuestStatus[]
+     */
+    public function getUserGuestStatuses(): Collection
+    {
+        return $this->userGuestStatuses;
+    }
+
+    public function addUserGuestStatus(UserGuestStatus $userGuestStatus): self
+    {
+        if (!$this->userGuestStatuses->contains($userGuestStatus)) {
+            $this->userGuestStatuses[] = $userGuestStatus;
+            $userGuestStatus->setChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserGuestStatus(UserGuestStatus $userGuestStatus): self
+    {
+        if ($this->userGuestStatuses->removeElement($userGuestStatus)) {
+            // set the owning side to null (unless already changed)
+            if ($userGuestStatus->getChallenge() === $this) {
+                $userGuestStatus->setChallenge(null);
+            }
+        }
+
         return $this;
     }
 

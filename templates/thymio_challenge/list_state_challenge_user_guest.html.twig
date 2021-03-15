@@ -1,0 +1,23 @@
+{% if userGuestStatus != null %}
+    {% if userGuestStatus.statusInt==2 %}
+        <div class="buttonStartChallenge">
+            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
+                <button class="btnG"> Continuer le défi</button>
+            </a>
+        </div>
+    {% else %}
+        <div class="buttonStartChallenge">
+            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
+                <button class="btnG"> Bravo ! Vous avez validé le défi</button>
+            </a>
+        </div>
+    {% endif %}
+{% else %}
+    <form method="post" action="{{ path('user_guest_status_create', {'id': thymio_challenge.id}) }}"
+          onsubmit="return confirm('Etes-vous certain de vouloir commencer ce défi?');">
+        <div class="buttonStartChallenge">
+            <button class="btnG"> Commencer</button>
+        </div>
+    </form>
+{% endif %}
+

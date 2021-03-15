@@ -3,38 +3,36 @@
 {% block title %}UserGuest{% endblock %}
 
 {% block body %}
-    <div class="context">
-        <fieldset class="formInscription">
-            <legend class="legendInscription">Hello {{ user_guest.nickname }} !</legend>
-            <div class="form-group">
-                <p> Voici vos données personnelles </p>
-
-
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th>Votre identifiant</th>
-                        <td>{{ user_guest.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Votre adresse mail</th>
-                        <td>{{ user_guest.mail }}</td>
-                    </tr>
-                    <tr>
-                        <th>Votre nome</th>
-                        <td>{{ user_guest.name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Votre prénom</th>
-                        <td>{{ user_guest.firstname }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-        <a href="{{ path('user_index') }}">Retour en arrière</a>
-        <br>
-        <a href="{{ path('user_guest_edit', {'id': user_guest.id}) }}">Modifier votre profil</a>
-
-        {{ include('user_guest/_delete_form.html.twig') }}
+    <h1 class="h1title">Bonjour {{ user_guest.nickname }} !</h1>
+    <fieldset class="showChallenge2">
+        <legend>Voici vos données personnelles</legend>
+        <div class="form-group">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Votre identifiant</th>
+                    <td>{{ user_guest.id }}</td>
+                </tr>
+                <tr>
+                    <th>Votre adresse mail</th>
+                    <td>{{ user_guest.mail }}</td>
+                </tr>
+                <tr>
+                    <th>Votre nome</th>
+                    <td>{{ user_guest.name }}</td>
+                </tr>
+                <tr>
+                    <th>Votre prénom</th>
+                    <td>{{ user_guest.firstname }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <div class="buttonMargin">
+        <a href="{{ path('user_guest_edit', {'id': user_guest.id}) }}">
+            <button class="btnG"> Modifier mon profil</button>
+        </a>
+    </div>
+    {{ include('teacher/_delete_form.html.twig') }}
 {% endblock %}

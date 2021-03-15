@@ -10,23 +10,27 @@
                 !
                 Attention : Il vous suffit d'indiquer ce que vous souhaitez connaître, sans avoir besoin de citer
                 Thymio.</p>
+            <p>Par exemple, si vous souhaitez avoir une présentation du robot, il vous suffit d'écrire "présentation".</p><br>
+            <hr>
 
-            <div style="text-align: center; margin-top: 4%;">
+            <div class="buttonMargin">
                 {{ form_start(form) }}
                 <p>{{ form_label(form.request, 'Votre recherche : ') }}</p>
-                <p>{{ form_widget(form.request, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}</p>
-                <button class="btnG">{{ button_label|default('Rechercher') }}</button>
+                <p>{{ form_widget(form.request, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}</p><br>
+                <div class="buttonMargin">
+                    <button class="btnG">{{ button_label|default('Rechercher') }}</button>
+                </div>
                 {{ form_end(form) }}
             </div>
 
         </fieldset>
 
-        <div>
+        <div class="container">
             <div class="row">
                 {% for video in videos %}
                     <div class="col-sm-6">
                         <fieldset class="showChallenge">
-                            <div style="text-align: center;">
+                            <div class="buttonMargin">
                                 <p> {{ video.snippet.title }} </p> <hr>
                             <div>
                                 <iframe width="320" height="300"

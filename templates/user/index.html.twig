@@ -5,47 +5,59 @@
 {% block body %}
     <div class="divBody">
         {% if app.user %}
-            <h3 class="titleGuide"> Bienvenue sur votre espace {{ app.user.nickname }}</h3>
-
+            <h1 class="h1title"> Bienvenue sur votre espace {{ app.user.nickname }}</h1>
+            <hr class="helpHr">
+            <br>
             {% if is_granted('ROLE_TEACHER') %}
-                <p class="introButton"><b> Consultez votre profil d'enseignant et vos groupes : </b></p>
-                <a href="{{ path('teacher_show') }}">
-                    <button class="btnG" value="See profil"> Voir mon profil enseignant</button>
-                </a>
+                <div class="buttonMargin">
+                    <a href="{{ path('teacher_show') }}">
+                        <button class="btnB2" value="See profil"> Voir mon profil enseignant</button>
+                    </a>
+                </div>
                 <br>
-                <p class="introButton"><b> Créez vos propres groupes étudiants : </b></p>
-                <a href="{{ path('student_group_new') }}">
-                    <button class="btnG" value="Create groups"> Créer un groupe</button>
-                </a>
+                <div class="buttonMargin">
+                    <a href="{{ path('student_group_new') }}">
+                        <button class="btnB2" value="Create groups"> Créer un groupe</button>
+                    </a>
+                </div>
                 <br>
             {% elseif is_granted('ROLE_STUDENT_GROUP') %}
-                <p class="introButton"><b> Consultez le profil de votre groupe : </b></p>
-                <a href="{{ path('student_group_show', {'id': app.user.id}) }}">
-                    <button class="btnG" value="See profil"> Voir le profil de mon groupe</button>
-                </a>
-                <br>
+                <div class="buttonMargin">
+                    <a href="{{ path('student_group_show', {'id': app.user.id}) }}">
+                        <button class="btnG" value="See profil"> Voir le profil de mon groupe</button>
+                    </a>
+                </div>
+
             {% else %}
-                <p class="introButton"><b> Consultez votre profil utilisateur : </b></p>
-                <a href="{{ path('user_guest_show', {'id': app.user.id}) }}">
-                    <button class="btnG" value="See profil"> Voir mon profil utilisateur</button>
-                </a>
+                <div class="buttonMargin">
+                    <a href="{{ path('user_guest_show', {'id': app.user.id}) }}">
+                        <button class="btnG" value="See profil"> Voir mon profil utilisateur</button>
+                    </a>
+                </div>
                 <br>
             {% endif %}
-            <p class="introButton"><b> Déconnectez-vous de votre espace : </b></p>
-            <a href="{{ path('app_logout') }}">
-                <button class="btnR" value="Se déconnecter"> Se déconnecter</button>
-            </a>
+            <div class="buttonMargin">
+                <a href="{{ path('app_logout') }}">
+                    <button class="btnR" value="Se déconnecter"> Se déconnecter</button>
+                </a>
+            </div>
             <br>
         {% else %}
-            <p class="introButton"><b> Connectez-vous à votre espace : </b></p>
-            <a href="{{ path('app_login') }}">
-                <button class="btnG" value="Se connecter"> Se connecter</button>
-            </a>
-            <br>
-            <p class="introButton"><b> Si vous souhaitez rejoindre l'aventure des DixFi de Thymio : </b></p>
-            <a href="{{ path('user_guest_new') }}">
-                <button class="btnR" value="Create new"> Créer un compte</button>
-            </a>
+            <div class="buttonMargin">
+                <h1 class="h1title">Bienvenue sur la page de connexion </h1>
+            </div><br>
+                <div class="buttonMargin">
+                    <a href="{{ path('app_login') }}">
+                        <button class="btnG" value="Se connecter"> Se connecter</button>
+                    </a>
+                </div>
+                <br>
+                <div>
+                    <a href="{{ path('user_guest_new') }}">
+                        <button class="btnR" value="Create new"> Créer un compte</button>
+                    </a>
+                </div>
+
         {% endif %}
     </div>
 {% endblock %}

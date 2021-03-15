@@ -16,8 +16,9 @@
                         <h5 class="card-text">Durée : {{ private_challenge.duration }} </h5>
                     </div>
                     <div class="buttonStartChallenge">
-                        <a href="{{ path('private_challenge_show', {'id': private_challenge.id}) }}"> <button class="btn btn-success"> Voir le défi </button> </a>
+                        <a href="{{ path('private_challenge_show', {'id': private_challenge.id}) }}"> <button class="btnG"> Voir le défi </button> </a>
                     </div>
+                    <br>
                 </div>
             {% else %}
                 <p> Aucun défi n'a été crée par votre professeur.</p>

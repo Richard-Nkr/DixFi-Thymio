@@ -1,56 +1,53 @@
-
 {% for statusSolo in status %}
-<fieldset class="formValidate">
-<div>
-    <p> Le défi n°{{ statusSolo.challenge.id }} <i>«{{ statusSolo.challenge.name }}»</i> est en attente de validation. Le mail avec la solution du groupe vous a été envoyé le : <i>{{ statusSolo.submittedAt|date('Y-m-d H:i:s')}}</i></p>
-</div>
-    <hr>
-    {% if statusSolo.comment==NULL %}
-        <table class="tableValidate">
-            <tr>
-                {{ render(controller('App\\Controller\\StatusController::addComment', {'id': statusSolo.id}) ) }}
-            </tr>
-        </table>
-
+    <fieldset class="formValidate">
+        <div>
+            <p> Le défi n°{{ statusSolo.challenge.id }} <i>«{{ statusSolo.challenge.name }}»</i> est en attente de
+                validation. Le mail avec la solution du groupe vous a été envoyé le :
+                <i>{{ statusSolo.submittedAt|date('Y-m-d H:i:s') }}</i></p>
+        </div>
         <hr>
+        {% if statusSolo.comment==NULL %}
+            <div class="buttonMargin">
+                {{ render(controller('App\\Controller\\StatusController::addComment', {'id': statusSolo.id}) ) }}
+            </div>
+            <hr>
         {% else %}
             <table class="tableValidate">
                 <tr>
-                    <td> <p> Vous avez laissé un commentaire à votre groupe</p></td>
+                    <td><p> Vous avez laissé un commentaire à votre groupe</p></td>
                 </tr>
             </table>
             <hr>
-    {% endif %}
-    <table class="tableValidate">
-        <tr>
-            <td class="celluleValidate" valign="bottom" >
-                <br>
+        {% endif %}
+        <div>
+            <div class="buttonMargin">
                 <p> Procédez à l'évaluation rapide du DixFi n°{{ statusSolo.challenge.id }} : </p>
-            </td>
-            <td></td>
-            <td class="celluleValidate">
-                <form method="post" action="{{ path('validate', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
-                    <div class="buttonStartChallenge">
+            </div>
+            <div class="buttonMargin">
+                <div style="float: left; margin-left: 10%;">
+                    <form method="post" action="{{ path('validate', {'id': statusSolo.id}) }}"
+                          onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
+                        <button class="btnC">Valider</button>
+                    </form>
+                </div>
+                <div style="float: right; margin-right: 10%;">
+                    <form method="post" action="{{ path('delete_validation', {'id': statusSolo.id}) }}"
+                          onsubmit="return confirm('Etes-vous certain de vouloir refuser ce défi?');">
+                        <button class="btnR2">Refuser</button>
+                    </form>
+                </div>
+                <br>
+            </div>
+            <br>
+        </div>
 
-                        <button class="btn btn-success">Valider </button>
-                    </div>
-                </form>
-            </td>
-            <td class="celluleValidate">
-                <form method="post" action="{{ path('delete_validation', {'id': statusSolo.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir refuser ce défi?');">
-                    <div class="buttonStartChallenge">
-                        <button class="btn btn-danger">Refuser le défi</button>
-                    </div>
-                </form>
-            </td>
-        </tr>
-    </table>
-
-
-
-</fieldset>
+    </fieldset>
 {% else %}
-    <p> Aucun défi à valider </p>
+    <div class="buttonMargin">
+        <div><img style="width: 92%; margin-top: 16%; margin-bottom: 14%;" src="{{ asset('images/child.png') }}"
+                  alt="Robot_Thymio"></div>
+        <p> Aucun défi à valider pour l'instant </p><br>
+    </div>
 {% endfor %}
 
 

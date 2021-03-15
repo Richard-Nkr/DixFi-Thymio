@@ -9,8 +9,8 @@
         </div>
 
     {% endfor %}
-    <fieldset id="contactUs">
-        <legend class="legendUserGuide"> Contactez-nous </legend>
+    <fieldset class="showChallenge">
+        <legend> Contactez-nous </legend>
     <div class="bg-white p-4 contact-form">
         <div class="form-group">
             {{ form_start(our_form) }}
@@ -22,11 +22,10 @@
         <div class="form-group">
             {{ form_row(our_form.message, {'attr': {'class': 'form-control'}}) }}
         </div>
-
-        <div class="form-group text-center">
-            <input type="submit" value="Envoyer" class="btnG">
-        </div>
-        {{ form_end(our_form) }}
     </div>
     </fieldset>
+    <div class="form-group text-center">
+        <input type="submit" value="Envoyer" class="btnG">
+    </div>
+    {{ form_end(our_form) }}
 {% endblock %}

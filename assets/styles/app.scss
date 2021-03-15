@@ -44,7 +44,7 @@ a {
 
       a {
         text-decoration: none;
-        height: 65px;
+        height: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -238,8 +238,8 @@ $bg_red: #d4344d;
 $orange: #f88102;
 $bg_orange: #fa8934;
 
-$blue: #184bdd;
-$bg_blue: #1926ab;
+$blue: #145bd2;
+$bg_blue: #0845ac;
 
 $green: #2cac10;
 $bg_green: #60f367;
@@ -325,6 +325,10 @@ $bg_green: #60f367;
 
 .btnR {
   @include myButton($red, $bg_red);
+}
+
+.btnR2 {
+  @include myButton2($red, $bg_red);
 }
 
 .btnO {

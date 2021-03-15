@@ -1,7 +1,7 @@
 {% for statusSolo in status %}
     {% if statusSolo.challenge.role=="ROLE_THYMIO" %}
         <fieldset class="formValidate">
-            <h4> Les DixFi en cours</h4>
+            <h4> Les Dix'Fi en cours</h4>
             <div>
                 <p> Le défi Thymio n°{{ statusSolo.challenge.id }} <i>«{{ statusSolo.challenge.name }}»</i> est en cours et a été commencé le : <i>{{ statusSolo.startedAt|date('Y-m-d H:i:s')}}</i></p>
             </div>
