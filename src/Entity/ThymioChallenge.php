@@ -16,6 +16,11 @@ class ThymioChallenge extends Challenge
      */
     private $file;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pathVideo;
+
     public function getFile()
     {
         return $this->file;
@@ -24,6 +29,18 @@ class ThymioChallenge extends Challenge
     public function setFile($file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getPathVideo(): ?string
+    {
+        return $this->pathVideo;
+    }
+
+    public function setPathVideo(string $pathVideo): self
+    {
+        $this->pathVideo = $pathVideo;
 
         return $this;
     }

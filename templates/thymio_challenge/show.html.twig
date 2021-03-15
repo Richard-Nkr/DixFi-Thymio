@@ -15,7 +15,8 @@
     <fieldset class="showChallenge">
 
         <div class="buttonMargin">
-            <iframe width="320" height="300" src="{{ thymio_challenge.file }}" alt="SolutionDixFi" allowfullscreen></iframe>
+            <iframe width="320" height="300" src="{{ thymio_challenge.file }}" alt="SolutionDixFi"
+                    allowfullscreen></iframe>
         </div>
 
         <legend>Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</legend>
@@ -52,6 +53,8 @@
                 <button class="btnG"> Défi terminé</button>
             {% endif %}
         {% endif %}
+
+
 
         {% if is_granted('ROLE_TEACHER') %}
             <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}">
