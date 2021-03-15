@@ -76,7 +76,7 @@ class Challenge
     /**
      * @ORM\OneToMany(targetEntity=UserGuestStatus::class, mappedBy="Challenge")
      */
-    private $userGuestStatuses;
+    private $userGuestStatus;
 
 
     public function __construct()
@@ -84,7 +84,7 @@ class Challenge
         $this->status = new ArrayCollection();
         $this->groups = new ArrayCollection();
         $this->helps = new ArrayCollection();
-        $this->userGuestStatuses = new ArrayCollection();
+        $this->userGuestStatus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -250,15 +250,15 @@ class Challenge
     /**
      * @return Collection|UserGuestStatus[]
      */
-    public function getUserGuestStatuses(): Collection
+    public function getUserGuestStatus(): Collection
     {
-        return $this->userGuestStatuses;
+        return $this->userGuestStatus;
     }
 
     public function addUserGuestStatus(UserGuestStatus $userGuestStatus): self
     {
-        if (!$this->userGuestStatuses->contains($userGuestStatus)) {
-            $this->userGuestStatuses[] = $userGuestStatus;
+        if (!$this->userGuestStatus->contains($userGuestStatus)) {
+            $this->userGuestStatus[] = $userGuestStatus;
             $userGuestStatus->setChallenge($this);
         }
 
@@ -267,7 +267,7 @@ class Challenge
 
     public function removeUserGuestStatus(UserGuestStatus $userGuestStatus): self
     {
-        if ($this->userGuestStatuses->removeElement($userGuestStatus)) {
+        if ($this->userGuestStatus->removeElement($userGuestStatus)) {
             // set the owning side to null (unless already changed)
             if ($userGuestStatus->getChallenge() === $this) {
                 $userGuestStatus->setChallenge(null);

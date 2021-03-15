@@ -29,6 +29,7 @@ class HandleStatus
             $userGuestStatus->setStartedAt(new \DateTime());
         }elseif ($userGuestStatus->getStatusInt()==1){
             $userGuestStatus->setStatusInt(2);
+            $userGuestStatus->setFinishedAt(new \DateTime());
         }
         return $userGuestStatus;
     }

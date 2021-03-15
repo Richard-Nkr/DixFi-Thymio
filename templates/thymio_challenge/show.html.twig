@@ -48,7 +48,10 @@
 
         {% elseif is_granted('ROLE_USER_GUEST') %}
             {% if status.statusInt==1 %}
-                {{ include('thymio_challenge/validate_user_guest.html.twig') }}
+                <form method="post" action="{{ path('validate_user_challenge', {'id':  thymio_challenge.id}) }}"
+                      onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
+                    <button class="btnC">Valider</button>
+                </form>
             {% else %}
                 <button class="btnG"> Défi terminé</button>
             {% endif %}
