@@ -112,7 +112,7 @@ class HelpController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('help_index');
+            return $this->redirectToRoute('challenge_showMyChallenge');
         }
 
         return $this->render('help/edit.html.twig', [

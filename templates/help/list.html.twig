@@ -3,33 +3,24 @@
 {% block title %}Help index{% endblock %}
 
 {% block body %}
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>ContentHelp</th>
-                <th>NumberHelp</th>
-                <th>Id Challenge</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<fieldset class="indiceFieldset">
+    <legend>Les indices du défi {{ challenge.id }}</legend>
+    <table class="indice_table">
         {% for help in helps %}
             {% if help.challenge.id == challenge.id %}
-            <tr>
-                <td>{{ help.id }}</td>
-                <td>{{ help.contentHelp }}</td>
-                <td>{{ help.numberHelp }}</td>
-                <td>{{ help.challenge.id }}</td>
-                <td>
-                    <a href="{{ path('help_show', {'id': help.id}) }}">show</a>
-                    <a href="{{ path('help_edit', {'id': help.id}) }}">edit</a>
-                </td>
-            </tr>
+                <tr>
+                    <td class="td_num_indice">Indice {{ help.numberHelp }} : </td>
+                    <td class="td_content">{{ help.contentHelp }}</td>
+                    <td class="td_modify">
+                        <a href="{{ path('help_edit', {'id': help.id}) }}">Modifier</a>
+                    </td>
+                </tr>
             {% endif %}
         {% endfor %}
-        </tbody>
     </table>
+</fieldset>
+
+
+
 
 {% endblock %}

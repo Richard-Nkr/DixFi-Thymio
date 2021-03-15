@@ -581,14 +581,12 @@ fieldset.showChallenge legend {
     padding: 10px;
     text-align: justify;
     width: 30%;
-    background-color: #1b5abe;
 }
 .td_label_indice2 {
     padding: 10px;
     text-align: justify;
     font-size: 18px;
     width: 100%;
-    background-color: #09d724;
 }
 .td_image{
     text-align: center;
@@ -599,4 +597,40 @@ fieldset.showChallenge legend {
     font-size: 20px;
     padding: 20px;
 }
+.indice_table{
+    table-layout: fixed;
+    width: 100%;
+}
 
+.td_num_indice {
+    font-size: 20px;
+    vertical-align: top;
+    padding: 15px;
+    text-align: right;
+}
+
+.td_modify{
+    vertical-align: top;
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;
+}
+.td_content{
+    font-size: 15px;
+    text-align: justify;
+    vertical-align: middle;
+}
+.indiceFieldset{
+    background-color: white;
+    margin: 4% auto;
+    border-radius: 20px;
+    width: 45%;
+}
+fieldset.indiceFieldset legend {
+    background-color: #be0c0c;
+    color: white;
+    border-radius: 20px;
+    padding: 6px 12px;
+    margin: 2% auto;
+    width: 40%;
+}
