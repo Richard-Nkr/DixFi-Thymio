@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 
+use App\Entity\StudentGroup;
 use App\Entity\ThymioChallenge;
 use App\Entity\UserGuestStatus;
 use App\Form\ThymioChallengeType;
 use App\Form\ThymioChallengeUserGuestType;
+use App\Repository\ChildRepository;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\ChallengeRepository;
+use App\Repository\ThymioChallengeRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserGuestStatusRepository;
 use App\Service\DocumentGenerator;
@@ -186,6 +189,22 @@ class ThymioChallengeController extends AbstractController
             'status' => $status,
         ]);
     }
+
+
+    /**
+     * @Route("/{id}/show/user/simple", name="thymio_challenge_show_user_simple", methods={"GET"})
+     * @param ThymioChallenge $thymioChallenge
+     * @param ThymioChallengeRepository $thymioChallengeRepository
+     * @return Response
+     */
+    public function showSimpleUser(ThymioChallenge $thymioChallenge, ThymioChallengeRepository $thymioChallengeRepository): Response
+    {
+        return $this->render('thymio_challenge/show.html.twig', [
+            'thymio_challenge' => $thymioChallenge,
+        ]);
+
+    }
+
 
     /**
      * @Route("/{id}/list/challenges/not/validated", name="list_challenges_not_validated", methods={"GET"})

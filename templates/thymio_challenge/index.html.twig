@@ -18,9 +18,9 @@
                     {{ render(controller('App\\Controller\\ThymioChallengeController::listStateChallenge', {'id': thymio_challenge.id}) ) }}
                 {% elseif is_granted('ROLE_USER_GUEST') %}
                     {{ render(controller('App\\Controller\\ThymioChallengeController::listStateChallengeUserGuest', {'id': thymio_challenge.id}) ) }}
-                {% elseif is_granted('ROLE_TEACHER') %}
+                {% else %}
                     <div class="buttonMargin">
-                        <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}"> <button class="btnG"> Voir le défi </button> </a>
+                        <a href="{{ path('thymio_challenge_show_user_simple', {'id': thymio_challenge.id}) }}"> <button class="btnG"> Voir le défi </button> </a>
                     </div>
                 {% endif %}
             </div>
