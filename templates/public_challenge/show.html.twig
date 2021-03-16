@@ -94,22 +94,6 @@
                 document.getElementById("correction").style.display = "inline";
             }
         </script>
-        <script>
-            var botmanWidget = {
-                frameEndpoint: '{{ path("chatframe") }}',
-                chatServer: '{{ path("message") }}',
-                introMessage: 'Bonjour, je suis Thymio et je suis ici pour t\'aider. Ecrit "indice" si tu as besoin d\'aide !',
-                title: 'Thymio',
-                mainColor: '#CECECE',
-                bubbleBackground: "#ffffff",
-                bubbleAvatarUrl: "https://www.my-etechno.com/995-large_default/robot-thymio-wireless.jpg",
-                placeholderText: 'Ecris ton message ici !',
-                aboutText: '',
-                userId: '{{ public_challenge.id }}'
-            };
-        </script>
         <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
     {% endblock %}
-
-
 {% endblock %}

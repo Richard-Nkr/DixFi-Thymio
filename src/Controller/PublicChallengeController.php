@@ -58,7 +58,6 @@ class PublicChallengeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/{id}/show", name="public_challenge_show", methods={"GET"})
      * @param PublicChallengeRepository $publicChallengeRepository
@@ -73,5 +72,6 @@ class PublicChallengeController extends AbstractController
             'indices' => $helpRepository->findByIdChallenge($id),
         ]);
     }
+
 
 }
