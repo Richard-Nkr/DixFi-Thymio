@@ -24,13 +24,11 @@ class Help
      */
     private $contentHelp;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=StudentGroup::class, mappedBy="helps")
-     */
+
     private $groups;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="helps")
+     * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="helps", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $challenge;

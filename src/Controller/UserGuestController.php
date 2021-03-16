@@ -3,21 +3,16 @@
 namespace App\Controller;
 
 
-use App\Entity\UserGuest;
-use App\Form\UserGuestType;
-use App\Form\UserGuestUpdateType;
 use App\Service\GestionPassword;
 use App\Service\SecurizerRoles;
-use App\Service\CreateChat;
 use App\Repository\UserGuestRepository;
 use App\Service\TeacherGenerator;
-use App\Service\Validator;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\NotifierInterface;
 
 /**
@@ -48,7 +43,7 @@ class UserGuestController extends AbstractController
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator,GestionPassword $gestionPassword): Response
+    public function new(Request $request, MailerService $mailerService, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator, GestionPassword $gestionPassword): Response
     {
         $userguest = new UserGuest();
         $form = $this->createForm(UserGuestType::class, $userguest);
@@ -73,7 +68,6 @@ class UserGuestController extends AbstractController
                     'form' => $form->createView(),
                 ]);
             }
-            //fin
 
             $entityManager = $this->getDoctrine()->getManager();
             $gestionPassword->createHashPassword($userguest);

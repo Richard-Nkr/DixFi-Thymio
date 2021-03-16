@@ -16,10 +16,10 @@ class StatusType extends AbstractType
     {
         $builder
             ->add('id', HiddenType::class)
-            ->add('comment', TextareaType::class,[
-                'data' => "Ajouter un commentaire destiné à votre groupe",
-
-            ]);
+            ->add('comment', TextareaType::class, array (
+                'attr' => array('placeholder' => "Ajouter un commentaire destiné à votre groupe")
+            )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

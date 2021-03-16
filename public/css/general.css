@@ -612,6 +612,27 @@ fieldset.showChallenge2 legend {
     padding: 10%;
 }
 
+#correction{
+    width: 50%;
+    height: auto;
+    margin-top:50px;
+    margin-bottom: 50px;
+    display: none;
+}
+
+#num1{
+    display: none;
+}
+#num2{
+    display: none;
+}
+#num3{
+    display: none;
+}
+#num4{
+    display: none;
+}
+
 .challenge_container {
     padding: 2%;
     display: flex;

@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Entity\Status;
 use App\Entity\ThymioChallenge;
 use App\Form\StatusType;
-use App\Form\TeacherType;
-use App\Form\ThymioChallengeType;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;

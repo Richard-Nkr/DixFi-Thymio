@@ -16,18 +16,44 @@
 
         <legend>Défi n°{{ public_challenge.id }} : {{ public_challenge.name }}</legend>
         <p> Crée le : {{ public_challenge.createdAt ? public_challenge.createdAt|date('d-m-Y') : '' }} </p>
-        <p>Temps nécessaire : {{ public_challenge.duration }} </p>
+        <p> Temps nécessaire : {{ public_challenge.duration }} </p>
         <p> Difficulté : {{ public_challenge.difficulty }} </p>
         <p> Description : {{ public_challenge.description }} </p>
+
+        {% for indice in indices %}
+        <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+            : {{ indice.contentHelp }}</p><br>
+        {% endfor %}
         <div class="buttonMargin">
-            <img style="width: 50%; height: auto;" src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+            <button class="btnC" onclick="myFunction()">Voir un indice</button>
         </div>
-        <form method="post" action="{{ path('public_challenge_create_pdf', {'id': public_challenge.id}) }}">
+        <div class="buttonMargin">
+            <button class="btnB" onclick="myFunction2()">Voir la correction</button>
+        </div>
+
+
+        <div class="buttonMargin">
+            <img id="correction" src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+        </div>
+        <form method="post" target="_blank" action="{{ path('public_challenge_create_pdf', {'id': public_challenge.id}) }}">
             <div class="buttonStartChallenge">
                 <button class="btnG"> PDF correction du DixFi {{ public_challenge.id }}  </button>
             </div>
         </form>
 
     </fieldset>
+    {% block javascripts %}
+        <script>
+            let compteur = 0;
 
+            function myFunction() {
+                compteur++;
+                document.getElementById("num".concat(compteur.toString())).style.display = "inline";
+            }
+
+            function myFunction2() {
+                document.getElementById("correction").style.display = "inline";
+            }
+        </script>
+    {% endblock %}
 {% endblock %}

@@ -48,7 +48,7 @@ class Challenge
     protected $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity=Help::class, mappedBy="challenge")
+     * @ORM\OneToMany(targetEntity=Help::class, mappedBy="challenge", cascade={"remove"})
      */
     protected $helps;
 

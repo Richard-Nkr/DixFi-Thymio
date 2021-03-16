@@ -3,14 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\PrivateChallenge;
-use App\Entity\StudentGroup;
-use App\Entity\ThymioChallenge;
 use App\Form\PrivateChallengeFileType;
 use App\Form\PrivateChallengeType;
-use App\Form\ThymioChallengeType;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\StudentGroupRepository;
-use App\Repository\TeacherRepository;
 use App\Service\MailerService;
 use App\Service\SecurizerRoles;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

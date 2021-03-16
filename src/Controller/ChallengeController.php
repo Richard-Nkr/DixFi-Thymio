@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Challenge;
-use App\Entity\PrivateChallenge;
 use App\Form\ChallengeType;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\PublicChallengeRepository;

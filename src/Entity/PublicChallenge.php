@@ -129,4 +129,9 @@ class PublicChallenge extends Challenge
 
         return $this;
     }
+
+    public function __toString() : String
+    {
+        return $this->name;
+    }
 }

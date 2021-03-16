@@ -2,13 +2,8 @@
 
 namespace App\Controller;
 
-
-use App\Entity\StudentGroup;
 use App\Entity\ThymioChallenge;
-use App\Entity\UserGuestStatus;
 use App\Form\ThymioChallengeType;
-use App\Form\ThymioChallengeUserGuestType;
-use App\Repository\ChildRepository;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
