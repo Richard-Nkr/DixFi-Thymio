@@ -7,7 +7,7 @@
         "php": ">=7.4.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-mongodb": "1.8.1",
+        "ext-mongodb": "1.7.4",
         "botman/botman": "^2.6",
         "botman/driver-web": "^1.5",
         "composer/package-versions-deprecated": "1.11.99.1",
