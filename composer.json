@@ -18,7 +18,7 @@
         "easycorp/easyadmin-bundle": "^3.2",
         "fzaninotto/faker": "^1.9",
         "google/apiclient": "^2.9",
-        "jenssegers/mongodb": "^3.8",
+        "jenssegers/mongodb": "dev-develop",
         "knplabs/knp-snappy-bundle": "^1.8",
         "mongodb/mongodb": "^1.8",
         "phpdocumentor/reflection-docblock": "^5.2",

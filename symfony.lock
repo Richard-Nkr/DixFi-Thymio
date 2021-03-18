@@ -150,12 +150,6 @@
     "guzzlehttp/psr7": {
         "version": "1.7.0"
     },
-    "illuminate/bus": {
-        "version": "v8.26.1"
-    },
-    "illuminate/collections": {
-        "version": "v8.26.1"
-    },
     "illuminate/container": {
         "version": "v8.26.1"
     },
@@ -166,12 +160,6 @@
         "version": "v8.26.1"
     },
     "illuminate/events": {
-        "version": "v8.26.1"
-    },
-    "illuminate/macroable": {
-        "version": "v8.26.1"
-    },
-    "illuminate/pipeline": {
         "version": "v8.26.1"
     },
     "illuminate/support": {
