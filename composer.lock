@@ -3667,7 +3667,7 @@
             "require": {
                 "ext-hash": "*",
                 "ext-json": "*",
-                "ext-mongodb": "^1.8.1",
+                "ext-mongodb": "1.8.1",
                 "jean85/pretty-package-versions": "^1.2",
                 "php": "^7.0 || ^8.0",
                 "symfony/polyfill-php80": "^1.19"
