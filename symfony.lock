@@ -234,6 +234,9 @@
     "paragonie/random_compat": {
         "version": "v9.99.100"
     },
+    "php": {
+        "version": "7.4"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
