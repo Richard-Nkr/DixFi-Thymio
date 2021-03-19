@@ -48,23 +48,30 @@
 
         {% elseif is_granted('ROLE_USER_GUEST') %}
             {% if status.statusInt==1 %}
-                <form method="post" action="{{ path('validate_user_challenge', {'id':  thymio_challenge.id}) }}"
-                      onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
-                    <button class="btnC">Valider</button>
-                </form>
+                <div class="pos_right">
+                    <form method="post" action="{{ path('validate_user_challenge', {'id':  thymio_challenge.id}) }}"
+                          onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
+                        <button class="btnG">Valider</button>
+                    </form>
+                </div>
             {% else %}
-                <button class="btnG"> Défi terminé</button>
+                <div class="pos_right">
+                    <button class="btnG2"> Défi terminé</button>
+                </div>
             {% endif %}
         {% endif %}
 
 
 
         {% if is_granted('ROLE_TEACHER') %}
-            <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}">
-                <button class="btnB2"> Voir la correction</button>
-            </a>
+            <div class="pos_right">
+                <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}">
+                    <button class="btnB2"> Voir la correction</button>
+                </a>
+            </div>
+
         {% endif %}
-        <div style="float: right; margin-right: 18%;">
+        <div class="pos_left">
             <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
                 <button type="button" style="margin-left: 4em;" class="btnB2">Retour aux défis</button>
             </a>

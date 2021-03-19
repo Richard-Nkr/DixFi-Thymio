@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 
+use App\Entity\UserGuest;
+use App\Form\UserGuestType;
 use App\Service\GestionPassword;
 use App\Service\SecurizerRoles;
 use App\Repository\UserGuestRepository;
 use App\Service\TeacherGenerator;
 use App\Service\MailerService;
+use App\Service\Validator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

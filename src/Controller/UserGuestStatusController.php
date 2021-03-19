@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Status;
 use App\Entity\ThymioChallenge;
 use App\Entity\UserGuestStatus;
-use App\Repository\StudentGroupRepository;
 use App\Repository\UserGuestRepository;
-use App\Service\HandleStatus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -37,6 +37,7 @@ class PublicChallengeController extends AbstractController
     /**
      * @Route("/{id}/addCorrection", name="public_challenge_addCorrection", methods={"GET","POST"})
      * @param Request $request
+     * @param HelpRepository $helpRepository
      * @param PublicChallengeRepository $publicChallengeRepository
      * @param int $id
      * @param PublicChallenge $publicChallenge
@@ -44,7 +45,7 @@ class PublicChallengeController extends AbstractController
      * @param NotifierInterface $notifier
      * @return Response
      */
-    public function addCorrection(Request $request, PublicChallengeRepository $publicChallengeRepository, int $id, PublicChallenge $publicChallenge, PublicChallengeCreation $publicChallengeCreation, NotifierInterface $notifier): Response
+    public function addCorrection(Request $request, HelpRepository $helpRepository, PublicChallengeRepository $publicChallengeRepository, int $id, PublicChallenge $publicChallenge, PublicChallengeCreation $publicChallengeCreation, NotifierInterface $notifier): Response
     {
         $publicChallenge = $publicChallengeRepository->findOneById($id);
         $form = $this->createForm(PublicChallengeType::class, $publicChallenge);
@@ -71,6 +72,7 @@ class PublicChallengeController extends AbstractController
             return $this->render('public_challenge/show.html.twig', [
                 'public_challenge' => $publicChallengeRepository->findOneById($id),
                 'form' => $form->createView(),
+                'indices' => $helpRepository->findByIdChallenge($id),
             ]);
         }
 
