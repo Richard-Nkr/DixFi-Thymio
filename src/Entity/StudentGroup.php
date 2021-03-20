@@ -26,11 +26,10 @@ class StudentGroup extends User
     private $teacher;
 
     /**
-     * @ORM\OneToMany(targetEntity=Child::class, mappedBy="groupChild")
+     * @ORM\OneToMany(targetEntity=Child::class, mappedBy="studentGroup", cascade={"remove"})
      */
     private $children;
 
-    private $helps;
 
     /**
      * @ORM\OneToMany(targetEntity=Status::class, mappedBy="studentGroup", cascade={"remove"})
@@ -109,29 +108,7 @@ class StudentGroup extends User
         return $this;
     }
 
-    /**
-     * @return Collection|Help[]
-     */
-    public function getHelps(): Collection
-    {
-        return $this->helps;
-    }
 
-    public function addHelp(Help $help): self
-    {
-        if (!$this->helps->contains($help)) {
-            $this->helps[] = $help;
-        }
-
-        return $this;
-    }
-
-    public function removeHelp(Help $help): self
-    {
-        $this->helps->removeElement($help);
-
-        return $this;
-    }
 
     /**
      * @return Collection|Status[]
@@ -145,7 +122,7 @@ class StudentGroup extends User
     {
         if (!$this->status->contains($status)) {
             $this->status[] = $status;
-            $status->setGroupStatus($this);
+            $status->setStudentGroup($this);
         }
 
         return $this;
@@ -155,8 +132,8 @@ class StudentGroup extends User
     {
         if ($this->status->removeElement($status)) {
             // set the owning side to null (unless already changed)
-            if ($status->getGroupStatus() === $this) {
-                $status->setGroupStatus(null);
+            if ($status->getStudentGroup() === $this) {
+                $status->setStudentGroup(null);
             }
         }
 

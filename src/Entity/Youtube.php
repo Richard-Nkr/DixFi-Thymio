@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\ThymioChallengeRepository;
+use App\Repository\YoutubeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

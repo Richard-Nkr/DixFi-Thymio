@@ -53,17 +53,13 @@ class ChildController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($child);
             $entityManager->flush();
-            $children = $childRepository->findBy(['studentGroup'=>$studentGroup]);
-            $notifier->send(new Notification("L'étudiant a bien été ajouté au groupe. Vous avez désormais ajouté ".count($children)." étudiants au groupe", ['browser']));
+            $countChildren = $childRepository->findNumberChildrenByStudentGroup($studentGroup);
+            $notifier->send(new Notification("L'étudiant a bien été ajouté au groupe. Vous avez désormais ajouté ".$countChildren." étudiant(s) au groupe", ['browser']));
 
             return $this->redirectToRoute('child_new', ['id'=>$studentGroup->getId()]);
         }
 
-        return $this->render('child/new.html.twig', [
-            'child' => $child,
-            'form' => $form->createView(),
-            'studentGroup'=>$studentGroup,
-        ]);
+        return $this->render('child/new.html.twig', ['child' => $child, 'form' => $form->createView(), 'studentGroup'=>$studentGroup,]);
     }
 
     /**

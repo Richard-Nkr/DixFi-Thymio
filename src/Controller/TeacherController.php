@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Status;
+use App\Entity\StudentGroup;
 use App\Entity\Teacher;
 use App\Form\StatusType;
+use App\Form\StudentGroupType;
 use App\Form\TeacherType;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
+use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\UpdateTeacher;
 use App\Service\ValidateChallenge;
@@ -16,6 +19,7 @@ use App\Service\Validator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,8 +36,40 @@ class TeacherController extends AbstractController
      */
     public function index(TeacherRepository $teacherRepository): Response
     {
-        return $this->render('teacher/index.html.twig', [
-            'teachers' => $teacherRepository->findAll(),
+        return $this->render('home/index.html.twig', [
+            'name' => $this->getUser()->getNickname(),
+        ]);
+    }
+
+    /**
+     * @Route("/new/student/group", name="new_student_group", methods={"GET","POST"})
+     * @param Request $request
+     * @param TeacherRepository $teacherRepository
+     * @param GestionPassword $gestionPassword
+     * @param CreateStudentGroup $createStudentGroup
+     * @return Response
+     */
+    public function newStudentGroup(Request $request, TeacherRepository $teacherRepository, GestionPassword $gestionPassword,CreateStudentGroup $createStudentGroup): Response
+    {
+        $studentGroup = new StudentGroup();
+        $form = $this->createForm(StudentGroupType::class, $studentGroup);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
+            $gestionPassword->createHashPassword($studentGroup);
+
+            $entityManager->persist($studentGroup);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('child_new', ['id'=>$studentGroup->getId()]);
+        }
+
+        return $this->render('student_group/new.html.twig', [
+            'student_group' => $studentGroup,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -50,26 +86,38 @@ class TeacherController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/show/student/group/teacher", name="show_student_group_teacher", methods={"GET"})
+     * @param StudentGroupRepository $studentgroupRepository
+     * @return Response
+     */
+    public function showStudentGroup(StudentGroupRepository $studentgroupRepository): Response
+    {
+        return $this->render('teacher/show_student_group.html.twig', [
+            'student_groups' => $studentgroupRepository->findByTeacher($this->getUser()),
+        ]);
+    }
+
     /**
      * @Route("/edit", name="teacher_edit", methods={"GET","POST"})
      * @param Request $request
      * @param UpdateTeacher $updateTeacher
+     * @param Validator $validator
      * @param TeacherRepository $teacherRepository
      * @param GestionPassword $gestionPassword
      * @param NotifierInterface $notifier
      * @return Response
      */
-    public function edit(Request $request, UpdateTeacher $updateTeacher, TeacherRepository $teacherRepository, GestionPassword $gestionPassword, NotifierInterface $notifier): Response
+    public function edit(Request $request, UpdateTeacher $updateTeacher, Validator $validator, TeacherRepository $teacherRepository, GestionPassword $gestionPassword, NotifierInterface $notifier): Response
     {
         $teacher = new Teacher();
         $form = $this->createForm(TeacherType::class, $teacher);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //Début validation des champs
-            $validator = new Validator();
-            $violations = $validator->PassWordValidator($teacher);
-            $violations->addAll($validator->FieldsValidator(($teacher)));
+
+            $violations = $validator->listViolations($teacher);
             if (0 !== count($violations)) {
                 foreach ($violations as $violation) {
                     $notifier->send(new Notification($violation->getMessage(), ['browser']));
@@ -79,7 +127,6 @@ class TeacherController extends AbstractController
                     'form' => $form->createView(),
                 ]);
             }
-            //fin
 
             $teacher2 = $teacherRepository->findOneById($this->getUser()->getId());
             $gestionPassword->createHashPassword($teacher);
@@ -192,5 +239,22 @@ class TeacherController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('teacher_index');
+    }
+
+    /**
+     * @Route("/{id}/delete/student/group", name="delete_student_group", methods={"DELETE"})
+     * @param Request $request
+     * @param StudentGroup $studentGroup
+     * @return Response
+     */
+    public function deleteStudentGroup(Request $request, StudentGroup $studentGroup): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$studentGroup->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($studentGroup);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('show_student_group_teacher');
     }
 }

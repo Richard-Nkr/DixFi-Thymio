@@ -11,6 +11,7 @@ use App\Repository\TeacherRepository;
 use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\SortChallenges;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,9 @@ class StudentGroupController extends AbstractController
     /**
      * @Route("/", name="student_group_index", methods={"GET"})
      * @param StudentGroupRepository $studentgroupRepository
-     * @param Session $session
-     * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function index(StudentGroupRepository $studentgroupRepository, Session $session, TeacherRepository $teacherRepository): Response
+    public function index(StudentGroupRepository $studentgroupRepository): Response
     {
         return $this->render('student_group/index.html.twig', [
             'student_groups' => $studentgroupRepository->findAll(),
@@ -37,39 +36,6 @@ class StudentGroupController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="student_group_new", methods={"GET","POST"})
-     * @param Request $request
-     * @param TeacherRepository $teacherRepository
-     * @param GestionPassword $gestionPassword
-     * @param CreateStudentGroup $createStudentGroup
-     * @return Response
-     */
-    public function new(Request $request, TeacherRepository $teacherRepository, GestionPassword $gestionPassword,CreateStudentGroup $createStudentGroup): Response
-    {
-        $studentGroup = new StudentGroup();
-        $form = $this->createForm(StudentGroupType::class, $studentGroup);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $createStudentGroup->create($studentGroup,$teacherRepository->findOneById($this->getUser()->getId()));
-
-            $gestionPassword->createHashPassword($studentGroup);
-
-            $entityManager->persist($studentGroup);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('child_new', ['id'=>$studentGroup->getId()]);
-        }
-
-        return $this->render('student_group/new.html.twig', [
-            'student_group' => $studentGroup,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/block/levels", name="student_group_block_levels", methods={"GET"})
@@ -95,13 +61,13 @@ class StudentGroupController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="student_group_show", methods={"GET"})
-     * @param StudentGroup $studentGroup
+     * @Route("/show", name="student_group_show", methods={"GET"})
      * @param ChildRepository $childRepository
      * @return Response
      */
-    public function show(StudentGroup $studentGroup, ChildRepository $childRepository): Response
+    public function show(ChildRepository $childRepository): Response
     {
+        $studentGroup = $this->getUser();
         $children = $childRepository->findBy(['studentGroup'=>$studentGroup]);
         return $this->render('student_group/show.html.twig', [
             'student_group' => $studentGroup,
@@ -131,6 +97,31 @@ class StudentGroupController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/create/pdf/thymio", name="create_pdf_thymio", methods={"GET","POST"})
+     * @param Pdf $knp_snappy
+     * @return Response
+     */
+    public function createPdfThymio(Pdf $knp_snappy): Response
+    {
+        $studentGroup = $this->getUser();
+        $vars= 'html to pdf';
+        $html = $this->renderView('student_group/certificate_pdf.html.twig', array(
+            'some'  => $vars,
+            'studentGroup' =>$studentGroup
+        ));
+        $response= new Response();
+
+        $response->setContent($knp_snappy->getOutputFromHtml($html,array('orientation' => 'Portrait', 'enable-local-file-access' => true, 'encoding' => 'UTF-8')));
+
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-disposition', 'filename="mon_fichier.pdf"');
+
+        return $response;
+    }
+
 
     /**
      * @Route("/{id}", name="student_group_delete", methods={"DELETE"})

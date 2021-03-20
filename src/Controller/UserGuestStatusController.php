@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Status;
 use App\Entity\ThymioChallenge;
 use App\Entity\UserGuestStatus;
-use App\Repository\StudentGroupRepository;
 use App\Repository\UserGuestRepository;
 use App\Service\HandleStatus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,16 +30,14 @@ class UserGuestStatusController extends AbstractController
      * @param UserGuestRepository $userGuestRepository
      * @return Response
      */
-    public function create(Request $request, ThymioChallenge $thymioChallenge, UserGuestRepository $userGuestRepository): Response
+    public function create(Request $request, ThymioChallenge $thymioChallenge, UserGuestRepository $userGuestRepository, HandleStatus $handleStatus): Response
     {
-        $userGuestStatus = new UserGuestStatus();
         $entityManager = $this->getDoctrine()->getManager();
-        $userGuestStatus->setChallenge($thymioChallenge);
-        $userGuestStatus->setUserGuest($userGuestRepository->findOneById($this->getUser()->getId()));
+        $userGuestStatus = $handleStatus->createStatusUserGuest(new UserGuestStatus(),$thymioChallenge,$userGuestRepository->findOneById($this->getUser()->getId()));
         $entityManager->persist($userGuestStatus);
         $entityManager->flush();
-        return $this->redirectToRoute('thymio_challenge_show', [
-            'id' => $thymioChallenge->getId()
+        return $this->redirectToRoute('thymio_challenge_show_user_guest', [
+            'id' => $thymioChallenge->getId(),
         ]);
     }
 }

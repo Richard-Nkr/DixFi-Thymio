@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Teacher;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;

@@ -7,10 +7,6 @@ namespace App\Service;
 use App\Entity\Challenge;
 use App\Entity\PublicChallenge;
 use App\Entity\Teacher;
-use App\Entity\User;
-use App\Repository\TeacherRepository;
-use App\Repository\UserRepository;
-use MongoDB\Driver\Session;
 
 class PublicChallengeCreation
 {

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,27 +29,14 @@ class ContactController extends AbstractController
      * @return RedirectResponse|Response
      * @throws TransportExceptionInterface
      */
-    public function index(Request $request, MailerInterface $mailer, NotifierInterface $notifier)
+    public function index(Request $request, MailerInterface $mailer, NotifierInterface $notifier, MailerService $mailerService)
     {
         $form = $this->createForm(ContactType::class);
-
         $form->handleRequest($request);
-
-
         if($form->isSubmitted() && $form->isValid()) {
-
             $contactFormData = $form->getData();
-
-            $message = (new Email())
-                ->from($contactFormData['email'])
-                ->to('dixfix.thymio@gmail.com')
-                ->subject('Vous avez reçu un mail du formulaire de contact')
-                ->text('Mail de : '.$contactFormData['email'].\PHP_EOL.
-                    $contactFormData['message'],
-                    'text/plain');
-            $mailer->send($message);
+            $mailerService->sendMessage($contactFormData['email'],$contactFormData['message'],$mailer);
             $notifier->send(new Notification("Votre message a été envoyé!", ['browser']));
-
             return $this->redirectToRoute('contact_index');
         }
 

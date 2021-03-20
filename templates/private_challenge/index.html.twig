@@ -7,21 +7,27 @@
     <fieldset class="showChallenge">
         <legend> Les défis de votre professeur </legend>
         <div class="challenge_container">
-            {% for private_challenge in private_challenges %}
+            {% for privateChallenge in privateChallenges %}
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title"> Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</h4> <hr>
-                        <h5 class="card-text"> Difficulté : {{ private_challenge.difficulty }}</h5>
-                        <h5 class="card-text">Crée le : {{ private_challenge.createdAt ? private_challenge.createdAt|date('d-m-Y') : '' }}</h5>
-                        <h5 class="card-text">Durée : {{ private_challenge.duration }} </h5>
+                        <h4 class="card-title"> Défi n°{{ privateChallenge.id }} : {{ privateChallenge.name }}</h4> <hr>
+                        <h5 class="card-text"> Difficulté : {{ privateChallenge.difficulty }}</h5>
+                        <h5 class="card-text">Crée le : {{ privateChallenge.createdAt ? privateChallenge.createdAt|date('d-m-Y') : '' }}</h5>
+                        <h5 class="card-text">Durée : {{ privateChallenge.duration }} </h5>
                     </div>
                     <div class="buttonStartChallenge">
-                        <a href="{{ path('private_challenge_show', {'id': private_challenge.id}) }}"> <button class="btnG"> Voir le défi </button> </a>
+                        <a href="{{ path('private_challenge_show', {'id': privateChallenge.id}) }}"> <button class="btnG"> Voir le défi </button> </a>
                     </div>
                     <br>
                 </div>
             {% else %}
-                <p> Aucun défi n'a été crée par votre professeur.</p>
+                <div style="text-align: center; margin-left: 20% ; margin-right: 20%">
+                   <img style="width: 40%; margin-bottom: 6%;" src="{{ asset('images/professeur.png') }}"
+                              alt="Professeur_Thymio">
+                    <p> Aucun défi n'a été crée par votre professeur.</p>
+                    <br>
+                </div>
+
             {% endfor %}
         </div>
     </fieldset>

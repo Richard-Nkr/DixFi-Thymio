@@ -11,15 +11,15 @@
 <body class="bodyPDF">
 <div>
     <fieldset class="descriptionThymio">
-        Solution du défi n°{{ public_challenge.id }} : {{ public_challenge.name }}
+        Solution du défi n°{{ publicChallenge.id }} : {{ publicChallenge.name }}
     </fieldset>
     <fieldset class="objectifPDF">
-        <p class="solutionPDF">Objectif du défi : {{ public_challenge.description }} </p>
+        <p class="solutionPDF">Objectif du défi : {{ publicChallenge.description }} </p>
     </fieldset>
     <br>
-    <p> Challenge rédigé par : {{ public_challenge.teacher.name }} {{ public_challenge.teacher.firstname }} ({{ public_challenge.createdAt|date('Y-m-d') }})</p>
+    <p> Challenge rédigé par : {{ publicChallenge.teacher.name }} {{ publicChallenge.teacher.firstname }} ({{ publicChallenge.createdAt|date('Y-m-d') }})</p>
     <fieldset class="solutionThymioPDF">
-        <img class="imageSolutionPDF" src="{{ absolute_url(asset(public_challenge.solutionPath)) }}" alt="SolutionDixFi">
+        <img class="imageSolutionPDF" src="{{ absolute_url(asset(publicChallenge.solutionPath)) }}" alt="SolutionDixFi">
     </fieldset>
 </div>
 </body>

@@ -19,7 +19,6 @@ class AboutUsController extends AbstractController
      */
     public function information(Session $session): Response
     {
-
         return $this->render('about_us/information.html.twig');
     }
 }

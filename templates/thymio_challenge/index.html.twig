@@ -6,6 +6,19 @@
 
 <fieldset class="showChallenge">
     <legend> Les DixFi de Thymio </legend>
+        {% if is_granted('ROLE_STUDENT_GROUP') or is_granted('ROLE_USER_GUEST') %}
+        {% if app.user.countSucceed == 0 %}
+            <h3> N'hésitez plus à vous lancer dans les DixFi, {{ app.user.nickName }} ! Thymio vous attend !</h3>
+        {% elseif app.user.countSucceed < 5 %}
+            <h3> Bien joué, {{ app.user.nickName }} ! Vous avez une progression de {{ app.user.countSucceed*10}}%. Ne vous arrêtez pas dans votre lancée.</h3>
+        {% elseif app.user.countSucceed < 8 %}
+            <h3> Wooow, {{ app.user.nickName }} ! Vous avez une progression de {{ app.user.countSucceed*10}}%. Continuez comme ça !</h3>
+        {% elseif app.user.countSucceed < 10 %}
+            <h3> Vous me surprenez, {{ app.user.nickName }} ! Vous avez une progression de {{ app.user.countSucceed*10}}%. Vous y êtes presque, ne lachez rien !</h3>
+        {% elseif app.user.countSucceed == 10 %}
+            <h3> Bravo, {{ app.user.nickName }} ! Vous avez une progression de {{ app.user.countSucceed*10}}% ! Thymio vous remercie de l'avoir accompagné jusqu'au bout.</h3>
+        {% endif %}
+        {% endif %}
     <div class="challenge_container">
     {% for thymio_challenge in thymio_challenges %}
         <div class="card">

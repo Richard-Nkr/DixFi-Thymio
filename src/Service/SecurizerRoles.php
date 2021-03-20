@@ -2,7 +2,7 @@
 namespace App\Service;
 
 use App\Entity\Challenge;
-use App\Entity\User;//l'entité user de notre aplication
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 

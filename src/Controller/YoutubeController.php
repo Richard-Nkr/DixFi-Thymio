@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\YoutubeType;
 use App\Entity\Youtube;
+use App\Service\YoutubeDeveloperKeyGenerator;
 use Google_Client;
 use Google_Service_YouTube;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,12 +21,14 @@ class YoutubeController extends AbstractController
     /**
      * @Route("/", name="youtube_index", methods={"GET", "POST"})
      * @param Request $request
+     * @param Google_Client $client
+     * @param YoutubeDeveloperKeyGenerator $youtubeDeveloperKeyGenerator
+     * @param Youtube $yt
      * @return Response
      */
-    public function show(Request $request): Response
+    public function show(Request $request, Google_Client $client, YoutubeDeveloperKeyGenerator $youtubeDeveloperKeyGenerator): Response
     {
-        $client = new Google_Client();
-        $key = (new \App\Service\YoutubeDeveloperKeyGenerator)->DeveloperKeyGenerator();
+        $key = $youtubeDeveloperKeyGenerator->DeveloperKeyGenerator();
         $client->setDeveloperKey($key);
         $youtube = new Google_Service_YouTube($client);
         $yt = new Youtube();

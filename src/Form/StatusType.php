@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Status;
-use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

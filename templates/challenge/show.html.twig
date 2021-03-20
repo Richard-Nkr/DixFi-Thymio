@@ -3,32 +3,59 @@
 {% block title %}Challenge{% endblock %}
 
 {% block body %}
-    <h1>Challenge</h1>
+    {% for message in app.flashes('notification') %}
+        <div class="alert alert-info alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
 
-    <table class="form_table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ challenge.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ challenge.name }}</td>
-            </tr>
-            <tr>
-                <th>Difficulty</th>
-                <td>{{ challenge.difficulty }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ challenge.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <fieldset class="showChallenge">
 
-    <a href="{{ path('challenge_index') }}">back to list</a>
+        <legend>Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</legend>
+        <p> Crée le : {{ private_challenge.createdAt ? private_challenge.createdAt|date('d-m-Y') : '' }} </p>
+        <p> Temps nécessaire : {{ private_challenge.duration }} </p>
+        <p> Difficulté : {{ private_challenge.difficulty }} </p>
+        <p> Description : {{ private_challenge.description }} </p>
 
-    <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">edit</a>
+        {% for indice in indices %}
+            <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+                : {{ indice.contentHelp }}</p><br>
+        {% endfor %}
+        <div class="buttonMargin">
+            <button class="btnC" onclick="myFunction()">Voir un indice</button>
+        </div>
+        <div class="buttonMargin">
+            <button class="btnB" onclick="myFunction2()" id="button_js">Voir la correction</button>
+        </div>
 
-    {{ include('challenge/_delete_form.html.twig') }}
+
+        <div class="buttonMargin">
+            <img id="correction" src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+        </div>
+        <form method="post" target="_blank" action="{{ path('public_challenge_create_pdf', {'id': public_challenge.id}) }}">
+            <div class="buttonStartChallenge">
+                <button class="btnG"> PDF correction du DixFi {{ public_challenge.id }}  </button>
+            </div>
+        </form>
+
+    </fieldset>
+    {% block javascripts %}
+        <script>
+            let compteur = 0;
+            function myFunction() {
+                compteur++;
+                document.getElementById("num".concat(compteur.toString())).style.display = "inline";
+            }
+            function myFunction2() {
+                if(document.getElementById("correction").style.display === "inline"){
+                    document.getElementById("correction").style.display = "none";
+                    document.getElementById("button_js").textContent = "Voir la correction";
+                }else{
+                    document.getElementById("correction").style.display = "inline";
+                    document.getElementById("button_js").textContent = "Cacher la correction";
+                }
+            }
+        </script>
+    {% endblock %}
 {% endblock %}

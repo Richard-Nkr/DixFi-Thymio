@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ChildrenRepository;
+use App\Repository\ChildRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ChildrenRepository::class)
+ * @ORM\Entity(repositoryClass=ChildRepository::class)
  */
 class Child
 {
@@ -28,7 +28,7 @@ class Child
     private $firstNameChild;
 
     /**
-     * @ORM\ManyToOne(targetEntity=StudentGroup::class, inversedBy="children")
+     * @ORM\ManyToOne(targetEntity=StudentGroup::class, inversedBy="children", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $studentGroup;

@@ -8,7 +8,6 @@ namespace App\Controller;
 use App\Service\BotConversation;
 use App\Service\BotSaveConversation;
 use BotMan\BotMan\Cache\SymfonyCache;
-use BotMan\BotMan\Messages\Incoming\Answer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,14 +30,10 @@ class BotController extends AbstractController{
     {
         DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
 
-        // Configuration for the BotMan WebDriver
         $config = [];
 
         $adapter = new FilesystemAdapter();
-        // Create BotMan instance
         $botman = BotManFactory::create($config, new SymfonyCache($adapter));
-
-        // Give the bot some things to listen for.
         $botman->hears('(Bonjour|Coucou|Salut)', function (BotMan $bot) {
             $bot->startConversation(new BotConversation);
         });
@@ -47,12 +42,10 @@ class BotController extends AbstractController{
             $bot->reply("A bientôt, je te souhaite une belle journée et amuses-toi bien sur le site !");
         });
 
-        // Set a fallback
         $botman->fallback(function (BotMan $bot) {
             $bot->startConversation(new BotSaveConversation);
         });
 
-        // Start listening
         $botman->listen();
 
         return new Response();

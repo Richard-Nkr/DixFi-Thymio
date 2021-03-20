@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Défi public n° {{ public_challenge.id }}{% endblock %}
+{% block title %}Défi public n° {{ publicChallenge.id }}{% endblock %}
 
 {% block body %}
 
@@ -14,11 +14,11 @@
 
     <fieldset class="showChallenge">
 
-        <legend>Défi n°{{ public_challenge.id }} : {{ public_challenge.name }}</legend>
-        <p> Crée le : {{ public_challenge.createdAt ? public_challenge.createdAt|date('d-m-Y') : '' }} </p>
-        <p> Temps nécessaire : {{ public_challenge.duration }} </p>
-        <p> Difficulté : {{ public_challenge.difficulty }} </p>
-        <p> Description : {{ public_challenge.description }} </p>
+        <legend>Défi n°{{ publicChallenge.id }} : {{ publicChallenge.name }}</legend>
+        <p> Crée le : {{ publicChallenge.createdAt ? publicChallenge.createdAt|date('d-m-Y') : '' }} </p>
+        <p> Temps nécessaire : {{ publicChallenge.duration }} </p>
+        <p> Difficulté : {{ publicChallenge.difficulty }} </p>
+        <p> Description : {{ publicChallenge.description }} </p>
 
         {% for indice in indices %}
         <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
@@ -27,19 +27,22 @@
         <div class="buttonMargin">
             <button class="btnC" onclick="myFunction()">Voir un indice</button>
         </div>
+        {%  if publicChallenge.nameCorrection != null %}
         <div class="buttonMargin">
-            <button class="btnB" onclick="myFunction2()">Voir la correction</button>
+            <button class="btnB" onclick="myFunction2()" id="button_js">Voir la correction</button>
         </div>
 
 
         <div class="buttonMargin">
-            <img id="correction" src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
+            <img id="correction" src="{{ vich_uploader_asset(publicChallenge, 'fileCorrection') }}">
         </div>
-        <form method="post" target="_blank" action="{{ path('public_challenge_create_pdf', {'id': public_challenge.id}) }}">
+        <form method="post" target="_blank" action="{{ path('public_challenge_create_pdf', {'id': publicChallenge.id}) }}">
             <div class="buttonStartChallenge">
-                <button class="btnG"> PDF correction du DixFi {{ public_challenge.id }}  </button>
+                <button class="btnG"> PDF correction du DixFi {{ publicChallenge.id }}  </button>
             </div>
         </form>
+
+        {% endif %}
 
     </fieldset>
     {% block javascripts %}
@@ -52,7 +55,14 @@
             }
 
             function myFunction2() {
-                document.getElementById("correction").style.display = "inline";
+                if(document.getElementById("correction").style.display === "inline"){
+                    document.getElementById("correction").style.display = "none";
+                    document.getElementById("button_js").textContent = "Voir la correction";
+                }else{
+                    document.getElementById("correction").style.display = "inline";
+                    document.getElementById("button_js").textContent = "Cacher la correction";
+                }
+
             }
         </script>
     {% endblock %}

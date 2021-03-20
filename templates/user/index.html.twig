@@ -16,7 +16,7 @@
                 </div>
                 <br>
                 <div class="buttonMargin">
-                    <a href="{{ path('student_group_new') }}">
+                    <a href="{{ path('new_student_group') }}">
                         <button class="btnB2" value="Create groups"> Créer un groupe</button>
                     </a>
                 </div>
@@ -27,6 +27,14 @@
                         <button class="btnG" value="See profil"> Voir le profil de mon groupe</button>
                     </a>
                 </div>
+
+                {% if app.user.countSucceed == 10 %}
+                    <div class="buttonMargin">
+                        <a  target="_blank" href="{{ path('create_pdf_thymio') }}">
+                            <button class="btnG" value="See profil"> Générer notre certificat Thymio </button>
+                        </a>
+                    </div>
+                {% endif %}
 
             {% else %}
                 <div class="buttonMargin">
@@ -45,6 +53,7 @@
         {% else %}
             <div class="buttonMargin">
                 <h1 class="h1title">Bienvenue sur la page de connexion </h1>
+                <hr class="helpHr">
             </div><br>
                 <div class="buttonMargin">
                     <a href="{{ path('app_login') }}">

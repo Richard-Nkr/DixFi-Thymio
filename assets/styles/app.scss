@@ -323,20 +323,39 @@ $bg_green: #60f367;
   }
 }
 
+@mixin myButton3($color,$bg) {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 2px;
+  position: relative;
+  background-color: $color;
+  border: none;
+  color: #fff;
+  padding: 20px;
+  width: 250px;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #193047;
+  border-radius: 4px;
+}
+
 .btnR {
   @include myButton($red, $bg_red);
 }
-
 .btnR2 {
   @include myButton2($red, $bg_red);
 }
-
 .btnO {
   @include myButton($orange, $bg_orange);
 }
 
 .btnG {
   @include myButton($green, $bg_green);
+}
+
+.btnG2 {
+  @include myButton3($green, $bg_green);
 }
 
 .btnC {

@@ -2,13 +2,10 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Validator\Constraints\File;
 use Twig\Environment;
-use App\Entity\UserGuest;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class MailerService
@@ -57,6 +54,13 @@ class MailerService
 
     }
 
+    /**
+     * @param string $groupName
+     * @param string $to
+     * @param string $numDefi
+     * @param String $filePath
+     * @throws TransportExceptionInterface
+     */
     public function sendFile(string $groupName, string $to, string $numDefi, String $filePath): void
     {
         try {
@@ -72,6 +76,17 @@ class MailerService
             print $e->getMessage()."\n";
             throw $e;
         }
+    }
+
+    public function sendMessage(String $mail, String $message, MailerInterface $mailer){
+        $message = (new Email())
+            ->from($mail)
+            ->to('dixfix.thymio@gmail.com')
+            ->subject('Vous avez reçu un mail du formulaire de contact')
+            ->text('Mail de : '.$mail.\PHP_EOL.
+                $message,
+                'text/plain');
+        $mailer->send($message);
     }
 
 

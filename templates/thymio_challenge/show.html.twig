@@ -15,7 +15,7 @@
     <fieldset class="showChallenge">
 
         <div class="buttonMargin">
-            <iframe width="420" height="400" src="{{ thymio_challenge.file }}" alt="SolutionDixFi"
+            <iframe width="420" height="400" src="{{ thymio_challenge.pathVideo }}" alt="SolutionDixFi"
                     allowfullscreen></iframe>
         </div>
 
@@ -33,27 +33,29 @@
         {% if is_granted('ROLE_STUDENT_GROUP') %}
             {% if status.statusInt==2 %}
 
-                <div class="form-group">
-                    <input type="label" value="Envoyé" placeholder="Envoyé" readonly class="btn btn-success"/>
+                <div class="pos_left">
+                    <button class="btnG2"> Envoyé </button>
                 </div>
             {% elseif status.statusInt==3 %}
-                <div class="form-group">
-                    <input type="submit" value="Validé" placeholder="Validé" readonly class="btn btn-success"/>
+                <div class="pos_left">
+                    <button class="btnG2"> Validé </button>
                 </div>
             {% else %}
-                <div class="col-sm-4" style="margin:0 auto;">
                     {{ include('thymio_challenge/_add_file_form.html.twig') }}
-                </div>
             {% endif %}
 
         {% elseif is_granted('ROLE_USER_GUEST') %}
             {% if status.statusInt==1 %}
-                <form method="post" action="{{ path('validate_user_challenge', {'id':  thymio_challenge.id}) }}"
-                      onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
-                    <button class="btnC">Valider</button>
-                </form>
+                <div class="pos_right">
+                    <form method="post" action="{{ path('validate_user_challenge', {'id':  thymio_challenge.id}) }}"
+                          onsubmit="return confirm('Etes-vous certain de vouloir valider ce défi?');">
+                        <button class="btnG">Valider</button>
+                    </form>
+                </div>
             {% else %}
-                <button class="btnG"> Défi terminé</button>
+                <div class="pos_right">
+                    <button class="btnG2"> Défi terminé </button>
+                </div>
             {% endif %}
         {% endif %}
 
