@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Challenge{% endblock %}
+{% block title %}Défi public n° {{ private_challenge.id }}{% endblock %}
 
 {% block body %}
+
 
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
@@ -20,26 +21,12 @@
         <p> Description : {{ private_challenge.description }} </p>
 
         {% for indice in indices %}
-            <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
-                : {{ indice.contentHelp }}</p><br>
+        <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+            : {{ indice.contentHelp }}</p><br>
         {% endfor %}
         <div class="buttonMargin">
             <button class="btnC" onclick="myFunction()">Voir un indice</button>
         </div>
-        <div class="buttonMargin">
-            <button class="btnB" onclick="myFunction2()" id="button_js">Voir la correction</button>
-        </div>
-
-
-        <div class="buttonMargin">
-            <img id="correction" src="{{ vich_uploader_asset(public_challenge, 'fileCorrection') }}">
-        </div>
-        <form method="post" target="_blank" action="{{ path('public_challenge_create_pdf', {'id': public_challenge.id}) }}">
-            <div class="buttonStartChallenge">
-                <button class="btnG"> PDF correction du DixFi {{ public_challenge.id }}  </button>
-            </div>
-        </form>
-
     </fieldset>
     {% block javascripts %}
         <script>

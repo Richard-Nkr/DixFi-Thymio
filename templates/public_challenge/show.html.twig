@@ -28,7 +28,7 @@
             <button class="btnC" onclick="myFunction()">Voir un indice</button>
         </div>
         <div class="buttonMargin">
-            <button class="btnB" onclick="myFunction2()">Voir la correction</button>
+            <button class="btnB" onclick="myFunction2()" id="button_js">Voir la correction</button>
         </div>
 
 
@@ -52,7 +52,14 @@
             }
 
             function myFunction2() {
-                document.getElementById("correction").style.display = "inline";
+                if(document.getElementById("correction").style.display === "inline"){
+                    document.getElementById("correction").style.display = "none";
+                    document.getElementById("button_js").textContent = "Voir la correction";
+                }else{
+                    document.getElementById("correction").style.display = "inline";
+                    document.getElementById("button_js").textContent = "Cacher la correction";
+                }
+
             }
         </script>
     {% endblock %}
