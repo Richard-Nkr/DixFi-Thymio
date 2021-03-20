@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Challenge;
 use App\Entity\PublicChallenge;
+use App\Form\ChallengeUpdateType;
 use App\Form\PublicChallengeType;
 use App\Repository\HelpRepository;
 use App\Repository\PublicChallengeRepository;
@@ -30,13 +32,44 @@ class PublicChallengeController extends AbstractController
     public function index(PublicChallengeRepository $publicChallengeRepository): Response
     {
         return $this->render('public_challenge/index.html.twig', [
-            'public_challenges' => $publicChallengeRepository->findAll(),
+            'publicChallenges' => $publicChallengeRepository->findAll(),
+        ]);
+    }
+
+
+
+    /**
+     * @Route("/{id}/edit", name="public_challenge_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Challenge $challenge
+     * @param int $id
+     * @return Response
+     */
+    public function edit(Request $request, PublicChallenge $publicChallenge, int $id): Response
+    {
+        $form = $this->createForm(ChallengeUpdateType::class, $publicChallenge);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $publicChallenge->setUpdatedAt(new \DateTime());
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('public_challenge_show',[
+                'id' => $id,
+                'challenge' => $publicChallenge,
+            ]);
+        }
+
+        return $this->render('public_challenge/edit.html.twig', [
+            'challenge' => $publicChallenge,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/{id}/addCorrection", name="public_challenge_addCorrection", methods={"GET","POST"})
      * @param Request $request
+     * @param HelpRepository $helpRepository
      * @param PublicChallengeRepository $publicChallengeRepository
      * @param int $id
      * @param PublicChallenge $publicChallenge
@@ -44,7 +77,7 @@ class PublicChallengeController extends AbstractController
      * @param NotifierInterface $notifier
      * @return Response
      */
-    public function addCorrection(Request $request, PublicChallengeRepository $publicChallengeRepository, int $id, PublicChallenge $publicChallenge, PublicChallengeCreation $publicChallengeCreation, NotifierInterface $notifier): Response
+    public function addCorrection(Request $request, HelpRepository $helpRepository, PublicChallengeRepository $publicChallengeRepository, int $id, PublicChallenge $publicChallenge, PublicChallengeCreation $publicChallengeCreation, NotifierInterface $notifier): Response
     {
         $publicChallenge = $publicChallengeRepository->findOneById($id);
         $form = $this->createForm(PublicChallengeType::class, $publicChallenge);
@@ -57,7 +90,7 @@ class PublicChallengeController extends AbstractController
             if(!($verifExtension)){
                 $notifier->send(new Notification("Le fichier doit etre un fichier jpg/jpeg/png", ['browser']));
                 return $this->render('public_challenge/add_correction.html.twig', [
-                    'public_challenge' => $publicChallengeCreation,
+                    'publicChallenge' => $publicChallengeCreation,
                     'form' => $form->createView(),
                 ]);
             }
@@ -69,13 +102,14 @@ class PublicChallengeController extends AbstractController
             $entityManager->flush();
 
             return $this->render('public_challenge/show.html.twig', [
-                'public_challenge' => $publicChallengeRepository->findOneById($id),
+                'publicChallenge' => $publicChallengeRepository->findOneById($id),
                 'form' => $form->createView(),
+                'indices' => $helpRepository->findByIdChallenge($id),
             ]);
         }
 
         return $this->render('public_challenge/add_correction.html.twig', [
-            'public_challenges' => $publicChallengeRepository->findOneById($id),
+            'publicChallenges' => $publicChallengeRepository->findOneById($id),
             'form' => $form->createView(),
         ]);
     }
@@ -95,7 +129,7 @@ class PublicChallengeController extends AbstractController
         $vars= 'html to pdf';
         $html = $this->renderView('public_challenge/correction_pdf.html.twig', array(
             'some'  => $vars,
-            'public_challenge' =>$publicChallenge
+            'publicChallenge' =>$publicChallenge
         ));
         $response= new Response();
 
@@ -117,7 +151,7 @@ class PublicChallengeController extends AbstractController
     public function show(PublicChallengeRepository $publicChallengeRepository, int $id, HelpRepository $helpRepository): Response
     {
         return $this->render('public_challenge/show.html.twig', [
-            'public_challenge' => $publicChallengeRepository->findOneById($id),
+            'publicChallenge' => $publicChallengeRepository->findOneById($id),
             'indices' => $helpRepository->findByIdChallenge($id),
         ]);
     }

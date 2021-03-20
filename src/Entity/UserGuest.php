@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserGuestRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="`user_guest`")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
@@ -31,6 +32,12 @@ class UserGuest extends User
     private $mail;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $countSucceed;
+
+
+    /**
      * @ORM\Column(type="string", length=30)
      */
     protected $name;
@@ -44,6 +51,14 @@ class UserGuest extends User
      * @ORM\OneToMany(targetEntity=UserGuestStatus::class, mappedBy="userGuest")
      */
     private $Challenge;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCountSucceedValue(): void
+    {
+        $this->countSucceed = 0;
+    }
 
     public function __construct()
     {
@@ -70,6 +85,18 @@ class UserGuest extends User
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCountSucceed(): ?int
+    {
+        return $this->countSucceed;
+    }
+
+    public function setCountSucceed(int $countSucceed): self
+    {
+        $this->countSucceed = $countSucceed;
 
         return $this;
     }
@@ -107,7 +134,6 @@ class UserGuest extends User
     public function removeChallenge(UserGuestStatus $challenge): self
     {
         if ($this->Challenge->removeElement($challenge)) {
-            // set the owning side to null (unless already changed)
             if ($challenge->getUserGuest() === $this) {
                 $challenge->setUserGuest(null);
             }

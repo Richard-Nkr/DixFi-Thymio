@@ -46,11 +46,6 @@ class PublicChallenge extends Challenge
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $deletedAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
     private $updatedAt;
 
     public function getNameCorrection(): ?string
@@ -106,17 +101,6 @@ class PublicChallenge extends Challenge
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {

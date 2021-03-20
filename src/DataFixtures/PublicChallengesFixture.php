@@ -5,8 +5,6 @@ namespace App\DataFixtures;
 
 
 use App\Entity\PublicChallenge;
-use App\Entity\Status;
-use App\Entity\ThymioChallenge;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

@@ -2,12 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\ThymioChallenge;
+
 use App\Entity\UserGuestStatus;
-use App\Service\HandleStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @method UserGuestStatus|null find($id, $lockMode = null, $lockVersion = null)
@@ -33,32 +31,4 @@ class UserGuestStatusRepository extends ServiceEntityRepository
             ;
     }
 
-    // /**
-    //  * @return UserGuestStatus[] Returns an array of UserGuestStatus objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UserGuestStatus
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

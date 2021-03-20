@@ -42,7 +42,8 @@ class PrivateChallenge extends Challenge
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $deletedAt;
+    private $updatedAt;
+
 
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -69,14 +70,14 @@ class PrivateChallenge extends Challenge
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->deletedAt;
+        return $this->updatedAt;
     }
 
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->deletedAt = $deletedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

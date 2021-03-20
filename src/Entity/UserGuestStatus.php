@@ -24,16 +24,6 @@ class UserGuestStatus
     private $statusInt;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $countHelp;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $needHelp;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $startedAt;
@@ -73,24 +63,6 @@ class UserGuestStatus
         $this->statusInt = 1;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function setNeedHelpValue(): void
-    {
-        $this->needHelp = false;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCountHelpValue(): void
-    {
-        $this->countHelp = 0;
-    }
-
-
-
 
     public function getId(): ?int
     {
@@ -116,29 +88,7 @@ class UserGuestStatus
         return $this;
     }
 
-    public function getCountHelp(): ?int
-    {
-        return $this->countHelp;
-    }
 
-    public function setCountHelp(?int $countHelp): self
-    {
-        $this->countHelp = $countHelp;
-
-        return $this;
-    }
-
-    public function getNeedHelp(): ?bool
-    {
-        return $this->needHelp;
-    }
-
-    public function setNeedHelp(?bool $needHelp): self
-    {
-        $this->needHelp = $needHelp;
-
-        return $this;
-    }
 
     public function getStartedAt(): ?\DateTimeInterface
     {

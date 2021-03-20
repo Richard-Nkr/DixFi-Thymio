@@ -24,11 +24,6 @@ class Teacher extends UserGuest
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="teacher")
-     */
-    private $comments;
-
-    /**
      * @ORM\OneToMany(targetEntity=StudentGroup::class, mappedBy="teacher", cascade={"remove"})
      */
     private $groups;
@@ -51,42 +46,11 @@ class Teacher extends UserGuest
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->groups = new ArrayCollection();
         $this->privateChallenges = new ArrayCollection();
         $this->publicChallenges = new ArrayCollection();
     }
 
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setTeacher($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getTeacher() === $this) {
-                $comment->setTeacher(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|StudentGroup[]

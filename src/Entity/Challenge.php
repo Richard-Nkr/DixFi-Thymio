@@ -268,7 +268,6 @@ class Challenge
     public function removeUserGuestStatus(UserGuestStatus $userGuestStatus): self
     {
         if ($this->userGuestStatus->removeElement($userGuestStatus)) {
-            // set the owning side to null (unless already changed)
             if ($userGuestStatus->getChallenge() === $this) {
                 $userGuestStatus->setChallenge(null);
             }

@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Challenge;
 use App\Form\ChallengeType;
+use App\Form\ChallengeUpdateType;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Repository\TeacherRepository;
 use App\Service\CreatePrivateChallenge;
 use App\Service\PublicChallengeCreation;
 use App\Repository\ChallengeRepository;
-use App\Service\SecurizerRoles;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -102,32 +101,6 @@ class ChallengeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="challenge_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param Challenge $challenge
-     * @param int $id
-     * @return Response
-     */
-    public function edit(Request $request, Challenge $challenge, int $id): Response
-    {
-        $form = $this->createForm(ChallengeType::class, $challenge);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('public_challenge_show',[
-                'id' => $id,
-                'challenge' => $challenge,
-            ]);
-        }
-
-        return $this->render('challenge/edit.html.twig', [
-            'challenge' => $challenge,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="challenge_delete", methods={"DELETE"})
@@ -143,6 +116,6 @@ class ChallengeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('challenge_index');
+        return $this->redirectToRoute('challenge_showMyChallenge');
     }
 }

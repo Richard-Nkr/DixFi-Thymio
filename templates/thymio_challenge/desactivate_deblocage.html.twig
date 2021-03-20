@@ -1,34 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Desactivation du déblocage de niveaux {% endblock %}
+{% block title %} Désactivation du déblocage de niveaux {% endblock %}
 
 {% block body %}
     <fieldset class="showChallenge">
-        <legend>Desactiver le déblocage de niveaux</legend>
-        <div class="challenge_container">
-            <div class="card">
+        <legend>Désactiver le déblocage de niveaux</legend>
+        <div class="deblocage_container">
+            <div class="card_deblocage">
                 <div class="card-body">
                     <h4 class="card-title"> Attention ! Le déblocage est momentanément activé</h4>
                     <table>
                         <tr>
-                            <td> <p> Desactiver le déblocage de niveaux signifie que vos groupes étudiant auront accès aux défis d'un niveau Z sans avoir nécessairement validé tous les défis des niveaux inférieurs X et Y </p>
-                                <p> Avoir recours à cette desactivation réduira le contrôle que vous aurez sur le travail de vos groupes en ne supervisant plus leur accès aux défis </p>
-                                <p> Exemple : Soit A un de vos groupes étudiants. Si A n'a pas validez l'ensemble des DixFi Easy, alors cela n'empêchera pas A de pouvoir commencer les DixFi Medium, ou encore les DixFi Hard, ou même le DixFi final Extreme</p>
+                            <td><p> Désactiver le déblocage de niveaux signifie que vos groupes étudiant auront accès
+                                    aux défis d'un niveau Z sans avoir nécessairement validé tous les défis des niveaux
+                                    inférieurs X et Y </p>
+                                <p> Avoir recours à cette désactivation réduira le contrôle que vous aurez sur le
+                                    travail de vos groupes en ne supervisant plus leur accès aux défis </p>
+                                <p> Exemple : Soit A un de vos groupes étudiants. Si A n'a pas validez l'ensemble des
+                                    DixFi Easy, alors cela n'empêchera pas A de pouvoir commencer les DixFi Medium, ou
+                                    encore les DixFi Hard, ou même le DixFi final Extreme</p>
                             </td>
 
-                        <tr>
-                            <td colspan="2">
 
-                                <form method="post" action="{{ path('thymio_challenge_activate_deblocage') }}" onsubmit="return confirm('Etes-vous sur de vouloir desactiver le déblocage de niveaux ?');">
-
-                                    <button class="btn btn-danger" name="activate">Desactiver</button>
-                                </form>
-
-                            </td>
-                        </tr>
                     </table>
                 </div>
             </div>
+        </div>
+        <div align="center">
+            <form method="post" action="{{ path('thymio_challenge_desactivate_deblocage') }}"
+                  onsubmit="return confirm('Etes-vous sur de vouloir desactiver le déblocage de niveaux ?');">
+
+                <button class="btnR" name="activate">Désactiver</button>
+            </form>
         </div>
     </fieldset>
 

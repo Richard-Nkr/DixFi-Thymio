@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\StudentGroup;
 use App\Entity\Teacher;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -46,16 +45,5 @@ class StudentGroupRepository extends ServiceEntityRepository
             ;
     }
 
-    /*
-    public function findOneBySomeField($value): ?Group
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
 }

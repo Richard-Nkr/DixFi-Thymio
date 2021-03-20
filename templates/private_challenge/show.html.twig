@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Défi privée n° {{ private_challenge.id }}{% endblock %}
+{% block title %}Défi privée n° {{ privateChallenge.id }}{% endblock %}
 
 {% block body %}
 
@@ -14,11 +14,11 @@
 
     <fieldset class="showChallenge">
 
-        <legend>Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</legend>
-        <p> Crée le : {{ private_challenge.createdAt ? private_challenge.createdAt|date('d-m-Y') : '' }} </p>
-        <p>Temps nécessaire : {{ private_challenge.duration }} </p>
-        <p> Difficulté : {{ private_challenge.difficulty }} </p>
-        <p> Description : {{ private_challenge.description }} </p>
+        <legend>Défi n°{{ privateChallenge.id }} : {{ privateChallenge.name }}</legend>
+        <p> Crée le : {{ privateChallenge.createdAt ? privateChallenge.createdAt|date('d-m-Y') : '' }} </p>
+        <p>Temps nécessaire : {{ privateChallenge.duration }} </p>
+        <p> Difficulté : {{ privateChallenge.difficulty }} </p>
+        <p> Description : {{ privateChallenge.description }} </p>
 
     </fieldset>
     <div>

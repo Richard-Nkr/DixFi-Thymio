@@ -1,13 +1,13 @@
 {% if userGuestStatus != null %}
-    {% if userGuestStatus.statusInt==2 %}
+    {% if userGuestStatus.statusInt==1 %}
         <div class="buttonStartChallenge">
-            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
+            <a href="{{ path('thymio_challenge_show_user_guest', {'id': thymio_challenge.id}) }}">
                 <button class="btnG"> Continuer le défi</button>
             </a>
         </div>
     {% else %}
         <div class="buttonStartChallenge">
-            <a href="{{ path('thymio_challenge_show', {'id': thymio_challenge.id}) }}">
+            <a href="{{ path('thymio_challenge_show_user_guest', {'id': thymio_challenge.id}) }}">
                 <button class="btnG"> Bravo ! Vous avez validé le défi</button>
             </a>
         </div>

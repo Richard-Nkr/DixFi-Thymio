@@ -3,12 +3,25 @@
 namespace App\Controller;
 
 
+use App\Entity\StudentGroup;
 use App\Entity\User;
+use App\Entity\UserGuest;
+use App\Form\StudentGroupType;
+use App\Form\UserGuestType;
 use App\Form\UserType;
+use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
+use App\Service\CreateStudentGroup;
+use App\Service\GestionPassword;
+use App\Service\MailerService;
+use App\Service\SecurizerRoles;
+use App\Service\TeacherGenerator;
+use App\Service\Validator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -18,71 +31,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class UserController extends AbstractController
 {
-
-
-    /**
-     * @Route("/connexion", name="user_connexion", methods={"GET", "POST"})
-     * @param Request $request
-     * @param UserRepository $userRepository
-     * @param Session $session
-     * @return Response
-     */
-    public function connexion(Request $request, UserRepository $userRepository, Session $session): Response
-    {
-        //en cas de connexion ouverte
-        if ($session->has('id_user')) {
-
-            //on la referme, afin de pouvoir initier une nouvelle connexion
-            $session->remove('id_user');
-        }
-
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $id= $user->getId();
-            //on récupère le code crypté
-            $passHash = $userRepository->findOneById($id)->getPassword() ?? "pas d'utilisateur";
-            //cette méthode vérifie que le mot de passe saisie et le hash correspondent
-            $password = password_verify($user->getPassword(), $passHash);
-            if ($password) {
-                $user = $userRepository->findOneById($id);
-                //on ouvre la connexion
-                $session->set('id_user', $id);
-                $session->set('role',$user->getRoles());
-                return $this->redirectToRoute('user_index', [
-                    'user' => $user
-                ]);
-            }
-
-            return $this->render('user/connexion.html.twig', [
-                'form' => $form->createView(),
-                'message' => "Connexion refusée"
-            ]);
-        }
-        return $this->render('user/connexion.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/deconnexion", name="user_deconnexion", methods={"GET", "POST"})
-     * @param Request $request
-     * @param UserRepository $userRepository
-     * @param Session $session
-     * @return Response
-     */
-    public function deconnexion(Request $request, UserRepository $userRepository, Session $session): Response
-    {
-        //en cas de connexion ouverte
-        if ($session->has('id_user')) {
-
-            //on la referme, afin de pouvoir initier une nouvelle connexion
-            $session->remove('id_user');
-        }
-        return $this->redirectToRoute('user_index');
-    }
 
     /**
      * @Route("/", name="user_index", methods={"GET"})
@@ -97,25 +45,45 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/show", name="user_show", methods={"GET"})
-
-     * @param Session $session
+     * @Route("/new", name="user_guest_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param MailerService $mailerService
+     * @param Validator $validator
+     * @param SecurizerRoles $securizerRoles
+     * @param NotifierInterface $notifier
+     * @param TeacherGenerator $teacherGenerator
+     * @param GestionPassword $gestionPassword
      * @return Response
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function show(Session $session): Response
+    public function newUserGuest(Request $request, MailerService $mailerService, Validator $validator, SecurizerRoles $securizerRoles, NotifierInterface $notifier, TeacherGenerator $teacherGenerator, GestionPassword $gestionPassword): Response
     {
-        if ($session->get('role')=="teacher") {
-            return $this->render('teacher/show.html.twig', [
-                'teacher' => $session->get('user'),
-
-            ]);
-        }else{
-            return $this->render('student_group/show.html.twig', [
-                'student_group' => $session->get('user'),
-
-            ]);
+        $userguest = new UserGuest();
+        $form = $this->createForm(UserGuestType::class, $userguest);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $violations = $validator->listViolations($userguest);
+            if (0 !== count($violations)) {
+                foreach ($violations as $violation) {
+                    $notifier->send(new Notification($violation->getMessage(), ['browser']));
+                }
+                return $this->render('user_guest/new.html.twig', ['user_guest' => $userguest, 'form' => $form->createView(),]);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $gestionPassword->createHashPassword($userguest);
+            if ($securizerRoles->isGranted($userguest, 'ROLE_TEACHER')) {
+                $userguest = $teacherGenerator->generate($userguest);
+            }
+            $entityManager->persist($userguest);
+            $entityManager->flush();
+            $mailerService->sendId('' . $userguest->getMail(), '' . $userguest->getId());
+            $notifier->send(new Notification("Un mail vous a été envoyé avec votre identifiant. Veuillez le consulter afin de vous connecter.", ['browser']));
+            return $this->redirectToRoute('app_login');
         }
+        return $this->render('user_guest/new.html.twig', ['user_guest' => $userguest, 'form' => $form->createView(),]);
     }
+
+
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})

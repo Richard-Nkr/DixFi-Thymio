@@ -1,0 +1,43 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{{ form_start(form) }}
+<fieldset class="showChallenge">
+    <legend>Mettre à jour mon défi public</legend>
+    <table class="form_table2">
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.name, 'Nom du défi (30 caractères max) : ',  {'attr': {'class': 'form_label'} }) }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.name, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.description, 'Description : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.description, { 'attr': {'class': 'form_field2'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.difficulty, 'Difficulté : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.difficulty, {'class': 'form_field' }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.duration, 'Durée : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.duration, { 'attr': {'class': 'form_field', 'placeholder': '45 minutes / 1 heure', 'autocomplete': 'off'} }) }}
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<button class="btnG">{{ button_label|default('Créer le défi') }}</button>
+
+{{ form_end(form) }}

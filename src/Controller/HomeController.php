@@ -16,8 +16,8 @@ class HomeController extends AbstractController
      */
     public function index(Session $session): Response
     {
-        if ($session->has('user')){
-            $name = $session->get('user')->getNickname();
+        if ($this->getUser()!=null){
+            $name = $this->getUser()->getNickname();
         }
         else{
             $name = "";

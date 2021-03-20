@@ -3,11 +3,8 @@
 {% block title %}Edit PrivateChallenge{% endblock %}
 
 {% block body %}
-    <h1>Edit PrivateChallenge</h1>
 
-    {{ include('private_challenge/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('private_challenge_index') }}">back to list</a>
+    {{ include('private_challenge/_form_update.html.twig', {'button_label': 'Update'}) }}
 
     {{ include('private_challenge/_delete_form.html.twig') }}
 {% endblock %}

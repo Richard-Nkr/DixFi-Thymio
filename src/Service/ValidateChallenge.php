@@ -2,19 +2,8 @@
 
 namespace App\Service;
 
-use App\Entity\Chat;
+
 use App\Entity\Status;
-use App\Entity\Teacher;
-use App\Entity\User;
-use App\Entity\UserGuest;
-use App\Form\UserGuestType;
-use App\Form\UserType;
-use App\Repository\UserGuestRepository;
-use phpDocumentor\Reflection\Types\Boolean;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class ValidateChallenge
 {

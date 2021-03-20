@@ -4,7 +4,6 @@ namespace App\Service;
 
 
 use Spatie\Browsershot\Browsershot;
-use Symfony\Component\Mailer\MailerInterface;
 use Twig\Environment;
 
 class DocumentGenerator

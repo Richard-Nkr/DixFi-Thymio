@@ -25,8 +25,6 @@ class Help
     private $contentHelp;
 
 
-    private $groups;
-
     /**
      * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="helps", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
@@ -38,10 +36,6 @@ class Help
      */
     private $numberHelp;
 
-    public function __construct()
-    {
-        $this->groups = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -56,33 +50,6 @@ class Help
     public function setContentHelp(string $contentHelp): self
     {
         $this->contentHelp = $contentHelp;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|StudentGroup[]
-     */
-    public function getGroups(): Collection
-    {
-        return $this->groups;
-    }
-
-    public function addGroup(StudentGroup $studentGroup): self
-    {
-        if (!$this->groups->contains($studentGroup)) {
-            $this->groups[] = $studentGroup;
-            $studentGroup->addHelp($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGroup(StudentGroup $studentGroup): self
-    {
-        if ($this->groups->removeElement($studentGroup)) {
-            $studentGroup->removeHelp($this);
-        }
 
         return $this;
     }

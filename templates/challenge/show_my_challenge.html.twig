@@ -17,14 +17,14 @@
                                     <tr>
                                         <td>
                                             <div class="buttonMargin">
-                                                <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
+                                                <a href="{{ path('private_challenge_view_teacher', {'id': challenge.id}) }}">
                                                     <button class="btnB">Voir ce défi</button>
                                                 </a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="buttonMargin">
-                                                <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
+                                                <a href="{{ path('public_challenge_edit', {'id': challenge.id}) }}">
                                                     <button class="btnB">Editer ce défi</button>
                                                 </a>
                                             </div>
@@ -90,7 +90,7 @@
                                     </td>
                                     <td>
                                         <div class="buttonMargin">
-                                            <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">
+                                            <a href="{{ path('private_challenge_edit', {'id': challenge.id}) }}">
                                                 <button class="btnB">Editer ce défi</button>
                                             </a>
                                         </div>

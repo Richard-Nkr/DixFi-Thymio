@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\PrivateChallenge;
+use App\Entity\UserGuest;
+use App\Form\ChallengeUpdateType;
 use App\Form\PrivateChallengeFileType;
 use App\Form\PrivateChallengeType;
+use App\Form\UserGuestUpdateType;
+use App\Repository\HelpRepository;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\StudentGroupRepository;
 use App\Service\MailerService;
@@ -32,7 +36,7 @@ class PrivateChallengeController extends AbstractController
         $studentGroups= $studentGroupRepository->findOneById($this->getUser());
         $teacher= $studentGroups->getTeacher()->getId();
         return $this->render('private_challenge/index.html.twig', [
-            'private_challenges' => $privateChallengeRepository->findBy(['role' => 'ROLE_PRIVATE_CHALLENGE','teacher' => $teacher]),
+            'privateChallenges' => $privateChallengeRepository->findBy(['role' => 'ROLE_PRIVATE_CHALLENGE','teacher' => $teacher]),
         ]);
     }
 
@@ -56,7 +60,7 @@ class PrivateChallengeController extends AbstractController
         }
 
         return $this->render('private_challenge/new.html.twig', [
-            'private_challenge' => $privateChallenge,
+            'privateChallenge' => $privateChallenge,
             'form' => $form->createView(),
         ]);
     }
@@ -84,23 +88,37 @@ class PrivateChallengeController extends AbstractController
                 if(!($verifExtension)){
                     $notifier->send(new Notification("Le fichier doit etre un fichier scratch", ['browser']));
                     return $this->render('private_challenge/show.html.twig', [
-                        'private_challenge' => $privateChallenge, 'form' => $form->createView(),
+                        'privateChallenge' => $privateChallenge, 'form' => $form->createView(),
                     ]);
                 }
                 $fileName =md5(uniqid()).'.'.$file->getClientOriginalExtension();
                 $file->move($this->getParameter('upload_directory'), $fileName);
                 $upload->setFile($fileName);
                 $mailerService->sendFile($studentGroup->getNickname(), $studentGroup->getTeacher()->getMail(), $privateChallenge->getId(), '../public/uploads/'.$fileName);
-                $entityManager = $this->getDoctrine()->getManager();
                 unlink('../public/uploads/'.$fileName);
-                $entityManager->flush();
+                $this->getDoctrine()->getManager()->flush();
             }
         }
         return $this->render('private_challenge/show.html.twig', [
-            'private_challenge' => $privateChallenge,
+            'privateChallenge' => $privateChallenge,
             'form' => $form->createView(),
         ]);
 
+    }
+
+    /**
+     * @Route("/{id}/view", name="private_challenge_view_teacher", methods={"GET"})
+     * @param PrivateChallengeRepository $privateChallengeRepository
+     * @param int $id
+     * @param HelpRepository $helpRepository
+     * @return Response
+     */
+    public function viewTeacher(PrivateChallengeRepository $privateChallengeRepository, int $id, HelpRepository $helpRepository): Response
+    {
+        return $this->render('private_challenge/view_teacher.html.twig', [
+            'private_challenge' => $privateChallengeRepository->findOneById($id),
+            'indices' => $helpRepository->findByIdChallenge($id),
+        ]);
     }
 
     /**
@@ -111,20 +129,22 @@ class PrivateChallengeController extends AbstractController
      */
     public function edit(Request $request, PrivateChallenge $privateChallenge): Response
     {
-        $form = $this->createForm(PrivateChallengeType::class, $privateChallenge);
+        $form = $this->createForm(ChallengeUpdateType::class, $privateChallenge);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $privateChallenge->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('private_challenge_index');
         }
 
         return $this->render('private_challenge/edit.html.twig', [
-            'private_challenge' => $privateChallenge,
+            'privateChallenge' => $privateChallenge,
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="private_challenge_delete", methods={"DELETE"})

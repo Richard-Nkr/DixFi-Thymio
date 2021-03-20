@@ -1,9 +1,13 @@
 {{ form_start(form) }}
+
+<div style="margin: auto 0;">
 <p style="font-family: Roboto, Arial, sans-serif;"><b>Veuillez inserer votre fichier afin de l'envoyer à votre professeur :</b></p>
 
     {{ form_widget(form.file) }}
-<div class="form-group">
-    <br>
-    <button class="btnG">{{ button_label|default('Faire valider par notre professeur') }}</button>
+</div>
+<div class="pos_left">
+
+    <button class="btnG">{{ button_label|default('Faire valider') }}</button>
+
 </div>
 {{ form_end(form) }}

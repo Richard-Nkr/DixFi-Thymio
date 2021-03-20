@@ -3,10 +3,20 @@
 namespace App\Service;
 
 use App\Entity\Status;
+use App\Entity\ThymioChallenge;
+use App\Entity\UserGuest;
 use App\Entity\UserGuestStatus;
 
 class HandleStatus
 {
+
+    public function createStatusUserGuest(UserGuestStatus $userGuestStatus, ThymioChallenge $thymioChallenge, UserGuest $userGuest)  : UserGuestStatus
+    {
+
+        $userGuestStatus->setChallenge($thymioChallenge);
+        $userGuestStatus->setUserGuest($userGuest);
+        return $userGuestStatus;
+    }
     public function updateStatus(Status $status) : Status
     {
 
@@ -30,6 +40,8 @@ class HandleStatus
         }elseif ($userGuestStatus->getStatusInt()==1){
             $userGuestStatus->setStatusInt(2);
             $userGuestStatus->setFinishedAt(new \DateTime());
+            $userGuest = $userGuestStatus->getUserGuest();
+            $userGuest->setCountSucceed($userGuest->getCountSucceed()+1);
         }
         return $userGuestStatus;
     }

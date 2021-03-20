@@ -2,8 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Challenge;
-use phpDocumentor\Reflection\Types\Array_;
+
 
 class SortChallenges
 {

@@ -73,19 +73,10 @@ class HelpController extends AbstractController
                 return $this->redirectToRoute('challenge_showMyChallenge');
             }else{
                 $notifier->send(new Notification("Le numéro d'indice n'est pas cohérent ", ['browser']));
-                return $this->render('help/new.html.twig', [
-                    'help' => $help,
-                    'helps' => $helpRepository->findByIdChallenge($id),
-                    'form' => $form->createView(),
-                ]);
+                return $this->render('help/new.html.twig', ['help' => $help, 'helps' => $helpRepository->findByIdChallenge($id), 'form' => $form->createView(),]);
             }
         }
-
-        return $this->render('help/new.html.twig', [
-            'help' => $help,
-            'helps' => $helpRepository->findByIdChallenge($id),
-            'form' => $form->createView(),
-        ]);
+        return $this->render('help/new.html.twig', ['help' => $help, 'helps' => $helpRepository->findByIdChallenge($id), 'form' => $form->createView(),]);
     }
 
     /**

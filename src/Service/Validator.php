@@ -6,17 +6,10 @@ namespace App\Service;
 
 use App\Entity\User;
 use App\Entity\UserGuest;
-use App\Services\MailerService;
 use App\Validator\ContainsAlphanumeric;
 use App\Validator\ContainsAlphanumericPassWord;
-use App\Validator\ContainsNumberAndLetterValidator;
 use App\Validator\ContainsNumberAndLetter;
-use Doctrine\ORM\EntityRepository;
-use phpDocumentor\Reflection\Types\Boolean;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Notifier\Notification\Notification;
-use Symfony\Component\Notifier\NotifierInterface;
+use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
@@ -69,6 +62,14 @@ class Validator
         return $violations1;
     }
 
+    public function listViolations(UserGuest $userguest)
+    {
+        $violations = $this->PassWordValidator($userguest);
+        $violations->addAll($this->FieldsValidator($userguest));
+        return $violations;
+    }
+
+    /**
     public function mail($doctrine, $mail) : bool
     {
         $res = $doctrine
@@ -80,5 +81,6 @@ class Validator
         }
         return True;
     }
+     **/
 
 }

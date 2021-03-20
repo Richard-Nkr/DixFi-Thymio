@@ -4,9 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Validator\Constraints as MyConstraint;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -41,7 +39,6 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
-
 
     /**
      * @var string The hashed password
@@ -156,8 +153,7 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+
     }
 
 
@@ -170,12 +166,11 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->nickname,
             $this->password,
-            // see section on salt below
-            // $this->salt,
         ));
     }
 
     /**
+     * @param $serialized
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
@@ -184,8 +179,6 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->nickname,
             $this->password,
-            // see section on salt below
-            // $this->salt
             ) = unserialize($serialized);
     }
 
