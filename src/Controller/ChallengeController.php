@@ -143,6 +143,6 @@ class ChallengeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('challenge_index');
+        return $this->redirectToRoute('challenge_showMyChallenge');
     }
 }
