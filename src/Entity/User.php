@@ -42,10 +42,6 @@ class User implements UserInterface, \Serializable
      */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * @var string The hashed password
@@ -101,17 +97,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
 
     /**
      * @see UserInterface
