@@ -11,9 +11,11 @@ use App\Repository\PublicChallengeRepository;
 use App\Service\DocumentGenerator;
 use App\Service\PublicChallengeCreation;
 use Knp\Snappy\Pdf;
+use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
@@ -117,13 +119,15 @@ class PublicChallengeController extends AbstractController
     /**
      * @Route("/{id}/create/pdf", name="public_challenge_create_pdf", methods={"GET","POST"})
      * @param Environment $twig
+     * @param KernelInterface $kernel
      * @param Request $request
      * @param PublicChallenge $publicChallenge
      * @param DocumentGenerator $documentGenerator
      * @param Pdf $knp_snappy
      * @return Response
+     * @throws \Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot
      */
-    public function createPDF(Environment $twig, Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator, Pdf $knp_snappy): Response
+    public function createPDF(Environment $twig, KernelInterface $kernel, Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator, Pdf $knp_snappy): Response
     {
 
         $vars= 'html to pdf';
@@ -131,14 +135,13 @@ class PublicChallengeController extends AbstractController
             'some'  => $vars,
             'publicChallenge' =>$publicChallenge
         ));
-        $response= new Response();
-
-        $pdf= $response->setContent($knp_snappy->getOutputFromHtml($html,array('orientation' => 'Portrait', 'enable-local-file-access' => true, 'encoding' => 'UTF-8')));
-
-        $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-disposition', 'filename="mon_fichier.pdf"');
-
-        return $response;
+        Browsershot::html($html)
+            ->margins(10,10,10,10)
+            ->showBackground()
+            ->format('A4')
+            ->save("../public/Uploads/correction_public_challenge.pdf");
+        $projectRoot = $kernel->getProjectDir();
+        return $this->file( $projectRoot."/public/Uploads/correction_public_challenge.pdf");
     }
 
     /**

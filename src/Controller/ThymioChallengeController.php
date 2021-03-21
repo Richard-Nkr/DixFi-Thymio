@@ -10,22 +10,20 @@ use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\ChallengeRepository;
-use App\Repository\ThymioChallengeRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserGuestStatusRepository;
-use App\Service\DocumentGenerator;
 use App\Service\HandleStatus;
 use App\Service\SecurizerRoles;
 use App\Service\MailerService;
-use Knp\Snappy\Pdf;
+use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 
 /**
@@ -101,10 +99,10 @@ class ThymioChallengeController extends AbstractController
     /**
      * @Route("/{id}/create/pdf", name="thymio_challenge_create_pdf", methods={"GET","POST"})
      * @param ThymioChallenge $thymioChallenge
-     * @param Pdf $knp_snappy
+     * @param KernelInterface $kernel
      * @return Response
      */
-    public function createPDF(ThymioChallenge $thymioChallenge,Pdf $knp_snappy): Response
+    public function createPDF(ThymioChallenge $thymioChallenge, KernelInterface $kernel): Response
     {
 
         $vars= 'html to pdf';
@@ -112,14 +110,13 @@ class ThymioChallengeController extends AbstractController
             'some'  => $vars,
             'thymio_challenge' =>$thymioChallenge
         ));
-        $response= new Response();
-
-        $response->setContent($knp_snappy->getOutputFromHtml($html,array('orientation' => 'Portrait', 'enable-local-file-access' => true, 'encoding' => 'UTF-8')));
-
-        $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-disposition', 'filename="mon_fichier.pdf"');
-
-        return $response;
+        Browsershot::html($html)
+            ->margins(10,10,10,10)
+            ->showBackground()
+            ->format('A4')
+            ->save("../public/Uploads/correction_dixfi.pdf");
+        $projectRoot = $kernel->getProjectDir();
+        return $this->file( $projectRoot."/public/Uploads/correction_dixfi.pdf");
     }
 
 
