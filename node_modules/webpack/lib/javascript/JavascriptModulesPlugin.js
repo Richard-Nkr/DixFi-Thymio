@@ -365,6 +365,18 @@ class JavascriptModulesPlugin {
 					const digest = /** @type {string} */ (hash.digest(hashDigest));
 					chunk.contentHash.javascript = digest.substr(0, hashDigestLength);
 				});
+				compilation.hooks.additionalTreeRuntimeRequirements.tap(
+					"JavascriptModulesPlugin",
+					(chunk, set) => {
+						if (
+							!set.has(RuntimeGlobals.startupNoDefault) &&
+							compilation.chunkGraph.hasChunkEntryDependentChunks(chunk)
+						) {
+							set.add(RuntimeGlobals.onChunksLoaded);
+							set.add(RuntimeGlobals.require);
+						}
+					}
+				);
 			}
 		);
 	}
@@ -700,6 +712,9 @@ class JavascriptModulesPlugin {
 					startupSource.add(footer);
 				}
 			}
+			if (runtimeRequirements.has(RuntimeGlobals.onChunksLoaded)) {
+				startupSource.add(`${RuntimeGlobals.onChunksLoaded}();\n`);
+			}
 			source.add(
 				hooks.renderStartup.call(startupSource, lastInlinedModule, {
 					...renderContext,
@@ -895,18 +910,26 @@ class JavascriptModulesPlugin {
 				);
 				buf2.push("// Load entry module and return exports");
 				let i = chunkGraph.getNumberOfEntryModules(chunk);
-				for (const entryModule of chunkGraph.getChunkEntryModulesIterable(
-					chunk
-				)) {
+				for (const [
+					entryModule,
+					entrypoint
+				] of chunkGraph.getChunkEntryModulesWithChunkGroupIterable(chunk)) {
+					const chunks = entrypoint.chunks.filter(c => c !== chunk);
+					if (result.allowInlineStartup && chunks.length > 0) {
+						buf2.push(
+							"// This entry module depends on other loaded chunks and execution need to be delayed"
+						);
+						result.allowInlineStartup = false;
+					}
 					if (
 						result.allowInlineStartup &&
 						someInIterable(
-							moduleGraph.getIncomingConnections(entryModule),
-							c =>
-								c.originModule &&
-								c.isTargetActive(chunk.runtime) &&
+							moduleGraph.getIncomingConnectionsByOriginModule(entryModule),
+							([originModule, connections]) =>
+								originModule &&
+								connections.some(c => c.isTargetActive(chunk.runtime)) &&
 								someInIterable(
-									chunkGraph.getModuleRuntimes(c.originModule),
+									chunkGraph.getModuleRuntimes(originModule),
 									runtime =>
 										intersectRuntime(runtime, chunk.runtime) !== undefined
 								)
@@ -949,20 +972,31 @@ class JavascriptModulesPlugin {
 					if (runtimeRequirements.has(RuntimeGlobals.entryModuleId)) {
 						moduleIdExpr = `${RuntimeGlobals.entryModuleId} = ${moduleIdExpr}`;
 					}
-					if (useRequire) {
+					if (
+						result.allowInlineStartup &&
+						entryRuntimeRequirements.has(RuntimeGlobals.module)
+					) {
+						result.allowInlineStartup = false;
+						buf2.push(
+							"// This entry module used 'module' so it can't be inlined"
+						);
+					}
+					if (chunks.length > 0) {
+						buf2.push(
+							`${i === 0 ? "var __webpack_exports__ = " : ""}${
+								RuntimeGlobals.onChunksLoaded
+							}(undefined, ${JSON.stringify(
+								chunks.map(c => c.id)
+							)}, ${runtimeTemplate.returningFunction(
+								`__webpack_require__(${moduleIdExpr})`
+							)})`
+						);
+					} else if (useRequire) {
 						buf2.push(
 							`${
 								i === 0 ? "var __webpack_exports__ = " : ""
 							}__webpack_require__(${moduleIdExpr});`
 						);
-						if (result.allowInlineStartup) {
-							if (entryRuntimeRequirements.has(RuntimeGlobals.module)) {
-								result.allowInlineStartup = false;
-								buf2.push(
-									"// This entry module used 'module' so it can't be inlined"
-								);
-							}
-						}
 					} else {
 						if (i === 0) buf2.push("var __webpack_exports__ = {};");
 						if (requireScopeUsed) {
@@ -981,6 +1015,11 @@ class JavascriptModulesPlugin {
 							buf2.push(`__webpack_modules__[${moduleIdExpr}]();`);
 						}
 					}
+				}
+				if (runtimeRequirements.has(RuntimeGlobals.onChunksLoaded)) {
+					buf2.push(
+						`__webpack_exports__ = ${RuntimeGlobals.onChunksLoaded}(__webpack_exports__);`
+					);
 				}
 				if (
 					runtimeRequirements.has(RuntimeGlobals.startup) ||
@@ -1085,8 +1124,14 @@ class JavascriptModulesPlugin {
 		);
 		const content = Template.asString([
 			"// Check if module is in cache",
-			"if(__webpack_module_cache__[moduleId]) {",
-			Template.indent("return __webpack_module_cache__[moduleId].exports;"),
+			"var cachedModule = __webpack_module_cache__[moduleId];",
+			"if (cachedModule !== undefined) {",
+			outputOptions.strictModuleErrorHandling
+				? Template.indent([
+						"if (cachedModule.error !== undefined) throw cachedModule.error;",
+						"return cachedModule.exports;"
+				  ])
+				: Template.indent("return cachedModule.exports;"),
 			"}",
 			"// Create a new module (and put it into the cache)",
 			"var module = __webpack_module_cache__[moduleId] = {",
@@ -1107,6 +1152,15 @@ class JavascriptModulesPlugin {
 						Template.indent([
 							"if(threw) delete __webpack_module_cache__[moduleId];"
 						]),
+						"}"
+				  ])
+				: outputOptions.strictModuleErrorHandling
+				? Template.asString([
+						"// Execute the module function",
+						"try {",
+						Template.indent(moduleExecution),
+						"} catch(e) {",
+						Template.indent(["module.error = e;", "throw e;"]),
 						"}"
 				  ])
 				: Template.asString([

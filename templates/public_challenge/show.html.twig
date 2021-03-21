@@ -36,7 +36,7 @@
         <div class="buttonMargin">
             <img id="correction" src="{{ vich_uploader_asset(publicChallenge, 'fileCorrection') }}">
         </div>
-        <form method="post" target="_blank" action="{{ path('public_challenge_create_pdf', {'id': publicChallenge.id}) }}">
+        <form method="post"  action="{{ path('public_challenge_create_pdf', {'id': publicChallenge.id}) }}">
             <div class="buttonStartChallenge">
                 <button class="btnG"> PDF correction du DixFi {{ publicChallenge.id }}  </button>
             </div>

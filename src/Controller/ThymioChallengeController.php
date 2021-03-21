@@ -2,28 +2,28 @@
 
 namespace App\Controller;
 
+use App\Entity\Help;
 use App\Entity\ThymioChallenge;
 use App\Form\ThymioChallengeType;
+use App\Repository\HelpRepository;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
 use App\Repository\TeacherRepository;
 use App\Repository\ChallengeRepository;
-use App\Repository\ThymioChallengeRepository;
 use App\Repository\UserGuestRepository;
 use App\Repository\UserGuestStatusRepository;
-use App\Service\DocumentGenerator;
 use App\Service\HandleStatus;
 use App\Service\SecurizerRoles;
 use App\Service\MailerService;
-use Knp\Snappy\Pdf;
+use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 
 /**
@@ -99,10 +99,10 @@ class ThymioChallengeController extends AbstractController
     /**
      * @Route("/{id}/create/pdf", name="thymio_challenge_create_pdf", methods={"GET","POST"})
      * @param ThymioChallenge $thymioChallenge
-     * @param Pdf $knp_snappy
+     * @param KernelInterface $kernel
      * @return Response
      */
-    public function createPDF(ThymioChallenge $thymioChallenge,Pdf $knp_snappy): Response
+    public function createPDF(ThymioChallenge $thymioChallenge, KernelInterface $kernel): Response
     {
 
         $vars= 'html to pdf';
@@ -110,20 +110,20 @@ class ThymioChallengeController extends AbstractController
             'some'  => $vars,
             'thymio_challenge' =>$thymioChallenge
         ));
-        $response= new Response();
-
-        $response->setContent($knp_snappy->getOutputFromHtml($html,array('orientation' => 'Portrait', 'enable-local-file-access' => true, 'encoding' => 'UTF-8')));
-
-        $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-disposition', 'filename="mon_fichier.pdf"');
-
-        return $response;
+        Browsershot::html($html)
+            ->margins(10,10,10,10)
+            ->showBackground()
+            ->format('A4')
+            ->save("../public/Uploads/correction_dixfi.pdf");
+        $projectRoot = $kernel->getProjectDir();
+        return $this->file( $projectRoot."/public/Uploads/correction_dixfi.pdf");
     }
 
 
     /**
      * @Route("/{id}/show", name="thymio_challenge_show", methods={"GET", "POST"})
      * @param Request $request
+     * @param HelpRepository $helpRepository
      * @param HandleStatus $handleStatus
      * @param SecurizerRoles $securizerRoles
      * @param StatusRepository $statusRepository
@@ -136,8 +136,9 @@ class ThymioChallengeController extends AbstractController
      * @param int $id
      * @param NotifierInterface $notifier
      * @return Response
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function show(Request $request, HandleStatus $handleStatus, SecurizerRoles $securizerRoles, StatusRepository $statusRepository, UserGuestStatusRepository $userGuestStatusRepository, ThymioChallenge $thymioChallenge, Session $session, MailerService $mailerService, StudentGroupRepository $studentGroupRepository, UserGuestRepository $userGuestRepository, int $id, NotifierInterface $notifier): Response
+    public function show(Request $request, HelpRepository $helpRepository, HandleStatus $handleStatus, SecurizerRoles $securizerRoles, StatusRepository $statusRepository, UserGuestStatusRepository $userGuestStatusRepository, ThymioChallenge $thymioChallenge, Session $session, MailerService $mailerService, StudentGroupRepository $studentGroupRepository, UserGuestRepository $userGuestRepository, int $id, NotifierInterface $notifier): Response
     {
         $upload = new ThymioChallenge();
         $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
@@ -152,6 +153,7 @@ class ThymioChallengeController extends AbstractController
                     $notifier->send(new Notification("Le fichier doit etre un fichier scratch", ['browser']));
                     return $this->render('thymio_challenge/show.html.twig', [
                         'thymio_challenge' => $thymioChallenge, 'form' => $form->createView(), 'status' => $status,
+                        'indices' => $helpRepository->findByIdChallenge($id),
                     ]);
                 }
                 $fileName =md5(uniqid()).'.'.$file->getClientOriginalExtension();
@@ -167,6 +169,7 @@ class ThymioChallengeController extends AbstractController
             'thymio_challenge' => $thymioChallenge,
             'form' => $form->createView(),
             'status' => $status,
+            'indices' => $helpRepository->findByIdChallenge($id),
         ]);
     }
 
@@ -174,14 +177,16 @@ class ThymioChallengeController extends AbstractController
     /**
      * @Route("/{id}/show/user/simple", name="thymio_challenge_show_user_simple", methods={"GET"})
      * @param ThymioChallenge $thymioChallenge
-     * @param ThymioChallengeRepository $thymioChallengeRepository
+     * @param HelpRepository $helpRepository
+     * @param int $id
      * @return Response
      */
-    public function showSimpleUser(ThymioChallenge $thymioChallenge): Response
+    public function showSimpleUser(ThymioChallenge $thymioChallenge, HelpRepository $helpRepository, int $id): Response
     {
 
         return $this->render('thymio_challenge/show.html.twig', [
             'thymio_challenge' => $thymioChallenge,
+            'indices' => $helpRepository->findByIdChallenge($id),
         ]);
 
     }
@@ -190,17 +195,20 @@ class ThymioChallengeController extends AbstractController
     /**
      * @Route("/{id}/show/user/guest", name="thymio_challenge_show_user_guest", methods={"GET"})
      * @param ThymioChallenge $thymioChallenge
+     * @param int $id
+     * @param HelpRepository $helpRepository
      * @param UserGuestRepository $userGuestRepository
      * @param UserGuestStatusRepository $userGuestStatusRepository
      * @return Response
      */
-    public function showUserGuest(ThymioChallenge $thymioChallenge, UserGuestRepository $userGuestRepository, UserGuestStatusRepository $userGuestStatusRepository): Response
+    public function showUserGuest(ThymioChallenge $thymioChallenge, int $id, HelpRepository $helpRepository, UserGuestRepository $userGuestRepository, UserGuestStatusRepository $userGuestStatusRepository): Response
     {
         $userGuest = $userGuestRepository->findOneById($this->getUser()->getId());
         $statusUserGuest = $userGuestStatusRepository->findOneBy(['userGuest' => $userGuest,'challenge' => $thymioChallenge]);
         return $this->render('thymio_challenge/show.html.twig', [
             'thymio_challenge' => $thymioChallenge,
             'status' => $statusUserGuest,
+            'indices' => $helpRepository->findByIdChallenge($id),
         ]);
 
     }

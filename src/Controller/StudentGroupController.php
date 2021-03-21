@@ -12,10 +12,12 @@ use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\SortChallenges;
 use Knp\Snappy\Pdf;
+use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -101,10 +103,10 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/create/pdf/thymio", name="create_pdf_thymio", methods={"GET","POST"})
-     * @param Pdf $knp_snappy
+     * @param KernelInterface $kernel
      * @return Response
      */
-    public function createPdfThymio(Pdf $knp_snappy): Response
+    public function createPdfThymio(KernelInterface $kernel): Response
     {
         $studentGroup = $this->getUser();
         $vars= 'html to pdf';
@@ -112,14 +114,13 @@ class StudentGroupController extends AbstractController
             'some'  => $vars,
             'studentGroup' =>$studentGroup
         ));
-        $response= new Response();
-
-        $response->setContent($knp_snappy->getOutputFromHtml($html,array('orientation' => 'Portrait', 'enable-local-file-access' => true, 'encoding' => 'UTF-8')));
-
-        $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-disposition', 'filename="mon_fichier.pdf"');
-
-        return $response;
+        Browsershot::html($html)
+            ->margins(10,10,10,10)
+            ->showBackground()
+            ->format('A4')
+            ->save("../public/Uploads/certificat_etudiant.pdf");
+        $projectRoot = $kernel->getProjectDir();
+        return $this->file( $projectRoot."/public/Uploads/certificat_etudiant.pdf");
     }
 
 
