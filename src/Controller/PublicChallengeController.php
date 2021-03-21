@@ -10,6 +10,8 @@ use App\Repository\HelpRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Service\DocumentGenerator;
 use App\Service\PublicChallengeCreation;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Knp\Snappy\Pdf;
 use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -127,7 +129,7 @@ class PublicChallengeController extends AbstractController
      * @return Response
      * @throws \Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot
      */
-    public function createPDF(Environment $twig, KernelInterface $kernel, Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator, Pdf $knp_snappy): Response
+    public function createPDF(Environment $twig, KernelInterface $kernel, Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator, Pdf $knp_snappy): void
     {
 
         $vars= 'html to pdf';
@@ -135,13 +137,17 @@ class PublicChallengeController extends AbstractController
             'some'  => $vars,
             'publicChallenge' =>$publicChallenge
         ));
-        Browsershot::html($html)
-            ->margins(10,10,10,10)
-            ->showBackground()
-            ->format('A4')
-            ->save("../public/Uploads/correction_public_challenge.pdf");
-        $projectRoot = $kernel->getProjectDir();
-        return $this->file( $projectRoot."/public/Uploads/correction_public_challenge.pdf");
+        $options = new Options();
+        $options->set('isRemoteEnabled', TRUE);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4');
+        // Render the HTML as PDF
+        $dompdf->render();
+        // Output the generated PDF to Browser
+        //$dompdf->stream();
+        $dompdf->stream();;
     }
 
     /**

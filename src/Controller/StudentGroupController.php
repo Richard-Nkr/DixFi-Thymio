@@ -11,6 +11,8 @@ use App\Repository\TeacherRepository;
 use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\SortChallenges;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Knp\Snappy\Pdf;
 use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -114,13 +116,17 @@ class StudentGroupController extends AbstractController
             'some'  => $vars,
             'studentGroup' =>$studentGroup
         ));
-        Browsershot::html($html)
-            ->margins(10,10,10,10)
-            ->showBackground()
-            ->format('A4')
-            ->save("../public/Uploads/certificat_etudiant.pdf");
-        $projectRoot = $kernel->getProjectDir();
-        return $this->file( $projectRoot."/public/Uploads/certificat_etudiant.pdf");
+        $options = new Options();
+        $options->set('isRemoteEnabled', TRUE);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4');
+        // Render the HTML as PDF
+        $dompdf->render();
+        // Output the generated PDF to Browser
+        //$dompdf->stream();
+        $dompdf->stream();;
     }
 
 
