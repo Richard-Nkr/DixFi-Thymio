@@ -15,6 +15,8 @@ use App\Repository\UserGuestStatusRepository;
 use App\Service\HandleStatus;
 use App\Service\SecurizerRoles;
 use App\Service\MailerService;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,7 +104,7 @@ class ThymioChallengeController extends AbstractController
      * @param KernelInterface $kernel
      * @return Response
      */
-    public function createPDF(ThymioChallenge $thymioChallenge, KernelInterface $kernel): Response
+    public function createPDF(ThymioChallenge $thymioChallenge, KernelInterface $kernel): void
     {
 
         $vars= 'html to pdf';
@@ -110,13 +112,18 @@ class ThymioChallengeController extends AbstractController
             'some'  => $vars,
             'thymio_challenge' =>$thymioChallenge
         ));
-        Browsershot::html($html)
-            ->margins(10,10,10,10)
-            ->showBackground()
-            ->format('A4')
-            ->save("../public/Uploads/correction_dixfi.pdf");
-        $projectRoot = $kernel->getProjectDir();
-        return $this->file( $projectRoot."/public/Uploads/correction_dixfi.pdf");
+
+        $options = new Options();
+        $options->set('isRemoteEnabled', TRUE);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4');
+        // Render the HTML as PDF
+        $dompdf->render();
+        // Output the generated PDF to Browser
+        //$dompdf->stream();
+        $dompdf->stream();;
     }
 
 
