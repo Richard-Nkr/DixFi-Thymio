@@ -36,10 +36,11 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/, requires_channel: https, host: thymio\.tech$  }
         - { path: ^/student/group, roles: ROLE_STUDENT_GROUP }
         - { path: ^/teacher, roles: ROLE_TEACHER }
         - { path: ^/user/guest, roles: ROLE_USER_GUEST }
+        - { path: ^/, requires_channel: https, host: thymio\.tech$  }
+
 
     role_hierarchy:
         ROLE_STUDENT_GROUP: ROLE_USER
