@@ -25,7 +25,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/teacher", name="teacher")
+ * @Route("/teacher")
  */
 class TeacherController extends AbstractController
 {

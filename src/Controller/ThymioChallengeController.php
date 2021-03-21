@@ -157,9 +157,9 @@ class ThymioChallengeController extends AbstractController
                 $fileName =md5(uniqid()).'.'.$file->getClientOriginalExtension();
                 $file->move($this->getParameter('upload_directory'), $fileName);
                 $upload->setFile($fileName);
-                $mailerService->sendFile($studentGroup->getNickname(), $studentGroup->getTeacher()->getMail(), $id, '../public/uploads/'.$fileName);
+                $mailerService->sendFile($studentGroup->getNickname(), $studentGroup->getTeacher()->getMail(), $id, '../public/Uploads/'.$fileName);
                 $handleStatus->updateStatus($status);
-                unlink('../public/uploads/'.$fileName);
+                unlink('../public/Uploads/'.$fileName);
                 $this->getDoctrine()->getManager()->flush();
             }
         }

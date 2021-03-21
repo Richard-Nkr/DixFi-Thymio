@@ -1,9 +1,9 @@
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     'C:/wkhtmltopdf/bin/wkhtmltopdf.exe'
+        binary:     '%kernel.project_dir%/assets/natives/usr/bin/wkhtmltopdf'
         options:  []
     image:
         enabled:    true
-        binary: 'C:/wkhtmltopdf/bin/wkhtmltopdf.exe'
+        binary: '%kernel.project_dir%/../wkhtmltopdf/bin/wkhtmltopdf.exe'
         options: []
