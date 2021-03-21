@@ -36,9 +36,7 @@ class TeacherController extends AbstractController
      */
     public function index(TeacherRepository $teacherRepository): Response
     {
-        return $this->render('home/index.html.twig', [
-            'name' => $this->getUser()->getNickname(),
-        ]);
+        return $this->redirectToRoute('home');
     }
 
     /**
