@@ -24,7 +24,13 @@
         <p><u>Temps nécessaire</u> : {{ thymio_challenge.duration }} </p>
         <p><u>Difficulté</u> : {{ thymio_challenge.difficulty }} </p>
         <p><u>Description</u> : {{ thymio_challenge.description }} </p>
-
+        {% for indice in indices %}
+            <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+                : {{ indice.contentHelp }}</p><br>
+        {% endfor %}
+        <div class="buttonMargin">
+            <button class="btnC" onclick="myFunction()">Voir un indice</button>
+        </div>
     </fieldset>
 
 
