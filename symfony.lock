@@ -239,6 +239,7 @@
     },
     "php": {
         "version": "7.4"
+     },
     "phenx/php-font-lib": {
         "version": "0.5.2"
     },
