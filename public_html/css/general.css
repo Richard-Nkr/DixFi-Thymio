@@ -35,6 +35,33 @@ h1 {
     margin-top: 2%;
 }
 
+.h2title {
+    color: black;
+    font-size: 35px;
+    font-variant: all-small-caps;
+    letter-spacing: 1px;
+    word-spacing: 4px;
+    padding-top: 4%;
+    margin-bottom: 10%;
+}
+
+.h3title {
+    color: #1aa651;
+    font-size: 35px;
+    font-variant: all-small-caps;
+    letter-spacing: 1px;
+    word-spacing: 4px;
+    padding-top: 10%;
+    margin-bottom: 10%;
+}
+
+h3{
+    color: #1aa651;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 2%;
+}
+
 h1:hover {
 
 }
@@ -595,7 +622,7 @@ fieldset.showChallenge2 legend {
     border-radius: 20px;
 }
 
-#card_deblocage{
+.card_deblocage{
     color: white;
     background-color: #5db1ef;
     border-radius: 20px;
@@ -641,7 +668,7 @@ fieldset.showChallenge2 legend {
     flex-basis: auto;
 }
 
-#deblocage_container {
+.deblocage_container {
     padding: 2%;
 }
 
@@ -727,3 +754,57 @@ footer{
     font-weight: bold;
     padding: 2%;
 }
+
+.pos_right{
+    float: right;
+    margin-right: 23%;
+}
+
+.pos_left{
+    float: left;
+    margin-left: 20%;
+}
+
+.td_indices{
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+}
+.indice_table{
+    table-layout: fixed;
+    width: 100%;
+}
+
+.td_num_indice {
+    font-size: 20px;
+    vertical-align: top;
+    padding: 15px;
+    text-align: right;
+}
+
+.td_modify{
+    vertical-align: top;
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;
+}
+.td_content{
+    font-size: 15px;
+    text-align: justify;
+    vertical-align: middle;
+}
+.indiceFieldset{
+    background-color: white;
+    margin: 4% auto;
+    border-radius: 20px;
+    width: 45%;
+}
+fieldset.indiceFieldset legend {
+    background-color: #be0c0c;
+    color: white;
+    border-radius: 20px;
+    padding: 6px 12px;
+    margin: 2% auto;
+    width: 40%;
+}
+
