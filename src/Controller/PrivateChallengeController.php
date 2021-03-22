@@ -94,8 +94,8 @@ class PrivateChallengeController extends AbstractController
                 $fileName =md5(uniqid()).'.'.$file->getClientOriginalExtension();
                 $file->move($this->getParameter('upload_directory'), $fileName);
                 $upload->setFile($fileName);
-                $mailerService->sendFile($studentGroup->getNickname(), $studentGroup->getTeacher()->getMail(), $privateChallenge->getId(), '../public/uploads/'.$fileName);
-                unlink('../public/uploads/'.$fileName);
+                $mailerService->sendFile($studentGroup->getNickname(), $studentGroup->getTeacher()->getMail(), $privateChallenge->getId(), '../public/Uploads/'.$fileName);
+                unlink('../public/Uploads/'.$fileName);
                 $this->getDoctrine()->getManager()->flush();
             }
         }

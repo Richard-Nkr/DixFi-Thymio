@@ -1,3 +1,4 @@
+{% if status != null %}
 {% for statusSolo in status %}
     <fieldset class="formValidate">
         <div>
@@ -42,13 +43,14 @@
         </div>
 
     </fieldset>
+{% endfor %}
 {% else %}
     <div class="buttonMargin">
         <div><img style="width: 92%; margin-top: 16%; margin-bottom: 14%;" src="{{ asset('images/child.png') }}"
                   alt="Robot_Thymio"></div>
         <p> Aucun défi à valider pour l'instant </p><br>
     </div>
-{% endfor %}
+{% endif %}
 
 
 
