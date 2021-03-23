@@ -4,7 +4,13 @@
 {% block title %} La progression de vos groupes {% endblock %}
 {% block body %}
     <h1 class="h1title"> La progression de vos groupes sur les Dix'Fi de Thymio </h1>
-
+    <hr class="helpHr">
+    {% if studentgroups == null %}
+    <div class="buttonMargin">
+        <div><img style="width: 40%; margin-top: 5%; margin-bottom: 5%;" src="{{ asset('images/child.png') }}"
+                  alt="Robot_Thymio"></div>
+    </div>
+    {% else %}
     {% for studentgroup in studentgroups %}
         <fieldset class="showChallenge2">
             <legend class="legendValidation"> Groupe n°{{ studentgroup.id }} : {{ studentgroup.nickname }}</legend>
@@ -13,5 +19,6 @@
             {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesInProgress', {'id': studentgroup.id}) ) }}
         </fieldset>
     {% endfor %}
+    {% endif %}
 {% endblock %}
 

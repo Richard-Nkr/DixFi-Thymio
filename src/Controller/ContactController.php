@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Routing\Annotation\Route;

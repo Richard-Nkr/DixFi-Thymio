@@ -7,19 +7,11 @@ use App\Form\StudentGroupType;
 use App\Repository\ChildRepository;
 use App\Repository\StatusRepository;
 use App\Repository\StudentGroupRepository;
-use App\Repository\TeacherRepository;
-use App\Service\CreateStudentGroup;
-use App\Service\GestionPassword;
+use App\Service\DocumentGenerator;
 use App\Service\SortChallenges;
-use Dompdf\Dompdf;
-use Dompdf\Options;
-use Knp\Snappy\Pdf;
-use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -105,10 +97,10 @@ class StudentGroupController extends AbstractController
 
     /**
      * @Route("/create/pdf/thymio", name="create_pdf_thymio", methods={"GET","POST"})
-     * @param KernelInterface $kernel
+     * @param DocumentGenerator $documentGenerator
      * @return Response
      */
-    public function createPdfThymio(KernelInterface $kernel): Response
+    public function createPdfThymio(DocumentGenerator $documentGenerator): Response
     {
         $studentGroup = $this->getUser();
         $vars= 'html to pdf';
@@ -116,17 +108,7 @@ class StudentGroupController extends AbstractController
             'some'  => $vars,
             'studentGroup' =>$studentGroup
         ));
-        $options = new Options();
-        $options->set('isRemoteEnabled', TRUE);
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml($html);
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4');
-        // Render the HTML as PDF
-        $dompdf->render();
-        // Output the generated PDF to Browser
-        //$dompdf->stream();
-        $dompdf->stream();;
+        $documentGenerator->generatePdf($html);
     }
 
 

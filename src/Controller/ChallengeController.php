@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Challenge;
 use App\Form\ChallengeType;
-use App\Form\ChallengeUpdateType;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Repository\TeacherRepository;

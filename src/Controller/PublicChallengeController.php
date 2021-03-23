@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Challenge;
 use App\Entity\PublicChallenge;
 use App\Form\ChallengeUpdateType;
 use App\Form\PublicChallengeType;
@@ -10,18 +9,12 @@ use App\Repository\HelpRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Service\DocumentGenerator;
 use App\Service\PublicChallengeCreation;
-use Dompdf\Dompdf;
-use Dompdf\Options;
-use Knp\Snappy\Pdf;
-use Spatie\Browsershot\Browsershot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
-use Twig\Environment;
 
 /**
  * @Route("/public/challenge")
@@ -41,11 +34,10 @@ class PublicChallengeController extends AbstractController
     }
 
 
-
     /**
      * @Route("/{id}/edit", name="public_challenge_edit", methods={"GET","POST"})
      * @param Request $request
-     * @param Challenge $challenge
+     * @param PublicChallenge $publicChallenge
      * @param int $id
      * @return Response
      */
@@ -120,16 +112,12 @@ class PublicChallengeController extends AbstractController
 
     /**
      * @Route("/{id}/create/pdf", name="public_challenge_create_pdf", methods={"GET","POST"})
-     * @param Environment $twig
-     * @param KernelInterface $kernel
      * @param Request $request
      * @param PublicChallenge $publicChallenge
      * @param DocumentGenerator $documentGenerator
-     * @param Pdf $knp_snappy
-     * @return Response
-     * @throws \Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot
+     * @return void
      */
-    public function createPDF(Environment $twig, KernelInterface $kernel, Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator, Pdf $knp_snappy): void
+    public function createPDF(Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator): void
     {
 
         $vars= 'html to pdf';
@@ -137,17 +125,7 @@ class PublicChallengeController extends AbstractController
             'some'  => $vars,
             'publicChallenge' =>$publicChallenge
         ));
-        $options = new Options();
-        $options->set('isRemoteEnabled', TRUE);
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml($html);
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4');
-        // Render the HTML as PDF
-        $dompdf->render();
-        // Output the generated PDF to Browser
-        //$dompdf->stream();
-        $dompdf->stream();;
+        $documentGenerator->generatePdf($html);
     }
 
     /**

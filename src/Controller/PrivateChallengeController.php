@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\PrivateChallenge;
-use App\Entity\UserGuest;
 use App\Form\ChallengeUpdateType;
 use App\Form\PrivateChallengeFileType;
-use App\Form\PrivateChallengeType;
-use App\Form\UserGuestUpdateType;
 use App\Repository\HelpRepository;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\StudentGroupRepository;

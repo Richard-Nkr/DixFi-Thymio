@@ -23,7 +23,6 @@ class YoutubeController extends AbstractController
      * @param Request $request
      * @param Google_Client $client
      * @param YoutubeDeveloperKeyGenerator $youtubeDeveloperKeyGenerator
-     * @param Youtube $yt
      * @return Response
      */
     public function show(Request $request, Google_Client $client, YoutubeDeveloperKeyGenerator $youtubeDeveloperKeyGenerator): Response
@@ -32,7 +31,7 @@ class YoutubeController extends AbstractController
         $client->setDeveloperKey($key);
         $youtube = new Google_Service_YouTube($client);
         $yt = new Youtube();
-        $form = $this->createForm(YoutubeType::class, $yt);
+        $form = $this->createForm(YoutubeType::class, new Youtube());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form['request']->getData();

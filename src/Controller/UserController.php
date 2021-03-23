@@ -3,15 +3,11 @@
 namespace App\Controller;
 
 
-use App\Entity\StudentGroup;
 use App\Entity\User;
 use App\Entity\UserGuest;
-use App\Form\StudentGroupType;
 use App\Form\UserGuestType;
 use App\Form\UserType;
-use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
-use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\MailerService;
 use App\Service\SecurizerRoles;
@@ -23,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
