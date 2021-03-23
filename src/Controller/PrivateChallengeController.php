@@ -47,6 +47,7 @@ class PrivateChallengeController extends AbstractController
      * @param StudentGroupRepository $studentGroupRepository
      * @return Response
      */
+    //affiche les privateChallenges et permet au groupe étudiant d'envoyer leur fichier à leur professeur
     public function show(Request $request,PrivateChallenge $privateChallenge, SecurizerRoles $securizerRoles, NotifierInterface $notifier, MailerService $mailerService, StudentGroupRepository $studentGroupRepository): Response
     {
         $upload = new PrivateChallenge();
@@ -57,6 +58,7 @@ class PrivateChallengeController extends AbstractController
             if ($securizerRoles->isGranted($this->getUser(), 'ROLE_STUDENT_GROUP')){
                 $file = $upload->getFile();
                 $verifExtension = $mailerService->verifExtension($file->getClientOriginalExtension());
+                //vérifie si l'extension du fichier correspond à un fichier .sb3
                 if(!($verifExtension)){
                     $notifier->send(new Notification("Le fichier doit etre un fichier scratch", ['browser']));
                     return $this->render('private_challenge/show.html.twig', [
@@ -85,6 +87,7 @@ class PrivateChallengeController extends AbstractController
      * @param HelpRepository $helpRepository
      * @return Response
      */
+    //
     public function viewTeacher(PrivateChallengeRepository $privateChallengeRepository, int $id, HelpRepository $helpRepository): Response
     {
         return $this->render('private_challenge/view_teacher.html.twig', [

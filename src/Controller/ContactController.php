@@ -25,15 +25,17 @@ class ContactController extends AbstractController
      * @param Request $request
      * @param MailerInterface $mailer
      * @param NotifierInterface $notifier
+     * @param MailerService $mailerService
      * @return RedirectResponse|Response
-     * @throws TransportExceptionInterface
      */
+    //permet à un utilisateur anonyme d'envoyer un mail à l'équipe Thymio
     public function index(Request $request, MailerInterface $mailer, NotifierInterface $notifier, MailerService $mailerService)
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $contactFormData = $form->getData();
+            //utilisation de la fonction sendMessage du Service MailerService
             $mailerService->sendMessage($contactFormData['email'],$contactFormData['message'],$mailer);
             $notifier->send(new Notification("Votre message a été envoyé!", ['browser']));
             return $this->redirectToRoute('contact_index');

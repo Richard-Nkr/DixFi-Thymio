@@ -39,6 +39,7 @@ class ChildController extends AbstractController
      * @param ChildRepository $childRepository
      * @return Response
      */
+    //permet de créer une nouvelle instance de Child en fonction du studentgroup et d'afficher le nombre d'élèves affectés au groupe
     public function new(Request $request, StudentGroup $studentGroup, NotifierInterface $notifier, ChildRepository $childRepository): Response
     {
         if ($studentGroup->getTeacher()!=$this->getUser()){
