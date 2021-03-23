@@ -38,31 +38,6 @@ class PrivateChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="private_challenge_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $privateChallenge = new PrivateChallenge();
-        $form = $this->createForm(PrivateChallengeType::class, $privateChallenge);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($privateChallenge);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('private_challenge_index');
-        }
-
-        return $this->render('private_challenge/new.html.twig', [
-            'privateChallenge' => $privateChallenge,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="private_challenge_show", methods={"GET","POST"})
      * @param Request $request
      * @param PrivateChallenge $privateChallenge

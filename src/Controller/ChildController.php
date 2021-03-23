@@ -53,8 +53,7 @@ class ChildController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($child);
             $entityManager->flush();
-            $countChildren = $childRepository->findNumberChildrenByStudentGroup($studentGroup);
-            $notifier->send(new Notification("L'étudiant a bien été ajouté au groupe. Vous avez désormais ajouté ".$countChildren." étudiant(s) au groupe", ['browser']));
+            $notifier->send(new Notification("L'étudiant a bien été ajouté au groupe. Vous avez désormais ajouté ".$childRepository->findNumberChildrenByStudentGroup($studentGroup)." étudiant(s) au groupe", ['browser']));
 
             return $this->redirectToRoute('child_new', ['id'=>$studentGroup->getId()]);
         }
@@ -78,6 +77,9 @@ class ChildController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="child_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Child $child
+     * @return Response
      */
     public function edit(Request $request, Child $child): Response
     {
@@ -98,6 +100,9 @@ class ChildController extends AbstractController
 
     /**
      * @Route("/{id}", name="child_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Child $child
+     * @return Response
      */
     public function delete(Request $request, Child $child): Response
     {

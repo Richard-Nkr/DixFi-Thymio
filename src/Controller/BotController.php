@@ -26,7 +26,8 @@ class BotController extends AbstractController{
      * @param Request $request
      * @return Response
      */
-    function messageAction(Request $request)
+    //fonction appelée dès que le bot est démarré
+    function messageAction(Request $request): Response
     {
         DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
 
@@ -34,6 +35,8 @@ class BotController extends AbstractController{
 
         $adapter = new FilesystemAdapter();
         $botman = BotManFactory::create($config, new SymfonyCache($adapter));
+
+        //le bote démarre une conversation lorsqu'il entend Bonjour, Salut ou coucou
         $botman->hears('(Bonjour|Coucou|Salut)', function (BotMan $bot) {
             $bot->startConversation(new BotConversation);
         });

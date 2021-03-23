@@ -94,6 +94,7 @@ class PublicChallengeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($publicChallenge);
             $entityManager->flush();
+            //deuxième flush permettant de créer le path de la solution à partir du nom du fichier insérer créer automatiquement par le vichbundle lors du premier flush
             $publicChallenge->setSolutionPath('/images/corrections/'.$publicChallenge->getNameCorrection());
             $entityManager->flush();
 
@@ -117,6 +118,7 @@ class PublicChallengeController extends AbstractController
      * @param DocumentGenerator $documentGenerator
      * @return void
      */
+    //génère le pdf de la correction du pdf
     public function createPDF(Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator): void
     {
 
