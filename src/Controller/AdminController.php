@@ -21,7 +21,7 @@ class AdminController extends AbstractDashboardController
     public function index(): Response
     {
         $routeBuilder = $this->get(AdminUrlGenerator::class);
-
+        //faire en sorte que la page affiché soit directement le menu admin du PublicChallenge
         return $this->redirect($routeBuilder->setController(PublicChallengeCrudController::class)->generateUrl());
     }
 
@@ -33,6 +33,7 @@ class AdminController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        //ajout des differentes entités au menu admin
         yield MenuItem::linkToCrud('PublicChallenge', 'fa fa-user', PublicChallenge::class);
         yield MenuItem::linkToCrud('UserGuest', 'fa fa-user', UserGuest::class);
         yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);

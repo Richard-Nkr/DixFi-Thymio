@@ -26,6 +26,7 @@ class ContainsAlphanumericValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
+        //Vérifie que la chaine ne contienne bien que des lettres minuscules,des lettres majuscules et des nombres
         if (!preg_match('/^[a-zA-Z0-9]+$/', $value, $matches)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)
