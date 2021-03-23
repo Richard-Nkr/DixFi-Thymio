@@ -3,7 +3,8 @@
 namespace App\Service;
 
 
-use Spatie\Browsershot\Browsershot;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Twig\Environment;
 
 class DocumentGenerator
@@ -16,14 +17,19 @@ class DocumentGenerator
         $this->twig = $twig;
     }
 
-    public function generatePdf(string $template, array $parameters): string
+    public function generatePdf(string $html): void
     {
-        $html = $this->twig->render($template,$parameters);
-
-        return Browsershot::html($html)
-            ->format('A4')
-            ->margins(10,10,10,10)
-            ->pdf();
+        $options = new Options();
+        //permet d'afficher le pdf et les images correctement
+        $options->set('isRemoteEnabled', TRUE);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        // Mettre la taille du PDF
+        $dompdf->setPaper('A4');
+        // Créer le pdf à partir du html
+        $dompdf->render();
+        // envoie le pdf vers le Browser
+        $dompdf->stream();;
     }
 
 }

@@ -36,7 +36,7 @@
         <div class="buttonMargin">
             <img id="correction" src="{{ vich_uploader_asset(publicChallenge, 'fileCorrection') }}">
         </div>
-        <form method="post" target="_blank" action="{{ path('public_challenge_create_pdf', {'id': publicChallenge.id}) }}">
+        <form method="post"  action="{{ path('public_challenge_create_pdf', {'id': publicChallenge.id}) }}">
             <div class="buttonStartChallenge">
                 <button class="btnG"> PDF correction du DixFi {{ publicChallenge.id }}  </button>
             </div>
@@ -46,24 +46,6 @@
 
     </fieldset>
     {% block javascripts %}
-        <script>
-            let compteur = 0;
-
-            function myFunction() {
-                compteur++;
-                document.getElementById("num".concat(compteur.toString())).style.display = "inline";
-            }
-
-            function myFunction2() {
-                if(document.getElementById("correction").style.display === "inline"){
-                    document.getElementById("correction").style.display = "none";
-                    document.getElementById("button_js").textContent = "Voir la correction";
-                }else{
-                    document.getElementById("correction").style.display = "inline";
-                    document.getElementById("button_js").textContent = "Cacher la correction";
-                }
-
-            }
-        </script>
+        <script src="/js/indices.js"></script>
     {% endblock %}
 {% endblock %}

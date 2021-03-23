@@ -16,6 +16,7 @@
                                     <h4 class="card-title">Groupe n°{{ student_group.id }}
                                         : {{ student_group.nickname }}</h4>
                                     <hr class="helpHr">
+                                    <br>
                                     <h5 class="card-text">Membres :
                                         {{ render(controller('App\\Controller\\ChildController::show', {'id': student_group.id}) ) }}
                                     </h5>
@@ -23,7 +24,8 @@
                                         création: {{ student_group.createdAt ? student_group.createdAt|date('Y-m-d H:i:s') : '' }}</h5>
                                     <h5 class="card-text">ThymioChallenge(s)
                                         réussi(s): {{ student_group.countSucceed }}</h5>
-                                    <div class="buttonMargin">
+                                    <br>
+                                    <div>
                                         {{ include('student_group/_delete_form.html.twig') }}
                                     </div>
                                 </div>

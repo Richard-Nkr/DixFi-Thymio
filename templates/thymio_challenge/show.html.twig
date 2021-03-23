@@ -72,29 +72,14 @@
                 <button class="btnB2"> Voir la correction</button>
             </a>
         {% endif %}
-        <div style="float: right; margin-right: 18%;">
+        <div class="pos_right">
             <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
-                <button type="button" style="margin-left: 4em;" class="btnB2">Retour aux défis</button>
+                <button type="button" class="btnB2">Retour aux défis</button>
             </a>
         </div>
 
     </div>
     {% block javascripts %}
-        <script>
-            let compteur = 0;
-            function myFunction() {
-                compteur++;
-                document.getElementById("num".concat(compteur.toString())).style.display = "inline";
-            }
-            function myFunction2() {
-                if(document.getElementById("correction").style.display === "inline"){
-                    document.getElementById("correction").style.display = "none";
-                    document.getElementById("button_js").textContent = "Voir la correction";
-                }else{
-                    document.getElementById("correction").style.display = "inline";
-                    document.getElementById("button_js").textContent = "Cacher la correction";
-                }
-            }
-        </script>
+        <script src="/js/indices.js"></script>
     {% endblock %}
 {% endblock %}

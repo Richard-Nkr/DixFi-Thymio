@@ -756,13 +756,13 @@ footer{
 }
 
 .pos_right{
-    float: right;
-    margin-right: 23%;
+    float: left;
+    margin-left: 20%;
 }
 
 .pos_left{
-    float: left;
-    margin-left: 20%;
+    float: right;
+    margin-right: 23%;
 }
 
 .td_indices{

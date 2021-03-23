@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Challenge;
 use App\Entity\PublicChallenge;
 use App\Form\ChallengeUpdateType;
 use App\Form\PublicChallengeType;
@@ -10,14 +9,12 @@ use App\Repository\HelpRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Service\DocumentGenerator;
 use App\Service\PublicChallengeCreation;
-use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
-use Twig\Environment;
 
 /**
  * @Route("/public/challenge")
@@ -37,11 +34,10 @@ class PublicChallengeController extends AbstractController
     }
 
 
-
     /**
      * @Route("/{id}/edit", name="public_challenge_edit", methods={"GET","POST"})
      * @param Request $request
-     * @param Challenge $challenge
+     * @param PublicChallenge $publicChallenge
      * @param int $id
      * @return Response
      */
@@ -98,6 +94,7 @@ class PublicChallengeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($publicChallenge);
             $entityManager->flush();
+            //deuxième flush permettant de créer le path de la solution à partir du nom du fichier insérer créer automatiquement par le vichbundle lors du premier flush
             $publicChallenge->setSolutionPath('/images/corrections/'.$publicChallenge->getNameCorrection());
             $entityManager->flush();
 
@@ -116,14 +113,13 @@ class PublicChallengeController extends AbstractController
 
     /**
      * @Route("/{id}/create/pdf", name="public_challenge_create_pdf", methods={"GET","POST"})
-     * @param Environment $twig
      * @param Request $request
      * @param PublicChallenge $publicChallenge
      * @param DocumentGenerator $documentGenerator
-     * @param Pdf $knp_snappy
-     * @return Response
+     * @return void
      */
-    public function createPDF(Environment $twig, Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator, Pdf $knp_snappy): Response
+    //génère le pdf de la correction du pdf
+    public function createPDF(Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator): void
     {
 
         $vars= 'html to pdf';
@@ -131,14 +127,7 @@ class PublicChallengeController extends AbstractController
             'some'  => $vars,
             'publicChallenge' =>$publicChallenge
         ));
-        $response= new Response();
-
-        $pdf= $response->setContent($knp_snappy->getOutputFromHtml($html,array('orientation' => 'Portrait', 'enable-local-file-access' => true, 'encoding' => 'UTF-8')));
-
-        $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-disposition', 'filename="mon_fichier.pdf"');
-
-        return $response;
+        $documentGenerator->generatePdf($html);
     }
 
     /**

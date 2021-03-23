@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Challenge;
 use App\Form\ChallengeType;
-use App\Form\ChallengeUpdateType;
 use App\Repository\PrivateChallengeRepository;
 use App\Repository\PublicChallengeRepository;
 use App\Repository\TeacherRepository;
@@ -41,6 +40,7 @@ class ChallengeController extends AbstractController
      * @param TeacherRepository $teacherRepository
      * @return Response
      */
+    //va permettre d'afficher tous les challenge qui correspondent à un teacher
     public function showMyChallenge(PrivateChallengeRepository $privateChallengeRepository, PublicChallengeRepository $publicChallengeRepository, TeacherRepository $teacherRepository): Response
     {
         return $this->render('challenge/show_my_challenge.html.twig', [
@@ -60,6 +60,7 @@ class ChallengeController extends AbstractController
      * @param TeacherRepository $teacherRepository
      * @return Response
      */
+    //permet de créer un challenge privé ou bien public selon le choix de l'utilisateur
     public function new(Request $request, PublicChallengeCreation $publicChallengeCreation, Session $session, CreatePrivateChallenge $createPrivateChallenge, TeacherRepository $teacherRepository): Response
     {
         $challenge = new Challenge();

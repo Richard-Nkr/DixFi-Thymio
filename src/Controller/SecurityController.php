@@ -16,6 +16,7 @@ class SecurityController extends AbstractController
      * @param Session $session
      * @return Response
      */
+    //connexion à l'aide du SecurityBundle
     public function login(AuthenticationUtils $authenticationUtils, Session $session): Response
     {
         if ($this->getUser()) {
@@ -34,6 +35,7 @@ class SecurityController extends AbstractController
      * @Route("/logout", name="app_logout")
      * @param Session $session
      */
+    //deconnexion à l'aide du SecurityBundle
     public function logout(Session $session)
     {
         $this->get('security.context')->setToken(null);
