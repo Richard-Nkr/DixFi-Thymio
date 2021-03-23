@@ -25,7 +25,6 @@ class PublicChallengeRepository extends ServiceEntityRepository
             ->andWhere('p.id = :val')
             ->setParameter('val', $id)
             ->getQuery()
-            ->getOneOrNullResult()
-            ;
+            ->getOneOrNullResult();
     }
 }
