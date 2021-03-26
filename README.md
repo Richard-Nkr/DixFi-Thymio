@@ -12,13 +12,11 @@ Notre groupe est composé de :
 
 ## C'est quoi les Dix'Fi de Thymio ?
 
-C'est une application web destinée à tous ceux qui veulent découvrir le monde de la programmation à travers des défis à réaliser 
-avec le robot Thymio !
+C'est une application web destinée à tous ceux qui aimeraient découvrir le monde de la programmation à travers des défis à réaliser avec un petit robot, nommé Thymio !
 
 ![Le Robot Thymio](thymio-colors.jpg)  
 
-Plus particulièrement, l'application a été adapté à une utilisation pour les enseignants qui veulent initier leurs élèves à la 
-programmation, notamment en Scratch, sous la forme d'une activité appelé "La Semaine des Dix'Fi de  Thymio" dont voici la brochure :
+L'application a été conçue pour les enseignants qui souhaitent initier leurs élèves à la programmation, notamment à l'aide de Scratch. En effet, l'objectif était de faire apprendre à des enfants (8 à 13 ans), à travers un aspect ludique, la logique du code durant tout une semaine, appelée "la semaine des Dix’Fi de Thymio".  Pour ce faire, nous avons mis à disposition une brochure pour les professeurs, les élèves mais aussi les parents, proposant un programme à suivre lors de cette semaine. 
 
 ![La Semaine des Dix'Fi de  Thymio](La_semaine_des_dixfi_thymio.jpg)   
 
