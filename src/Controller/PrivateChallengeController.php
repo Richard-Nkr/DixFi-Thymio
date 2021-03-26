@@ -81,7 +81,7 @@ class PrivateChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/view", name="private_challenge_view_teacher", methods={"GET"})
+     * @Route("/{id}/view/teacher", name="private_challenge_view_teacher", methods={"GET"})
      * @param PrivateChallengeRepository $privateChallengeRepository
      * @param int $id
      * @param HelpRepository $helpRepository
@@ -115,7 +115,7 @@ class PrivateChallengeController extends AbstractController
         }
 
         return $this->render('private_challenge/edit.html.twig', [
-            'privateChallenge' => $privateChallenge,
+            'challenge' => $privateChallenge,
             'form' => $form->createView(),
         ]);
     }

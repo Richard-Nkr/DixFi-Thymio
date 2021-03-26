@@ -13,7 +13,6 @@ use App\Repository\ChallengeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -54,7 +53,6 @@ class ChallengeController extends AbstractController
      * @Route("/new", name="challenge_new", methods={"GET","POST"})
      * @param Request $request
      * @param PublicChallengeCreation $publicChallengeCreation
-     * @param Session $session
      * @param CreatePrivateChallenge $createPrivateChallenge
      * @param TeacherRepository $teacherRepository
      * @return Response
@@ -77,9 +75,7 @@ class ChallengeController extends AbstractController
                 $entityManager->persist($challenge);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('challenge_show_my_challenge', [
-                    'teacher' => $this->getUser(),
-                ]);
+                return $this->redirectToRoute('challenge_show_my_challenge');
             }
 
 

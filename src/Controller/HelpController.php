@@ -105,7 +105,7 @@ class HelpController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('help_index');
+            return $this->redirectToRoute('help_list',['id'=>$help->getChallenge()->getId()]);
         }
 
         return $this->render('help/edit.html.twig', [
@@ -115,7 +115,7 @@ class HelpController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="help_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="help_delete", methods={"DELETE"})
      * @param Request $request
      * @param Help $help
      * @return Response
@@ -127,7 +127,6 @@ class HelpController extends AbstractController
             $entityManager->remove($help);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('challenge_index');
+        return $this->redirectToRoute('challenge_show_my_challenge');
     }
 }

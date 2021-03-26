@@ -76,6 +76,7 @@ class ChildController extends AbstractController
         ]);
     }
 
+    //On implémentara cette partie pour projet_commun, donc non-suppression du code
     /**
      * @Route("/{id}/edit", name="child_edit", methods={"GET","POST"})
      * @param Request $request
@@ -99,6 +100,7 @@ class ChildController extends AbstractController
         ]);
     }
 
+    //On implémentara cette partie pour projet_commun, donc non-suppression du code
     /**
      * @Route("/{id}", name="child_delete", methods={"DELETE"})
      * @param Request $request
