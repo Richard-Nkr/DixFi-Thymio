@@ -14,10 +14,10 @@ class AboutUsController extends AbstractController
 {
     /**
      * @Route("/information", name="information", methods={"GET"}))
-     * @param Session $session
      * @return Response
      */
-    public function information(Session $session): Response
+    //permet d'afficher le template avec les infos sur l'équipe Thymio
+    public function information(): Response
     {
         return $this->render('about_us/information.html.twig');
     }

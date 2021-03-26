@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210321125219 extends AbstractMigration
+final class Version20210323172148 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,7 +24,6 @@ final class Version20210321125219 extends AbstractMigration
         $this->addSql('ALTER TABLE private_challenge CHANGE deleted_at updated_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE public_challenge DROP deleted_at');
         $this->addSql('ALTER TABLE status DROP count_help, DROP need_help');
-        $this->addSql('ALTER TABLE user DROP deleted_at');
         $this->addSql('ALTER TABLE user_guest ADD count_succeed INT NOT NULL');
         $this->addSql('ALTER TABLE user_guest_status DROP count_help, DROP need_help');
     }
@@ -37,7 +36,6 @@ final class Version20210321125219 extends AbstractMigration
         $this->addSql('ALTER TABLE private_challenge CHANGE updated_at deleted_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE public_challenge ADD deleted_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE status ADD count_help INT DEFAULT NULL, ADD need_help TINYINT(1) NOT NULL');
-        $this->addSql('ALTER TABLE `user` ADD deleted_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE `user_guest` DROP count_succeed');
         $this->addSql('ALTER TABLE user_guest_status ADD count_help INT DEFAULT NULL, ADD need_help TINYINT(1) DEFAULT NULL');
     }

@@ -11,16 +11,15 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
-     * @param Session $session
      * @return Response
      */
-    public function index(Session $session): Response
+    public function index(): Response
     {
         if ($this->getUser()!=null){
             $name = $this->getUser()->getNickname();
         }
         else{
-            $name = "";
+            $name = " ";
         }
         return $this->render('home/index.html.twig', [
             'name' => $name,

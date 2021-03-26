@@ -7,11 +7,11 @@
         <legend>Mes défis publics</legend>
         <div class="challenge_container">
             {% for challenge in public_challenges %}
-                {% if challenge.teacher == app.user %}
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title"> {{ challenge.name }}</h4>
-                            <h5 class="card-text"> {{ challenge.difficulty }}</h5>
+                            <hr class="helpHr"><br>
+                            <h5 class="card-text"> Difficulté : {{ challenge.difficulty }}</h5><br>
                             <div>
                                 <table>
                                     <tr>
@@ -50,7 +50,7 @@
                                         <tr>
                                             <td colspan="2" align="center">
                                                 <div class="buttonMargin">
-                                                    <a href="{{ path('public_challenge_addCorrection', {'id': challenge.id}) }}">
+                                                    <a href="{{ path('public_challenge_add_correction', {'id': challenge.id}) }}">
                                                         <button class="btnC">Ajouter la correction</button>
                                                     </a>
                                                 </div>
@@ -61,8 +61,6 @@
                             </div>
                         </div>
                     </div>
-
-                {% endif %}
             {% endfor %}
         </div>
     </fieldset>
@@ -72,7 +70,6 @@
         <legend>Mes défis privés</legend>
         <div class="challenge_container">
             {% for challenge in private_challenges %}
-                {% if challenge.teacher == app.user %}
                     <div class="card">
                         <div class="card-body">
                             <h2 class="card-title">{{ challenge.name }}</h2>
@@ -81,7 +78,7 @@
                                 <tr>
                                     <td>
                                         <div class="buttonMargin">
-                                            <a href="{{ path('public_challenge_show', {'id': challenge.id}) }}">
+                                            <a href="{{ path('private_challenge_view_teacher', {'id': challenge.id}) }}">
                                                 <button class="btnB">Voir ce
                                                     défi
                                                 </button>
@@ -115,8 +112,6 @@
                             </table>
                         </div>
                     </div>
-
-                {% endif %}
             {% endfor %}
         </div>
     </fieldset>

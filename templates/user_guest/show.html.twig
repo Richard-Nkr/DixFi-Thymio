@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}UserGuest{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
 {% block body %}
     <h1 class="h1title">Bonjour {{ user_guest.nickname }} !</h1>
@@ -30,9 +30,9 @@
         </div>
     </fieldset>
     <div class="buttonMargin">
-        <a href="{{ path('user_guest_edit', {'id': user_guest.id}) }}">
+        <a href="{{ path('user_guest_edit')}}">
             <button class="btnG"> Modifier mon profil</button>
         </a>
     </div>
-    {{ include('teacher/_delete_form.html.twig') }}
+    {{ include('user_guest/_delete_form.html.twig') }}
 {% endblock %}

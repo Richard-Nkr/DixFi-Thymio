@@ -39,6 +39,7 @@ class ChildController extends AbstractController
      * @param ChildRepository $childRepository
      * @return Response
      */
+    //permet de créer une nouvelle instance de Child en fonction du studentgroup et d'afficher le nombre d'élèves affectés au groupe
     public function new(Request $request, StudentGroup $studentGroup, NotifierInterface $notifier, ChildRepository $childRepository): Response
     {
         if ($studentGroup->getTeacher()!=$this->getUser()){
@@ -53,8 +54,7 @@ class ChildController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($child);
             $entityManager->flush();
-            $countChildren = $childRepository->findNumberChildrenByStudentGroup($studentGroup);
-            $notifier->send(new Notification("L'étudiant a bien été ajouté au groupe. Vous avez désormais ajouté ".$countChildren." étudiant(s) au groupe", ['browser']));
+            $notifier->send(new Notification("L'étudiant a bien été ajouté au groupe. Vous avez désormais ajouté ".$childRepository->findNumberChildrenByStudentGroup($studentGroup)." étudiant(s) au groupe", ['browser']));
 
             return $this->redirectToRoute('child_new', ['id'=>$studentGroup->getId()]);
         }
@@ -76,8 +76,12 @@ class ChildController extends AbstractController
         ]);
     }
 
+    //On implémentara cette partie pour projet_commun, donc non-suppression du code
     /**
      * @Route("/{id}/edit", name="child_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Child $child
+     * @return Response
      */
     public function edit(Request $request, Child $child): Response
     {
@@ -96,8 +100,12 @@ class ChildController extends AbstractController
         ]);
     }
 
+    //On implémentara cette partie pour projet_commun, donc non-suppression du code
     /**
      * @Route("/{id}", name="child_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Child $child
+     * @return Response
      */
     public function delete(Request $request, Child $child): Response
     {

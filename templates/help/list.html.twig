@@ -1,23 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Help index{% endblock %}
+{% block title %}Indice(s) du défi {{ challenge.id }}{% endblock %}
 
 {% block body %}
-    <fieldset class="indiceFieldset">
+    <fieldset class="showChallenge">
         <legend>Les indices du défi {{ challenge.id }}</legend>
-        <table class="indice_table">
-            {% for help in helps %}
-                {% if help.challenge.id == challenge.id %}
-                    <tr>
-                        <td class="td_num_indice">Indice {{ help.numberHelp }} : </td>
-                        <td class="td_content">{{ help.contentHelp }}</td>
-                        <td class="td_modify">
-                            <a href="{{ path('help_edit', {'id': help.id}) }}">Modifier</a>
-                        </td>
-                    </tr>
-                {% endif %}
+        {% if helps != null %}
+        <div class="challenge_container">
+        {% for help in helps %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"> Indice {{ help.numberHelp }} :</h4>
+                            <hr class="helpHr"><br>
+                            <h5 class="card-text"> Contenu : {{ help.contentHelp }} </h5>
+                        </div>
+                        <div class="buttonStartChallenge">
+                            <a href="{{ path('help_edit', {'id': help.id}) }}"> <button class="btnG"> Modifier </button> </a>
+                        </div>
+                    </div>
             {% endfor %}
-        </table>
+        </div>
+            <div class="buttonMargin">
+                {{ include('help/_delete_helps_form.html.twig') }}
+            </div>
+        {% else %}
+            <div class="divProf">
+                <img class="imgProf" src="{{ asset('images/professeur.png') }}"
+                     alt="Professeur_Thymio">
+                <p> Aucun indice n'a été crée pour ce défi</p>
+                <br>
+            </div>
+        {% endif %}
     </fieldset>
+
+    <div>
+        <a href="{{ path('challenge_show_my_challenge') }}">
+            <button type="button" class="btnB2">Retour à mes défis</button>
+        </a>
+    </div>
 
 {% endblock %}

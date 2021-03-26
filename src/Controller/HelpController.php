@@ -19,17 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HelpController extends AbstractController
 {
-    /**
-     * @Route("/", name="help_index", methods={"GET"})
-     * @param HelpRepository $helpRepository
-     * @return Response
-     */
-    public function index(HelpRepository $helpRepository): Response
-    {
-        return $this->render('help/index.html.twig', [
-            'helps' => $helpRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="help_list", methods={"GET"})
@@ -41,7 +30,7 @@ class HelpController extends AbstractController
     public function list(HelpRepository $helpRepository, int $id, ChallengeRepository  $challengeRepository): Response
     {
         return $this->render('help/list.html.twig', [
-            'helps' => $helpRepository->findAll(),
+            'helps' => $helpRepository->findBy(['challenge'=>$challengeRepository->findOneById($id)]),
             'challenge' => $challengeRepository->findOneById($id)
         ]);
     }
@@ -70,7 +59,7 @@ class HelpController extends AbstractController
                 $entityManager->persist($help);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('challenge_showMyChallenge');
+                return $this->redirectToRoute('challenge_show_my_challenge');
             }else{
                 $notifier->send(new Notification("Le numéro d'indice n'est pas cohérent ", ['browser']));
                 return $this->render('help/new.html.twig', ['help' => $help, 'helps' => $helpRepository->findByIdChallenge($id), 'form' => $form->createView(),]);
@@ -105,7 +94,7 @@ class HelpController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('help_index');
+            return $this->redirectToRoute('help_list',['id'=>$help->getChallenge()->getId()]);
         }
 
         return $this->render('help/edit.html.twig', [
@@ -115,19 +104,22 @@ class HelpController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="help_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete_helps", methods={"DELETE"})
      * @param Request $request
-     * @param Help $help
+     * @param Challenge $challenge
+     * @param HelpRepository $helpRepository
      * @return Response
      */
-    public function delete(Request $request, Help $help): Response
+    public function deleteHelps(Request $request, Challenge $challenge, HelpRepository $helpRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $help->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $challenge->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($help);
-            $entityManager->flush();
+            $helps = $helpRepository->findBy(['challenge'=>$challenge]);
+            foreach($helps as $help){
+                $entityManager->remove($help);
+                $entityManager->flush();
+            }
         }
-
-        return $this->redirectToRoute('challenge_index');
+        return $this->redirectToRoute('challenge_show_my_challenge');
     }
 }

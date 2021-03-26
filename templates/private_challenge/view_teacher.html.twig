@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Défi public n° {{ private_challenge.id }}{% endblock %}
+{% block title %}Défi privé n° {{ privateChallenge.id }}{% endblock %}
 
 {% block body %}
 
@@ -8,42 +8,29 @@
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
         </div>
     {% endfor %}
 
     <fieldset class="showChallenge">
 
-        <legend>Défi n°{{ private_challenge.id }} : {{ private_challenge.name }}</legend>
-        <p> Crée le : {{ private_challenge.createdAt ? private_challenge.createdAt|date('d-m-Y') : '' }} </p>
-        <p> Temps nécessaire : {{ private_challenge.duration }} </p>
-        <p> Difficulté : {{ private_challenge.difficulty }} </p>
-        <p> Description : {{ private_challenge.description }} </p>
-
-        {% for indice in indices %}
-            <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
-                : {{ indice.contentHelp }}</p><br>
-        {% endfor %}
-        <div class="buttonMargin">
-            <button class="btnC" onclick="myFunction()">Voir un indice</button>
-        </div>
+        <legend>Défi n°{{ privateChallenge.id }} : {{ privateChallenge.name }}</legend>
+        <p> Crée le : {{ privateChallenge.createdAt ? privateChallenge.createdAt|date('d-m-Y') : '' }} </p>
+        <p> Temps nécessaire : {{ privateChallenge.duration }} </p>
+        <p> Difficulté : {{ privateChallenge.difficulty }} </p>
+        <p> Description : {{ privateChallenge.description }} </p>
+        {% if indices!= null %}
+            {% for indice in indices %}
+                <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+                    : {{ indice.contentHelp }}</p><br>
+            {% endfor %}
+            <div class="buttonMargin">
+                <button class="btnC" onclick="myFunction()">Voir un indice</button>
+            </div>
+        {% endif %}
     </fieldset>
     {% block javascripts %}
-        <script>
-            let compteur = 0;
-            function myFunction() {
-                compteur++;
-                document.getElementById("num".concat(compteur.toString())).style.display = "inline";
-            }
-            function myFunction2() {
-                if(document.getElementById("correction").style.display === "inline"){
-                    document.getElementById("correction").style.display = "none";
-                    document.getElementById("button_js").textContent = "Voir la correction";
-                }else{
-                    document.getElementById("correction").style.display = "inline";
-                    document.getElementById("button_js").textContent = "Cacher la correction";
-                }
-            }
-        </script>
+        <script src="/js/indices.js"></script>
     {% endblock %}
 {% endblock %}

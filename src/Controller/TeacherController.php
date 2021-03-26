@@ -226,17 +226,19 @@ class TeacherController extends AbstractController
     /**
      * @Route("/delete", name="teacher_delete", methods={"DELETE"})
      * @param Request $request
-     * @param Teacher $teacher
      * @return Response
      */
-    public function delete(Request $request, Teacher $teacher): Response
+    public function delete(Request $request): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $teacher->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $this->getUser()->getId(), $request->request->get('_token'))) {
+            $session = $this->get('session');
+            $session = new Session();
+            $session->invalidate();
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($teacher);
+            $entityManager->remove($this->getUser());
             $entityManager->flush();
         }
-        return $this->redirectToRoute('teacher_index');
+         return $this->redirectToRoute('home');
     }
 
     /**

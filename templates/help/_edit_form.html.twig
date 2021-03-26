@@ -1,25 +1,26 @@
 {{ form_start(form) }}
-<fieldset class="formInscription">
-    <legend class="legendInscription">Editer un indice</legend>
+<fieldset class="showChallenge2">
+    <legend>Editer un indice</legend>
     <table class="form_table2">
         <tr>
-            <td class="td_label4">
-                {{ form_label(form.numberHelp, 'Numéro d\'indice : ', {'attr': {'class': 'form_label2'}}) }}
+            <td class="td_label">
+                {{ form_label(form.numberHelp, 'Numéro d\'indice : ') }}
             </td>
             <td class="td_field2">
                 {{ form_widget(form.numberHelp, {'attr': {'class': 'form_field'}}) }}
             </td>
         </tr>
         <tr>
-            <td class="td_label4">
-                {{ form_label(form.contentHelp, 'Indice : ', {'attr': {'class': 'form_label'}}) }}
+            <td class="td_label">
+                {{ form_label(form.contentHelp, 'Indice : ') }}
             </td>
             <td class="td_field2">
                 {{ form_widget(form.contentHelp, {'attr': {'class': 'form_field3'}}) }}
             </td>
         </tr>
     </table>
-    <button class="btn btn-success">{{ button_label|default('Ajouter l\'indice') }}</button>
 </fieldset>
+<button class="btnG">{{ button_label|default('Modifier l\'indice') }}</button>
+
 {{ form_end(form) }}
 

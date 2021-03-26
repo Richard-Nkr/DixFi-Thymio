@@ -3,15 +3,11 @@
 namespace App\Controller;
 
 
-use App\Entity\StudentGroup;
 use App\Entity\User;
 use App\Entity\UserGuest;
-use App\Form\StudentGroupType;
 use App\Form\UserGuestType;
 use App\Form\UserType;
-use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
-use App\Service\CreateStudentGroup;
 use App\Service\GestionPassword;
 use App\Service\MailerService;
 use App\Service\SecurizerRoles;
@@ -23,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
@@ -83,30 +78,6 @@ class UserController extends AbstractController
         return $this->render('user_guest/new.html.twig', ['user_guest' => $userguest, 'form' => $form->createView(),]);
     }
 
-
-
-    /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param User $user
-     * @return Response
-     */
-    public function edit(Request $request, User $user): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})

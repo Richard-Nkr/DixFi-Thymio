@@ -5,10 +5,10 @@
 {% block body %}
 
 <fieldset class="showChallenge">
-    <legend> Les DixFi de Thymio </legend>
+    <legend> Les Dix'Fi de Thymio </legend>
         {% if is_granted('ROLE_STUDENT_GROUP') or is_granted('ROLE_USER_GUEST') %}
         {% if app.user.countSucceed == 0 %}
-            <h3> N'hésitez plus à vous lancer dans les DixFi, {{ app.user.nickName }} ! Thymio vous attend !</h3>
+            <h3> N'hésitez plus à vous lancer dans les Dix'Fi, {{ app.user.nickName }} ! Thymio vous attend !</h3>
         {% elseif app.user.countSucceed < 5 %}
             <h3> Bien joué, {{ app.user.nickName }} ! Vous avez une progression de {{ app.user.countSucceed*10}}%. Ne vous arrêtez pas dans votre lancée.</h3>
         {% elseif app.user.countSucceed < 8 %}
@@ -23,7 +23,7 @@
     {% for thymio_challenge in thymio_challenges %}
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</h4> <hr>
+                <h4 class="card-title"> Défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}</h4> <hr class="helpHr">
                 <h5 class="card-body"> Temps : {{ thymio_challenge.duration }}</h5>
             </div>
             <div class="buttonMargin">

@@ -21,6 +21,7 @@ class AccessDeniedListener implements EventSubscriberInterface
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
+        //Si l'exception est un 'AccessDeniedException', alors l'utilisateur sera redirigé vers la page d'acceuil
         if (!$exception instanceof AccessDeniedException) {
             return;
         }

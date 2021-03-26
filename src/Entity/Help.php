@@ -26,7 +26,7 @@ class Help
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="helps", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="helps")
      * @ORM\JoinColumn(nullable=false)
      */
     private $challenge;

@@ -2,14 +2,20 @@
 
 namespace App\Controller;
 
-
 use App\Entity\UserGuest;
 use App\Form\UserGuestUpdateType;
 use App\Repository\UserGuestRepository;
+use App\Service\GestionPassword;
+use App\Service\UpdateUserGuest;
+use App\Service\Validator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @Route("/user/guest")
@@ -23,39 +29,57 @@ class UserGuestController extends AbstractController
      */
     public function index(UserGuestRepository $userGuestRepository): Response
     {
-        $this->render('home/index.html.twig', [
+        return $this->render('home/index.html.twig', [
             'name' => $this->getUser()->getNickname(),
         ]);
     }
 
 
     /**
-     * @Route("/{id}", name="user_guest_show", methods={"GET"})
-     * @param UserGuest $userGuest
+     * @Route("/show", name="user_guest_show", methods={"GET"})
      * @return Response
      */
-    public function show(UserGuest $userGuest): Response
+    public function show(): Response
     {
         return $this->render('user_guest/show.html.twig', [
-            'user_guest' => $userGuest,
+            'user_guest' => $this->getUser(),
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="user_guest_edit", methods={"GET","POST"})
+     * @Route("/edit", name="user_guest_edit", methods={"GET","POST"})
      * @param Request $request
-     * @param UserGuest $userGuest
+     * @param UpdateUserGuest $updateUserGuest
+     * @param UserGuestRepository $userGuestRepository
+     * @param Validator $validator
+     * @param GestionPassword $gestionPassword
+     * @param NotifierInterface $notifier
      * @return Response
      */
-    public function edit(Request $request, UserGuest $userGuest): Response
+    public function edit(Request $request, UpdateUserGuest $updateUserGuest, UserGuestRepository $userGuestRepository, Validator $validator, GestionPassword $gestionPassword, NotifierInterface $notifier): Response
     {
+        $userGuest = new UserGuest();
         $form = $this->createForm(UserGuestUpdateType::class, $userGuest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $violations = $validator->listViolations($userGuest);
+            if (0 !== count($violations)) {
+                foreach ($violations as $violation) {
+                    $notifier->send(new Notification($violation->getMessage(), ['browser']));
+                }
+                return $this->render('user_guest/edit.html.twig', [
+                    'user_guest' => $userGuest,
+                    'form' => $form->createView(),
+                ]);
+            }
+            $userGuest2 = $userGuestRepository->findOneById($this->getUser()->getId());
+            $gestionPassword->createHashPassword($userGuest);
+            $updateUserGuest->update($userGuest,$userGuest2);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_guest_index');
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('user_guest/edit.html.twig', [
@@ -65,19 +89,22 @@ class UserGuestController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_guest_delete", methods={"DELETE"})
+     * @Route("/delete", name="user_guest_delete", methods={"DELETE"})
      * @param Request $request
-     * @param UserGuest $userGuest
      * @return Response
      */
-    public function delete(Request $request, UserGuest $userGuest): Response
+    public function delete(Request $request): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $userGuest->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $this->getUser()->getId(), $request->request->get('_token'))) {
+
+                $session = $this->get('session');
+                $session = new Session();
+                $session->invalidate();
+
             $entityManager = $this->getDoctrine()->getManager();
-            $userGuest->setDeletedAt(new \DateTime());
+            $entityManager->remove($this->getUser());
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('user_guest_index');
+        return $this->redirectToRoute('home');
     }
 }

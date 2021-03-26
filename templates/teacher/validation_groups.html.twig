@@ -7,27 +7,23 @@
     <hr class="helpHr">
     <div style="margin: 2% 4% 1% 4%;">
         {% if studentgroups == null %}
-                <div class="buttonMargin">
-                <div>
-                    <img style="width: 40%; margin-top: 5%; margin-bottom: 5%;" src="{{ asset('images/child.png') }}"
-                      alt="Robot_Thymio">
-                </div>
-                </div>
-            
-            {% else %}
+            <div class="buttonMargin">
+                <div><img style="width: 40%; margin-top: 5%; margin-bottom: 5%;" src="{{ asset('images/child.png') }}"
+                          alt="Robot_Thymio"></div>
+            </div>
+        {% else %}
             <div class="row">
-            {% for studentgroup in studentgroups %}
-                <div class="col-sm-6">
-                    <fieldset class="showChallenge">
-                        <legend class="legendValidation"> Groupe n°{{ studentgroup.id }}
-                            : {{ studentgroup.nickname }}</legend>
-                        {{ render(controller('App\\Controller\\ThymioChallengeController::listChallengesNotValidated', {'id': studentgroup.id}) ) }}
-                    </fieldset>
-                </div>
-            {% endfor %}
-        </div>
-        {%endif%}
+                {% for studentgroup in studentgroups %}
+                    <div class="col-sm-6">
+                        <fieldset class="showChallenge">
+                            <legend class="legendValidation"> Groupe n°{{ studentgroup.id }}
+                                : {{ studentgroup.nickname }}</legend>
+                            {{ render(controller('App\Controller\ThymioChallengeController::listChallengesNotValidated', {'id': studentgroup.id}) ) }}
+                        </fieldset>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}
-

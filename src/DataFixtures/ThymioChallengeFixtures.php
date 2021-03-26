@@ -119,6 +119,7 @@ QUAND sa vitesse est trop élevée, ALORS il s’allume en rouge et poursuit l�
             $thymioChallenge->setDescription($value['description']);
             $thymioChallenge->setDuration($value['duration']);
             $thymioChallenge->setSolutionPath($value['solutionPath']);
+            $thymioChallenge->setPathVideo($value['path_video']);
             $manager->persist($thymioChallenge);
 
             $this->addReference('thymioChallenge_'. $key, $thymioChallenge);

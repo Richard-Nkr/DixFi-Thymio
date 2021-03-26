@@ -23,19 +23,19 @@ class YoutubeController extends AbstractController
      * @param Request $request
      * @param Google_Client $client
      * @param YoutubeDeveloperKeyGenerator $youtubeDeveloperKeyGenerator
-     * @param Youtube $yt
      * @return Response
      */
     public function show(Request $request, Google_Client $client, YoutubeDeveloperKeyGenerator $youtubeDeveloperKeyGenerator): Response
     {
         $key = $youtubeDeveloperKeyGenerator->DeveloperKeyGenerator();
+        //Initialisation de la clé developpeur pour utilisé l'API Youtube et pouvoir faire des requetes
         $client->setDeveloperKey($key);
         $youtube = new Google_Service_YouTube($client);
-        $yt = new Youtube();
-        $form = $this->createForm(YoutubeType::class, $yt);
+        $form = $this->createForm(YoutubeType::class, new Youtube());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form['request']->getData();
+            //Recherche Youtube qui renvoie 5 vidéos correspondantes à "Thymio " + recherche de l'utilisateur
             $response = $youtube->search->listSearch('id,snippet', ['q' => 'Thymio '.$search, 'maxResults' => "5", 'type' => 'video']);
             return $this->render('youtube/index.html.twig', [
                 'form' => $form->createView(),

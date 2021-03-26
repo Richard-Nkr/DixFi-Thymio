@@ -4,31 +4,35 @@
 
 {% block body %}
     <div class="buttonMargin">
-<fieldset class="showChallenge">
-    <legend> Bienvenue sur les défis publics </legend>
-    <div class="challenge_container">
-        {% for publicChallenge in publicChallenges %}
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title"> Défi n°{{ publicChallenge.id }} : {{ publicChallenge.name }}</h4> <hr>
-                <h5 class="card-text"> Difficulté : {{ publicChallenge.difficulty }}</h5>
-                <h5 class="card-text">Crée le : {{ publicChallenge.createdAt ? publicChallenge.createdAt|date('d-m-Y') : '' }}</h5>
-                <h5 class="card-text">Durée : {{ publicChallenge.duration }} </h5>
-            </div>
-            <div class="buttonStartChallenge">
-                <a href="{{ path('public_challenge_show', {'id': publicChallenge.id}) }}"> <button class="btnG"> Voir le défi </button> </a>
-            </div>
-        </div>
-        {% else %}
+        <fieldset class="showChallenge">
+            <legend> Bienvenue sur les défis publics</legend>
+            <div class="challenge_container">
+                {% for publicChallenge in publicChallenges %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"> Défi n°{{ publicChallenge.id }} : {{ publicChallenge.name }}</h4>
+                            <hr class="helpHr"><br>
+                            <h5 class="card-text"> Difficulté : {{ publicChallenge.difficulty }}</h5>
+                            <h5 class="card-text">Crée le
+                                : {{ publicChallenge.createdAt ? publicChallenge.createdAt|date('d-m-Y') : '' }}</h5>
+                            <h5 class="card-text">Durée : {{ publicChallenge.duration }} </h5>
+                        </div>
+                        <div class="buttonStartChallenge">
+                            <a href="{{ path('public_challenge_show', {'id': publicChallenge.id}) }}">
+                                <button class="btnG"> Voir le défi</button>
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
 
-            <div style="text-align: center; margin-left: 20% ; margin-right: 20%">
-                <img style="width: 40%; margin-bottom: 6%;" src="{{ asset('images/professeur.png') }}"
-                     alt="Professeur_Thymio">
-                <p> Aucun défi public n'a été crée pour le moment.</p>
-                <br>
+                    <div class="divProf">
+                        <img class="imgProf" src="{{ asset('images/professeur.png') }}"
+                             alt="Professeur_Thymio">
+                        <p> Aucun défi public n'a été crée pour le moment.</p>
+                        <br>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
-</fieldset>
+        </fieldset>
     </div>
 {% endblock %}

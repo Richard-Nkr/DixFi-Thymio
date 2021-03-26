@@ -8,7 +8,8 @@
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
         </div>
     {% endfor %}
 
@@ -19,51 +20,40 @@
         <p> Temps nécessaire : {{ publicChallenge.duration }} </p>
         <p> Difficulté : {{ publicChallenge.difficulty }} </p>
         <p> Description : {{ publicChallenge.description }} </p>
-
-        {% for indice in indices %}
-        <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
-            : {{ indice.contentHelp }}</p><br>
-        {% endfor %}
-        <div class="buttonMargin">
-            <button class="btnC" onclick="myFunction()">Voir un indice</button>
-        </div>
-        {%  if publicChallenge.nameCorrection != null %}
-        <div class="buttonMargin">
-            <button class="btnB" onclick="myFunction2()" id="button_js">Voir la correction</button>
-        </div>
-
-
-        <div class="buttonMargin">
-            <img id="correction" src="{{ vich_uploader_asset(publicChallenge, 'fileCorrection') }}">
-        </div>
-        <form method="post"  action="{{ path('public_challenge_create_pdf', {'id': publicChallenge.id}) }}">
-            <div class="buttonStartChallenge">
-                <button class="btnG"> PDF correction du DixFi {{ publicChallenge.id }}  </button>
+        {% if indices!= null %}
+            {% for indice in indices %}
+                <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+                    : {{ indice.contentHelp }}</p><br>
+            {% endfor %}
+            <div class="buttonMargin">
+                <button class="btnC" onclick="myFunction()">Voir un indice</button>
             </div>
-        </form>
+        {% endif %}
+        {% if publicChallenge.nameCorrection != null %}
+            <div class="buttonMargin">
+                <button class="btnB" onclick="myFunction2()" id="button_js">Voir la correction</button>
+            </div>
+
+
+            <div class="buttonMargin">
+                <img id="correction" src="{{ vich_uploader_asset(publicChallenge, 'fileCorrection') }}">
+            </div>
+            <form method="post" action="{{ path('public_challenge_create_pdf', {'id': publicChallenge.id}) }}">
+                <div class="buttonStartChallenge">
+                    <button class="btnG"> PDF correction du DixFi {{ publicChallenge.id }}  </button>
+                </div>
+            </form>
 
         {% endif %}
 
     </fieldset>
+
+    <div class="buttonMargin">
+        <a href="{{ path('public_challenge_index') }}">
+            <button type="button" class="btnB2">Retour aux défis</button>
+        </a>
+    </div>
     {% block javascripts %}
-        <script>
-            let compteur = 0;
-
-            function myFunction() {
-                compteur++;
-                document.getElementById("num".concat(compteur.toString())).style.display = "inline";
-            }
-
-            function myFunction2() {
-                if(document.getElementById("correction").style.display === "inline"){
-                    document.getElementById("correction").style.display = "none";
-                    document.getElementById("button_js").textContent = "Voir la correction";
-                }else{
-                    document.getElementById("correction").style.display = "inline";
-                    document.getElementById("button_js").textContent = "Cacher la correction";
-                }
-
-            }
-        </script>
+        <script src="/js/indices.js"></script>
     {% endblock %}
 {% endblock %}

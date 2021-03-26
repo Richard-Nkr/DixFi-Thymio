@@ -3,7 +3,9 @@
     <legend>Ajout d'un indice</legend>
     <table class="form_table2">
         <tr>
-            <td colspan="2" style="font-size: 18px"> Il y a actuellement {{ helps|length }} indice(s) pour ce challenge </td>
+            <td colspan="2" style="font-size: 18px"> Il y a actuellement {{ helps|length }} indice(s) pour ce
+                challenge
+            </td>
         </tr>
         <tr>
             <td class="td_label1">
@@ -22,7 +24,15 @@
             </td>
         </tr>
     </table>
-    <button class="btn btn-success">{{ button_label|default('Ajouter l\'indice') }}</button>
 </fieldset>
+<div class="buttonMargin">
+    <button class="btnG">{{ button_label|default('Ajouter l\'indice') }}</button>
+</div>
+<div class="buttonMargin">
+    <a href="{{ path('challenge_show_my_challenge') }}">
+        <button type="button" class="btnB2">Retour à mes défis</button>
+    </a>
+</div>
+
 {{ form_end(form) }}
 
