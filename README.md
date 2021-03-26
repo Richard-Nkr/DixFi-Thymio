@@ -36,6 +36,10 @@ et puis suivre les étapes [ici](https://www.thymio.org/fr/programmer/scratch/) 
 + Twig
 + Framework PHP Symfony, ORM Doctrine, phpMyAdmin/ MySQL
 
+## Présentation à l'aide de Prezi
+
+Voici une [présentation](https://prezi.com/p/edit/grrifcavqgra/) vous permettant de comprendre davantage l'objectif que nous avons souhaité vous transmettre 
+
 ## Diagramme de classe
 
 ![diagram_class](DiagramClassDixFiThymio.png)
