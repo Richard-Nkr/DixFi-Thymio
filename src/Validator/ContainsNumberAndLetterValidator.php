@@ -26,6 +26,7 @@ class ContainsNumberAndLetterValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
+        //Vérifie que la chaine contient bien au moins une lettre et un chiffre
         if (!preg_match('/^.*[0-9]+.*$/', $value, $matches) || !preg_match('/^.*[a-zA-Z]+.*$/', $value, $matches)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)

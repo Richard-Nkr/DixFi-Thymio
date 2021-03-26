@@ -25,7 +25,6 @@ class Validator
     public function PassWordValidator(User $user): ConstraintViolationListInterface
     {
         $pw = $user->getPassword();
-        //La confirmation de mpd ? getQuoi ?
         $validator = Validation::createValidator();
         $violations = $validator->validate($pw, [
             new Length(['min' => 6]),
@@ -41,11 +40,11 @@ class Validator
      */
     public function FieldsValidator(User $user) : ConstraintViolationListInterface
     {
-        $nn = $user->getNickname();
+        $nname = $user->getNickname();
         $name = $user->getName();
         $fname = $user->getFirstname();
         $validator = Validation::createValidator();
-        $violations1 = $validator->validate($nn, [
+        $violations1 = $validator->validate($nname, [
             new Length(['max' => 20]),
             new ContainsAlphanumeric()
         ]);
@@ -57,6 +56,7 @@ class Validator
             new Length(['max' => 20]),
             new ContainsAlphanumeric()
         ]);
+        //ajout de toutes les violations rencontrées dans un tableau de violation (violation1)
         $violations1->addAll($violations2);
         $violations1->addAll($violations3);
         return $violations1;
@@ -69,18 +69,5 @@ class Validator
         return $violations;
     }
 
-    /**
-    public function mail($doctrine, $mail) : bool
-    {
-        $res = $doctrine
-            ->getRepository('App:UserGuest')
-            ->findOneBy(['mail' => $mail]);
-        if ($res === Null)
-        {
-            return False;
-        }
-        return True;
-    }
-     **/
 
 }
