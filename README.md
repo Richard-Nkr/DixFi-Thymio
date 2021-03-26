@@ -1,5 +1,5 @@
 # Bienvenue sur [les DixFi de Thymio](https://thymio.tech/) !
-***
+
 ## Qui sommes-nous ? 
 
 Nous sommes un groupe de 4 étudiants en 3ème année de licence MIAGE à Paris 1. 
