@@ -2,4 +2,4 @@
 ##Diagramme de classe
 
 
-![image](class_diagram13.svg)
+![image](DiagramClassDixFiThymio.png)
