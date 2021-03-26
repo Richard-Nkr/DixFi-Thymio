@@ -34,7 +34,7 @@ class UserGuestStatus
     private $finishedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UserGuest::class, inversedBy="UserGuestStatus")
+     * @ORM\ManyToOne(targetEntity=UserGuest::class, inversedBy="userGuestStatus")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userGuest;
@@ -44,7 +44,6 @@ class UserGuestStatus
      * @ORM\JoinColumn(nullable=false)
      */
     private $challenge;
-
 
 
     /**

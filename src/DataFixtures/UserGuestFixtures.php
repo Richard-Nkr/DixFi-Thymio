@@ -24,16 +24,16 @@ class UserGuestFixtures extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for($nbTeacher = 2; $nbTeacher <= 10; $nbTeacher++){
+        for($nbUserGuest = 2; $nbUserGuest <= 10; $nbUserGuest++){
             $userGuest = new UserGuest();
             $userGuest->setMail($faker->email);
-            $userGuest->setRoles(['ROLE_USER_GUEST']);
+            $userGuest->setRoles(['ROLE_USERGUEST']);
             $userGuest->setPassword($this->encoder->encodePassword($userGuest, 'Azerty'));
             $userGuest->setName($faker->lastName);
             $userGuest->setFirstname($faker->firstName);
             $userGuest->setNickname($faker->userName);
             $manager->persist($userGuest);
-            $this->addReference('teacher_'. $nbTeacher, $userGuest);
+            $this->addReference('userGuest'. $nbUserGuest, $userGuest);
         }
 
         $manager->flush();

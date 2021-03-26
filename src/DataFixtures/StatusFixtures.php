@@ -33,7 +33,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
                 $status->setSubmittedAt($faker->dateTime());
                 $status->setFinishedAt($faker->dateTime());
             }
-            if ($status->getStatusInt()==-1 || $status->getStatusInt()==3 || $status->getStatusInt()==2){
+            if ($status->getStatusInt()==3 || $status->getStatusInt()==2){
                 $status->setComment($faker->realText(100));
             }
             $status->setCountHelp(null);

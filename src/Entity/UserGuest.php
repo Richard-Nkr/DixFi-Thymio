@@ -38,6 +38,12 @@ class UserGuest extends User
 
 
     /**
+     * @ORM\OneToMany(targetEntity=UserGuestStatus::class, mappedBy="userGuest", cascade={"remove"})
+     */
+    private $userGuestStatus;
+
+
+    /**
      * @ORM\Column(type="string", length=30)
      */
     protected $name;
@@ -64,6 +70,38 @@ class UserGuest extends User
     {
         $this->Challenge = new ArrayCollection();
     }
+
+
+
+    /**
+     * @return Collection|UserGuestStatus[]
+     */
+    public function getStatus(): Collection
+    {
+        return $this->userGuestStatus;
+    }
+
+    public function addStatus(UserGuestStatus $userGuestStatus): self
+    {
+        if (!$this->userGuestStatus->contains($userGuestStatus)) {
+            $this->userGuestStatus[] = $userGuestStatus;
+            $userGuestStatus->setUserGuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatus(UserGuestStatus $userGuestStatus): self
+    {
+        if ($this->userGuestStatus->removeElement($userGuestStatus)) {
+            // set the owning side to null (unless already changed)
+            if ($userGuestStatus->getUserGuest() === $this) {
+                $userGuestStatus->setUserGuest(null);
+            }
+        }
+        return $this;
+    }
+
 
     public function getMail(): ?string
     {

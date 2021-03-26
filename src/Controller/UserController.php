@@ -79,30 +79,6 @@ class UserController extends AbstractController
     }
 
 
-
-    /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param User $user
-     * @return Response
-     */
-    public function edit(Request $request, User $user): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      * @param Request $request

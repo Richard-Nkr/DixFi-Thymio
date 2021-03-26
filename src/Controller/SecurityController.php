@@ -33,10 +33,9 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/logout", name="app_logout")
-     * @param Session $session
      */
     //deconnexion à l'aide du SecurityBundle
-    public function logout(Session $session)
+    public function logout()
     {
         $this->get('security.context')->setToken(null);
         $this->get('request')->getSession()->invalidate();

@@ -104,17 +104,21 @@ class HelpController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="help_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete_helps", methods={"DELETE"})
      * @param Request $request
-     * @param Help $help
+     * @param Challenge $challenge
+     * @param HelpRepository $helpRepository
      * @return Response
      */
-    public function delete(Request $request, Help $help): Response
+    public function deleteHelps(Request $request, Challenge $challenge, HelpRepository $helpRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $help->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $challenge->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($help);
-            $entityManager->flush();
+            $helps = $helpRepository->findBy(['challenge'=>$challenge]);
+            foreach($helps as $help){
+                $entityManager->remove($help);
+                $entityManager->flush();
+            }
         }
         return $this->redirectToRoute('challenge_show_my_challenge');
     }

@@ -20,6 +20,9 @@
                     </div>
             {% endfor %}
         </div>
+            <div class="buttonMargin">
+                {{ include('help/_delete_helps_form.html.twig') }}
+            </div>
         {% else %}
             <div class="divProf">
                 <img class="imgProf" src="{{ asset('images/professeur.png') }}"
