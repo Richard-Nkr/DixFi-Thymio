@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Défi public n° {{ privateChallenge.id }}{% endblock %}
+{% block title %}Défi privé n° {{ privateChallenge.id }}{% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,8 @@
     {% for message in app.flashes('notification') %}
         <div class="alert alert-info alert-dismissible fade show">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
         </div>
     {% endfor %}
 
@@ -19,16 +20,17 @@
         <p> Temps nécessaire : {{ privateChallenge.duration }} </p>
         <p> Difficulté : {{ privateChallenge.difficulty }} </p>
         <p> Description : {{ privateChallenge.description }} </p>
-
-        {% for indice in indices %}
-            <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
-                : {{ indice.contentHelp }}</p><br>
-        {% endfor %}
-        <div class="buttonMargin">
-            <button class="btnC" onclick="myFunction()">Voir un indice</button>
-        </div>
+        {% if indices!= null %}
+            {% for indice in indices %}
+                <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+                    : {{ indice.contentHelp }}</p><br>
+            {% endfor %}
+            <div class="buttonMargin">
+                <button class="btnC" onclick="myFunction()">Voir un indice</button>
+            </div>
+        {% endif %}
     </fieldset>
     {% block javascripts %}
-            <script src="/js/indices.js"></script>
+        <script src="/js/indices.js"></script>
     {% endblock %}
 {% endblock %}

@@ -24,13 +24,15 @@
         <p><u>Temps nécessaire</u> : {{ thymio_challenge.duration }} </p>
         <p><u>Difficulté</u> : {{ thymio_challenge.difficulty }} </p>
         <p><u>Description</u> : {{ thymio_challenge.description }} </p>
-        {% for indice in indices %}
-            <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
-                : {{ indice.contentHelp }}</p><br>
-        {% endfor %}
-        <div class="buttonMargin">
-            <button class="btnC" onclick="myFunction()">Voir un indice</button>
-        </div>
+        {% if indices!= null %}
+            {% for indice in indices %}
+                <p id="num{{ indice.numberHelp }}"> Indice {{ indice.numberHelp }}
+                    : {{ indice.contentHelp }}</p><br>
+            {% endfor %}
+            <div class="buttonMargin">
+                <button class="btnC" onclick="myFunction()">Voir un indice</button>
+            </div>
+        {% endif %}
     </fieldset>
 
 
@@ -40,14 +42,14 @@
             {% if status.statusInt==2 %}
 
                 <div class="pos_left">
-                    <button class="btnG2"> Envoyé </button>
+                    <button class="btnG2"> Envoyé</button>
                 </div>
             {% elseif status.statusInt==3 %}
                 <div class="pos_left">
-                    <button class="btnG2"> Validé </button>
+                    <button class="btnG2"> Validé</button>
                 </div>
             {% else %}
-                    {{ include('thymio_challenge/_add_file_form.html.twig') }}
+                {{ include('thymio_challenge/_add_file_form.html.twig') }}
             {% endif %}
 
         {% elseif is_granted('ROLE_USER_GUEST') %}
@@ -60,7 +62,7 @@
                 </div>
             {% else %}
                 <div class="pos_right">
-                    <button class="btnG2"> Défi terminé </button>
+                    <button class="btnG2"> Défi terminé</button>
                 </div>
             {% endif %}
         {% endif %}

@@ -23,7 +23,7 @@ class UserGuestController extends AbstractController
      */
     public function index(UserGuestRepository $userGuestRepository): Response
     {
-        $this->render('home/index.html.twig', [
+        return $this->render('home/index.html.twig', [
             'name' => $this->getUser()->getNickname(),
         ]);
     }

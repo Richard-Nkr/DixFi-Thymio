@@ -6,7 +6,7 @@
     <h1>Présentation de la semaine Thymio</h1>
     <hr class="helpHr">
     <div class="buttonMargin">
-        <img style="width: 70%;" src="{{ asset('images/weekThymio.jpg') }}" alt="Robot_Thymio">
+        <img id="weekThymio" src="{{ asset('images/weekThymio.jpg') }}" alt="Robot_Thymio">
     </div>
     <br>
     <h1>Manuel d'utilisation des Dix'Fi de Thymio</h1>
@@ -41,8 +41,23 @@
 
     <fieldset class="showChallenge">
         <legend>Les défis</legend>
+        <div class="buttonMargin">
+            <iframe width="650" height="450" src="https://www.youtube.com/embed/vvKvahylf7Y" alt="GuideUtilisateurDixFi"
+                    allowfullscreen></iframe>
+        </div>
+
+        <div class="buttonMargin">
+            <iframe width="650" height="450" src="https://www.youtube.com/embed/ENZCw-mINPc" alt="GuideUtilisateurDixFi"
+                    allowfullscreen></iframe>
+        </div>
+
+        <div class="buttonMargin">
+            <iframe width="650" height="450" src="https://www.youtube.com/embed/D8mL01krr7o" alt="GuideUtilisateurDixFi"
+                    allowfullscreen></iframe>
+        </div>
     </fieldset>
 
+    <br>
     <h1>Vous rencontrez un autre soucis ?</h1>
     <hr class="helpHr">
         <a href="{{ path('contact_index') }}"> <button class="btnG"> Contactez-nous ! <i class="fas fa-envelope"></i> </button> </a>

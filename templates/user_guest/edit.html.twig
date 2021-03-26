@@ -9,10 +9,10 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
     {% endfor %}
-
-<fieldset class="showChallenge2">
-    <legend>Modification de votre compte</legend>
-    {{ include('user_guest/_form_update.html.twig', {'button_label': 'Modifier'}) }}
-</fieldset>
-    <a href="{{ path('user_guest_index') }}"> <button class="btnG">Retour à mon profil</button></a>
+    <div class="buttonMargin">
+        {{ include('user_guest/_form_update.html.twig', {'button_label': 'Modifier'}) }}
+    </div>
+    <div class="buttonMargin">
+        <a href="{{ path('user_guest_index') }}"> <button class="btnB2">Retour à mon profil</button></a>
+    </div>
 {% endblock %}

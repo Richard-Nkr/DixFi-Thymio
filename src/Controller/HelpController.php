@@ -19,17 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HelpController extends AbstractController
 {
-    /**
-     * @Route("/", name="help_index", methods={"GET"})
-     * @param HelpRepository $helpRepository
-     * @return Response
-     */
-    public function index(HelpRepository $helpRepository): Response
-    {
-        return $this->render('help/index.html.twig', [
-            'helps' => $helpRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="help_list", methods={"GET"})
@@ -41,7 +30,7 @@ class HelpController extends AbstractController
     public function list(HelpRepository $helpRepository, int $id, ChallengeRepository  $challengeRepository): Response
     {
         return $this->render('help/list.html.twig', [
-            'helps' => $helpRepository->findAll(),
+            'helps' => $helpRepository->findBy(['challenge'=>$challengeRepository->findOneById($id)]),
             'challenge' => $challengeRepository->findOneById($id)
         ]);
     }

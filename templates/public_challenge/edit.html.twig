@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Challenge{% endblock %}
+{% block title %}Modifier le défi{% endblock %}
 
 {% block body %}
 
-    {{ include('public_challenge/_form_update.html.twig', {'button_label': 'Update'}) }}
-    <br>
-
-    {{ include('challenge/_delete_form.html.twig') }}
+    <div class="buttonMargin">
+        {{ include('public_challenge/_form_update.html.twig', {'button_label': 'Modifier'}) }}
+    </div>
+    <div class="buttonMargin">
+        {{ include('challenge/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

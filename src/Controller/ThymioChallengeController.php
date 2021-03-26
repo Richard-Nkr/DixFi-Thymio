@@ -298,6 +298,7 @@ class ThymioChallengeController extends AbstractController
      * @param HandleStatus $handleStatus
      * @param ThymioChallenge $thymioChallenge
      * @param UserGuestStatusRepository $userGuestStatusRepository
+     * @param HelpRepository $helpRepository
      * @return Response
      */
     public function validateUserChallenge(HandleStatus $handleStatus, ThymioChallenge $thymioChallenge, UserGuestStatusRepository $userGuestStatusRepository): Response
@@ -310,9 +311,8 @@ class ThymioChallengeController extends AbstractController
         $handleStatus->updateStatusUserGuest($userGuestStatus);
         $entityManager->flush();
 
-        return $this->render('thymio_challenge/show.html.twig', [
-            'thymio_challenge' => $thymioChallenge,
-            'status' => $userGuestStatus,
+        return $this->redirectToRoute('thymio_challenge_show_user_guest', [
+            'id' => $thymioChallenge->getId()
         ]);
     }
 
