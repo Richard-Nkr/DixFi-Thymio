@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\UserGuest;
 use App\Form\UserGuestType;
-use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\GestionPassword;
 use App\Service\MailerService;

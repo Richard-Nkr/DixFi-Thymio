@@ -27,7 +27,7 @@ class BotController extends AbstractController{
      * @return Response
      */
     //fonction appelée dès que le bot est démarré
-    function messageAction(Request $request): Response
+    function messageAction(): Response
     {
         DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
 
@@ -63,7 +63,7 @@ class BotController extends AbstractController{
      * @return mixed
      */
     //le bot agit sur la page index du site
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         return $this->render('home/index.html.twig');
     }
@@ -73,7 +73,7 @@ class BotController extends AbstractController{
      * @param Request $request
      * @return mixed
      */
-    public function chatframeAction(Request $request)
+    public function chatframeAction()
     {
         return $this->render('fragments/chat_frame.html.twig');
     }

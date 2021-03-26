@@ -41,14 +41,16 @@ class PrivateChallengeController extends AbstractController
      * @Route("/{id}", name="private_challenge_show", methods={"GET","POST"})
      * @param Request $request
      * @param PrivateChallenge $privateChallenge
+     * @param HelpRepository $helpRepository
      * @param SecurizerRoles $securizerRoles
      * @param NotifierInterface $notifier
      * @param MailerService $mailerService
      * @param StudentGroupRepository $studentGroupRepository
      * @return Response
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     //affiche les privateChallenges et permet au groupe étudiant d'envoyer leur fichier à leur professeur
-    public function show(Request $request,PrivateChallenge $privateChallenge, SecurizerRoles $securizerRoles, NotifierInterface $notifier, MailerService $mailerService, StudentGroupRepository $studentGroupRepository): Response
+    public function show(Request $request,PrivateChallenge $privateChallenge, HelpRepository $helpRepository, SecurizerRoles $securizerRoles, NotifierInterface $notifier, MailerService $mailerService, StudentGroupRepository $studentGroupRepository): Response
     {
         $upload = new PrivateChallenge();
         $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
@@ -63,6 +65,7 @@ class PrivateChallengeController extends AbstractController
                     $notifier->send(new Notification("Le fichier doit etre un fichier scratch", ['browser']));
                     return $this->render('private_challenge/show.html.twig', [
                         'privateChallenge' => $privateChallenge, 'form' => $form->createView(),
+                        'indices' => $helpRepository->findByIdChallenge($privateChallenge->getId()),
                     ]);
                 }
                 $fileName =md5(uniqid()).'.'.$file->getClientOriginalExtension();
@@ -76,6 +79,7 @@ class PrivateChallengeController extends AbstractController
         return $this->render('private_challenge/show.html.twig', [
             'privateChallenge' => $privateChallenge,
             'form' => $form->createView(),
+            'indices' => $helpRepository->findByIdChallenge($privateChallenge->getId()),
         ]);
 
     }

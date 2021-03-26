@@ -9,7 +9,6 @@ use App\Entity\UserGuest;
 use App\Validator\ContainsAlphanumeric;
 use App\Validator\ContainsAlphanumericPassWord;
 use App\Validator\ContainsNumberAndLetter;
-use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;

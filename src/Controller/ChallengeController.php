@@ -40,7 +40,7 @@ class ChallengeController extends AbstractController
      * @return Response
      */
     //va permettre d'afficher tous les challenge qui correspondent à un teacher
-    public function showMyChallenge(PrivateChallengeRepository $privateChallengeRepository, PublicChallengeRepository $publicChallengeRepository, TeacherRepository $teacherRepository): Response
+    public function showMyChallenge(PrivateChallengeRepository $privateChallengeRepository, PublicChallengeRepository $publicChallengeRepository): Response
     {
         return $this->render('challenge/show_my_challenge.html.twig', [
             'public_challenges' => $publicChallengeRepository->findBy(['teacher'=>$this->getUser()]),
