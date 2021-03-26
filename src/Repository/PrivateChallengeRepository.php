@@ -19,4 +19,12 @@ class PrivateChallengeRepository extends ServiceEntityRepository
         parent::__construct($registry, PrivateChallenge::class);
     }
 
+    public function findOneById($id): ?PrivateChallenge
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
