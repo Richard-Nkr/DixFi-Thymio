@@ -22,7 +22,7 @@ programmation, notamment en Scratch, sous la forme d'une activité appelé "La S
 
 ![La Semaine des Dix'Fi de  Thymio](La_semaine_des_dixfi_thymio.jpg)   
 
-L'objectif est donc de réaliser les 10 défis (d'où le nom Dix'Fi :wink: ) ou plus si l'enseignant décide de créer ses défis soi-même ! 
+L'objectif est donc de réaliser les 10 défis (d'où le nom Dix'Fi :wink: ) ou plus si l'enseignant décide de créer ses défis soi-même !   
 Les apprenants pourront alors repartir avec ce diplôme ci-dessous : 
 
 ![Certificat Thymio](certificatThymio.jpg)   
