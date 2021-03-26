@@ -34,7 +34,7 @@ class ChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/showMyChallenge", name="challenge_showMyChallenge", methods={"GET"})
+     * @Route("/show/my/challenge", name="challenge_show_my_challenge", methods={"GET"})
      * @param PrivateChallengeRepository $privateChallengeRepository
      * @param PublicChallengeRepository $publicChallengeRepository
      * @param TeacherRepository $teacherRepository
@@ -60,7 +60,7 @@ class ChallengeController extends AbstractController
      * @return Response
      */
     //permet de créer un challenge privé ou bien public selon le choix de l'utilisateur
-    public function new(Request $request, PublicChallengeCreation $publicChallengeCreation, Session $session, CreatePrivateChallenge $createPrivateChallenge, TeacherRepository $teacherRepository): Response
+    public function new(Request $request, PublicChallengeCreation $publicChallengeCreation, CreatePrivateChallenge $createPrivateChallenge, TeacherRepository $teacherRepository): Response
     {
         $challenge = new Challenge();
         $form = $this->createForm(ChallengeType::class, $challenge);
@@ -77,8 +77,8 @@ class ChallengeController extends AbstractController
                 $entityManager->persist($challenge);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('challenge_showMyChallenge', [
-                    'teacher' => $session->get('user'),
+                return $this->redirectToRoute('challenge_show_my_challenge', [
+                    'teacher' => $this->getUser(),
                 ]);
             }
 
@@ -116,6 +116,6 @@ class ChallengeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('challenge_showMyChallenge');
+        return $this->redirectToRoute('challenge_show_my_challenge');
     }
 }

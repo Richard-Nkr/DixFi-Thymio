@@ -91,7 +91,7 @@ class PrivateChallengeController extends AbstractController
     public function viewTeacher(PrivateChallengeRepository $privateChallengeRepository, int $id, HelpRepository $helpRepository): Response
     {
         return $this->render('private_challenge/view_teacher.html.twig', [
-            'private_challenge' => $privateChallengeRepository->findOneById($id),
+            'privateChallenge' => $privateChallengeRepository->findOneById($id),
             'indices' => $helpRepository->findByIdChallenge($id),
         ]);
     }
@@ -120,21 +120,4 @@ class PrivateChallengeController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/{id}", name="private_challenge_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param PrivateChallenge $privateChallenge
-     * @return Response
-     */
-    public function delete(Request $request, PrivateChallenge $privateChallenge): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$privateChallenge->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($privateChallenge);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('private_challenge_index');
-    }
 }

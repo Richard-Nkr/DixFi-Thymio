@@ -63,7 +63,7 @@ class PublicChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/addCorrection", name="public_challenge_addCorrection", methods={"GET","POST"})
+     * @Route("/{id}/addCorrection", name="public_challenge_add_correction", methods={"GET","POST"})
      * @param Request $request
      * @param HelpRepository $helpRepository
      * @param PublicChallengeRepository $publicChallengeRepository
@@ -113,13 +113,12 @@ class PublicChallengeController extends AbstractController
 
     /**
      * @Route("/{id}/create/pdf", name="public_challenge_create_pdf", methods={"GET","POST"})
-     * @param Request $request
      * @param PublicChallenge $publicChallenge
      * @param DocumentGenerator $documentGenerator
      * @return void
      */
     //génère le pdf de la correction du pdf
-    public function createPDF(Request $request,PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator): void
+    public function createPDF(PublicChallenge $publicChallenge, DocumentGenerator $documentGenerator): void
     {
 
         $vars= 'html to pdf';
