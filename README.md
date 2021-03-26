@@ -42,5 +42,5 @@ Voici une [présentation](https://prezi.com/p/edit/grrifcavqgra/) vous permettan
 
 ## Diagramme de classe
 
-![diagram_class](diagram.png)
+![diagram_class](diagram_class_DixFi.png)
 
