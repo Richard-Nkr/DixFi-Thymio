@@ -25,7 +25,12 @@ programmation, notamment en Scratch, sous la forme d'une activité appelé "La S
 L'objectif est donc de réaliser les 10 défis (d'où le nom Dix'Fi :wink: ) ou plus si l'enseignant décide de créer ses défis soi-même !   
 Les apprenants pourront alors repartir avec ce diplôme ci-dessous : 
 
-![Certificat Thymio](certificatThymio.jpg)   
+![Certificat Thymio](certificatThymio.jpg)
+
+## Pré-requis et installation   
+
+Pour pouvoir programmer les défis Thymio en Scrach, il faut installer le logiciel [Thymio Suite 2.1.5](https://www.thymio.org/fr/programmer/)  
+et puis suivre les étapes [ici](https://www.thymio.org/fr/programmer/scratch/) pour utiliser l'interface Scratch.
 
 ## Langages et technos web utilisés ?
 
@@ -36,5 +41,3 @@ Les apprenants pourront alors repartir avec ce diplôme ci-dessous :
 ## Diagramme de classe
 
 ![diagram_class](DiagramClassDixFiThymio.png)
-
-
