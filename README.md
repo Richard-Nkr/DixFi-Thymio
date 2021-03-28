@@ -27,21 +27,21 @@ Les apprenants pourront alors repartir avec ce diplôme ci-dessous :
 
 ## Pré-requis et installation   
 
-+ Installation du logiciel Thymio Suite : 
++ <ins>Installation du logiciel Thymio Suite :</ins>
 
 Pour pouvoir programmer les défis Thymio en Scrach, il faut installer le logiciel [Thymio Suite 2.1.5](https://www.thymio.org/fr/programmer/)  
 et puis suivre les étapes [ici](https://www.thymio.org/fr/programmer/scratch/) pour utiliser l'interface Scratch.
 
-+ Création d'un VirtualHost pour lancer le projet :
++ <ins>Création d'un VirtualHost pour lancer le projet :</ins>
 
 Pour que l'application fonctionne correctement en local, il faut obligatoirement lancer le projet à l'aide d'un VirtualHost.
 Suivez [ces étapes](https://blog.smarchal.com/creer-un-virtualhost-avec-wampserver) pour créer un VirtualHost avec Wamp.
 
-+ Installation de Node.js et yarn : 
++ <ins>Installation de Node.js et yarn : </ins>
 
 Installez [ici](https://nodejs.org/en/download/) Node.js. 
 
-Lancez dans un terminal les commandes suivantes : 
+Lancez dans un terminal les commandes suivantes :
 
 npm install --force
 npm install -g yarn 
@@ -49,7 +49,7 @@ npm install -g yarn
 yanr encore dev
 yarn encore production
 
-+ Installation de l'extension mongodb : 
++ <ins>Installation de l'extension mongodb : </ins>
 
 Téléchargez le fichier php_mongodb.dll [ici](https://pecl.php.net/package/mongodb/1.8.1/windows) adapté à la version de votre PHP.
 
@@ -59,7 +59,7 @@ Ajoutez la ligne suivante à votre fichier php.ini (clic gauche logo WAMP --> PH
 
 extension = php_mongodb.dll
 
-+ Pré-requis permettant l'utilisation de l'API Youtube : 
++ <ins>Pré-requis permettant l'utilisation de l'API Youtube : </ins>
 
 Ajouter (ce fichier)[https://drive.google.com/file/d/1eoHCGP9ofuyZGrciW6Wp5BpqdsRLHjRT/view?usp=sharing] dans le fichier ssl ("C:\wamp64\bin\php\php7.4.9\extras\ssl")
 Allez dans le php.ini (clic gauche logo WAMP --> PHP --> php.ini) dans 'Dynamic Extensions' et inserez cette ligne : extension=curl
@@ -73,7 +73,7 @@ Ouvrez le projet DixFi-Thymio dans votre IDE, et accédez au fichier .env, et aj
 
 DATABASE_URL="mysql://mysql://root:@127.0.0.1:port_Apache/nom_de_la_base_de_donnée?serverVersion=5.7" 
 
-+ Compte administrateur
++ <ins>Compte administrateur</ins>
 
 Pour accéder à l'administration, connectez-vous avec ces identifiants : 
 
