@@ -64,7 +64,7 @@ extension = php_mongodb.dll
 Ajouter (ce fichier)[https://drive.google.com/file/d/1eoHCGP9ofuyZGrciW6Wp5BpqdsRLHjRT/view?usp=sharing] dans le fichier ssl ("C:\wamp64\bin\php\php7.4.9\extras\ssl")
 Allez dans le php.ini (clic gauche logo WAMP --> PHP --> php.ini) dans 'Dynamic Extensions' et inserez cette ligne : extension=curl
 
-+ Importation de la base de donnée MySQL
++ <ins>Importation de la base de donnée MySQL</ins>
 
 Téléchargez la BDD [ici](https://drive.google.com/file/d/1XgWPCdTJ3rO4SHRHwd8R9bW9eQFDBAmx/view?usp=sharing)
 Allez sur phpMyAdmin et créer une nouvelle base de données dans laquelle vous devez importer le fichier téléchargé précédemment.
