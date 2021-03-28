@@ -55,13 +55,13 @@ Téléchargez le fichier php_mongodb.dll [ici](https://pecl.php.net/package/mong
 
 Extrayez l'archive et placez php_mongodb.dll dans votre répertoire d'extension PHP ("ext" par défaut).
 
-Ajoutez la ligne suivante à votre fichier php.ini (clic gauche logo WAMP --> PHP --> php.ini):
+Ajoutez la ligne suivante à votre fichier php.ini (clic gauche logo WAMP --> PHP --> php.ini) :
 
 extension = php_mongodb.dll
 
 + <ins>Pré-requis permettant l'utilisation de l'API Youtube : </ins>
 
-Ajouter (ce fichier)[https://drive.google.com/file/d/1eoHCGP9ofuyZGrciW6Wp5BpqdsRLHjRT/view?usp=sharing] dans le fichier ssl ("C:\wamp64\bin\php\php7.4.9\extras\ssl")
+Ajouter (ce fichier)[https://drive.google.com/file/d/1eoHCGP9ofuyZGrciW6Wp5BpqdsRLHjRT/view?usp=sharing] dans le fichier ssl ("C:\wamp64\bin\php\php7.4.9\extras\ssl")  
 Allez dans le php.ini (clic gauche logo WAMP --> PHP --> php.ini) dans 'Dynamic Extensions' et inserez cette ligne : extension=curl
 
 + <ins>Importation de la base de donnée MySQL</ins>
@@ -71,22 +71,22 @@ Allez sur phpMyAdmin et créer une nouvelle base de données dans laquelle vous 
 
 Ouvrez le projet DixFi-Thymio dans votre IDE, et accédez au fichier .env, et ajoutez cette ligne avec vos identifiants MySQL et le nom de la base de donnée :
 
-DATABASE_URL="mysql://mysql://root:@127.0.0.1:port_Apache/nom_de_la_base_de_donnée?serverVersion=5.7" 
+DATABASE_URL="mysql://mysql://db_user:db_password@127.0.0.1:numeor_de_port/nom_de_la_base_de_donnee?serverVersion=5.7" 
 
 + <ins>Compte administrateur</ins>
 
 Pour accéder à l'administration, connectez-vous avec ces identifiants : 
 
-ID : 22
+ID : 22  
 Mot de passe : azeaze1
 
 Puis dans l'URL, ajoutez "/admin".
 
 ## Langages et technos web utilisés ?
 
-+ HTML5, CSS3, Sass, Bootsrap, JavaScript, 
++ HTML5, CSS3, Sass, Bootsrap, JavaScript 
 + Twig
-+ Framework PHP Symfony, ORM Doctrine, phpMyAdmin/ MySQL
++ PHP (framework Symfony), ORM Doctrine, phpMyAdmin / MySQL, WAMP
 
 ## Présentation à l'aide de Prezi
 
