@@ -28,11 +28,9 @@ class StudentGroupFixtures extends Fixture implements DependentFixtureInterface
 
         for($nbStudentGroups = 1; $nbStudentGroups <= 20; $nbStudentGroups++){
             $teacher = $this->getReference('teacher_'. $faker->numberBetween(2, 10));
-            $chat = $teacher->getChat();
 
             $studentGroup = new StudentGroup();
             $studentGroup->setTeacher($teacher);
-            $studentGroup->setChat($chat);
             $studentGroup->setCountSucceed($faker->numberBetween(0,10));
             $studentGroup->setNickname($faker->userName);
             $studentGroup->setRoles(['ROLE_STUDENT_GROUP']);

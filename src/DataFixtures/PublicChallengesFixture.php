@@ -17,7 +17,7 @@ class PublicChallengesFixture extends Fixture implements DependentFixtureInterfa
         $faker = Faker\Factory::create('frFR');
 
         for ($nbStatus = 1; $nbStatus <= 20; $nbStatus++) {
-            $teacher = $this->getReference('teacher' . $faker->numberBetween(2, 10));
+            $teacher = $this->getReference('teacher_' . $faker->numberBetween(2, 10));
 
             $publicChallenge = new PublicChallenge();
             $publicChallenge->setTeacher($teacher);

@@ -17,7 +17,7 @@ class PrivateChallengeFixtures extends Fixture implements DependentFixtureInterf
         $faker = Faker\Factory::create('frFR');
 
         for ($nbStatus = 1; $nbStatus <= 20; $nbStatus++) {
-            $teacher = $this->getReference('teacher' . $faker->numberBetween(2, 10));
+            $teacher = $this->getReference('teacher_' . $faker->numberBetween(2, 10));
 
             $privateChallenge = new PrivateChallenge();
             $privateChallenge->setTeacher($teacher);

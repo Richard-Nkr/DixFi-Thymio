@@ -17,7 +17,9 @@
     <p class="solutionPDF">Objectif du défi : {{ thymio_challenge.description }} </p>
     </fieldset>
     <br>
+    {% if is_granted('ROLE_TEACHER') %}
     <p> Titulaire de la classe : {{ app.user.name }} {{ app.user.firstname }}</p>
+    {% endif %}
     <fieldset class="solutionThymioPDF">
         <img class="imageSolutionPDF" src="{{ absolute_url(asset(thymio_challenge.solutionPath)) }}" alt="SolutionDixFi">
     </fieldset>
