@@ -78,6 +78,7 @@ class PrivateChallengeController extends AbstractController
         }
         return $this->render('private_challenge/show.html.twig', [
             'privateChallenge' => $privateChallenge,
+            'indices' => $helpRepository->findByIdChallenge($privateChallenge->getId()),
             'form' => $form->createView(),
             'indices' => $helpRepository->findByIdChallenge($privateChallenge->getId()),
         ]);
