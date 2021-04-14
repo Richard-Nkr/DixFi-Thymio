@@ -36,8 +36,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             if ($status->getStatusInt()==3 || $status->getStatusInt()==2){
                 $status->setComment($faker->realText(100));
             }
-            $status->setCountHelp(null);
-            $status->setNeedHelp(false);
 
             $manager->persist($status);
         }

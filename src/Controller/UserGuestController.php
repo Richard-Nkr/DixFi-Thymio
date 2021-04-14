@@ -24,10 +24,9 @@ class UserGuestController extends AbstractController
 {
     /**
      * @Route("/", name="user_guest_index", methods={"GET"})
-     * @param UserGuestRepository $userGuestRepository
      * @return Response
      */
-    public function index(UserGuestRepository $userGuestRepository): Response
+    public function index(): Response
     {
         return $this->render('home/index.html.twig', [
             'name' => $this->getUser()->getNickname(),

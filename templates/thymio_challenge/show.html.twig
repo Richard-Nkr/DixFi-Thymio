@@ -53,6 +53,10 @@
             {% endif %}
 
         {% elseif is_granted('ROLE_USER_GUEST') %}
+            <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}">
+                <button class="btnG"> Voir la correction</button>
+            </a>
+            <br>
             {% if status.statusInt==1 %}
                 <div class="pos_right">
                     <form method="post" action="{{ path('validate_user_challenge', {'id':  thymio_challenge.id}) }}"
@@ -64,16 +68,18 @@
                 <div class="pos_right">
                     <button class="btnG2"> Défi terminé</button>
                 </div>
+
             {% endif %}
         {% endif %}
 
 
 
-        {% if is_granted('ROLE_TEACHER') %}
+        {% if is_granted('ROLE_TEACHER')%}
             <a href="{{ path('thymio_challenge_solution', {'id': thymio_challenge.id}) }}">
                 <button class="btnB2"> Voir la correction</button>
             </a>
         {% endif %}
+
         <div class="pos_right">
             <a href="{{ path('thymio_challenge_index', {'difficulty': thymio_challenge.difficulty}) }}">
                 <button type="button" class="btnB2">Retour aux défis</button>

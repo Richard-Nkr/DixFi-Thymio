@@ -85,7 +85,7 @@ class ThymioChallengeController extends AbstractController
      * @param ThymioChallenge $thymioChallenge
      * @return Response
      */
-    public function solution(ThymioChallenge $thymioChallenge, int $id): Response
+    public function solution(ThymioChallenge $thymioChallenge): Response
     {
         return $this->render('thymio_challenge/solution.html.twig', [
             'thymio_challenge' => $thymioChallenge,
@@ -130,7 +130,7 @@ class ThymioChallengeController extends AbstractController
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function show(Request $request, HelpRepository $helpRepository, HandleStatus $handleStatus, SecurizerRoles $securizerRoles, StatusRepository $statusRepository, UserGuestStatusRepository $userGuestStatusRepository, ThymioChallenge $thymioChallenge, Session $session, MailerService $mailerService, StudentGroupRepository $studentGroupRepository, UserGuestRepository $userGuestRepository, int $id, NotifierInterface $notifier): Response
+    public function show(Request $request, HelpRepository $helpRepository, HandleStatus $handleStatus, SecurizerRoles $securizerRoles, StatusRepository $statusRepository, ThymioChallenge $thymioChallenge, MailerService $mailerService, StudentGroupRepository $studentGroupRepository,  int $id, NotifierInterface $notifier): Response
     {
         $upload = new ThymioChallenge();
         $studentGroup = $studentGroupRepository->findOneById($this->getUser()->getId());
@@ -298,7 +298,6 @@ class ThymioChallengeController extends AbstractController
      * @param HandleStatus $handleStatus
      * @param ThymioChallenge $thymioChallenge
      * @param UserGuestStatusRepository $userGuestStatusRepository
-     * @param HelpRepository $helpRepository
      * @return Response
      */
     public function validateUserChallenge(HandleStatus $handleStatus, ThymioChallenge $thymioChallenge, UserGuestStatusRepository $userGuestStatusRepository): Response

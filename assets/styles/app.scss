@@ -27,7 +27,7 @@ a {
 
 
 .menu {
-  @media (max-width: 300px) {
+  @media (max-width: 991px) {
     width: 256px;
   }
 
@@ -368,19 +368,4 @@ $bg_green: #60f367;
 .btnB {
   @include myButton2($blue, $bg_blue);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

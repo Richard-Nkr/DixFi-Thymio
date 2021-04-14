@@ -64,11 +64,12 @@ class ChildController extends AbstractController
 
     /**
      * @Route("/{id}/children", name="child_show", methods={"GET"})
-     * @param StudentGroup $studentGroup
      * @param ChildRepository $childRepository
+     * @param int $id
+     * @param StudentGroupRepository $studentGroupRepository
      * @return Response
      */
-    public function show(StudentGroup $studentGroup, ChildRepository $childRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
+    public function show( ChildRepository $childRepository, int $id, StudentGroupRepository $studentGroupRepository): Response
     {
         $children = $childRepository->findBy(['studentGroup'=>$studentGroupRepository->findOneById($id)]);
         return $this->render('child/show.html.twig', [

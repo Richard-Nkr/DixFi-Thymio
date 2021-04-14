@@ -31,10 +31,9 @@ class TeacherController extends AbstractController
 {
     /**
      * @Route("/", name="teacher_index", methods={"GET"})
-     * @param TeacherRepository $teacherRepository
      * @return Response
      */
-    public function index(TeacherRepository $teacherRepository): Response
+    public function index(): Response
     {
         return $this->redirectToRoute('home');
     }

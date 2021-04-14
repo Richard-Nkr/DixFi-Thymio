@@ -25,12 +25,12 @@ class UserGuestStatusController extends AbstractController
 
     /**
      * @Route("/{id}/create", name="user_guest_status_create", methods={"GET","POST"})
-     * @param Request $request
      * @param ThymioChallenge $thymioChallenge
      * @param UserGuestRepository $userGuestRepository
+     * @param HandleStatus $handleStatus
      * @return Response
      */
-    public function create(Request $request, ThymioChallenge $thymioChallenge, UserGuestRepository $userGuestRepository, HandleStatus $handleStatus): Response
+    public function create(ThymioChallenge $thymioChallenge, UserGuestRepository $userGuestRepository, HandleStatus $handleStatus): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $userGuestStatus = $handleStatus->createStatusUserGuest(new UserGuestStatus(),$thymioChallenge,$userGuestRepository->findOneById($this->getUser()->getId()));

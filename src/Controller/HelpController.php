@@ -45,7 +45,7 @@ class HelpController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function new(Request $request,NotifierInterface $notifier,HelpRepository $helpRepository,ChallengeRepository $challengeRepository, Challenge $challenge, int $id): Response
+    public function new(Request $request,NotifierInterface $notifier,HelpRepository $helpRepository,ChallengeRepository $challengeRepository,  int $id): Response
     {
         $help = new Help();
         $form = $this->createForm(HelpType::class, $help);

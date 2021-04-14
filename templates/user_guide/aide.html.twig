@@ -5,9 +5,16 @@
 {% block body %}
     <h1>Présentation de la semaine Thymio</h1>
     <hr class="helpHr">
-    <div class="buttonMargin">
-        <img id="weekThymio" src="{{ asset('images/weekThymio.jpg') }}" alt="Robot_Thymio">
-    </div>
+    <fieldset class="showChallenge">
+        <div class="d-flex justify-content-center">
+                <img id="weekThymio" src="{{ asset('images/weekThymio.jpg') }}" alt="Semaine_Thymio">
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+                <img style="width:40%; border-radius: 15px; margin:0;" src="{{ asset('images/semaineThymio.png') }}"
+                     alt="Semaine_Thymio">
+        </div>
+    </fieldset>
     <br>
     <h1>Manuel d'utilisation des Dix'Fi de Thymio</h1>
     <hr class="helpHr">
