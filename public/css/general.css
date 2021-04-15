@@ -920,7 +920,7 @@ fieldset.showChallenge2 legend {
 .objectifPDF{
     background-color: #5FB1EE;
     color:white;
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 2%;
     margin-bottom: 4%;
 }
@@ -928,6 +928,15 @@ fieldset.showChallenge2 legend {
 .imageSolutionPDF{
     width: 100%;
 }
+
+.imageSolutionPDFbis{
+    width: 47%;
+}
+
+.imageSolutionPDFter{
+    width: 55%;
+}
+
 .solutionThymioPDF {
     background-color: #c4efc4;
     margin-left: auto;
@@ -998,7 +1007,7 @@ footer{
 
 .pos_right{
     float: left;
-    margin-left: 20%;
+    margin-left: 22%;
 }
 
 .pos_left{

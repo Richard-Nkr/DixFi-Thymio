@@ -14,15 +14,24 @@
         Solution du défi n°{{ thymio_challenge.id }} : {{ thymio_challenge.name }}
     </fieldset>
     <fieldset class="objectifPDF">
-    <p class="solutionPDF">Objectif du défi : {{ thymio_challenge.description }} </p>
+        <p class="solutionPDF">Objectif du défi : {{ thymio_challenge.description }} </p>
     </fieldset>
-    <br>
     {% if is_granted('ROLE_TEACHER') %}
-    <p> Titulaire de la classe : {{ app.user.name }} {{ app.user.firstname }}</p>
+        <p> Titulaire de la classe : {{ app.user.name }} {{ app.user.firstname }}</p>
     {% endif %}
-    <fieldset class="solutionThymioPDF">
-        <img class="imageSolutionPDF" src="{{ absolute_url(asset(thymio_challenge.solutionPath)) }}" alt="SolutionDixFi">
-    </fieldset>
+    {% if thymio_challenge.id==5 or  thymio_challenge.id==8 %}
+        <fieldset class="solutionThymioPDF">
+            <img class="imageSolutionPDFbis" src="{{ absolute_url(asset(thymio_challenge.solutionPath)) }}" alt="SolutionDixFi">
+        </fieldset>
+    {% elseif thymio_challenge.id==10 %}
+        <fieldset class="solutionThymioPDF">
+            <img class="imageSolutionPDFter" src="{{ absolute_url(asset(thymio_challenge.solutionPath)) }}" alt="SolutionDixFi">
+        </fieldset>
+    {% else %}
+        <fieldset class="solutionThymioPDF">
+            <img class="imageSolutionPDF" src="{{ absolute_url(asset(thymio_challenge.solutionPath)) }}" alt="SolutionDixFi">
+        </fieldset>
+    {% endif %}
 </div>
 </body>
 </html>
